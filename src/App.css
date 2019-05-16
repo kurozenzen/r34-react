@@ -1,0 +1,59 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.black {
+  background-color: black;
+  color:white;
+}
+
+.gray {
+  background-color: #333333;
+}
+
+a:link {
+  color: red;
+}
+
+b {
+  color: red;
+}
+
+.menu-item {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.menu-bar .active {
+  font-weight: bold;
+}
+
+.badge-tag:hover,
+.btn-red:hover {
+    -webkit-transition: color 0.3s linear;
+    -moz-transition: color 0.3s linear;
+    -ms-transition: color 0.3s linear;
+    -o-transition: color 0.3s linear;
+    transition: color 0.3s linear;
+    color: black;
+    background-color: red;
+    cursor: pointer;
+}
+
+.btn-red {
+    background-color: black;
+    color: red;
+    border: red thin solid;
+}
+
+.centered {
+  margin:auto;
+}
+
+.search {
+  margin-block-end: 10px;
+}
+
+label {
+  margin:0px;
+}

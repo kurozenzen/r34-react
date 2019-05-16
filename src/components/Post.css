@@ -1,0 +1,36 @@
+.post {
+    padding:0px !important;
+}
+
+.post:not(:last-of-type) {
+    margin-bottom: 10px;
+}
+
+.info-bar {
+    margin-left:5px;
+    margin-right:5px;
+}
+
+.rating::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f25d";
+    display: inline-block;
+    padding-right: 5px;
+}
+
+.score::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f004";
+    display: inline-block;
+    padding-right: 5px;
+}
+
+.source::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 800;
+    content: "\f292";
+    display: inline-block;
+    padding-right: 5px;
+}

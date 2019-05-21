@@ -9,7 +9,7 @@ import './App.css';
 class App extends Component {
   render(){
     return(
-      <Router>
+      <Router basename="/r34-react">
         <header>
           <h1 className="centered">Browse <a href="https://rule34.xxx">Rule34</a></h1>
           <div className="container d-flex justify-content-center menu-bar">

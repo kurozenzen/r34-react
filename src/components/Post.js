@@ -2,60 +2,85 @@ import React from 'react';
 import { TagList } from './Tag';
 import './Post.css'
 
-export default function Post(props) {
-    return (
-    <li className="list-group-item post  gray">
-        <Media type={props.media_type} src={props.media_src}/>
+export default class Post extends React.Component { //TODO: smooth collapse
+    constructor(props) {
+        super(props)
+        this.state = {
+            id: props.id,
+            media_type: props.media_type,
+            media_src: props.media_src,
+            rating: props.rating,
+            score: props.score,
+            source: props.source,
+            tags: props.tags,
+            collapsed: true
+        }
 
-        <div>
-            <div className="d-flex justify-content-between info-bar">
-                <Rating value={props.rating}/>
-                <Score value={props.score}/>
-                <Source value={props.source}/>
-            </div>
-            <TagList tags={props.tags} onClick={props.onTagClick}/>
-        </div>
-    </li>
-)
+        this.onTagClick = props.onTagClick
+        this.toggleDetails = this.toggleDetails.bind(this)
+    }
+
+    toggleDetails(event) {
+        this.setState({
+            collapsed: !this.state.collapsed
+        })
+    }
+
+    render() {
+        return (
+            <li id={this.state.id} className='list-group-item post gray'>
+                <Media type={this.state.media_type} src={this.state.media_src} onClick={this.toggleDetails} />
+
+                <div className={'details collapse' + (this.state.collapsed ? '' : '.show')}>
+                    <div className='d-flex justify-content-between info-bar'>
+                        <Rating value={this.state.rating}/>
+                        <Score value={this.state.score}/>
+                        <Source value={this.state.source}/>
+                    </div>
+                    <TagList tags={this.state.tags} onClick={this.onTagClick}/>
+                </div>
+            </li>
+        )
+    }
 }
 
 export function PostList(props) {
     return (    
-      <ul className="list-group list-inline post-list">
+      <ul className='list-group list-inline post-list'>
         {props.posts.map((post) => {
-            return (<Post key={"p_" + post.id} media_type={post.type} media_src={post.file_url} rating={post.rating} score={post.score} source={post.source} tags={post.tags} onTagClick={props.onTagClick}/>)
+            return (<Post key={'p_' + post.id} id={post.id} media_type={post.type} media_src={post.sample_url} rating={post.rating} score={post.score} source={post.source} tags={post.tags} onTagClick={props.onTagClick}/>)
         })}
       </ul>
     );
 }
 
 function Media(props) {
-    if(props.type === "image")
+    if(props.type === 'image')
         return(
-            <img src={props.src} alt={props.src} className="img-fluid"/>
+            <img src={props.src} alt={props.src} className='img-fluid' onClick={props.onClick} />
         )
-    else if(props.type === "video")
+    else if(props.type === 'video')
         return (
-            <video controls loop src={props.src} alt={props.src} className="img-fluid"></video>
+            <video controls loop src={props.src} alt={props.src} className='img-fluid' onClick={props.onClick}></video>
         )
     else
         return null
 }
 
 function Rating(props) {
-    return (<span className="rating">{props.value[0].toUpperCase()}</span>)
+    return (<span className='rating'>{props.value[0].toUpperCase()}</span>)
 }
 
 function Score(props){
-    return (<span className="score">{props.value}</span>)
+    return (<span className='score'>{props.value}</span>)
 }
 
 function Source(props){
     if(props.value)
         if(props.value.startsWith('http'))
-            return (<a href={props.value} className="source">Source</a>)
+            return (<a href={props.value} className='source'>Source</a>)
         else
-            return (<span className="source">{props.value}</span>)
+            return (<span className='source'>{props.value}</span>)
     else
         return null;
 }

@@ -1,14 +1,21 @@
 const pageSize = 10,
-    api = {
-        async getTags(searchTerm) {
-            const res = await fetch("https://custom-r34-api.herokuapp.com/tags?limit=10&name=" + searchTerm + "*&order_by=posts");
-            return await res.json();
-        },
+    apiUrl1 = "https://custom-r34-api.herokuapp.com",
+    apiUrl2 = "https://r34-api-clone.herokuapp.com"
 
-        async getPosts(tags) {
-            const res = await fetch("https://custom-r34-api.herokuapp.com/posts?limit=" + pageSize + "&tags=" + tags.map(t => t.name).join("+"));
-            return await res.json();
-        }
+let activeApi = apiUrl1
+
+fetch(apiUrl1)
+    .then(() => activeApi = apiUrl1)
+    .catch(() => activeApi = apiUrl2)
+
+export default {
+    async getTags(searchTerm) {
+        const res = await fetch(activeApi + "/tags?limit=" + pageSize + "&name=" + searchTerm + "*&order_by=posts");
+        return await res.json();
+    },
+
+    async getPosts(tags, pageNumber = 1) {
+        const res = await fetch(activeApi + "/posts?pid=" + pageNumber + "&limit=" + pageSize + "&tags=" + tags.map(t => t.name).join("+"));
+        return await res.json();
     }
-
-export default api;
+}

@@ -7,7 +7,7 @@ import converter from "../misc/converter"
 import TagSelector from '../components/TagSelector';
 import activeTags from "../misc/activeTags"
 
-class Search extends Component { //TODO: data saver => use sample values
+class Main extends Component { //TODO: data saver => use sample values
   constructor(props) {
     super(props)
 
@@ -15,12 +15,14 @@ class Search extends Component { //TODO: data saver => use sample values
       tags: [],
       suggestions: [],
       posts: [],
-      searchTerm: ""
+      searchTerm: "",
+      pageNumber: 1
     }
 
     this.handleAddTag = this.handleAddTag.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handleToggleTag = this.handleToggleTag.bind(this)
+    this.handleLoadMore = this.handleLoadMore.bind(this)
   }
 
   componentDidMount() { //TODO: add back navigation handling
@@ -69,6 +71,11 @@ class Search extends Component { //TODO: data saver => use sample values
     event.preventDefault();
   }
 
+  handleLoadMore(event) {
+    this.addPosts()
+    event.preventDefault();
+  }
+
   updatePosts() {
     api.getPosts(this.state.tags)
       .then(result => {
@@ -80,8 +87,31 @@ class Search extends Component { //TODO: data saver => use sample values
           })
           return pp
         })
+        s.pageNumber = 1
 
         this.props.history.push(converter.tagsAsQuery(this.state.tags));
+
+        this.setState(s)
+      })
+  }
+
+  addPosts(){
+    let p = this.state.pageNumber + 1
+    api.getPosts(this.state.tags, p)
+      .then(result => {
+        let s = this.state
+        let newposts = result.map(p => {
+          let pp = p
+          pp.tags = p.tags.map(t => {
+            return { 
+              name: t
+            } 
+          })
+          return pp
+        })
+        s.posts.push(...newposts)
+
+        s.pageNumber = p
 
         this.setState(s)
       })
@@ -92,22 +122,25 @@ class Search extends Component { //TODO: data saver => use sample values
       <main>
         <section className="search">
           <h3 className="centered">Search</h3>
-          <TagSelector onSubmit={this.handleAddTag} className="centered"/>
+          <TagSelector onSubmit={this.handleAddTag} className="centered" />
           <label>Tags:</label>
-          <TagList tags={this.state.tags} onClick={this.handleToggleTag}/>
+          <TagList tags={this.state.tags} onClick={this.handleToggleTag} />
 
           <form onSubmit={this.handleSearch}>
-            <input type="submit" value="Search" className="btn btn-block btn-red"/>
+            <input type="submit" value="Search" className="btn btn-block btn-red" />
           </form>
         </section>
 
         <section className="results">
           <h3 className="centered">Results</h3>
-          <PostList posts={this.state.posts} onTagClick={this.handleToggleTag}/>
+          <PostList posts={this.state.posts} onTagClick={this.handleToggleTag} />
+          <form className="mt-3" onSubmit={this.handleLoadMore}>
+            <input type="submit" value="Load more" className="btn btn-block btn-red" />
+          </form>
         </section>
       </main>
     )
   }
 }
 
-export default withRouter(Search)
+export default withRouter(Main)

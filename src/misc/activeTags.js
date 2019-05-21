@@ -10,9 +10,6 @@ export default {
     },
 
     has(tagName) {
-        console.log(tagName)
-        console.log(tags)
-        console.log(tags.includes(tagName))
         return tags.includes(tagName)
     }
 }

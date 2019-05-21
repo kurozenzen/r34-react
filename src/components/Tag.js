@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './Tag.css';
 import activeTags from "../misc/activeTags"
 
-export default function Tag(props) {
-    return !props.count ? (
-      <span className={"badge badge-tag" + (activeTags.has(props.name) ? ' active' : ' ')} onClick={props.onClick}>{props.name}</span>
-    ) : (
-        <span className="badge badge-tag" onClick={props.onClick}>{props.name} ({props.count})</span>
+export default class Tag extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: props.name,
+      count: props.count,
+      onClick: props.onClick
+    }
+  }
+
+
+  render() {
+    let content = this.state.count ? this.state.name +" (" + this.state.count + ")" : this.state.name
+
+    return (
+      <span className={"badge badge-tag" + (activeTags.has(this.state.name) ? ' active' : ' ')} onClick={this.state.onClick}>{content}</span>
     )
+  }
 }
 
 export function TagList(props) {

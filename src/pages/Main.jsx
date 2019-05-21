@@ -88,8 +88,7 @@ class Main extends Component { //TODO: data saver => use sample values
           return pp
         })
         s.pageNumber = 1
-
-        this.props.history.push(converter.tagsAsQuery(this.state.tags));
+        this.props.history.push(this.props.location.pathname + converter.tagsAsQuery(this.state.tags));
 
         this.setState(s)
       })

@@ -13,8 +13,8 @@ class App extends Component {
         <header>
           <h1 className="centered">Browse <a href="https://rule34.xxx">Rule34</a></h1>
           <div className="container d-flex justify-content-center menu-bar">
-            <Link to="/r34-react/" className="menu-item">Search</Link>
-            <Link to="/r34-react/help" className="menu-item">Help</Link>
+            <Link to="/" className="menu-item">Search</Link>
+            <Link to="/help" className="menu-item">Help</Link>
           </div>
         </header>
         <Switch>

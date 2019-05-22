@@ -10,7 +10,7 @@ class App extends Component {
   render(){
     return(
       <Router basename="/r34-react">
-        <header>
+        <header className="centered">
           <h1 className="centered">Browse <a href="https://rule34.xxx">Rule34</a></h1>
           <div className="container d-flex justify-content-center menu-bar">
             <Link to="/" className="menu-item">Search</Link>
@@ -29,9 +29,8 @@ class App extends Component {
             </p>
           </div>
           <div className="d-flex justify-content-center">
-            <p>Please, if you notice
-              <a href="https://github.com/kurozenzen/r34/issues/new?template=bug_report.md">something isn't right</a>, or you
-              <a href="https://github.com/kurozenzen/r34/issues/new?template=feature_request.md">want a feature</a> to be implemented take the time to let me know.
+            <p>Please, if you notice <a href="https://github.com/kurozenzen/r34/issues/new?template=bug_report.md"> something isn't right</a>
+            , or you <a href="https://github.com/kurozenzen/r34/issues/new?template=feature_request.md">want a feature</a> to be implemented take the time to let me know.
             </p>
           </div>
           <div className="d-flex justify-content-center">

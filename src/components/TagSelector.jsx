@@ -57,16 +57,16 @@ class TagSelector extends Component {
     };
 
     return (
-      <form onSubmit={this.state.onSubmit} className="tag-selector input-group">
-        <Autosuggest 
+      <form onSubmit={this.state.onSubmit} className="d-flex input-group tag-selector">
+        <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={getSuggestionValue}
           renderSuggestion={renderSuggestion}
           inputProps={inputProps} />
-        <div className="input-group-append">
-          <input type="submit" value="Add" className="btn btn-red" />
+        <div className="input-group-append right-append">
+          <input type="submit" value="Add" className="btn btn-red btn-add-tag" />
         </div> 
       </form>
     );

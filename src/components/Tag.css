@@ -1,13 +1,8 @@
-.tag-list {
-    padding-block-end: 5px;
-    padding-inline-end: 5px;
-}
-
 .badge-tag {
     vertical-align: middle;
     font-size: 1.2em;
-    margin-block-start: 5px;
-    margin-inline-start: 5px;
+    margin-block-end: 5px;
+    margin-inline-end: 5px;
     background-color: black;
     color: red;
     border: red thin solid;

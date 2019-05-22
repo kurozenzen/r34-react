@@ -11,7 +11,7 @@
   background-color: #333333;
 }
 
-a:link {
+a:link, a, a:visited {
   color: red;
 }
 
@@ -47,7 +47,7 @@ b {
 }
 
 .centered {
-  margin:auto;
+  text-align: center;
 }
 
 .search {
@@ -56,4 +56,8 @@ b {
 
 label {
   margin:0px;
+}
+
+main {
+  margin-block-end: 10px;
 }

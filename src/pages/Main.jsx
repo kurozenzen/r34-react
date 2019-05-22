@@ -7,7 +7,7 @@ import converter from "../misc/converter"
 import TagSelector from '../components/TagSelector';
 import activeTags from "../misc/activeTags"
 
-class Main extends Component { //TODO: data saver => use sample values
+class Main extends Component { //TODO: add suggested tags
   constructor(props) {
     super(props)
 
@@ -34,7 +34,7 @@ class Main extends Component { //TODO: data saver => use sample values
     s.tags = queryTags || []
     this.setState(s)
 
-    if(this.state.tags.length > 0){
+    if(this.state.tags.length > 0) {
       activeTags.add(...this.state.tags.map(t => t.name))
       this.updatePosts()
     }
@@ -122,8 +122,9 @@ class Main extends Component { //TODO: data saver => use sample values
         <section className="search">
           <h3 className="centered">Search</h3>
           <TagSelector onSubmit={this.handleAddTag} className="centered" />
+
           <label>Tags:</label>
-          <TagList tags={this.state.tags} onClick={this.handleToggleTag} />
+          <TagList tags={this.state.tags} onClick={this.handleToggleTag} /> 
 
           <form onSubmit={this.handleSearch}>
             <input type="submit" value="Search" className="btn btn-block btn-red" />

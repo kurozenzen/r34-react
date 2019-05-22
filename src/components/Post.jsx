@@ -33,11 +33,13 @@ export default class Post extends React.Component { //TODO: smooth collapse
 
                 <div className={'details collapse' + (this.state.collapsed ? '' : '.show')}>
                     <div className='d-flex justify-content-between info-bar'>
-                        <Rating value={this.state.rating}/>
-                        <Score value={this.state.score}/>
-                        <Source value={this.state.source}/>
+                        <Rating value={this.state.rating} />
+                        <Score value={this.state.score} />
+                        <Source value={this.state.source} />
                     </div>
-                    <TagList tags={this.state.tags} onClick={this.onTagClick}/>
+                    <div className="pl-1">
+                        <TagList tags={this.state.tags} onClick={this.onTagClick} />
+                    </div>
                 </div>
             </li>
         )
@@ -48,34 +50,48 @@ export function PostList(props) {
     return (    
       <ul className='list-group list-inline post-list'>
         {props.posts.map((post) => {
-            return (<Post key={'p_' + post.id} id={post.id} media_type={post.type} media_src={post.sample_url} rating={post.rating} score={post.score} source={post.source} tags={post.tags} onTagClick={props.onTagClick}/>)
+            return (<Post key={'p_' + post.id} id={post.id} media_type={post.type} media_src={post.sample_url} rating={post.rating} score={post.score} source={post.source} tags={post.tags} onTagClick={props.onTagClick} />)
         })}
       </ul>
     );
 }
 
 function Media(props) {
+    let hasMoved = false,
+    onMove = (event) => {
+        hasMoved = true
+    },
+    onRelease = (event) => {
+        if(!hasMoved)
+            props.onClick(event)
+        hasMoved = false
+    }
+
     if(props.type === 'image')
         return(
             <img src={props.src} alt={props.src} className='img-fluid' onClick={props.onClick} />
         )
     else if(props.type === 'video')
         return (
-            <video controls loop src={props.src} alt={props.src} className='img-fluid' onClick={props.onClick}></video>
+            <video controls loop src={props.src} alt={props.src} className='img-fluid' onClick={props.onClick} onTouchMove={onMove} onTouchEnd={onRelease}></video>
         )
     else
         return null
 }
 
 function Rating(props) {
-    return (<span className='rating'>{props.value[0].toUpperCase()}</span>)
+    return (
+        <span className='rating'>{props.value[0].toUpperCase()}</span>
+    )
 }
 
-function Score(props){
-    return (<span className='score'>{props.value}</span>)
+function Score(props) {
+    return (
+        <span className='score'>{props.value}</span>
+    )
 }
 
-function Source(props){
+function Source(props) {
     if(props.value)
         if(props.value.startsWith('http'))
             return (<a href={props.value} className='source'>Source</a>)

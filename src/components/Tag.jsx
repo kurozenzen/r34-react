@@ -9,26 +9,27 @@ export default class Tag extends Component {
     this.state = {
       name: props.name,
       count: props.count,
-      onClick: props.onClick
+      onClick: props.onClick,
+      modifier: props.modifier
     }
   }
 
 
   render() {
-    let content = this.state.count ? this.state.name +" (" + this.state.count + ")" : this.state.name
-
     return (
-      <span className={"badge badge-tag" + (activeTags.has(this.state.name) ? ' active' : ' ')} onClick={this.state.onClick}>{content}</span>
+      <span className={"badge badge-tag" + (activeTags.has(this.state.name) ? ' active' : ' ') + (this.state.modifier === "-" ? ' exclude' : ' ')} onClick={this.state.onClick}>
+        {this.state.count ? this.state.name +" (" + this.state.count + ")" : this.state.name}
+      </span>
     )
   }
 }
 
 export function TagList(props) {
-    return (    
-      <div className="tag-list">
-        {props.tags.map(tag =>
-          <Tag key={"t_"+ tag.name} name={tag.name} count={tag.count} onClick={() => props.onClick(tag)}/>
-        )}
-      </div>
-    );
+  return (    
+    <div className="tag-list">
+      {props.tags.map(tag =>
+        <Tag key={"t_"+ tag.name} name={tag.name} count={tag.posts} modifier={tag.modifier} onClick={() => props.onClick(tag)}/>
+      )}
+    </div>
+  );
 }

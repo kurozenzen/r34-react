@@ -12,7 +12,6 @@ export default class TagManager {
             .then(result => {
                 this.suggestions = result
                 this.app.setState(this.app.state)
-                console.log(this.suggestions)
             })
     }
 

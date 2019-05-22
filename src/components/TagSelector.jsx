@@ -19,31 +19,47 @@ class TagSelector extends Component {
 
     this.state = {
       value: '',
+      modifier: '',
       suggestions: [],
+      cachedSuggestions: [],
       onSubmit: (event) => {
-        props.onSubmit(this.state.value)
+        props.onSubmit({
+          name: this.state.value, 
+          modifier: this.state.modifier
+        })
+
+        this.setState({
+          value: ""
+        })
         event.preventDefault();
       }
     };    
   }
 
-  onChange = (event, { newValue, method }) => {
+  onValueChange = (event, { newValue, method }) => {
     this.setState({
       value: newValue
     });
   };
+
+  onModifierChange = (event) => {
+    this.setState({
+      modifier: event.target.value
+    });
+  };
   
   onSuggestionsFetchRequested = ({ value }) => {
-    api.getTags(value)
+    api.getTags(value.replace(this.state.modifier, ""))
       .then(result => {
         this.setState({
-          suggestions:result
+          suggestions: result
         });
       })
   };
 
   onSuggestionsClearRequested = () => {
     this.setState({
+      cachedSuggestions: this.state.suggestions,
       suggestions: []
     });
   };
@@ -53,11 +69,17 @@ class TagSelector extends Component {
     const inputProps = {
       placeholder: "Search for tags",
       value,
-      onChange: this.onChange
+      onChange: this.onValueChange
     };
 
     return (
       <form onSubmit={this.state.onSubmit} className="d-flex input-group tag-selector">
+        <div className="input-group-prepend left-append">
+        <select className="form-control select-modifier" value={this.state.modifier} onChange={this.onModifierChange}>
+          <option>+</option>
+          <option>-</option>
+        </select>
+        </div>
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}

@@ -48,7 +48,7 @@ export default class Post extends React.Component { //TODO: smooth collapse
 
 export function PostList(props) {
     return (    
-      <ul className='list-group list-inline post-list'>
+      <ul className='list-group list-group-flush post-list'>
         {props.posts.map((post) => {
             return (<Post key={'p_' + post.id} id={post.id} media_type={post.type} media_src={post.sample_url} rating={post.rating} score={post.score} source={post.source} tags={post.tags} onTagClick={props.onTagClick} />)
         })}

@@ -1,5 +1,6 @@
 .post {
     padding:0px !important;
+    border:none !important;
 }
 
 .post:not(:last-of-type) {

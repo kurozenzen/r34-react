@@ -1,3 +1,5 @@
+import converter from "./converter"
+
 const pageSize = 10,
     apiUrl1 = "https://custom-r34-api.herokuapp.com",
     apiUrl2 = "https://r34-api-clone.herokuapp.com"
@@ -15,7 +17,7 @@ export default {
     },
 
     async getPosts(tags, pageNumber = 1) {
-        const res = await fetch(activeApi + "/posts?pid=" + pageNumber + "&limit=" + pageSize + "&tags=" + tags.map(t => t.name).join("+"));
+        const res = await fetch(activeApi + "/posts?pid=" + pageNumber + "&limit=" + pageSize + "&" + converter.tagsAsQuery(tags));
         return await res.json();
     }
 }

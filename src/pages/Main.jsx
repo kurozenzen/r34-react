@@ -40,16 +40,16 @@ class Main extends Component { //TODO: add suggested tags
     }
   }
     
-  handleAddTag(tagName) {
-    let s = this.state,
-    newTag = {
-      name: tagName
-    }
+  handleAddTag(newTag) {
+    let s = this.state
 
-    if(!s.tags.some(e => e.name === tagName)) {
+    if(!s.tags.some(e => e.name === newTag.name)) {
       s.tags.push(newTag)
-      activeTags.add(tagName)
+      activeTags.add(newTag.name)
       this.setState(s)
+    } else {
+      let t = s.tags.find(e => e.name === newTag.name)
+      t.modifier = newTag.modifier
     }
   }
 
@@ -88,7 +88,7 @@ class Main extends Component { //TODO: add suggested tags
           return pp
         })
         s.pageNumber = 1
-        this.props.history.push(this.props.location.pathname + converter.tagsAsQuery(this.state.tags));
+        this.props.history.push(this.props.location.pathname + "?" + converter.tagsAsQuery(this.state.tags));
 
         this.setState(s)
       })

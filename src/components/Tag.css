@@ -12,3 +12,10 @@
     background-color: red;
 }
 
+.exclude::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 800;
+    content: "\f05e";
+    display: inline-block;
+    padding-right: 5px;
+}

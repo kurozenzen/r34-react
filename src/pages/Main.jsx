@@ -138,8 +138,11 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
           <h3 className="centered">Search</h3>
           <TagSelector onSubmit={this.handleAddTag} className="centered" />
 
-          <label>Tags:</label>
-          <TagList tags={this.state.tags} onClick={this.handleToggleTag} /> 
+          {this.state.tags.length > 0 ? 
+            <label>Tags:
+              <TagList tags={this.state.tags} onClick={this.handleToggleTag} /> 
+            </label> : <div className="mb-1"></div>
+          }
 
           <form onSubmit={this.handleSearch}>
             <input type="submit" value="Search" className="btn btn-block btn-red" />

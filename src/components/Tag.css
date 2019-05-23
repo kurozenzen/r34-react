@@ -19,3 +19,8 @@
     display: inline-block;
     padding-right: 5px;
 }
+
+.tag:focus {
+    background-color: black;
+    color:white;
+}

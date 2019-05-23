@@ -94,7 +94,7 @@ function Score(props) {
 function Source(props) {
     if(props.value)
         if(props.value.startsWith('http'))
-            return (<a href={props.value} className='source'>Source</a>)
+            return (<a href={props.value} target="_blank" rel="noopener noreferrer" className='source'>Source</a>)
         else
             return (<span className='source'>{props.value}</span>)
     else

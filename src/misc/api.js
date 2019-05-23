@@ -1,6 +1,6 @@
 import converter from "./converter"
 
-const pageSize = 10,
+const pageSize = 20,
     apiUrl1 = "https://custom-r34-api.herokuapp.com",
     apiUrl2 = "https://r34-api-clone.herokuapp.com"
 

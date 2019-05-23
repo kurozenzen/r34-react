@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
+import Toggle from "../components/Toggle"
+import "../components/Toggle.css"
 import { TagList } from '../components/Tag';
 import { PostList } from '../components/Post';
 import api from "../misc/api";
@@ -16,13 +18,21 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
       suggestions: [],
       posts: [],
       searchTerm: "",
-      pageNumber: 1
+      pageNumber: 1,
+      infiniteScroll: false
     }
+
+    window.onscroll = () => {
+      if (this.state.infiniteScroll && (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight)) {
+        this.addPosts()
+      }
+    };
 
     this.handleAddTag = this.handleAddTag.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.handleToggleTag = this.handleToggleTag.bind(this)
     this.handleLoadMore = this.handleLoadMore.bind(this)
+    this.onInfiniteScrollChange = this.onInfiniteScrollChange.bind(this)
   }
 
   componentDidMount() { //TODO: add back navigation handling
@@ -82,30 +92,38 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
   }
 
   handleSearch(event) {
-    this.updatePosts();
-    event.preventDefault();
+    this.updatePosts()
+    event.preventDefault()
   }
 
   handleLoadMore(event) {
     this.addPosts()
-    event.preventDefault();
+    event.preventDefault()
+  }
+
+  onInfiniteScrollChange(event) {
+    this.setState({
+      infiniteScroll: !this.state.infiniteScroll
+    })
   }
 
   updatePosts() {
     api.getPosts(this.state.tags)
       .then(result => {
-        let s = this.state
-        s.posts = result.map(p => {
-          let pp = p
-          pp.tags = p.tags.map(t => {
-            return { name: t} 
-          })
-          return pp
+        this.setState({
+          posts: result.map(p => {
+            let pp = p
+            pp.tags = p.tags.map(t => {
+              return { 
+                name: t
+              } 
+            })
+            return pp
+          }),
+          pageNumber: 1
         })
-        s.pageNumber = 1
-        this.props.history.push(this.props.location.pathname + "?" + converter.tagsAsQuery(this.state.tags));
 
-        this.setState(s)
+        this.props.history.replace(this.props.location.pathname + "?" + converter.tagsAsQuery(this.state.tags));
       })
   }
 
@@ -144,6 +162,8 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
             </label> : <div className="mb-1"></div>
           }
 
+          <Toggle text="Infinite Scroll" initial={this.state.infiniteScroll} onChange={this.onInfiniteScrollChange}/>
+          
           <form onSubmit={this.handleSearch}>
             <input type="submit" value="Search" className="btn btn-block btn-red" />
           </form>

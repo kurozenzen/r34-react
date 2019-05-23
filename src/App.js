@@ -22,20 +22,23 @@ class App extends Component {
           <Route exact path="/help" component={Help} />
           <Route component={NotFound} />
         </Switch>
+        <div className="spacer"></div>
         <footer>
-          <div className="d-flex justify-content-center">
-            <p>
-              <a href="https://github.com/kurozenzen/r34">Github Repository</a>
-            </p>
-          </div>
-          <div className="d-flex justify-content-center">
-            <p>Please, if you notice <a href="https://github.com/kurozenzen/r34/issues/new?template=bug_report.md"> something isn't right</a>
-            , or you <a href="https://github.com/kurozenzen/r34/issues/new?template=feature_request.md">want a feature</a> to be implemented take the time to let me know.
-            </p>
-          </div>
-          <div className="d-flex justify-content-center">
-            <p>Hosted with Github Pages.</p>
-          </div>
+          <small>
+            <div className="d-flex justify-content-center">
+              <p>
+                <a href="https://github.com/kurozenzen/r34">Github Repository</a>
+              </p>
+            </div>
+            <div className="d-flex justify-content-center">
+              <p>Please, if you notice <a href="https://github.com/kurozenzen/r34/issues/new?template=bug_report.md"> something isn't right</a>
+              , or you <a href="https://github.com/kurozenzen/r34/issues/new?template=feature_request.md">want a feature</a> to be implemented take the time to let me know.
+              </p>
+            </div>
+            <div className="d-flex justify-content-center">
+              <p>Hosted with Github Pages.</p>
+            </div>
+          </small>
         </footer>
       </Router>
     );

@@ -2,9 +2,10 @@ import queryString from 'query-string'
 
 export default {
   queryAsTags(query) {
-    return queryString.parse(query).tags.split(" ")
+    return queryString.parse(query).tags.split("+")
       .map(t => {
-        let modifier = "", name = t
+        let modifier = "", 
+          name = t
 
         if(t[0] === "-") {
           modifier = t[0]
@@ -20,7 +21,7 @@ export default {
 
   tagsAsQuery(tags) {
     return queryString.stringify({
-      tags:  tags.map(t => (t.modifier ? t.modifier : "") + t.name)
+      tags:  tags.map(t => (t.modifier ? t.modifier : "") + t.name).join("+")
     })
   }
 }

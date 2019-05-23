@@ -7,7 +7,7 @@ import converter from "../misc/converter"
 import TagSelector from '../components/TagSelector';
 import activeTags from "../misc/activeTags"
 
-class Main extends Component { //TODO: add suggested tags
+class Main extends Component { //TODO: add suggested tags | infinite scroll | filters
   constructor(props) {
     super(props)
 
@@ -26,18 +26,33 @@ class Main extends Component { //TODO: add suggested tags
   }
 
   componentDidMount() { //TODO: add back navigation handling
-    let queryTags,
-    s= this.state
-    if(this.props.location.search)
-      queryTags = converter.queryAsTags(this.props.location.search)
+    window.onpopstate = this.handleBack.bind(this)
+ 
+    this.refreshPage()
+  }
 
-    s.tags = queryTags || []
-    this.setState(s)
+  refreshPage() {
+    this.getTagsFromUrl()
 
     if(this.state.tags.length > 0) {
-      activeTags.add(...this.state.tags.map(t => t.name))
       this.updatePosts()
     }
+  }
+
+  getTagsFromUrl() {
+    if(this.props.location.search) {
+      let tags = converter.queryAsTags(this.props.location.search) || []
+
+      tags.forEach(t => activeTags.add(t.name))     
+      this.setState({
+        tags: tags
+      })
+    }
+  }
+
+  handleBack(event) {
+    console.log("back")
+    this.refreshPage()
   }
     
   handleAddTag(newTag) {
@@ -131,13 +146,15 @@ class Main extends Component { //TODO: add suggested tags
           </form>
         </section>
 
-        <section className="results">
-          <h3 className="centered">Results</h3>
-          <PostList posts={this.state.posts} onTagClick={this.handleToggleTag} />
-          <form className="mt-3" onSubmit={this.handleLoadMore}>
-            <input type="submit" value="Load more" className="btn btn-block btn-red" />
-          </form>
-        </section>
+        {this.state.posts.length > 0 ? 
+          <section className="results">
+            <h3 className="centered">Results</h3>
+            <PostList posts={this.state.posts} onTagClick={this.handleToggleTag} />
+            <form className="mt-3" onSubmit={this.handleLoadMore}>
+              <input type="submit" value="Load more" className="btn btn-block btn-red" />
+            </form>
+          </section> : null
+        }
       </main>
     )
   }

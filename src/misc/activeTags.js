@@ -11,5 +11,9 @@ export default {
 
     has(tagName) {
         return tags.includes(tagName)
+    },
+
+    get() {
+        return tags
     }
 }

@@ -74,3 +74,7 @@ label {
 main {
   margin-block-end: 10px;
 }
+
+video {
+  display: block;
+}

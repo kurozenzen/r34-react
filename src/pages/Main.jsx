@@ -9,6 +9,8 @@ import converter from "../misc/converter"
 import TagSelector from '../components/TagSelector';
 import activeTags from "../misc/activeTags"
 
+let scrollLock = true
+
 class Main extends Component { //TODO: add suggested tags | infinite scroll | filters
   constructor(props) {
     super(props)
@@ -23,7 +25,13 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
     }
 
     window.onscroll = () => {
-      if (this.state.infiniteScroll && (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight)) {
+      if (
+        this.state.infiniteScroll 
+        && scrollLock
+        && (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight - window.innerHeight)
+      ) {
+        scrollLock = false
+        console.log("locked")
         this.addPosts()
       }
     };
@@ -146,6 +154,8 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
         s.pageNumber = p
 
         this.setState(s)
+        scrollLock = true
+        console.log("unlocked")
       })
   }
     

@@ -49,7 +49,8 @@ class TagSelector extends Component {
   };
   
   onSuggestionsFetchRequested = ({ value }) => {
-    api.getTags(value.replace(this.state.modifier, ""))
+    console.log(value)
+    api.getTags(normalize(value))
       .then(result => {
         this.setState({
           suggestions: result
@@ -93,6 +94,11 @@ class TagSelector extends Component {
       </form>
     );
   }
+}
+
+function normalize(tagname) {
+  return tagname.toLowerCase()
+    .replace(" ", "_")
 }
 
 

@@ -9,7 +9,7 @@ function getSuggestionValue(suggestion) {
 
 function renderSuggestion(suggestion) {
     return ( 
-        <span>{suggestion.name}</span>
+        <span>{suggestion.name + " (" + suggestion.posts + ")"}</span>
     );
 }
 
@@ -25,7 +25,8 @@ class TagSelector extends Component {
       onSubmit: (event) => {
         props.onSubmit({
           name: this.state.value, 
-          modifier: this.state.modifier
+          modifier: this.state.modifier,
+          posts: this.state.cachedSuggestions.find(s => s.name === this.state.value).posts
         })
 
         this.setState({
@@ -60,7 +61,7 @@ class TagSelector extends Component {
 
   onSuggestionsClearRequested = () => {
     this.setState({
-      cachedSuggestions: this.state.suggestions,
+      cachedSuggestions: this.state.suggestions.length > 0 ? this.state.suggestions : this.state.cachedSuggestions,
       suggestions: []
     });
   };

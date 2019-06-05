@@ -11,7 +11,7 @@ import activeTags from "../misc/activeTags"
 
 let scrollLock = true
 
-class Main extends Component { //TODO: add suggested tags | infinite scroll | filters
+class Main extends Component { //TODO: add suggested tags | filters
   constructor(props) {
     super(props)
 
@@ -21,7 +21,9 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
       posts: [],
       searchTerm: "",
       pageNumber: 1,
-      infiniteScroll: false
+      infiniteScroll: false,
+      filterRated: false,
+      minScore: 1
     }
 
     window.onscroll = () => {
@@ -41,6 +43,7 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
     this.handleToggleTag = this.handleToggleTag.bind(this)
     this.handleLoadMore = this.handleLoadMore.bind(this)
     this.onInfiniteScrollChange = this.onInfiniteScrollChange.bind(this)
+    this.onFilterChange = this.onFilterChange.bind(this)
   }
 
   componentDidMount() { //TODO: add back navigation handling
@@ -115,8 +118,14 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
     })
   }
 
+  onFilterChange(event) {
+    this.setState({
+      filterRated: !this.state.filterRated
+    })
+  }
+
   updatePosts() {
-    api.getPosts(this.state.tags)
+    api.getPosts(this.state.tags, 1, this.state.filterRated ? this.state.minScore : undefined)
       .then(result => {
         this.setState({
           posts: result.map(p => {
@@ -137,7 +146,7 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
 
   addPosts(){
     let p = this.state.pageNumber + 1
-    api.getPosts(this.state.tags, p)
+    api.getPosts(this.state.tags, p, this.state.filterRated ? this.state.minScore : undefined)
       .then(result => {
         let s = this.state
         let newposts = result.map(p => {
@@ -172,7 +181,8 @@ class Main extends Component { //TODO: add suggested tags | infinite scroll | fi
             </label> : <div className="mb-1"></div>
           }
 
-          <Toggle text="Infinite Scroll" initial={this.state.infiniteScroll} onChange={this.onInfiniteScrollChange}/>
+          <Toggle text="Infinite Scroll" initial={this.state.infiniteScroll} onChange={this.onInfiniteScrollChange} />
+          <Toggle text="Only show Rated" initial={this.state.filterRated} onChange={this.onFilterChange} />
           
           <form onSubmit={this.handleSearch}>
             <input type="submit" value="Search" className="btn btn-block btn-red" />

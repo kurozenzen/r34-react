@@ -1,36 +1,78 @@
-export class Post {
-    constructor(id, type, score, rating, source, tags, file_url, width, height, creator_id, creator_url, preview_url, preview_width, preview_height, sample_url, sample_width, sample_height, status, parent_id, has_children, has_comments, comments_url, has_notes, created_at, change, md5) {
-        this.id = id
-        this.type = type
+export default class Post {
+  /**
+   *
+   * @param {*} id
+   * @param {*} type
+   * @param {*} score
+   * @param {*} rating
+   * @param {*} source
+   * @param {*} tags
+   * @param {*} file_url
+   * @param {*} width
+   * @param {*} height
+   * @param {*} creator_id
+   * @param {*} creator_url
+   * @param {*} preview_url
+   * @param {*} preview_width
+   * @param {*} preview_height
+   * @param {*} sample_url
+   * @param {*} sample_width
+   * @param {*} sample_height
+   * @param {*} status
+   * @param {*} parent_id
+   * @param {*} has_children
+   * @param {*} has_comments
+   * @param {*} comments_url
+   * @param {*} has_notes
+   * @param {*} created_at
+   * @param {*} change
+   * @param {*} md5
+   */
+  constructor(
+    id,
+    score,
+    rating,
+    source,
+    tags,
+    media_type,
+    media_src,
+    file_url,
+    width,
+    height,
+    creator_id,
+    creator_url,
+    status,
+    parent_id,
+    has_children,
+    has_comments,
+    comments_url,
+    has_notes,
+    created_at,
+    change
+  ) {
+    this.id = id;
 
-        this.score = score
-        this.rating = rating
-        this.source = source
-        this.tags = tags
+    this.score = score;
+    this.rating = rating;
+    this.source = source;
+    this.tags = tags;
 
-        this.file_url = file_url
-        this.width = width
-        this.height = height
+    this.media_type = media_type;
+    this.media_src = media_src;
+    this.file_url = file_url;
+    this.width = width;
+    this.height = height;
 
-        this.creator_id = creator_id
-        this.creator_url = creator_url
+    this.creator_id = creator_id;
+    this.creator_url = creator_url;
 
-        this.preview_url = preview_url
-        this.preview_width = preview_width
-        this.preview_height = preview_height
-
-        this.sample_url = sample_url
-        this.sample_width = sample_width
-        this.sample_height = sample_height
-
-        this.status = status
-        this.parent_id = parent_id
-        this.has_children = has_children
-        this.has_comments = has_comments
-        this.comments_url = comments_url
-        this.has_notes = has_notes
-        this.created_at = created_at
-        this.change = change
-        this.md5 = md5
-    }
+    this.status = status;
+    this.parent_id = parent_id;
+    this.has_children = has_children;
+    this.has_comments = has_comments;
+    this.comments_url = comments_url;
+    this.has_notes = has_notes;
+    this.created_at = created_at;
+    this.change = change;
+  }
 }

@@ -20,13 +20,11 @@ function useTags() {
   const [tags, setTags] = useState([]);
 
   const addTag = newTag => {
-    debugger;
     if (tags.find(tag => tag.name === newTag.name)) removeTag(newTag);
     setTags([...tags, newTag]);
   };
 
   const removeTag = tagToRemove => {
-    debugger;
     setTags(tags.filter(tag => tag.name !== tagToRemove.name));
   };
 

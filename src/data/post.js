@@ -37,6 +37,7 @@ export default class Post {
     media_type,
     media_src,
     file_url,
+    thumbnail_src,
     width,
     height,
     creator_id,
@@ -60,6 +61,7 @@ export default class Post {
     this.media_type = media_type;
     this.preview_src = media_src;
     this.original_src = file_url;
+    this.thumbnail_src = thumbnail_src;
     this.width = width;
     this.height = height;
 

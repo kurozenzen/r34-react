@@ -9,6 +9,7 @@ function Post(props) {
     media_type,
     preview_src,
     original_src,
+    thumbnail_src,
     rating,
     score,
     source,
@@ -35,6 +36,7 @@ function Post(props) {
       <Media
         type={media_type}
         src={media_src}
+        thumbnail_src={thumbnail_src}
         onClick={() => setCollapsed(!collapsed)}
       />
 
@@ -69,7 +71,7 @@ Post.propTypes = {
 
 export default Post;
 
-function Media({ type, src, onClick }) {
+function Media({ type, src, thumbnail_src, onClick }) {
   let hasMoved = false;
   const onMove = () => {
     hasMoved = true;
@@ -91,7 +93,9 @@ function Media({ type, src, onClick }) {
           loop
           src={src}
           alt={src}
-          className="img-fluid"
+          poster={thumbnail_src}
+          className="video-fluid"
+          preload="none"
           onClick={onClick}
           onTouchMove={onMove}
           onTouchEnd={onRelease}

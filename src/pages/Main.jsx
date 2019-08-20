@@ -41,7 +41,7 @@ function useTags() {
 function usePosts() {
   const [posts, setPosts] = useState([]);
 
-  const addPosts = posts => setPosts([...posts, ...posts]);
+  const addPosts = newPosts => setPosts([...posts, ...newPosts]);
 
   return [posts, setPosts, addPosts];
 }
@@ -50,15 +50,16 @@ function Main(props) {
   //TODO: add suggested tags | filters
   const [infiniteScroll, setInfiniteScroll] = useState(false);
   const [filterRated, setFilterRated] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(0);
+  const [loadOriginal, setLoadOriginal] = useState(false);
   const [tags, toggleTag, addTag, removeTag] = useTags();
   const [posts, setPosts, addPosts] = usePosts(tags, filterRated);
 
   // SEARCH
   const search = () => {
-    api.getPosts(tags, 1, filterRated ? 1 : undefined).then(newPosts => {
+    api.getPosts(tags, 0, filterRated ? 1 : undefined).then(newPosts => {
       setPosts(newPosts.map(prepare));
-      setPageNumber(1);
+      setPageNumber(0);
     });
   };
   const loadMore = () => {
@@ -104,6 +105,11 @@ function Main(props) {
           initial={filterRated}
           onChange={() => setFilterRated(!filterRated)}
         />
+        <Toggle
+          text="Load Original Sizes"
+          initial={loadOriginal}
+          onChange={() => setLoadOriginal(!loadOriginal)}
+        />
 
         <button className="btn btn-block btn-red" onClick={search}>
           Search
@@ -113,10 +119,17 @@ function Main(props) {
       {posts.length > 0 ? (
         <section className="results">
           <h3 className="centered">Results</h3>
-          <PostList posts={posts} activeTags={tags} onTagClick={toggleTag} />
-          <button className="btn btn-block btn-red" onClick={loadMore}>
-            Load More
-          </button>
+          <PostList
+            posts={posts}
+            activeTags={tags}
+            loadOriginal={loadOriginal}
+            onTagClick={toggleTag}
+          />
+          {!infiniteScroll && (
+            <button className="btn btn-block btn-red" onClick={loadMore}>
+              Load More
+            </button>
+          )}
         </section>
       ) : null}
     </main>

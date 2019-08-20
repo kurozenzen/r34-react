@@ -58,8 +58,8 @@ export default class Post {
     this.tags = tags;
 
     this.media_type = media_type;
-    this.media_src = media_src;
-    this.file_url = file_url;
+    this.preview_src = media_src;
+    this.original_src = file_url;
     this.width = width;
     this.height = height;
 

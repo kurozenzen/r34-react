@@ -20,6 +20,22 @@
   padding-right: 5px;
 }
 
+.character::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 800;
+  content: "\f007";
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.artist::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 800;
+  content: "\f304";
+  display: inline-block;
+  padding-right: 5px;
+}
+
 .tag:focus {
   background-color: black;
   color: white;

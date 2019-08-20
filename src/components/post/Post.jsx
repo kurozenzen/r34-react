@@ -7,14 +7,26 @@ function Post(props) {
   let {
     id,
     media_type,
-    media_src,
+    preview_src,
+    original_src,
     rating,
     score,
     source,
     tags,
+    loadOriginal,
     activeTags,
     onTagClick
   } = props;
+
+  let media_src;
+  if (loadOriginal) {
+    media_src = original_src;
+  } else {
+    media_src = `${preview_src}?${id}`;
+    if (media_src.includes("//images")) {
+      media_src = media_src.replace("//images", "/images");
+    }
+  }
 
   //TODO: smooth collapse
   let [collapsed, setCollapsed] = useState(true);

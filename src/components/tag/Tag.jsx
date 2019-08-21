@@ -3,18 +3,25 @@ import { arrayOf, bool, func, number, string } from "prop-types";
 import "./Tag.css";
 import api from "../../misc/api";
 
-function Tag({ name, count, modifier, types, active, onClick }) {
+function Tag({ name, count, modifier, types, activeTags, onClick }) {
   const [aliases, setAliases] = useState();
   const [collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
-    api.getAliases(name).then(newAliases => {
-      newAliases.sort((a, b) => Number(b.posts) - Number(a.posts));
-      setAliases(newAliases);
-    });
-  }, [name]);
+    if (activeTags.some(t => t.name === name))
+      api.getAliases(name).then(newAliases => {
+        newAliases.sort((a, b) => Number(b.posts) - Number(a.posts));
+        setAliases(
+          newAliases.filter(
+            alias => !activeTags.some(tag => tag.name === alias.name)
+          )
+        );
+      });
+  }, [name, activeTags]);
 
   const onAction = () => onClick({ name, count, types, modifier });
+
+  const active = activeTags.some(t => t.name === name);
 
   const exclude = modifier === "-";
   const character = types.includes("character");

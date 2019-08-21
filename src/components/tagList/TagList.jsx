@@ -9,7 +9,7 @@ export function TagList({ tags, activeTags, onItemClick }) {
         <Tag
           key={"t_" + tag.name}
           {...tag}
-          active={isTagActive(tag, activeTags)}
+          activeTags={activeTags}
           onClick={onItemClick}
         />
       ))}
@@ -23,7 +23,3 @@ TagList.propTypes = {
 };
 
 export default TagList;
-
-function isTagActive(tag, activeTags) {
-  return activeTags.some(t => t.name === tag.name);
-}

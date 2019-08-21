@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import Toggle from "../components/toggle/Toggle";
 import TagList from "../components/tagList/TagList";
@@ -9,15 +9,8 @@ import prepare from "../misc/prepare";
 
 let scrollLock = true;
 
-function endOfPage() {
-  return (
-    window.innerHeight + document.documentElement.scrollTop >=
-    document.documentElement.scrollHeight - window.innerHeight
-  );
-}
-
-function useTags() {
-  const [tags, setTags] = useState([]);
+function useTags(initialValue = []) {
+  const [tags, setTags] = useState(initialValue);
 
   const addTag = newTag => {
     if (tags.find(tag => tag.name === newTag.name)) removeTag(newTag);
@@ -36,22 +29,45 @@ function useTags() {
   return [tags, toggleTag, addTag, removeTag];
 }
 
-function usePosts() {
-  const [posts, setPosts] = useState([]);
+function usePosts(initialValue = []) {
+  const [posts, setPosts] = useState(initialValue);
 
   const addPosts = newPosts => setPosts([...posts, ...newPosts]);
 
   return [posts, setPosts, addPosts];
 }
 
-function Main(props) {
+function useLocalStorageUpdates(
+  infiniteScroll,
+  filterRated,
+  loadOriginal,
+  activeTags
+) {
+  useEffect(() => {
+    localStorage.setItem("infinteScroll", JSON.stringify(infiniteScroll));
+  }, [infiniteScroll]);
+  useEffect(() => {
+    localStorage.setItem("showRated", JSON.stringify(filterRated));
+  }, [filterRated]);
+  useEffect(() => {
+    localStorage.setItem("originalSizes", JSON.stringify(loadOriginal));
+  }, [loadOriginal]);
+  useEffect(() => {
+    localStorage.setItem("tags", JSON.stringify(activeTags));
+  }, [activeTags]);
+}
+
+function Main({ initialState }) {
+  const { infinite, rated, originals, activeTags } = initialState;
   //TODO: add suggested tags | filters
-  const [infiniteScroll, setInfiniteScroll] = useState(false);
-  const [filterRated, setFilterRated] = useState(false);
+  const [infiniteScroll, setInfiniteScroll] = useState(infinite);
+  const [filterRated, setFilterRated] = useState(rated);
   const [pageNumber, setPageNumber] = useState(0);
-  const [loadOriginal, setLoadOriginal] = useState(false);
-  const [tags, toggleTag, addTag, removeTag] = useTags();
-  const [posts, setPosts, addPosts] = usePosts(tags, filterRated);
+  const [loadOriginal, setLoadOriginal] = useState(originals);
+  const [tags, toggleTag, addTag, removeTag] = useTags(activeTags);
+  const [posts, setPosts, addPosts] = usePosts([]);
+
+  useLocalStorageUpdates(infiniteScroll, filterRated, loadOriginal, tags);
 
   // SEARCH
   const search = () => {
@@ -71,6 +87,10 @@ function Main(props) {
   };
 
   // SCROLL
+  const endOfPage = () =>
+    window.innerHeight + document.documentElement.scrollTop >=
+    document.documentElement.scrollHeight - window.innerHeight;
+
   window.onscroll = () => {
     if (infiniteScroll && scrollLock && endOfPage()) {
       scrollLock = false;

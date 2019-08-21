@@ -1,42 +1,71 @@
-.badge-tag {
-  vertical-align: middle;
-  font-size: 1.2em;
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  vertical-align: baseline;
   margin-block-end: 5px;
   margin-inline-end: 5px;
   background-color: black;
   color: red;
   border: red thin solid;
+
+  -webkit-transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.active {
+
+.tag.active {
   color: black;
   background-color: red;
 }
 
-.exclude::before {
+.tag::before {
+  padding-right: 5px;
   font-family: "Font Awesome 5 Free";
   font-weight: 800;
-  content: "\f05e";
   display: inline-block;
-  padding-right: 5px;
+}
+
+.tag.exclude::before {
+  content: "\f05e";
 }
 
 .character::before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 800;
-  content: "\f007";
-  display: inline-block;
-  padding-right: 5px;
+  content: "\f406";
 }
 
 .artist::before {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 800;
   content: "\f304";
-  display: inline-block;
-  padding-right: 5px;
 }
 
-.tag:focus {
+.tag.exclude.character::before {
+  content: "\f4fa";
+}
+
+.tag .caret {
+  margin-left: 5px;
+}
+
+.dropdown-list {
+  display: none;
+  position: absolute;
+  margin: 0.25rem -0.4rem;
+  min-width: 160px;
+  z-index: 1;
   background-color: black;
-  color: white;
+  color: red;
+  border: thin red solid;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown-list.visible {
+  display: block;
+}
+
+.dropdown-list > * {
+  padding: 0.25rem 0.4rem;
 }

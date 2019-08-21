@@ -22,6 +22,11 @@ export default {
   async getPosts(tags, pageNumber = 0, minScore = 0) {
     const res = await fetch(buildPostUrl(pageNumber, tags, minScore));
     return await res.json();
+  },
+
+  async getAliases(tag) {
+    const res = await fetch(activeApi + "/alias/" + tag);
+    return await res.json();
   }
 };
 

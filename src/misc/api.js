@@ -1,5 +1,5 @@
 const pageSize = 20,
-  apiUrl1 = "https://custom-r34-api.herokuapp.com",
+  apiUrl1 = "https://r34-json.herokuapp.com",
   apiUrl2 = "https://r34-api-clone.herokuapp.com";
 
 let activeApi = apiUrl1;

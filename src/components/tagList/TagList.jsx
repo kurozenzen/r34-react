@@ -2,7 +2,7 @@ import React from "react";
 import { arrayOf, func, object } from "prop-types";
 import Tag from "../tag/Tag";
 
-export function TagList({ tags, activeTags, onItemClick }) {
+export function TagList({ tags, activeTags, onItemClick, onItemItemClick }) {
   return (
     <div className="tag-list">
       {tags.map(tag => (
@@ -11,6 +11,7 @@ export function TagList({ tags, activeTags, onItemClick }) {
           {...tag}
           activeTags={activeTags}
           onClick={onItemClick}
+          onAliasClick={onItemItemClick}
         />
       ))}
     </div>

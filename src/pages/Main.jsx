@@ -18,7 +18,8 @@ function useTags(initialValue = []) {
   };
 
   const removeTag = tagToRemove => {
-    setTags(tags.filter(tag => tag.name !== tagToRemove.name));
+    let t = tags.filter(tag => tag.name !== tagToRemove.name);
+    setTags(t);
   };
 
   const toggleTag = tagToToggle => {
@@ -107,7 +108,15 @@ function Main({ initialState }) {
         {tags.length > 0 ? (
           <label>
             Tags:
-            <TagList tags={tags} activeTags={tags} onItemClick={removeTag} />
+            <TagList
+              tags={tags}
+              activeTags={tags}
+              onItemClick={removeTag}
+              onItemItemClick={(oldTag, newTag) => {
+                removeTag(oldTag);
+                addTag(newTag);
+              }}
+            />
           </label>
         ) : (
           <div className="mb-1" />

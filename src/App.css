@@ -1,8 +1,10 @@
 * {
-    font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
-html, body, #app-root{
+html,
+body,
+#app-root {
   height: 100%;
 }
 
@@ -17,14 +19,16 @@ html, body, #app-root{
 
 .black {
   background-color: black;
-  color:white;
+  color: white;
 }
 
 .gray {
   background-color: #333333;
 }
 
-a:link, a, a:visited {
+a:link,
+a,
+a:visited {
   color: red;
 }
 
@@ -43,20 +47,20 @@ b {
 
 .badge-tag:hover,
 .btn-red:hover {
-    -webkit-transition: color 0.3s linear;
-    -moz-transition: color 0.3s linear;
-    -ms-transition: color 0.3s linear;
-    -o-transition: color 0.3s linear;
-    transition: color 0.3s linear;
-    color: black;
-    background-color: red;
-    cursor: pointer;
+  -webkit-transition: color 0.3s linear;
+  -moz-transition: color 0.3s linear;
+  -ms-transition: color 0.3s linear;
+  -o-transition: color 0.3s linear;
+  transition: color 0.3s linear;
+  color: black;
+  background-color: red;
+  cursor: pointer;
 }
 
 .btn-red {
-    background-color: black;
-    color: red;
-    border: red thin solid;
+  background-color: black;
+  color: red;
+  border: red thin solid;
 }
 
 .centered {
@@ -68,7 +72,7 @@ b {
 }
 
 label {
-  margin:0px;
+  margin: 0px;
 }
 
 main {

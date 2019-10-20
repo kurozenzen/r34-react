@@ -59,8 +59,8 @@ export default class Post {
     this.tags = tags;
 
     this.media_type = media_type;
-    this.preview_src = media_src;
-    this.original_src = file_url;
+    this.small_src = media_src;
+    this.big_src = file_url;
     this.thumbnail_src = thumbnail_src;
     this.width = width;
     this.height = height;

@@ -1,19 +1,19 @@
-const tags = []
+const tags = [];
 
 export default {
-    add(tagName) {
-        tags.push(tagName)
-    },
+  add(tagName) {
+    tags.push(tagName);
+  },
 
-    remove(tagName) {
-        tags.splice(tags.indexOf(tagName), 1)
-    },
+  remove(tagName) {
+    tags.splice(tags.indexOf(tagName), 1);
+  },
 
-    has(tagName) {
-        return tags.includes(tagName)
-    },
+  has(tagName) {
+    return tags.includes(tagName);
+  },
 
-    get() {
-        return tags
-    }
-}
+  get() {
+    return tags;
+  }
+};

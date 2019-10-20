@@ -1,11 +1,10 @@
 import React from "react";
 import { arrayOf, object } from "prop-types";
-import Post from "../post/Post";
-import "./PostList.css";
+import Post from "./Post";
 
-function PostList({ posts, activeTags, loadOriginal, onTagClick }) {
+function PostList({ posts, activeTags, loadOriginal, dispatch }) {
   return (
-    <ul className="post-list list-group list-group-flush">
+    <div className="post-list list-group list-group-flush">
       {posts.map(post => {
         return (
           <Post
@@ -13,11 +12,11 @@ function PostList({ posts, activeTags, loadOriginal, onTagClick }) {
             {...post}
             loadOriginal={loadOriginal}
             activeTags={activeTags}
-            onTagClick={onTagClick}
+            dispatch={dispatch}
           />
         );
       })}
-    </ul>
+    </div>
   );
 }
 

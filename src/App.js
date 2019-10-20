@@ -7,20 +7,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
 class App extends Component {
-  loadStorage() {
-    const activeTags = JSON.parse(localStorage.getItem("tags"));
-    const infinite = JSON.parse(localStorage.getItem("infinteScroll"));
-    const rated = JSON.parse(localStorage.getItem("showRated"));
-    const originals = JSON.parse(localStorage.getItem("originalSizes"));
-
-    return {
-      activeTags: activeTags === null ? [] : activeTags,
-      infinite: infinite === null ? false : infinite,
-      rated: rated === null ? false : rated,
-      originals: originals === null ? false : originals
-    };
-  }
-
   render() {
     return (
       <Router basename="/r34-react">
@@ -38,11 +24,7 @@ class App extends Component {
           </div>
         </header>
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => <Main initialState={this.loadStorage()} />}
-          />
+          <Route exact path="/" render={() => <Main />} />
           <Route exact path="/help" component={Help} />
           <Route component={NotFound} />
         </Switch>

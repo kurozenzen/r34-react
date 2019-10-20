@@ -1,60 +1,70 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { arrayOf, func, number, object, string } from "prop-types";
-import { TagList } from "../tagList/TagList";
-import "./Post.css";
+import Media from "./Media";
+import Details from "./Details";
 
-function Post(props) {
-  let {
-    id,
-    media_type,
-    preview_src,
-    original_src,
-    thumbnail_src,
-    rating,
-    score,
-    source,
-    tags,
-    loadOriginal,
-    activeTags,
-    onTagClick
-  } = props;
+const PostWrapper = styled.div`
+  transition: height 0.5s ease-in-out;
 
-  let media_src;
+  :not(:last-of-type) {
+    margin-bottom: 10px;
+  }
+`;
+
+export function getCorrectSource(loadOriginal, big_src, small_src, id) {
+  let src;
   if (loadOriginal) {
-    media_src = original_src;
+    src = big_src;
   } else {
-    media_src = `${preview_src}?${id}`;
-    if (media_src.includes("//images")) {
-      media_src = media_src.replace("//images", "/images");
+    src = `${small_src}?${id}`;
+    if (src.includes("//images")) {
+      src = src.replace("//images", "/images");
     }
   }
 
-  //TODO: smooth collapse
-  let [collapsed, setCollapsed] = useState(true);
+  return src;
+}
+
+export default function Post({
+  id,
+  media_type,
+  small_src,
+  big_src,
+  thumbnail_src,
+  rating,
+  score,
+  source,
+  tags,
+  loadOriginal,
+  activeTags,
+  dispatch
+}) {
+  const media_src = getCorrectSource(loadOriginal, big_src, small_src, id);
+  const [collapsed, setCollapsed] = useState(true);
+
   return (
-    <li id={id} className="list-group-item post gray">
+    <PostWrapper>
       <Media
         type={media_type}
         src={media_src}
         thumbnail_src={thumbnail_src}
+        isFullscreen={false}
+        onFullscreen={() => dispatch({ type: "FOCUS_POST", id: id })}
         onClick={() => setCollapsed(!collapsed)}
       />
 
-      <div className={"details collapse" + (collapsed ? "" : ".show")}>
-        <div className="d-flex justify-content-between info-bar">
-          <Rating value={rating} />
-          <Score value={score} />
-          <Source value={source} />
-        </div>
-        <div className="pl-1">
-          <TagList
-            tags={tags}
-            activeTags={activeTags}
-            onItemClick={onTagClick}
-          />
-        </div>
-      </div>
-    </li>
+      {!collapsed && (
+        <Details
+          rating={rating}
+          score={score}
+          source={source}
+          tags={tags}
+          activeTags={activeTags}
+          dispatch={dispatch}
+        />
+      )}
+    </PostWrapper>
   );
 }
 
@@ -68,65 +78,3 @@ Post.propTypes = {
   tags: arrayOf(object),
   onTagClick: func
 };
-
-export default Post;
-
-function Media({ type, src, thumbnail_src, onClick }) {
-  let hasMoved = false;
-  const onMove = () => {
-    hasMoved = true;
-  };
-  const onRelease = event => {
-    if (!hasMoved) onClick(event);
-    hasMoved = false;
-  };
-
-  switch (type) {
-    case "image":
-      return (
-        <img src={src} alt={src} className="img-fluid" onClick={onClick} />
-      );
-    case "video":
-      return (
-        <video
-          controls
-          loop
-          src={src}
-          alt={src}
-          poster={thumbnail_src}
-          className="video-fluid"
-          preload="none"
-          onClick={onClick}
-          onTouchMove={onMove}
-          onTouchEnd={onRelease}
-        />
-      );
-    default:
-      return null;
-  }
-}
-
-function Rating({ value }) {
-  return <span className="rating">{value[0].toUpperCase()}</span>;
-}
-
-function Score({ value }) {
-  return <span className="score">{value}</span>;
-}
-
-function Source({ value }) {
-  if (value)
-    if (value.startsWith("http"))
-      return (
-        <a
-          href={value}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="source"
-        >
-          Source
-        </a>
-      );
-    else return <span className="source">{value}</span>;
-  else return null;
-}

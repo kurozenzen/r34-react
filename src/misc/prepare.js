@@ -45,7 +45,7 @@ function preparePost(post) {
     preview_url,
     Number(width),
     Number(height),
-    creator_id,
+    Number(creator_id),
     creator_url,
     status,
     parent_id,

@@ -1,81 +1,86 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import { func } from "prop-types";
-import Autosuggest from "react-autosuggest";
 import api from "../../misc/api";
-import "./TagSelector.css";
 import prepare from "../../misc/prepare";
+import Button from "../common/Button";
+import TagInput from "./TagInput";
+import DropdownList from "./DropdownList";
+import { borderRadius, backgroundColor2 } from "../../misc/style";
 
-function TagSelector({ onSubmit }) {
+const Wrapper = styled.div`
+  display: flex;
+  width: 100%;
+  background: ${backgroundColor2};
+  border-radius: ${({ closed }) =>
+    closed ? borderRadius : `${borderRadius} ${borderRadius} 0 0 `};
+`;
+
+function TagSelector({ dispatch }) {
+  const [inputRef, setInputRef] = useState();
   const [value, setValue] = useState("");
   const [modifier, setModifier] = useState("+");
   const [suggestions, setSuggestions] = useState([]);
-  const [oldSuggestions, setOldSuggestions] = useState([]);
+
+  const addTag = useCallback(
+    suggestion => {
+      dispatch({
+        type: "ADD_TAG",
+        tag: prepare({
+          name: suggestion.name,
+          modifier: modifier,
+          count: suggestion.posts,
+          types: suggestion.types
+        })
+      });
+
+      setValue("");
+      setSuggestions([]);
+    },
+    [dispatch, modifier]
+  );
 
   useEffect(() => {
-    if (suggestions && suggestions.length > 0)
-      setOldSuggestions(suggestions.filter(() => true));
-  }, [suggestions]);
+    const handle = setTimeout(() => {
+      if (value && value !== "")
+        api.getTags(normalize(value)).then(newSuggestions => {
+          setSuggestions(newSuggestions);
+        });
+    }, 400);
 
-  const onSubmitTag = event => {
-    const tagObject = oldSuggestions.find(s => s.name === value) || {};
-
-    onSubmit(
-      prepare({
-        name: value,
-        count: tagObject.posts,
-        types: tagObject.types,
-        modifier: modifier
-      })
-    );
-
-    setValue("");
-
-    event.preventDefault();
-  };
-  const onValueChange = (event, { newValue }) => setValue(newValue);
-  const onSuggestionsFetchRequested = ({ value }) => {
-    api.getTags(normalize(value)).then(newSuggestions => {
-      setSuggestions(newSuggestions);
-    });
-  };
-
-  const inputProps = {
-    placeholder: "Search for tags",
-    value,
-    onChange: onValueChange
-  };
+    return () => clearTimeout(handle);
+  }, [value]);
 
   return (
-    <form onSubmit={onSubmitTag} className="d-flex input-group tag-selector">
-      <div className="input-group-prepend left-append">
-        <select
-          className="form-control select-modifier"
-          value={modifier}
-          onChange={e => setModifier(e.target.value)}
-        >
-          <option>+</option>
-          <option>-</option>
-        </select>
-      </div>
-      <Autosuggest
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={() => setSuggestions([])}
-        getSuggestionValue={suggestion => suggestion.name}
-        renderSuggestion={({ name, posts }) => (
-          <span>{`${name} (${posts})`}</span>
-        )}
-        inputProps={inputProps}
-      />
-      <div className="input-group-append right-append">
-        <input type="submit" value="Add" className="btn btn-red btn-add-tag" />
-      </div>
-    </form>
+    <Wrapper ref={setInputRef} closed={suggestions.length === 0}>
+      <Button
+        type="modifier"
+        onClick={() => setModifier(modifier === "+" ? "-" : "+")}
+      >
+        {modifier}
+      </Button>
+      <TagInput value={value} setValue={setValue} />
+      <Button
+        type="add"
+        onClick={() =>
+          addTag({ ...suggestions.find(s => s.name === value), name: value })
+        }
+      >
+        Add
+      </Button>
+      <DropdownList
+        inputRef={inputRef}
+        entries={suggestions}
+        onClick={entry => {
+          addTag(entry);
+        }}
+      ></DropdownList>
+    </Wrapper>
   );
 }
 
 function normalize(tagname) {
-  return tagname.toLowerCase().replace(" ", "_");
+  return tagname.toLowerCase().replace(/ /g, "_");
 }
 
 TagSelector.propTypes = {

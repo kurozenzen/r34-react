@@ -17,6 +17,7 @@ const TopLeftButton = styled(InvisibleButton)`
 `;
 
 const RedButton = styled.button`
+  height: 32px;
   color: ${accentColor};
   background: ${backgroundColor};
   border: ${accentColor} thin solid;

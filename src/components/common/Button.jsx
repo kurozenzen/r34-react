@@ -39,7 +39,7 @@ const AddButton = styled(RedButton)`
 `;
 
 const ModifierButton = styled(InvisibleButton)`
-  min-width: 26px;
+  min-width: 48px;
 `;
 
 export default function Button({ type, children, onClick, disabled }) {

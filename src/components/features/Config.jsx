@@ -20,7 +20,9 @@ function Config({ options, tags, dispatch }) {
 
   return (
     <section className="search">
-      <h3 className="centered">Search</h3>
+      <h3 className="centered">
+        <label htmlFor="tag-input">Search</label>
+      </h3>
       <TagSelector dispatch={dispatch} />
 
       {tags.length > 0 ? (

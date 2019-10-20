@@ -43,15 +43,17 @@ const EntryWrapper = styled.div`
   padding: 2px 0;
 `;
 
-const EntryType = styled(TypeIcon)`
-  flex: 0 0 26px;
-  padding: 0 5px;
+const TypeWrapper = styled.span`
+  flex: 0 0 48px;
+  text-align: center;
 `;
 
 function Entry({ name, posts, types, onClick }) {
   return (
     <EntryWrapper onClick={onClick}>
-      <EntryType types={types} />
+      <TypeWrapper>
+        <TypeIcon types={types} />
+      </TypeWrapper>
 
       <span style={{ flexGrow: 1 }}>{name}</span>
       <span style={{ paddingRight: 5 }}>{format(posts)} posts</span>

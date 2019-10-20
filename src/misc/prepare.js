@@ -38,7 +38,7 @@ function preparePost(post) {
     Number(score),
     rating,
     source,
-    tags.map(t => new Tag(t)),
+    tags ? tags.map(t => new Tag(t)) : [],
     type,
     sample_url,
     file_url,

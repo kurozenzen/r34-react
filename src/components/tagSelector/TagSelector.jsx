@@ -62,9 +62,12 @@ function TagSelector({ dispatch }) {
       <TagInput value={value} setValue={setValue} />
       <Button
         type="add"
-        onClick={() =>
-          addTag({ ...suggestions.find(s => s.name === value), name: value })
-        }
+        onClick={() => {
+          if (value && value.trim() !== "") {
+            const suggestion = suggestions.find(s => s.name === value) || {};
+            addTag({ ...suggestion, name: value });
+          }
+        }}
       >
         Add
       </Button>

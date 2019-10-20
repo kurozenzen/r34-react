@@ -15,6 +15,8 @@ const FlexVideo = styled.video`
   object-fit: contain;
 `;
 
+let hasMoved;
+
 export default function Media({
   type,
   src,
@@ -23,18 +25,18 @@ export default function Media({
   onFullscreen,
   onClick
 }) {
-  const [hasMoved, setMoved] = useState();
   const onMove = useCallback(() => {
-    setMoved(true);
+    hasMoved = true;
   }, []);
   const onRelease = useCallback(
     event => {
       if (!hasMoved) {
         onClick(event);
+        event.preventDefault();
       }
-      setMoved(false);
+      hasMoved = false;
     },
-    [hasMoved, onClick]
+    [onClick]
   );
 
   return type === "video" ? (

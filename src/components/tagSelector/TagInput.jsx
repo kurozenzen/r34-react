@@ -12,6 +12,7 @@ const Input = styled.input`
 export default function TagInput({ value, setValue }) {
   return (
     <Input
+      id="tag-input"
       value={value}
       onChange={e => setValue(e.target.value)}
       placeholder="Search for tags"

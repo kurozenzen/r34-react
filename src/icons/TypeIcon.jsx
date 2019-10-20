@@ -7,13 +7,13 @@ function TypeIcon({ types, className, onClick }) {
 
   switch (interestingType) {
     case "character":
-      return <CharacterIcon onClick={onClick} left />;
+      return <CharacterIcon className={className} onClick={onClick} left />;
     case "copyright":
-      return <CopyrightIcon onClick={onClick} left />;
+      return <CopyrightIcon className={className} onClick={onClick} left />;
     case "artist":
-      return <ArtistIcon onClick={onClick} left />;
+      return <ArtistIcon className={className} onClick={onClick} left />;
     default:
-      return null;
+      return <div className={className}></div>;
   }
 }
 

@@ -2,8 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { number, string, array, func } from "prop-types";
 import TagList from "../tag/TagList";
+import {
+  HeartIcon,
+  ExternalLinkIcon,
+  SourceIcon,
+  RatingIcon
+} from "../../icons/Icons";
 
-const DetailsWrapper = styled.div``;
+const DetailsWrapper = styled.div`
+  margin-left: 5px;
+`;
 
 const Bar = styled.div`
   display: flex;
@@ -36,45 +44,35 @@ Details.propTypes = {
 
 export default Details;
 
-const Rating = styled(({ value }) => <span>{value[0].toUpperCase()}</span>)`
-  ::before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 400;
-    content: "\f25d";
-    display: inline-block;
-    padding-right: 5px;
-  }
-`;
+const Rating = ({ value }) => (
+  <span>
+    <RatingIcon color="white" left />
+    {value[0].toUpperCase()}
+  </span>
+);
 
-const Score = styled(({ value }) => <span>{value}</span>)`
-  ::before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 400;
-    content: "\f004";
-    display: inline-block;
-    padding-right: 5px;
-  }
-`;
+const Score = ({ value }) => (
+  <span>
+    {value}
+    <HeartIcon color="white" right />
+  </span>
+);
 
-const Source = styled(({ value }) =>
-  value.startsWith("http") ? (
+function Source({ value }) {
+  return value.startsWith("http") ? (
     <a
       href={value}
       target="_blank"
       rel="noopener noreferrer"
       className="source"
     >
+      <ExternalLinkIcon color="red" left />
       Source
     </a>
   ) : (
-    <span>{value}</span>
-  )
-)`
-  ::before {
-    font-family: "Font Awesome 5 Free";
-    font-weight: 800;
-    content: "\f292";
-    display: inline-block;
-    padding-right: 5px;
-  }
-`;
+    <span>
+      <SourceIcon color="white" left />
+      {value}
+    </span>
+  );
+}

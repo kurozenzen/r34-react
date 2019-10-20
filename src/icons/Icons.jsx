@@ -60,3 +60,19 @@ export function ExpandIcon(props) {
 export function ArrowIcon(props) {
   return <Icon icon="fa-caret-down" {...props} />;
 }
+
+export function ExternalLinkIcon(props) {
+  return <Icon icon="fa-external-link-alt" {...props} />;
+}
+
+export function SourceIcon(props) {
+  return <Icon icon="fa-hashtag" {...props} />;
+}
+
+export function RatingIcon(props) {
+  return <Icon icon="fa-registered" {...props} />;
+}
+
+export function HeartIcon(props) {
+  return <Icon icon="fa-heart" {...props} />;
+}

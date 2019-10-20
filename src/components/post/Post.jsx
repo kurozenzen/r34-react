@@ -5,6 +5,7 @@ import Media from "./Media";
 import Details from "./Details";
 
 const PostWrapper = styled.div`
+  background: #101010;
   transition: height 0.5s ease-in-out;
 
   :not(:last-of-type) {

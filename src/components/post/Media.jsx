@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import Button from "../common/Button";
 import { ExpandIcon, CloseIcon } from "../../icons/Icons";
@@ -23,6 +23,20 @@ export default function Media({
   onFullscreen,
   onClick
 }) {
+  const [hasMoved, setMoved] = useState();
+  const onMove = useCallback(() => {
+    setMoved(true);
+  }, []);
+  const onRelease = useCallback(
+    event => {
+      if (!hasMoved) {
+        onClick(event);
+      }
+      setMoved(false);
+    },
+    [hasMoved, onClick]
+  );
+
   return type === "video" ? (
     <FlexVideo
       controls
@@ -32,6 +46,8 @@ export default function Media({
       poster={thumbnail_src}
       preload="none"
       onClick={onClick}
+      onTouchMove={onMove}
+      onTouchEnd={onRelease}
     />
   ) : (
     <>

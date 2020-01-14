@@ -3,17 +3,34 @@ import styled from "styled-components";
 import { func } from "prop-types";
 import api from "../../misc/api";
 import prepare from "../../misc/prepare";
-import Button from "../common/Button";
+import Button, { AddButton, ModifierButton } from "../common/Button";
 import TagInput from "./TagInput";
-import DropdownList from "./DropdownList";
-import { borderRadius, backgroundColor2 } from "../../misc/style";
+import DropdownList, { ListWrapper } from "./DropdownList";
+import { borderRadius } from "../../misc/style";
+import { normalizeTagname } from "../tag/tagUtils";
 
-const Wrapper = styled.div`
+export const TagSelectorWrapper = styled.div`
   display: flex;
-  width: 100%;
-  background: ${backgroundColor2};
-  border-radius: ${({ closed }) =>
-    closed ? borderRadius : `${borderRadius} ${borderRadius} 0 0 `};
+  background: white;
+  ${({ closed }) =>
+      closed
+        ? `border-radius: ${borderRadius};`
+        : `
+        border-radius: ${borderRadius} ${borderRadius} 0 0;
+
+        > ${AddButton} {
+          border-radius: 0 ${borderRadius} 0 0;
+        }
+
+        > ${ModifierButton} {
+          border-radius: ${borderRadius} 0 0 0;
+        }
+      `}
+    :focus-within {
+    ${ListWrapper} {
+      display: block;
+    }
+  }
 `;
 
 function TagSelector({ dispatch }) {
@@ -43,7 +60,7 @@ function TagSelector({ dispatch }) {
   useEffect(() => {
     const handle = setTimeout(() => {
       if (value && value !== "")
-        api.getTags(normalize(value)).then(newSuggestions => {
+        api.getTags(normalizeTagname(value)).then(newSuggestions => {
           setSuggestions(newSuggestions);
         });
     }, 400);
@@ -52,7 +69,7 @@ function TagSelector({ dispatch }) {
   }, [value]);
 
   return (
-    <Wrapper ref={setInputRef} closed={suggestions.length === 0}>
+    <TagSelectorWrapper ref={setInputRef} closed={suggestions.length === 0}>
       <Button
         type="modifier"
         onClick={() => setModifier(modifier === "+" ? "-" : "+")}
@@ -78,12 +95,8 @@ function TagSelector({ dispatch }) {
           addTag(entry);
         }}
       ></DropdownList>
-    </Wrapper>
+    </TagSelectorWrapper>
   );
-}
-
-function normalize(tagname) {
-  return tagname.toLowerCase().replace(/ /g, "_");
 }
 
 TagSelector.propTypes = {

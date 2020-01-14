@@ -1,23 +1,37 @@
 import React from "react";
 import styled from "styled-components";
 import { number, string, array, func } from "prop-types";
-import TagList from "../tag/TagList";
+import TagList, { TagListWrapper } from "../tag/TagList";
 import {
   HeartIcon,
   ExternalLinkIcon,
   SourceIcon,
   RatingIcon
 } from "../../icons/Icons";
+import { spacing, layer, shadow, gutter } from "../../misc/style";
 
 const DetailsWrapper = styled.div`
-  margin-left: 5px;
+  > ${TagListWrapper} {
+    padding: ${spacing};
+  }
+
+  overflow: hidden;
 `;
 
 const Bar = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin-left: 5px;
-  margin-right: 5px;
+  background: ${layer};
+  padding: ${spacing};
+  ${shadow};
+
+  > span,
+  > a {
+    margin: ${spacing};
+    line-height: 1rem;
+    height: 1rem;
+  }
 `;
 
 function Details({ rating, score, source, tags, activeTags, dispatch }) {
@@ -28,7 +42,12 @@ function Details({ rating, score, source, tags, activeTags, dispatch }) {
         {score && <Score value={score} />}
         {source && <Source value={source} />}
       </Bar>
-      <TagList tags={tags} activeTags={activeTags} dispatch={dispatch} />
+      <TagList
+        tags={tags}
+        activeTags={activeTags}
+        dispatch={dispatch}
+        padding={gutter}
+      />
     </DetailsWrapper>
   );
 }

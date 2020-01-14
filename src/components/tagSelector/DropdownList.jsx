@@ -3,28 +3,32 @@ import { array, object } from "prop-types";
 import styled from "styled-components";
 import TypeIcon from "../../icons/TypeIcon";
 import format from "../../misc/numberFormatting";
+import { prettifyTagname } from "../tag/tagUtils";
+import { accentColor, borderWidth } from "../../misc/style";
 
 function sizeAndPosition({ inputRef }) {
   return inputRef
     ? `
-    top: ${inputRef.getBoundingClientRect().top + inputRef.clientHeight}px;
-    left: ${inputRef.getBoundingClientRect().left}px;
-    width: ${inputRef.clientWidth}px;
-    `
+      position: absolute;
+      top: ${inputRef.offsetTop + inputRef.clientHeight - 2}px;
+      left: ${inputRef.offsetLeft}px;
+      width: ${inputRef.clientWidth}px;`
     : "";
 }
 
-const ListWrapper = styled.div`
-  position: absolute;
+export const ListWrapper = styled.div`
   ${sizeAndPosition};
+  display: none;
   background: white;
+  box-sizing: border-box;
+  border: ${borderWidth} ${accentColor} solid;
   border-radius: 0 0 3px 3px;
   color: black;
   z-index: 1;
 `;
 
 function DropdownList({ inputRef, entries, onClick }) {
-  return (
+  return entries && entries.length > 0 ? (
     <ListWrapper inputRef={inputRef}>
       {entries.map(entry => (
         <Entry
@@ -34,13 +38,24 @@ function DropdownList({ inputRef, entries, onClick }) {
         ></Entry>
       ))}
     </ListWrapper>
-  );
+  ) : null;
 }
 
 const EntryWrapper = styled.div`
   display: flex;
-  border-top: 1px grey solid;
-  padding: 2px 0;
+  height: 28px;
+
+  > * {
+    margin: auto;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px grey solid;
+  }
+
+  :focus {
+    text-decoration: underline;
+  }
 `;
 
 const TypeWrapper = styled.span`
@@ -50,12 +65,16 @@ const TypeWrapper = styled.span`
 
 function Entry({ name, posts, types, onClick }) {
   return (
-    <EntryWrapper onClick={onClick}>
+    <EntryWrapper
+      onClick={onClick}
+      onKeyDown={e => e.keyCode === 32 && onClick(e)}
+      tabIndex="0"
+    >
       <TypeWrapper>
         <TypeIcon types={types} />
       </TypeWrapper>
 
-      <span style={{ flexGrow: 1 }}>{name}</span>
+      <span style={{ flexGrow: 1 }}>{prettifyTagname(name)}</span>
       <span style={{ paddingRight: 5 }}>{format(posts)} posts</span>
     </EntryWrapper>
   );

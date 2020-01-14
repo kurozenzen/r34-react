@@ -3,14 +3,17 @@ import styled from "styled-components";
 import { arrayOf, func, number, object, string } from "prop-types";
 import Media from "./Media";
 import Details from "./Details";
+import { borderRadius, layer, bigSpacing, shadow } from "../../misc/style";
 
 const PostWrapper = styled.div`
-  background: #101010;
-  transition: height 0.5s ease-in-out;
-
-  :not(:last-of-type) {
-    margin-bottom: 10px;
-  }
+  display: flex;
+  flex-direction: column;
+  background: ${layer};
+  ${shadow};
+  border-radius: ${borderRadius};
+  overflow: hidden;
+  margin-bottom: ${bigSpacing};
+  border-box: border-box;
 `;
 
 export function getCorrectSource(loadOriginal, big_src, small_src, id) {
@@ -54,7 +57,6 @@ export default function Post({
         onFullscreen={() => dispatch({ type: "FOCUS_POST", id: id })}
         onClick={() => setCollapsed(!collapsed)}
       />
-
       {!collapsed && (
         <Details
           rating={rating}

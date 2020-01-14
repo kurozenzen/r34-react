@@ -20,6 +20,10 @@ function reducer(state, action) {
       return setFocusedPost(state, action.id);
     case "UNFOCUS_POST":
       return setFocusedPost(state, undefined);
+    case "SET_ACTIVE_MENU":
+      return setActiveMenu(state, action.menu);
+    case "RESET":
+      return reset(state);
     default:
       throw new Error(`Unrecognized Action: ${action.type}`);
   }
@@ -80,6 +84,16 @@ const setFocusedPost = (state, id) =>
     draft.context.focusedPost = id;
   });
 
+const setActiveMenu = (state, menu) =>
+  produce(state, draft => {
+    draft.context.activeMenu = menu;
+  });
+
+const reset = state =>
+  produce(state, draft => {
+    Object.assign(draft, initialState);
+  });
+
 const initialState = {
   results: {
     posts: [],
@@ -87,7 +101,8 @@ const initialState = {
     count: undefined
   },
   context: {
-    focusedPost: undefined
+    focusedPost: undefined,
+    activeMenu: "search"
   },
   tags: [],
   options: {
@@ -99,7 +114,7 @@ const initialState = {
 
 /**
  * Creates and manages state
- * @return {[{results: {posts: Array, page: Number, count: Number}, tags: Array, context: {focusedPost: String}, options: {originals: Boolean, infinite: Boolean, rated: Boolean}}, dispatch]}
+ * @return {[{results: {posts: Array, page: Number, count: Number}, tags: Array, context: {focusedPost: String, activeMenu: String}, options: {originals: Boolean, infinite: Boolean, rated: Boolean}}, dispatch]}
  */
 export default function useAppState() {
   const [cache, setCache] = useLocalStorage(initialState);

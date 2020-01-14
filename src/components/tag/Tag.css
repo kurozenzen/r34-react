@@ -22,22 +22,17 @@
 }
 
 .alias {
-  color: red;
-  font-size: 0.8rem;
-  line-height: 1.2;
+  color: #ef3322;
+  font-size: 14px;
   vertical-align: baseline;
 }
 
 .alias:hover {
-  color: black;
-  background-color: red;
-  -webkit-transition: color 0.15s ease-in-out,
-    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  background-color: #ffffff06;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .alias:not(:last-of-type) {
-  border-bottom: solid red thin;
+  border-bottom: solid #ef3322 thin;
 }

@@ -1,10 +1,13 @@
 import React from "react";
 import { arrayOf, object } from "prop-types";
+import styled from "styled-components";
 import Post from "./Post";
+
+const PostListWrapper = styled.div``;
 
 function PostList({ posts, activeTags, loadOriginal, dispatch }) {
   return (
-    <div className="post-list list-group list-group-flush">
+    <PostListWrapper>
       {posts.map(post => {
         return (
           <Post
@@ -16,7 +19,7 @@ function PostList({ posts, activeTags, loadOriginal, dispatch }) {
           />
         );
       })}
-    </div>
+    </PostListWrapper>
   );
 }
 

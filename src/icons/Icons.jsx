@@ -1,15 +1,26 @@
 import React from "react";
 import styled from "styled-components";
+import { TagWrapper } from "../components/tag/Tag";
+import { accentColor, backgroundColor2 } from "../misc/style";
 
 export const StyledIcon = styled.i`
   ${({ color, size }) => `
     color: ${color};
     width: ${size}px;
     height: ${size}px;
+
+    ${TagWrapper}:hover & {
+      color: ${accentColor};
+    }
+
+    ${TagWrapper}:active & ,  ${TagWrapper}:focus & {
+      color: ${backgroundColor2};
+    }
   `}
 `;
 
 const IconWrapper = styled.span`
+  line-height: 16px;
   ${({ left }) => (left ? "margin-right: 5px;" : "")}
   ${({ right }) => (right ? "margin-left: 5px;" : "")}
 `;
@@ -75,4 +86,12 @@ export function RatingIcon(props) {
 
 export function HeartIcon(props) {
   return <Icon icon="fa-heart" {...props} />;
+}
+
+export function PlayIcon(props) {
+  return <Icon icon="fa-play" {...props} />;
+}
+
+export function PauseIcon(props) {
+  return <Icon icon="fa-pause" {...props} />;
 }

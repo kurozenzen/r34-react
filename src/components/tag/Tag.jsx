@@ -8,9 +8,12 @@ import {
   backgroundColor,
   accentColor,
   borderRadius,
-  backgroundColor2
+  backgroundColor2,
+  spacing,
+  borderWidth
 } from "../../misc/style";
-import { StyledIcon, ArrowIcon } from "../../icons/Icons";
+import { ArrowIcon } from "../../icons/Icons";
+import { prettifyTagname } from "./tagUtils";
 
 const dropdownBorderRadius = ({ collapsed }) =>
   collapsed ? borderRadius : `${borderRadius} ${borderRadius} 0 0`;
@@ -22,28 +25,35 @@ const switchingColors = ({ active }) => {
   return `
     color: ${fg};
     background-color: ${bg};
-    border: ${accentColor} thin solid;
+    border: ${accentColor} ${borderWidth} solid;
+    transition: background-color 0.4s ease-in-out;
+
+    cursor: pointer;
 
     :hover {
-      color: ${backgroundColor2};
-      border: ${backgroundColor2} thin solid;
-
-      ${StyledIcon} {
-        color: ${backgroundColor2};
+      background-color: ${fg};
+      color: ${bg};
+      
+      i {
+        color: ${bg};
       }
+    }
+
+    :focus, :active {
+      color: ${backgroundColor2};
+      border-color: ${backgroundColor2}
     }
   `;
 };
 
-const TagWrapper = styled.div`
+export const TagWrapper = styled.div`
   display: inline-block;
-  padding: 0.25rem 0.4rem;
+  padding: 0.25rem;
   border-radius: ${dropdownBorderRadius}
-  font-size: 0.8rem;
+  font-size: 14px;
   line-height: 1.2;
   vertical-align: baseline;
-  margin-block-end: 5px;
-  margin-inline-end: 5px;
+  margin: ${() => spacing};
   ${switchingColors}
 `;
 
@@ -84,6 +94,7 @@ function Tag({
       active={active}
       collapsed={collapsed}
       onMouseLeave={() => setCollapsed(true)}
+      tabIndex="0"
     >
       <TypeIcon types={types} left />
       <TagText
@@ -130,11 +141,16 @@ Tag.defaultProps = {
 };
 
 function TagText({ name, count, types, modifier, dispatch }) {
-  const text = count ? `${name} (${count})` : name;
+  const tagname = prettifyTagname(name);
+  const text = count ? `${tagname} (${count})` : tagname;
 
   return (
     <span
       onClick={() =>
+        dispatch({ type: "TOGGLE_TAG", tag: { name, count, types, modifier } })
+      }
+      onKeyDown={e =>
+        e.keyCode === 32 &&
         dispatch({ type: "TOGGLE_TAG", tag: { name, count, types, modifier } })
       }
     >

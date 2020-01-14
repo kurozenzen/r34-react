@@ -3,6 +3,7 @@ import { object } from "prop-types";
 import styled from "styled-components";
 import Media from "../components/post/Media";
 import { MinusIcon, PlusIcon } from "../icons/Icons";
+import { backgroundColor } from "../misc/style";
 
 const ReaderWrapper = styled.div`
   position: fixed;
@@ -11,7 +12,7 @@ const ReaderWrapper = styled.div`
   height: 100%;
   width: 100%;
   overflow: scroll;
-  background-color: black;
+  background-color: ${backgroundColor};
 `;
 const Overlay = styled.div`
   position: fixed;

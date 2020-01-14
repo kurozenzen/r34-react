@@ -1,19 +1,29 @@
 import React from "react";
 import { arrayOf, shape, string } from "prop-types";
+import styled from "styled-components";
 import Tag from "../tag/Tag";
+import { spacing } from "../../misc/style";
 
-export function TagList({ tags, activeTags, loadAliases, dispatch }) {
+export const TagListWrapper = styled.div`
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: ${({ padding }) => `calc(${padding} - ${spacing})`};
+`;
+
+export function TagList({ tags, activeTags, loadAliases, dispatch, padding }) {
   return (
-    <div className="tag-list">
-      {tags.map(tag => (
-        <Tag
-          key={"t_" + tag.name}
-          {...tag}
-          activeTags={activeTags}
-          loadAliases={loadAliases}
-          dispatch={dispatch}
-        />
-      ))}
+    <div>
+      <TagListWrapper padding={padding}>
+        {tags.map(tag => (
+          <Tag
+            key={"t_" + tag.name}
+            {...tag}
+            activeTags={activeTags}
+            loadAliases={loadAliases}
+            dispatch={dispatch}
+          />
+        ))}
+      </TagListWrapper>
     </div>
   );
 }
@@ -34,7 +44,8 @@ TagList.propTypes = {
 TagList.defaultProps = {
   activeTags: [],
   onItemClick: () => {},
-  onItemItemClick: () => {}
+  onItemItemClick: () => {},
+  padding: "0px"
 };
 
 export default TagList;

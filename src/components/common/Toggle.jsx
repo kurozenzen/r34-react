@@ -3,14 +3,14 @@ import { bool, func, node } from "prop-types";
 import styled from "styled-components";
 import ReactToggle from "react-toggle";
 import "./Toggle.css";
+import { gutter } from "../../misc/style";
 
 const ToggleWrapper = styled.label`
   display: flex;
-  margin-block-end: 5px;
 `;
 
 const Label = styled.span`
-  margin-inline-start: 5px;
+  margin-left: ${gutter};
 `;
 
 export default function Toggle({ children, initial, onChange }) {

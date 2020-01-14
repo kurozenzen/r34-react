@@ -1,10 +1,19 @@
 import React, { useCallback } from "react";
 import { object, func, array } from "prop-types";
+import styled from "styled-components";
 import api from "../../misc/api";
 import prepare from "../../misc/prepare";
 import format from "../../misc/numberFormatting";
 import PostList from "../post/PostList";
 import Button from "../common/Button";
+import Title from "../common/Title";
+import { gutter } from "../../misc/style";
+
+const ResultsWrapper = styled.section`
+  > *:not(:last-child) {
+    margin-bottom: ${gutter};
+  }
+`;
 
 let scrollLock = true;
 
@@ -31,8 +40,8 @@ function Results({ options, dispatch, tags, results }) {
   }, [loadMore, options.infinite]);
 
   return (
-    <section className="results">
-      <h3 className="centered">{format(results.count)} results</h3>
+    <ResultsWrapper className="results">
+      <Title>{format(results.count)} results</Title>
       <PostList
         posts={results.posts}
         activeTags={tags}
@@ -44,7 +53,7 @@ function Results({ options, dispatch, tags, results }) {
           Load More
         </Button>
       )}
-    </section>
+    </ResultsWrapper>
   );
 }
 

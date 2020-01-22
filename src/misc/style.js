@@ -1,7 +1,7 @@
 export const borderRadius = "3px";
 export const borderWidth = "2px";
-export const accentColor = "#ef3322";
-export const hoverAccent = "#eb4131";
+export const accentColor = "crimson";
+export const hoverAccent = "crimson";
 export const spacing = "4px";
 export const bigSpacing = "8px";
 export const backgroundColor = "#121212";

@@ -45,7 +45,7 @@
   border-radius: 30px;
   box-sizing: border-box;
   background-color: black;
-  border: 2px #ef3322 solid;
+  border: 2px #crimson solid;
   -webkit-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
   transition: all 0.4s ease;
@@ -60,11 +60,11 @@
 }
 
 .react-toggle--checked .react-toggle-track {
-  background-color: #ef3322;
+  background-color: #crimson;
 }
 
 .react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background-color: #ef3322;
+  background-color: #crimson;
 }
 
 .react-toggle-track-check {

@@ -22,7 +22,7 @@
 }
 
 .alias {
-  color: #crimson;
+  color: crimson;
   font-size: 14px;
   vertical-align: baseline;
 }
@@ -34,5 +34,5 @@
 }
 
 .alias:not(:last-of-type) {
-  border-bottom: solid #crimson thin;
+  border-bottom: solid crimson thin;
 }

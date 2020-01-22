@@ -37,8 +37,10 @@ function buildPostUrl(page, tags, minScore) {
   url +=
     "&tags=" +
     tags
-      .map(t => (t.modifier ? t.modifier : "") + encodeURIComponent(t.name))
+      .map(t => (t.modifier === "-" ? "-" : "") + encodeURIComponent(t.name))
       .join("+");
-  url += encodeURIComponent("+score:>=" + minScore);
+  if (minScore > 0) {
+    url += "+" + encodeURIComponent("score:>=" + minScore);
+  }
   return url;
 }

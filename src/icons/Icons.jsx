@@ -6,7 +6,7 @@ import { accentColor, backgroundColor2 } from "../misc/style";
 export const StyledIcon = styled.i`
   ${({ color, size }) => `
     color: ${color};
-    width: ${size}px;
+    min-width: ${size}px;
     height: ${size}px;
 
     ${TagWrapper}:hover & {

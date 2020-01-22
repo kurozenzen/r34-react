@@ -34,6 +34,19 @@ const MenuButton = styled(InvisibleButton)`
 
 const TopLeftButton = styled(InvisibleButton)`
   position: absolute;
+  left: 0px;
+  top: 0px;
+  margin: 10px;
+  padding: 5px 5px;
+  filter: drop-shadow(0 0 10px black);
+`;
+
+const CenterButton = styled(InvisibleButton)`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 10px black);
 `;
 
 const RedButton = styled(BasicButton)`
@@ -97,6 +110,9 @@ export default function Button({
       break;
     case "topLeft":
       Btn = TopLeftButton;
+      break;
+    case "center":
+      Btn = CenterButton;
       break;
     case "modifier":
       Btn = ModifierButton;

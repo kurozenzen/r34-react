@@ -28,7 +28,7 @@ export default function Media({
   thumbnail_src,
   isFullscreen,
   onFullscreen,
-  onClick
+  onClick,
 }) {
   const isPlayable = type === "video" || src.includes(".gif");
   /**
@@ -59,14 +59,14 @@ export default function Media({
           preload="metadata"
           onClick={onClick}
           ref={setVideoRef}
-          onKeyDown={e => e.keyCode === 32 && onClick(e)}
+          onKeyDown={(e) => e.keyCode === 32 && onClick(e)}
         />
       ) : (
         <FlexImage
           src={usedSource}
           alt={src}
           onClick={onClick}
-          onKeyDown={e => e.keyCode === 32 && onClick(e)}
+          onKeyDown={(e) => e.keyCode === 32 && onClick(e)}
         />
       )}
       <Button type={"topLeft"} onClick={onFullscreen} label="Toggle Fullscreen">
@@ -87,7 +87,7 @@ export default function Media({
               />
             ) : (
               <PauseIcon
-                color="white"
+                color="transparent"
                 size={50}
                 onClick={() => setPaused(true)}
               />
@@ -99,7 +99,7 @@ export default function Media({
               backgroundColor: accentColor,
               width: videoRef
                 ? (videoRef.currentTime / videoRef.duration) * 100 + "%"
-                : 0
+                : 0,
             }}
           ></div>
         </>

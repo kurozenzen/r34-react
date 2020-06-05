@@ -7,7 +7,7 @@ import {
   borderRadius,
   spacing,
   backgroundColor2,
-  borderWidth
+  borderWidth,
 } from "../../misc/style";
 
 const BasicButton = styled.button`
@@ -91,56 +91,54 @@ export const ModifierButton = styled(InvisibleButton)`
   border-radius: ${borderRadius} 0 0 ${borderRadius};
 `;
 
+/**
+ * @param {String} type
+ */
+const getButtonByType = (type) => {
+  switch (type) {
+    case "invisible":
+      return InvisibleButton;
+    case "block":
+      return BlockButton;
+    case "topLeft":
+      return TopLeftButton;
+    case "center":
+      return CenterButton;
+    case "modifier":
+      return ModifierButton;
+    case "add":
+      return AddButton;
+    case "menu":
+      return MenuButton;
+    default:
+      return RedButton;
+  }
+};
+
 export default function Button({
   type,
   children,
   onClick,
   active,
   disabled,
-  label
+  label,
 }) {
-  let Btn;
-
-  switch (type) {
-    case "invisible":
-      Btn = InvisibleButton;
-      break;
-    case "block":
-      Btn = BlockButton;
-      break;
-    case "topLeft":
-      Btn = TopLeftButton;
-      break;
-    case "center":
-      Btn = CenterButton;
-      break;
-    case "modifier":
-      Btn = ModifierButton;
-      break;
-    case "add":
-      Btn = AddButton;
-      break;
-    case "menu":
-      Btn = MenuButton;
-      break;
-    default:
-      Btn = RedButton;
-  }
+  const TypedButton = getButtonByType(type);
 
   return (
-    <Btn
+    <TypedButton
       onClick={onClick}
       active={active}
       disabled={disabled}
       aria-label={label}
     >
       {children}
-    </Btn>
+    </TypedButton>
   );
 }
 
 Button.propTypes = {
   type: string,
   children: node.isRequired,
-  btnProps: object
+  btnProps: object,
 };

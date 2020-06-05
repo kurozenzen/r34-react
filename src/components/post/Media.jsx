@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "../common/Button";
-import { ExpandIcon, CloseIcon, PlayIcon, PauseIcon } from "../../icons/Icons";
-import styled from "styled-components";
+import { ExpandIcon, PlayIcon, PauseIcon } from "../../icons/Icons";
+import styled, { css } from "styled-components";
 import { accentColor } from "../../misc/style";
 
 const FlexVideo = styled.video`
@@ -22,30 +22,61 @@ const MediaWrapper = styled.div`
   position: relative;
 `;
 
-export default function Media({
-  type,
-  src,
-  thumbnail_src,
-  isFullscreen,
-  onFullscreen,
-  onClick,
-}) {
+const openFullscreen = (elem) => {
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozRequestFullScreen) {
+    /* Firefox */
+    elem.mozRequestFullScreen();
+  } else if (elem.webkitRequestFullscreen) {
+    /* Chrome, Safari and Opera */
+    elem.webkitRequestFullscreen();
+  } else if (elem.msRequestFullscreen) {
+    /* IE/Edge */
+    elem.msRequestFullscreen();
+  }
+};
+
+const ProgressBar = styled.div(
+  ({ currentTime, duration }) => css`
+    height: 5px;
+    background-color: ${accentColor};
+    width: ${(currentTime / duration) * 100}%;
+  `
+);
+
+export default function Media({ type, src, thumbnail_src, onClick }) {
   const isPlayable = type === "video" || src.includes(".gif");
-  /**
-   * @type [HTMLVideoElement, Function]
-   */
-  const [videoRef, setVideoRef] = useState({});
-  const [paused, setPaused] = useState(true);
+  /** @type [HTMLVideoElement, Function] */
+
+  const [videoRef, setVideoRef] = useState({
+    paused: true,
+    play: () => {},
+    pause: () => {},
+    currentTime: 0,
+    duration: 1,
+  });
+
+  const [time, setTime] = useState(Date.now());
+  const [intervalId, setIntervalId] = useState(0);
+
+  const play = () => {
+    videoRef.play();
+    const id = setInterval(() => {
+      setTime(Date.now());
+      console.log(time);
+    }, 32);
+    setIntervalId(id);
+  };
+
+  const pause = () => {
+    videoRef.pause();
+    clearInterval(intervalId);
+    setIntervalId(-1);
+  };
+
   const usedSource =
-    isPlayable && type === "image" && paused ? thumbnail_src : src;
-
-  console.log(isPlayable, type, paused);
-
-  useEffect(() => {
-    if (videoRef && videoRef.play) {
-      paused ? videoRef.pause() : videoRef.play();
-    }
-  }, [paused, videoRef]);
+    isPlayable && type === "image" && videoRef.paused ? thumbnail_src : src;
 
   return (
     <MediaWrapper>
@@ -69,39 +100,26 @@ export default function Media({
           onKeyDown={(e) => e.keyCode === 32 && onClick(e)}
         />
       )}
-      <Button type={"topLeft"} onClick={onFullscreen} label="Toggle Fullscreen">
-        {isFullscreen ? (
-          <CloseIcon color="white" />
-        ) : (
-          <ExpandIcon color="white" />
-        )}
+      <Button
+        type={"topLeft"}
+        onClick={() => openFullscreen(videoRef)}
+        label="Open Fullscreen"
+      >
+        <ExpandIcon color="white" />
       </Button>
       {isPlayable && (
         <>
-          <Button type="center">
-            {paused ? (
-              <PlayIcon
-                color="white"
-                size={50}
-                onClick={() => setPaused(false)}
-              />
+          <Button type="center" onClick={videoRef.paused ? play : pause}>
+            {videoRef.paused ? (
+              <PlayIcon color="white" size={50} />
             ) : (
-              <PauseIcon
-                color="transparent"
-                size={50}
-                onClick={() => setPaused(true)}
-              />
+              <PauseIcon color="white" size={50} />
             )}
           </Button>
-          <div
-            style={{
-              height: 5,
-              backgroundColor: accentColor,
-              width: videoRef
-                ? (videoRef.currentTime / videoRef.duration) * 100 + "%"
-                : 0,
-            }}
-          ></div>
+          <ProgressBar
+            currentTime={videoRef.currentTime}
+            duration={videoRef.duration}
+          />
         </>
       )}
     </MediaWrapper>

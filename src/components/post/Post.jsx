@@ -42,7 +42,7 @@ export default function Post({
   tags,
   loadOriginal,
   activeTags,
-  dispatch
+  dispatch,
 }) {
   const media_src = getCorrectSource(loadOriginal, big_src, small_src, id);
   const [collapsed, setCollapsed] = useState(true);
@@ -53,7 +53,6 @@ export default function Post({
         type={media_type}
         src={media_src}
         thumbnail_src={thumbnail_src}
-        isFullscreen={false}
         onFullscreen={() => dispatch({ type: "FOCUS_POST", id: id })}
         onClick={() => setCollapsed(!collapsed)}
       />
@@ -79,5 +78,5 @@ Post.propTypes = {
   score: number,
   source: string,
   tags: arrayOf(object),
-  onTagClick: func
+  onTagClick: func,
 };

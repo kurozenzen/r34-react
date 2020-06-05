@@ -6,9 +6,9 @@ import {
   backgroundColor2,
   bigSpacing,
   shadow,
-  gutter
+  gutter,
 } from "../../misc/style";
-import Title from "../common/Title";
+import { BigTitle } from "../common/Title";
 import R34Icon from "../../icons/R34Icon";
 
 const HeaderWrapper = styled.header`
@@ -40,13 +40,13 @@ function Header({ activeMenu, dispatch }) {
   return (
     <HeaderWrapper>
       <TitleBar>
-        <Title size="large">
+        <BigTitle>
           <R34Icon size={32} />
           <Divider />
           <span style={{ marginTop: 2 }}>
             Browse <a href="https://rule34.xxx">Rule34</a>
           </span>
-        </Title>
+        </BigTitle>
       </TitleBar>
 
       <MenuBar>

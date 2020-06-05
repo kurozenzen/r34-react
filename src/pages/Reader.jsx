@@ -27,7 +27,7 @@ const HiddenImage = styled.img`
 `;
 
 export default function Reader({ focusedPost, posts, dispatch }) {
-  const postIndex = posts.findIndex(p => p.id === focusedPost);
+  const postIndex = posts.findIndex((p) => p.id === focusedPost);
   const { big_src, media_type, thumbnail_src } = posts[postIndex];
   const prevSrc = posts[postIndex > 0 ? postIndex - 1 : postIndex].big_src;
   const nextSrc =
@@ -68,5 +68,5 @@ export default function Reader({ focusedPost, posts, dispatch }) {
 }
 
 Reader.propTypes = {
-  post: object
+  post: object,
 };

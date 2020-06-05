@@ -10,7 +10,7 @@ function Help() {
     <>
       <Title>Help</Title>
       <Surface>
-        <Title type="small">Searching for Tags</Title>
+        <Title>Searching for Tags</Title>
         <Line />
         <TagSelector dispatch={() => {}} />
         <Line />
@@ -40,7 +40,7 @@ function Help() {
         </ol>
       </Surface>
       <Surface>
-        <Title type="small">Options</Title>
+        <Title>Options</Title>
         <Line />
         <Options options={{}} dispatch={() => {}} />
         <Line />
@@ -65,7 +65,7 @@ function Help() {
         </ol>
       </Surface>
       <Surface>
-        <Title type="small">Tags</Title>
+        <Title>Tags</Title>
         <Line />
         <TagList
           tags={[
@@ -75,8 +75,8 @@ function Help() {
               name: "Tag 3",
               modifier: "-",
               types: ["copyright"],
-              count: 1020
-            }
+              count: 1020,
+            },
           ]}
           activeTags={[{ name: "Tag 2" }, { name: "Tag 3" }]}
         />

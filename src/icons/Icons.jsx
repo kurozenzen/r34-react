@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { TagWrapper } from "../components/tag/Tag";
 import { accentColor, backgroundColor2 } from "../misc/style";
 
@@ -37,61 +37,74 @@ const Icon = ({ className, icon, color, size, onClick, left, right }) => (
 
 Icon.defaultProps = {
   color: "black",
-  size: 14
+  size: 14,
 };
 
-export function CharacterIcon(props) {
-  return <Icon icon="fa-user" {...props} />;
-}
+export const CharacterIcon = styled(Icon).attrs({
+  icon: "fa-user",
+})``;
 
-export function ArtistIcon(props) {
-  return <Icon icon="fa-pen" {...props} />;
-}
+export const ArtistIcon = styled(Icon).attrs({
+  icon: "fa-pen",
+})``;
 
-export function CopyrightIcon(props) {
-  return <Icon icon="fa-copyright" {...props} />;
-}
+export const CopyrightIcon = styled(Icon).attrs({
+  icon: "fa-copyright",
+})``;
 
-export function PlusIcon(props) {
-  return <Icon icon="fa-plus-circle" {...props} />;
-}
+export const PlusIcon = styled(Icon).attrs({
+  icon: "fa-plus-circle",
+})``;
 
-export function MinusIcon(props) {
-  return <Icon icon="fa-minus-circle" {...props} />;
-}
+export const MinusIcon = styled(Icon).attrs({
+  icon: "fa-minus-circle",
+})``;
 
-export function CloseIcon(props) {
-  return <Icon icon="fa-times" {...props} />;
-}
+export const CloseIcon = styled(Icon).attrs({
+  icon: "fa-times",
+})``;
 
-export function ExpandIcon(props) {
-  return <Icon icon="fa-expand" {...props} />;
-}
+export const ExpandIcon = styled(Icon).attrs({
+  icon: "fa-expand",
+})``;
 
-export function ArrowIcon(props) {
-  return <Icon icon="fa-caret-down" {...props} />;
-}
+export const ArrowIcon = styled(Icon).attrs({
+  icon: "fa-caret-down",
+})``;
 
-export function ExternalLinkIcon(props) {
-  return <Icon icon="fa-external-link-alt" {...props} />;
-}
+export const ExternalLinkIcon = styled(Icon).attrs({
+  icon: "fa-external-link-alt",
+})``;
 
-export function SourceIcon(props) {
-  return <Icon icon="fa-hashtag" {...props} />;
-}
+export const SourceIcon = styled(Icon).attrs({
+  icon: "fa-hashtag",
+})``;
 
-export function RatingIcon(props) {
-  return <Icon icon="fa-registered" {...props} />;
-}
+export const RatingIcon = styled(Icon).attrs({
+  icon: "fa-registered",
+})``;
 
-export function HeartIcon(props) {
-  return <Icon icon="fa-heart" {...props} />;
-}
+export const HeartIcon = styled(Icon).attrs({
+  icon: "fa-heart",
+})``;
 
-export function PlayIcon(props) {
-  return <Icon icon="fa-play" {...props} />;
-}
+export const PlayIcon = styled(Icon).attrs({
+  icon: "fa-play",
+})``;
 
-export function PauseIcon(props) {
-  return <Icon icon="fa-pause" {...props} />;
-}
+const fade = keyframes`
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+`;
+
+export const PauseIcon = styled(Icon).attrs({
+  icon: "fa-pause",
+})`
+  opacity: 0;
+  animation: ${fade} 1s linear;
+`;

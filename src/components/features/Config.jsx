@@ -19,11 +19,11 @@ const ConfigWrapper = styled.section`
 
 function Config({ options, tags, dispatch }) {
   const search = useCallback(() => {
-    api.getPosts(tags, 0, options.rated).then(res => {
+    api.getPosts(tags, 0, options.rated).then((res) => {
       dispatch({
         type: "SET_POSTS",
         posts: res.posts.map(prepare),
-        count: Number(res.count)
+        count: Number(res.count),
       });
     });
   }, [dispatch, options.rated, tags]);
@@ -45,7 +45,7 @@ function Config({ options, tags, dispatch }) {
           />
         )}
         <Options options={options} dispatch={dispatch} />
-        <Button type={"block"} onClick={search}>
+        <Button type="block" onClick={search}>
           Search
         </Button>
       </Surface>
@@ -56,7 +56,7 @@ function Config({ options, tags, dispatch }) {
 Config.propTypes = {
   options: object,
   tags: array,
-  dispatch: func
+  dispatch: func,
 };
 
 export default Config;

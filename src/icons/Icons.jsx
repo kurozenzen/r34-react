@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { TagWrapper } from "../components/tag/Tag";
 import { accentColor, backgroundColor2 } from "../misc/style";
 
@@ -92,19 +92,14 @@ export const PlayIcon = styled(Icon).attrs({
   icon: "fa-play",
 })``;
 
-const fade = keyframes`
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-`;
-
 export const PauseIcon = styled(Icon).attrs({
   icon: "fa-pause",
-})`
-  opacity: 0;
-  animation: ${fade} 1s linear;
-`;
+})``;
+
+export const ArrowUp = styled(Icon).attrs({
+  icon: "fa-caret-down",
+})``;
+
+export const ArrowDown = styled(Icon).attrs({
+  icon: "fa-caret-up",
+})``;

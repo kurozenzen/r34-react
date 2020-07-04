@@ -2,7 +2,6 @@ import React from "react";
 import Help from "./pages/Help";
 import styled from "styled-components";
 import Search from "./pages/Search";
-import Reader from "./pages/Reader";
 import Header from "./components/features/Header";
 import useAppState from "./hooks/useAppState";
 import Footer from "./components/features/Footer";
@@ -10,7 +9,7 @@ import {
   backgroundColor,
   accentColor,
   backgroundColor2,
-  gutter
+  gutter,
 } from "./misc/style";
 import Settings from "./pages/Settings";
 
@@ -48,8 +47,6 @@ const AppWrapper = styled.div`
 
 function getActivePage(activeMenu, state, dispatch) {
   switch (activeMenu) {
-    case "reader":
-      return <Reader state={state} dispatch={dispatch} />;
     case "help":
       return <Help state={state} dispatch={dispatch} />;
     case "settings":

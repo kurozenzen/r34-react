@@ -10,10 +10,11 @@ import {
   borderRadius,
   backgroundColor2,
   spacing,
-  borderWidth
+  borderWidth,
 } from "../../misc/style";
 import { ArrowIcon } from "../../icons/Icons";
 import { prettifyTagname } from "./tagUtils";
+import format from "../../misc/numberFormatting";
 
 const dropdownBorderRadius = ({ collapsed }) =>
   collapsed ? borderRadius : `${borderRadius} ${borderRadius} 0 0`;
@@ -69,24 +70,24 @@ function Tag({
   types,
   activeTags,
   loadAliases,
-  dispatch
+  dispatch,
 }) {
   const [aliases, setAliases] = useState();
   const [collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
-    if (activeTags.some(t => t.name === name))
-      api.getAliases(name).then(newAliases => {
+    if (activeTags.some((t) => t.name === name))
+      api.getAliases(name).then((newAliases) => {
         newAliases.sort((a, b) => Number(b.posts) - Number(a.posts));
         setAliases(
           newAliases.filter(
-            alias => !activeTags.some(tag => tag.name === alias.name)
+            (alias) => !activeTags.some((tag) => tag.name === alias.name)
           )
         );
       });
   }, [name, activeTags]);
 
-  const active = activeTags.some(t => t.name === name);
+  const active = activeTags.some((t) => t.name === name);
   const showAliases = loadAliases && aliases && aliases.length > 0;
 
   return (
@@ -132,24 +133,24 @@ Tag.propTypes = {
   modifier: string,
   types: arrayOf(string),
   active: bool,
-  onClick: func
+  onClick: func,
 };
 
 Tag.defaultProps = {
   types: [],
-  onClick: () => {}
+  onClick: () => {},
 };
 
 function TagText({ name, count, types, modifier, dispatch }) {
   const tagname = prettifyTagname(name);
-  const text = count ? `${tagname} (${count})` : tagname;
+  const text = count ? `${tagname} (${format(count)})` : tagname;
 
   return (
     <span
       onClick={() =>
         dispatch({ type: "TOGGLE_TAG", tag: { name, count, types, modifier } })
       }
-      onKeyDown={e =>
+      onKeyDown={(e) =>
         e.keyCode === 32 &&
         dispatch({ type: "TOGGLE_TAG", tag: { name, count, types, modifier } })
       }
@@ -173,14 +174,14 @@ TagText.propTypes = {
   modifier: string,
   types: arrayOf(string),
   activeTags: arrayOf(object),
-  onClick: func
+  onClick: func,
 };
 
 TagText.defaultProps = {
   modifier: "+",
   types: [],
   activeTags: [],
-  onClick: () => {}
+  onClick: () => {},
 };
 
 export default Tag;

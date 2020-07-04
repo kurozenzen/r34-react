@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { object, func, array } from "prop-types";
 import styled from "styled-components";
 import api from "../../misc/api";
@@ -7,7 +7,10 @@ import format from "../../misc/numberFormatting";
 import PostList from "../post/PostList";
 import Button from "../common/Button";
 import Title from "../common/Title";
+import Surface, { Line } from "../common/Surface";
 import { gutter } from "../../misc/style";
+
+import outOfResultsPicture from "../../icons/OutOfResults.png";
 
 const ResultsWrapper = styled.section`
   > *:not(:last-child) {
@@ -25,8 +28,10 @@ function hasReachedEndOfPage() {
 }
 
 function Results({ options, dispatch, tags, results }) {
+  const [isOutOfResults, setOutOfResults] = useState(false);
   const loadMore = useCallback(() => {
-    api.getPosts(tags, results.page + 1, options.rated).then(res => {
+    api.getPosts(tags, results.page + 1, options.rated).then((res) => {
+      setOutOfResults(res.posts.length === 0);
       dispatch({ type: "ADD_POSTS", posts: res.posts.map(prepare) });
       scrollLock = true;
     });
@@ -48,10 +53,20 @@ function Results({ options, dispatch, tags, results }) {
         loadOriginal={options.originals}
         dispatch={dispatch}
       />
-      {!options.infinite && (
+
+      {!options.infinite && !isOutOfResults && (
         <Button type={"block"} onClick={loadMore}>
           Load More
         </Button>
+      )}
+
+      {isOutOfResults && (
+        <Surface>
+          <img src={outOfResultsPicture} alt={outOfResultsPicture} />
+          <Line />
+          <Title>You have reached the end!</Title>
+          <p style={{ textAlign: "center" }}>Go look for something else...</p>
+        </Surface>
       )}
     </ResultsWrapper>
   );
@@ -61,7 +76,7 @@ Results.propTypes = {
   options: object,
   dispatch: func,
   tags: array,
-  results: object
+  results: object,
 };
 
 export default Results;

@@ -34,8 +34,17 @@ const MenuButton = styled(InvisibleButton)`
 
 const TopLeftButton = styled(InvisibleButton)`
   position: absolute;
-  left: 0px;
-  top: 0px;
+  left: 0;
+  top: 0;
+  margin: 10px;
+  padding: 5px 5px;
+  filter: drop-shadow(0 0 10px black);
+`;
+
+const BottomLeftButton = styled(InvisibleButton)`
+  position: absolute;
+  left: 0;
+  bottom: 0;
   margin: 10px;
   padding: 5px 5px;
   filter: drop-shadow(0 0 10px black);
@@ -102,6 +111,8 @@ const getButtonByType = (type) => {
       return BlockButton;
     case "topLeft":
       return TopLeftButton;
+    case "bottomLeft":
+      return BottomLeftButton;
     case "center":
       return CenterButton;
     case "modifier":

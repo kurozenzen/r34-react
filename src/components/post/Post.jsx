@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { arrayOf, func, number, object, string } from "prop-types";
-import Media from "./Media";
 import Details from "./Details";
 import { borderRadius, layer, bigSpacing, shadow } from "../../misc/style";
+import Player from "../player/Player";
 
 const PostWrapper = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const PostWrapper = styled.div`
   border-radius: ${borderRadius};
   overflow: hidden;
   margin-bottom: ${bigSpacing};
-  border-box: border-box;
+  box-sizing: border-box;
 `;
 
 export function getCorrectSource(loadOriginal, big_src, small_src, id) {
@@ -49,12 +49,12 @@ export default function Post({
 
   return (
     <PostWrapper>
-      <Media
+      <Player
         type={media_type}
         src={media_src}
         thumbnail_src={thumbnail_src}
-        onFullscreen={() => dispatch({ type: "FOCUS_POST", id: id })}
-        onClick={() => setCollapsed(!collapsed)}
+        areDetailsVisible={!collapsed}
+        toggleDetails={() => setCollapsed(!collapsed)}
       />
       {!collapsed && (
         <Details

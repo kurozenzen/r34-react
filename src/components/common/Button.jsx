@@ -8,6 +8,7 @@ import {
   spacing,
   backgroundColor2,
   borderWidth,
+  dropShadow,
 } from "../../misc/style";
 
 const BasicButton = styled.button`
@@ -38,7 +39,7 @@ const TopLeftButton = styled(InvisibleButton)`
   top: 0;
   margin: 10px;
   padding: 5px 5px;
-  filter: drop-shadow(0 0 10px black);
+  filter: ${dropShadow};
 `;
 
 const BottomLeftButton = styled(InvisibleButton)`
@@ -47,7 +48,7 @@ const BottomLeftButton = styled(InvisibleButton)`
   bottom: 0;
   margin: 10px;
   padding: 5px 5px;
-  filter: drop-shadow(0 0 10px black);
+  filter: ${dropShadow};
 `;
 
 const CenterButton = styled(InvisibleButton)`
@@ -55,7 +56,7 @@ const CenterButton = styled(InvisibleButton)`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  filter: drop-shadow(0 0 10px black);
+  filter: ${dropShadow};
 `;
 
 const RedButton = styled(BasicButton)`

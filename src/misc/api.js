@@ -4,43 +4,41 @@ const pageSize = 20,
 
 let activeApi = apiUrl1;
 
+// Failover to apiUrl2
 fetch(activeApi).catch(() => (activeApi = apiUrl2));
 
 export default {
   async getTags(searchTerm) {
     const res = await fetch(
-      activeApi +
-        "/tags?limit=" +
-        pageSize +
-        "&name=" +
-        searchTerm +
-        "*&order_by=posts"
+      `${activeApi}/tags?limit=${pageSize}&name=${searchTerm}*&order_by=posts`
     );
+
     return await res.json();
   },
 
   async getPosts(tags, pageNumber = 0, minScore = 0) {
     const res = await fetch(buildPostUrl(pageNumber, tags, minScore));
+
     return await res.json();
   },
 
   async getAliases(tag) {
-    const res = await fetch(activeApi + "/alias/" + tag);
+    const res = await fetch(`${activeApi}/alias/"${tag}`);
+
     return await res.json();
-  }
+  },
 };
 
 function buildPostUrl(page, tags, minScore) {
-  let url = activeApi + "/posts";
-  url += "?pid=" + page;
-  url += "&limit=" + pageSize;
-  url +=
-    "&tags=" +
-    tags
-      .map(t => (t.modifier === "-" ? "-" : "") + encodeURIComponent(t.name))
-      .join("+");
+  const tagString = tags
+    .map((t) => (t.modifier === "-" ? "-" : "") + encodeURIComponent(t.name))
+    .join("+");
+
+  let url = `${activeApi}/posts?pid=${page}&limit=${pageSize}&tags=${tagString}`;
+
   if (minScore > 0) {
-    url += "+" + encodeURIComponent("score:>=" + minScore);
+    url += `+${encodeURIComponent("score:>=" + minScore)}`;
   }
+
   return url;
 }

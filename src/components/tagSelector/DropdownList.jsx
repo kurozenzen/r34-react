@@ -30,7 +30,7 @@ export const ListWrapper = styled.div`
 function DropdownList({ inputRef, entries, onClick }) {
   return entries && entries.length > 0 ? (
     <ListWrapper inputRef={inputRef}>
-      {entries.map(entry => (
+      {entries.map((entry) => (
         <Entry
           key={entry.name}
           {...entry}
@@ -67,7 +67,7 @@ function Entry({ name, posts, types, onClick }) {
   return (
     <EntryWrapper
       onClick={onClick}
-      onKeyDown={e => e.keyCode === 32 && onClick(e)}
+      onKeyDown={(e) => e.keyCode === 32 && onClick(e)}
       tabIndex="0"
     >
       <TypeWrapper>
@@ -82,7 +82,7 @@ function Entry({ name, posts, types, onClick }) {
 
 DropdownList.propTypes = {
   inputRef: object,
-  entries: array
+  entries: array,
 };
 
 export default DropdownList;

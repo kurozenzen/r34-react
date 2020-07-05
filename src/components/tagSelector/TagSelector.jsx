@@ -13,9 +13,9 @@ export const TagSelectorWrapper = styled.div`
   display: flex;
   background: white;
   ${({ closed }) =>
-      closed
-        ? `border-radius: ${borderRadius};`
-        : `
+    closed
+      ? `border-radius: ${borderRadius};`
+      : `
         border-radius: ${borderRadius} ${borderRadius} 0 0;
 
         > ${AddButton} {
@@ -26,7 +26,7 @@ export const TagSelectorWrapper = styled.div`
           border-radius: ${borderRadius} 0 0 0;
         }
       `}
-    :focus-within {
+  :focus-within {
     ${ListWrapper} {
       display: block;
     }
@@ -40,15 +40,15 @@ function TagSelector({ dispatch }) {
   const [suggestions, setSuggestions] = useState([]);
 
   const addTag = useCallback(
-    suggestion => {
+    (suggestion) => {
       dispatch({
         type: "ADD_TAG",
         tag: prepare({
           name: suggestion.name,
           modifier: modifier,
           count: suggestion.posts,
-          types: suggestion.types
-        })
+          types: suggestion.types,
+        }),
       });
 
       setValue("");
@@ -60,7 +60,7 @@ function TagSelector({ dispatch }) {
   useEffect(() => {
     const handle = setTimeout(() => {
       if (value && value !== "")
-        api.getTags(normalizeTagname(value)).then(newSuggestions => {
+        api.getTags(normalizeTagname(value)).then((newSuggestions) => {
           setSuggestions(newSuggestions);
         });
     }, 400);
@@ -81,7 +81,7 @@ function TagSelector({ dispatch }) {
         type="add"
         onClick={() => {
           if (value && value.trim() !== "") {
-            const suggestion = suggestions.find(s => s.name === value) || {};
+            const suggestion = suggestions.find((s) => s.name === value) || {};
             addTag({ ...suggestion, name: value });
           }
         }}
@@ -91,7 +91,7 @@ function TagSelector({ dispatch }) {
       <DropdownList
         inputRef={inputRef}
         entries={suggestions}
-        onClick={entry => {
+        onClick={(entry) => {
           addTag(entry);
         }}
       ></DropdownList>
@@ -100,7 +100,7 @@ function TagSelector({ dispatch }) {
 }
 
 TagSelector.propTypes = {
-  onSubmitTag: func
+  onSubmitTag: func,
 };
 
 export default TagSelector;

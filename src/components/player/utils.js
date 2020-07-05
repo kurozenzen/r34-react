@@ -1,5 +1,9 @@
 import { VIDEO, GIF, PICTURE } from "../../data/constants";
 
+/**
+ * Fullscreens a given videoElement
+ * @param {HTMLVideoElement} elem
+ */
 export const openFullscreen = (elem) => {
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
@@ -12,12 +16,18 @@ export const openFullscreen = (elem) => {
   }
 };
 
+/**
+ * Calculates which type of media should be displayed for this type and source
+ * @param {"video" | "image"} type
+ * @param {String} src
+ */
 export const getMediaType = (type, src) => {
   if (type === "video") {
     return VIDEO;
   }
 
-  if (src.endsWith(".gif")) {
+  // can't use .endsWith because of queryString
+  if (src.includes(".gif")) {
     return GIF;
   }
 

@@ -6,7 +6,7 @@ import {
   HeartIcon,
   ExternalLinkIcon,
   SourceIcon,
-  RatingIcon
+  RatingIcon,
 } from "../../icons/Icons";
 import { spacing, layer, shadow, gutter } from "../../misc/style";
 
@@ -58,11 +58,15 @@ Details.propTypes = {
   source: string,
   tags: array,
   activeTags: array,
-  dispatch: func
+  dispatch: func,
 };
 
 export default Details;
 
+/**
+ * @param {Object} props
+ * @param {String} props.value
+ */
 const Rating = ({ value }) => (
   <span>
     <RatingIcon color="white" left />
@@ -70,6 +74,10 @@ const Rating = ({ value }) => (
   </span>
 );
 
+/**
+ * @param {Object} props
+ * @param {String} props.value
+ */
 const Score = ({ value }) => (
   <span>
     {value}
@@ -77,8 +85,12 @@ const Score = ({ value }) => (
   </span>
 );
 
-function Source({ value }) {
-  return value.startsWith("http") ? (
+/**
+ * @param {Object} props
+ * @param {String} props.value
+ */
+const Source = ({ value }) =>
+  value.startsWith("http") ? (
     <a
       href={value}
       target="_blank"
@@ -86,7 +98,10 @@ function Source({ value }) {
       className="source"
     >
       <ExternalLinkIcon color="red" left />
-      Source
+      {value.substring(
+        value.indexOf("://") + 3,
+        value.indexOf("/", value.indexOf("://") + 3)
+      )}
     </a>
   ) : (
     <span>
@@ -94,4 +109,3 @@ function Source({ value }) {
       {value}
     </span>
   );
-}

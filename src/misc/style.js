@@ -9,7 +9,7 @@ export const layer =
   "#ffffff11; :hover { background: #ffffff16;} transition: background-color 0.4s ease-in-out";
 export const backgroundColor2 = "white";
 export const shadow = "box-shadow: 0 0 8px #000";
-export const dropShadow = "drop-shadow(0 0 10px #000)";
+export const dropShadow = "drop-shadow(0 0 4px rgba(0, 0, 0, 1))";
 
 export const appMargin = "16px";
 export const gutter = "8px";

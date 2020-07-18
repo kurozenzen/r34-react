@@ -16,3 +16,11 @@ export const selectHasResults = (state: RootState) =>
 export const selectPreferences = (state: RootState) => state.preferences;
 export const selectActiveTags = (state: RootState) => state.tags.active;
 export const selectResults = (state: RootState) => state.results;
+export const selectAliasesByTagName = (tagName: string) => (
+  state: RootState
+) => {
+  return state.tags.aliases[tagName];
+};
+
+export const selectAliases = (state: RootState) =>
+  Object.values(state.tags.aliases).flat();

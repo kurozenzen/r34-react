@@ -1,7 +1,7 @@
 import TagDataClass from "../data/Tag";
 import { SimpleMap } from "../data/types";
 
-const pageSize = 20;
+export const pageSize = 20;
 const apiUrl1 = "https://r34-json.herokuapp.com";
 const apiUrl2 = "https://r34-api-clone.herokuapp.com";
 
@@ -26,7 +26,7 @@ export default {
   },
 
   async getAliases(tagName: string) {
-    const res = await fetch(`${activeApi}/alias/"${tagName}`);
+    const res = await fetch(`${activeApi}/alias/${tagName}`);
 
     return await res.json();
   },

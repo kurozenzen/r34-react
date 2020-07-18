@@ -1,14 +1,22 @@
 import produce from "immer";
 import TagDataClass from "../../data/Tag";
 import { SimpleMap } from "../../data/types";
-import { ADD_TAG, AppAction, REMOVE_TAG, TOGGLE_TAG } from "../actions";
+import {
+  ADD_TAG,
+  AppAction,
+  REMOVE_TAG,
+  TOGGLE_TAG,
+  ADD_ALIASES,
+} from "../actions";
 
 export interface TagsState {
   active: SimpleMap<TagDataClass>;
+  aliases: SimpleMap<TagDataClass[]>;
 }
 
 export const initialTagsState: TagsState = {
   active: {},
+  aliases: {},
 };
 
 const addTag = (state: TagsState, newTag: TagDataClass) =>
@@ -16,9 +24,19 @@ const addTag = (state: TagsState, newTag: TagDataClass) =>
     draft.active[newTag.name] = { ...state.active[newTag.name], ...newTag };
   });
 
+const addAliases = (
+  state: TagsState,
+  aliases: TagDataClass[],
+  forTag: string
+) =>
+  produce(state, (draft) => {
+    draft.aliases[forTag] = aliases;
+  });
+
 const removeTag = (state: TagsState, tagToRemove: TagDataClass) =>
   produce(state, (draft) => {
     delete draft.active[tagToRemove.name];
+    delete draft.aliases[tagToRemove.name];
   });
 
 const toggleTag = (state: TagsState, tagToToggle: TagDataClass) =>
@@ -37,6 +55,8 @@ export default (
       return removeTag(state, action.tag);
     case TOGGLE_TAG:
       return toggleTag(state, action.tag);
+    case ADD_ALIASES:
+      return addAliases(state, action.aliases, action.forTag);
     default:
       return state;
   }

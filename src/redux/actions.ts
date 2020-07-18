@@ -2,14 +2,19 @@ import { MenuType, PreferenceKey } from "../data/types";
 import TagDataClass from "../data/Tag";
 import PostDataClass from "../data/Post";
 
-export const RESET = "RESET";
-export const SET_ACTIVE_MENU = "SET_ACTIVE_MENU";
-export const ADD_TAG = "ADD_TAG";
-export const REMOVE_TAG = "REMOVE_TAG";
-export const TOGGLE_TAG = "TOGGLE_TAG";
-export const ADD_POSTS = "ADD_POSTS";
-export const SET_POSTS = "SET_POSTS";
-export const SET_OPTION = "SET_OPTION";
+/////////////////////////////////////////////////////////
+
+export const RESET = "R34_RESET";
+export const SET_ACTIVE_MENU = "R34_SET_ACTIVE_MENU";
+export const ADD_TAG = "R34_ADD_TAG";
+export const REMOVE_TAG = "R34_REMOVE_TAG";
+export const TOGGLE_TAG = "R34_TOGGLE_TAG";
+export const ADD_ALIASES = "R34_ADD_ALIASES";
+export const ADD_POSTS = "R34_ADD_POSTS";
+export const SET_POSTS = "R34_SET_POSTS";
+export const SET_OPTION = "R34_SET_OPTION";
+
+/////////////////////////////////////////////////////////
 
 interface ResetAction {
   type: typeof RESET;
@@ -33,6 +38,12 @@ interface RemoveTagAction {
 interface ToggleTagAction {
   type: typeof TOGGLE_TAG;
   tag: TagDataClass;
+}
+
+interface AddAliasesAction {
+  type: typeof ADD_ALIASES;
+  aliases: TagDataClass[];
+  forTag: string;
 }
 
 interface AddPostsAction {
@@ -78,6 +89,12 @@ export const toggleTag = (tag: TagDataClass) => ({
   tag,
 });
 
+export const addAliases = (aliases: TagDataClass[], forTag: string) => ({
+  type: ADD_ALIASES,
+  aliases,
+  forTag,
+});
+
 export const addPosts = (posts: PostDataClass[]) => ({
   type: ADD_POSTS,
   posts,
@@ -103,6 +120,7 @@ export type AppAction =
   | AddTagAction
   | RemoveTagAction
   | ToggleTagAction
+  | AddAliasesAction
   | AddPostsAction
   | SetPostsAction
   | SetOptionAction;

@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { ThemeType } from "../../misc/theme";
 
 const Wrapper = styled.div(

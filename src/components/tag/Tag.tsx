@@ -8,8 +8,11 @@ import { prettifyTagname } from "./tagUtils";
 import { formatCount } from "../../misc/formatting";
 import TagDataClass from "../../data/Tag";
 import { useDispatch, useSelector } from "react-redux";
-import { selectActiveTags } from "../../redux/selectors";
-import { toggleTag } from "../../redux/actions";
+import {
+  selectActiveTags,
+  selectAliasesByTagName,
+} from "../../redux/selectors";
+import { toggleTag, addAliases } from "../../redux/actions";
 import { ThemeType } from "../../misc/theme";
 
 const dropdownBorderRadius = (collapsed: boolean, theme: ThemeType) =>
@@ -80,16 +83,20 @@ type TagLike = {
 function Tag(props: TagProps) {
   const { name, count, modifier, types, loadAliases } = props;
   const activeTags = useSelector(selectActiveTags);
-  const [aliases, setAliases] = useState<TagLike[]>([]);
+  const aliases = useSelector(selectAliasesByTagName(name));
   const [collapsed, setCollapsed] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (activeTags[name])
       api.getAliases(name).then((newAliases: TagLike[]) => {
         newAliases.sort((a, b) => b.posts - a.posts);
-        setAliases(newAliases.filter((alias) => !activeTags[alias.name]));
+        const filtered = newAliases
+          .filter((alias) => !activeTags[alias.name])
+          .map((alias) => new TagDataClass(alias.name, [], alias.posts));
+        dispatch(addAliases(filtered, name));
       });
-  }, [name, activeTags]);
+  }, [name, activeTags, dispatch]);
 
   const isActive = Boolean(activeTags[name]);
   const showAliases = loadAliases && aliases && aliases.length > 0;
@@ -108,8 +115,8 @@ function Tag(props: TagProps) {
             <ArrowIcon />
           </IconWrapper>
           <div className={"dropdown-list" + (!collapsed ? " visible" : "")}>
-            {aliases.map(({ name, posts }) => (
-              <Alias key={"t_" + name} name={name} count={posts} />
+            {aliases.map(({ name, count }) => (
+              <Alias key={"t_" + name} name={name} count={count} />
             ))}
           </div>
         </>

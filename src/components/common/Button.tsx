@@ -1,0 +1,169 @@
+import React, { MouseEventHandler } from "react";
+import styled, { css } from "styled-components";
+import { ButtonType } from "../../data/types";
+
+const BasicButton = styled.button`
+  font-size: 14px;
+
+  :focus {
+    outline: none;
+  }
+`;
+
+const InvisibleButton = styled(BasicButton)(
+  (props) => css`
+    background-color: transparent;
+    border: none;
+    border-radius: 1000px;
+    padding: 5px;
+    filter: ${props.theme.shadow.drop};
+    svg {
+      transition: all 0.2s ease-in-out;
+    }
+
+    :hover {
+      svg {
+        transform: scale(1.1);
+      }
+    }
+  `
+);
+
+const MenuButton = styled(InvisibleButton)(
+  (props) => css`
+    color: ${props.theme.colors.backgroundColor2};
+  `
+);
+
+const ActiveMenuButton = styled(InvisibleButton)(
+  (props) => css`
+    color: ${props.theme.colors.accentColor};
+  `
+);
+
+const TopLeftButton = styled(InvisibleButton)`
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 10px;
+`;
+
+const BottomLeftButton = styled(InvisibleButton)`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 10px;
+`;
+
+const CenterButton = styled(InvisibleButton)`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const RedButton = styled(BasicButton)(
+  (props) => css`
+    height: 32px;
+    font-size: 14px;
+    color: ${props.theme.colors.accentColor};
+    background: ${props.theme.colors.backgroundColor};
+    border: ${props.theme.colors.accentColor}
+      ${props.theme.dimensions.borderWidth} solid;
+
+    transition: border-color 0.4s ease-in-out;
+    transition: color 0.4s ease-in-out;
+    transition: background-color 0.4s ease-in-out;
+
+    :hover {
+      background-color: ${props.theme.colors.accentColor};
+      color: ${props.theme.colors.backgroundColor};
+    }
+
+    :active,
+    :focus {
+      color: ${props.theme.colors.backgroundColor2};
+
+      border-color: ${props.theme.colors.backgroundColor2};
+      cursor: pointer;
+    }
+  `
+);
+
+export const BlockButton = styled(RedButton)(
+  (props) => css`
+    width: 100%;
+    border-radius: ${props.theme.dimensions.borderRadius};
+  `
+);
+
+export const AddButton = styled(RedButton)(
+  (props) => css`
+    border-left-width: 0;
+    border-radius: 0 ${props.theme.dimensions.borderRadius}
+      ${props.theme.dimensions.borderRadius} 0;
+  `
+);
+
+export const ModifierButton = styled(BasicButton)(
+  (props) => css`
+    background-color: transparent;
+    min-width: 48px;
+    border: ${props.theme.colors.accentColor}
+      ${props.theme.dimensions.borderWidth} solid;
+    border-right-width: 0;
+    border-radius: ${props.theme.dimensions.borderRadius} 0 0
+      ${props.theme.dimensions.borderRadius};
+    font-weight: bold;
+  `
+);
+
+const getButtonByType = (type: ButtonType, active: boolean) => {
+  switch (type) {
+    case "invisible":
+      return InvisibleButton;
+    case "block":
+      return BlockButton;
+    case "topLeft":
+      return TopLeftButton;
+    case "bottomLeft":
+      return BottomLeftButton;
+    case "center":
+      return CenterButton;
+    case "modifier":
+      return ModifierButton;
+    case "add":
+      return AddButton;
+    case "menu":
+      return active ? ActiveMenuButton : MenuButton;
+    default:
+      return RedButton;
+  }
+};
+
+interface ButtonProps {
+  type: ButtonType;
+  children: JSX.Element | string;
+  onClick: MouseEventHandler;
+  active?: boolean;
+  disabled?: boolean;
+  label: string;
+}
+
+export default function Button(props: ButtonProps) {
+  const {
+    type,
+    children,
+    onClick,
+    active = false,
+    disabled = false,
+    label,
+  } = props;
+  const TypedButton = getButtonByType(type, active);
+
+  return (
+    <TypedButton onClick={onClick} disabled={disabled} aria-label={label}>
+      {children}
+    </TypedButton>
+  );
+}

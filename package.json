@@ -4,6 +4,11 @@
   "homepage": "https://kurozenzen.github.io/r34-react",
   "private": true,
   "dependencies": {
+    "@types/jest": "^26.0.4",
+    "@types/node": "^14.0.22",
+    "@types/react": "^16.9.42",
+    "@types/react-dom": "^16.9.8",
+    "@types/redux-persist": "^4.3.1",
     "gh-pages": "2.0.1",
     "immer": "^4.0.1",
     "react": "^16.9.0",
@@ -11,7 +16,11 @@
     "react-redux": "^7.2.0",
     "react-scripts": "^3.3.0",
     "react-toggle": "^4.0.2",
-    "styled-components": "^4.3.2"
+    "react-window": "^1.8.5",
+    "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
+    "styled-components": "^5.1.1",
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,6 +47,8 @@
     "@storybook/addons": "^5.1.11",
     "@storybook/react": "^5.1.11",
     "@testing-library/react": "^9.3.0",
+    "@types/react-redux": "^7.1.9",
+    "@types/styled-components": "^5.1.1",
     "babel-polyfill": "^6.26.0",
     "jasmine-core": "^3.5.0",
     "karma": "^4.4.1",

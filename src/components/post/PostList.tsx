@@ -9,7 +9,7 @@ interface PostListProps {
   posts: PostDataClass[];
 }
 
-function PostList(props: PostListProps) {
+export default function PostList(props: PostListProps) {
   const { posts } = props;
 
   return (
@@ -20,5 +20,3 @@ function PostList(props: PostListProps) {
     </PostListWrapper>
   );
 }
-
-export default PostList;

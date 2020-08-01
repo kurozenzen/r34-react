@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import Overlay from "./Overlay";
 import { openFullscreen } from "./utils";
@@ -21,26 +21,37 @@ export default function Video(props: VideoProps) {
 
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
 
-  const [time, setTime] = useState(Date.now());
+  const [, setTime] = useState(Date.now());
   const [intervalId, setIntervalId] = useState(0);
 
-  const play = () => {
+  const play = useCallback(() => {
     videoRef && videoRef.play();
 
     // ~30 fps
     const id = setInterval(() => {
       setTime(Date.now());
-      console.log(time);
     }, 34);
 
     setIntervalId(id);
-  };
+  }, [videoRef]);
 
-  const pause = () => {
+  const pause = useCallback(() => {
     videoRef && videoRef.pause();
     clearInterval(intervalId);
     setIntervalId(-1);
-  };
+  }, [videoRef, intervalId]);
+
+  const onFullscreen = useCallback(() => videoRef && openFullscreen(videoRef), [
+    videoRef,
+  ]);
+
+  const togglePlay = useCallback(
+    (event) => {
+      event.stopPropagation();
+      videoRef && (videoRef.paused ? play() : pause());
+    },
+    [videoRef, play, pause]
+  );
 
   return (
     <>
@@ -56,11 +67,8 @@ export default function Video(props: VideoProps) {
         isPaused={videoRef ? videoRef.paused : true}
         currentTime={videoRef ? videoRef.currentTime : undefined}
         duration={videoRef ? videoRef.duration : undefined}
-        onFullscreen={() => videoRef && openFullscreen(videoRef)}
-        togglePlay={(event) => {
-          event.stopPropagation();
-          videoRef && (videoRef.paused ? play() : pause());
-        }}
+        onFullscreen={onFullscreen}
+        togglePlay={togglePlay}
         isPlayable
       />
     </>

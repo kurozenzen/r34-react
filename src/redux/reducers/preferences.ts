@@ -1,12 +1,20 @@
 import produce from "immer";
-import { PreferenceKey } from "../../data/types";
-import { AppAction, SET_OPTION } from "../actions";
+import {
+  PreferenceKey,
+  INFINITE,
+  RATED,
+  RATEDTRESHOLD,
+  ORIGINALS,
+  COOKIES,
+} from "../../data/types";
+import { AppAction, SET_OPTION, ALLOW_COOKIES } from "../actions";
 
 export interface PreferencesState {
   infinite: boolean;
   rated: boolean;
   ratedTreshold: number;
   originals: boolean;
+  cookies: boolean;
 }
 
 export const initialPreferencesState: PreferencesState = {
@@ -14,22 +22,27 @@ export const initialPreferencesState: PreferencesState = {
   rated: false,
   ratedTreshold: 1,
   originals: false,
+  cookies: false,
 };
 
 const setOption = (state: PreferencesState, key: PreferenceKey, value: any) =>
   produce(state, (draft) => {
     switch (key) {
-      case "infinite":
+      case INFINITE:
         draft.infinite = value;
         break;
-      case "rated":
+      case RATED:
         draft.rated = value;
         break;
-      case "ratedTreshold":
+      case RATEDTRESHOLD:
         draft.ratedTreshold = value;
         break;
-      case "originals":
+      case ORIGINALS:
         draft.originals = value;
+        break;
+      case COOKIES:
+        draft.cookies = value;
+        break;
     }
   });
 
@@ -40,6 +53,8 @@ export default (
   switch (action.type) {
     case SET_OPTION:
       return setOption(state, action.key, action.value);
+    case ALLOW_COOKIES:
+      return setOption(state, COOKIES, action.value);
     default:
       return state;
   }

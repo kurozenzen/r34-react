@@ -39,7 +39,7 @@ const MenuBar = styled.nav`
   justify-content: center;
 `;
 
-function Header() {
+export default function Header() {
   const activeMenu = useSelector(selectActiveMenu);
   const dispatch = useDispatch();
 
@@ -84,7 +84,3 @@ function Header() {
     </HeaderWrapper>
   );
 }
-
-Header.propTypes = {};
-
-export default Header;

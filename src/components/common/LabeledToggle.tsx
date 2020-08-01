@@ -1,5 +1,4 @@
 import React, { MouseEventHandler } from "react";
-import { bool, func, node } from "prop-types";
 import styled, { css } from "styled-components";
 import Toggle from "./Toggle";
 
@@ -30,9 +29,3 @@ export default function LabeledToggle(props: LabeledToggleProps) {
     </ToggleWrapper>
   );
 }
-
-LabeledToggle.propTypes = {
-  children: node.isRequired,
-  value: bool.isRequired,
-  onToggle: func.isRequired,
-};

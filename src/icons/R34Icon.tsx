@@ -2,7 +2,7 @@ import React from "react";
 import { ThemeType } from "../misc/theme";
 import { useTheme } from "styled-components";
 
-function R34Icon(props: { size: number }) {
+export default function R34Icon(props: { size: number }) {
   const theme = useTheme() as ThemeType;
 
   return (
@@ -58,5 +58,3 @@ function R34Icon(props: { size: number }) {
     </svg>
   );
 }
-
-export default R34Icon;

@@ -12,7 +12,7 @@ import {
   selectActiveTags,
   selectAliasesByTagName,
 } from "../../redux/selectors";
-import { toggleTag, addAliases } from "../../redux/actions";
+import { addAliases, removeTag, addTag } from "../../redux/actions";
 import { ThemeType } from "../../misc/theme";
 
 const dropdownBorderRadius = (collapsed: boolean, theme: ThemeType) =>
@@ -130,15 +130,15 @@ function TagText(props: TagDataClass) {
   const dispatch = useDispatch();
   const tagname = prettifyTagname(name);
   const text = count ? `${tagname} (${formatCount(count)})` : tagname;
+  const activeTags = useSelector(selectActiveTags);
+
+  const onClick = () =>
+    activeTags[name]
+      ? dispatch(removeTag(new TagDataClass(name, types, count)))
+      : dispatch(addTag(new TagDataClass(name, types, count)));
 
   return (
-    <span
-      onClick={() => dispatch(toggleTag(new TagDataClass(name, types, count)))}
-      onKeyDown={(e) =>
-        e.keyCode === 32 &&
-        dispatch(toggleTag(new TagDataClass(name, types, count)))
-      }
-    >
+    <span onClick={onClick} onKeyDown={(e) => e.keyCode === 32 && onClick()}>
       {modifier === "-" ? <s>{text}</s> : text}
     </span>
   );

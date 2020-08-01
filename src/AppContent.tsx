@@ -7,7 +7,8 @@ import Help from "./pages/Help";
 import Settings from "./pages/Settings";
 import Search from "./pages/Search";
 import { useSelector } from "react-redux";
-import { selectActiveMenu } from "./redux/selectors";
+import { selectActiveMenu, selectCookies } from "./redux/selectors";
+import CookieConfirmation from "./components/features/CookieConfirmation";
 
 const Main = styled.main(
   (props) => css`
@@ -59,19 +60,17 @@ function getActivePage(activeMenu: MenuType) {
   }
 }
 
-function AppContent() {
+export default function AppContent() {
   const activeMenu = useSelector(selectActiveMenu);
   const activePage = getActivePage(activeMenu);
+  const cookies = useSelector(selectCookies);
 
   return (
     <AppWrapper>
       <Header />
       <Main>{activePage}</Main>
       <Footer />
+      {!cookies && <CookieConfirmation />}
     </AppWrapper>
   );
 }
-
-AppContent.propTypes = {};
-
-export default AppContent;

@@ -1,6 +1,5 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { string, func } from "prop-types";
 
 const Input = styled.input(
   (props) => css`
@@ -33,8 +32,3 @@ export default function TagInput(props: TagInputProps) {
     />
   );
 }
-
-TagInput.propTypes = {
-  value: string,
-  setValue: func,
-};

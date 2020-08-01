@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled, { css } from "styled-components";
 import Details from "./Details";
 import Player from "../player/Player";
 import { useSelector } from "react-redux";
-import { selectPreferences } from "../../redux/selectors";
+import { selectOriginals } from "../../redux/selectors";
 import PostDataClass from "../../data/Post";
 
 const PostWrapper = styled.div(
@@ -50,9 +50,14 @@ export default function Post(props: PostDataClass) {
     source,
     tags,
   } = props;
-  const { originals } = useSelector(selectPreferences);
+  const originals = useSelector(selectOriginals);
   const media_src = getCorrectSource(originals, big_src, small_src, id);
   const [collapsed, setCollapsed] = useState(true);
+
+  const toggleDetails = useCallback(() => setCollapsed(!collapsed), [
+    setCollapsed,
+    collapsed,
+  ]);
 
   return (
     <PostWrapper>
@@ -60,7 +65,7 @@ export default function Post(props: PostDataClass) {
         type={media_type}
         src={media_src}
         thumbnail_src={thumbnail_src}
-        toggleDetails={() => setCollapsed(!collapsed)}
+        toggleDetails={toggleDetails}
       />
       {!collapsed && (
         <Details rating={rating} score={score} source={source} tags={tags} />

@@ -56,11 +56,14 @@ export const INFINITE = "infinite";
 export const RATED = "rated";
 export const RATEDTRESHOLD = "ratedTreshold";
 export const ORIGINALS = "originals";
+export const COOKIES = "cookies";
+
 export type PreferenceKey =
   | typeof INFINITE
   | typeof RATED
   | typeof RATEDTRESHOLD
-  | typeof ORIGINALS;
+  | typeof ORIGINALS
+  | typeof COOKIES;
 
 export interface SimpleMap<V> {
   [key: string]: V;

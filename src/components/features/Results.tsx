@@ -1,24 +1,11 @@
-import React, { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
-import outOfResultsPicture from "../../icons/OutOfResults.png";
-import api, { pageSize } from "../../misc/api";
 import { formatCount } from "../../misc/formatting";
-import {
-  selectActiveTags,
-  selectPreferences,
-  selectResults,
-  selectAliases,
-} from "../../redux/selectors";
-import Button from "../common/Button";
-import Surface, { Line } from "../common/Surface";
+import { selectCount, selectPosts } from "../../redux/selectors";
 import Title from "../common/Title";
 import PostList from "../post/PostList";
-import { preparePost } from "../../misc/prepare";
-import { addPosts } from "../../redux/actions";
-import TagList from "../tag/TagList";
-import TagDataClass from "../../data/Tag";
-import { SimpleMap } from "../../data/types";
+import LoadMore from "./LoadMore";
 
 const ResultsWrapper = styled.section(
   (props) => css`
@@ -28,75 +15,15 @@ const ResultsWrapper = styled.section(
   `
 );
 
-let scrollLock = true;
-
-function hasReachedEndOfPage() {
-  return (
-    window.innerHeight + document.documentElement.scrollTop >=
-    document.documentElement.scrollHeight - window.innerHeight
-  );
-}
-
 export default function Results() {
-  const dispatch = useDispatch();
-  const activeTags = useSelector(selectActiveTags);
-  const { posts, count, pageNumber } = useSelector(selectResults);
-  const { rated, infinite, ratedTreshold } = useSelector(selectPreferences);
-  const aliases = useSelector(selectAliases);
-
-  const [isOutOfResults, setOutOfResults] = useState(false);
-
-  const loadMore = useCallback(() => {
-    api
-      .getPosts(activeTags, pageNumber + 1, rated ? ratedTreshold : 0)
-      .then((res) => {
-        setOutOfResults(res.posts.length < pageSize);
-        dispatch(addPosts(res.posts.map(preparePost)));
-        scrollLock = true;
-      });
-  }, [dispatch, rated, pageNumber, ratedTreshold, activeTags]);
-
-  window.onscroll = useCallback(() => {
-    if (infinite && scrollLock && hasReachedEndOfPage()) {
-      scrollLock = false;
-      loadMore();
-    }
-  }, [loadMore, infinite]);
+  const posts = useSelector(selectPosts);
+  const count = useSelector(selectCount);
 
   return (
     <ResultsWrapper className="results">
       <Title>{formatCount(count)} results</Title>
       <PostList posts={posts} />
-
-      {!infinite && !isOutOfResults && (
-        <Button type={"block"} onClick={loadMore} label="Load More">
-          Load More
-        </Button>
-      )}
-
-      {isOutOfResults && (
-        <Surface>
-          <img src={outOfResultsPicture} alt={outOfResultsPicture} />
-          <Line />
-          <Title>You have reached the end!</Title>
-          <p style={{ textAlign: "center" }}>Go look for something else!</p>
-          {aliases.length > 0 && (
-            <>
-              <p style={{ textAlign: "center" }}>How about some of these?</p>
-              <TagList
-                tags={aliases.reduce(
-                  (result: SimpleMap<TagDataClass>, alias) => {
-                    result[alias.name] = alias;
-                    return result;
-                  },
-                  {}
-                )}
-                padding
-              />
-            </>
-          )}
-        </Surface>
-      )}
+      <LoadMore />
     </ResultsWrapper>
   );
 }

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectPreferences } from "../../redux/selectors";
 import { setOption } from "../../redux/actions";
 import { ThemeType } from "../../misc/theme";
+import { INFINITE, RATED, RATEDTRESHOLD, ORIGINALS } from "../../data/types";
 
 const OptionsWrapper = styled.div(
   (props) => css`
@@ -47,13 +48,13 @@ export default function Options() {
     <OptionsWrapper>
       <LabeledToggle
         value={infinite}
-        onToggle={() => dispatch(setOption("infinite", !infinite))}
+        onToggle={() => dispatch(setOption(INFINITE, !infinite))}
       >
         Infinite Scroll
       </LabeledToggle>
       <LabeledToggle
         value={rated}
-        onToggle={() => dispatch(setOption("rated", !rated))}
+        onToggle={() => dispatch(setOption(RATED, !rated))}
       >
         {rated ? (
           <div style={{ display: "flex" }}>
@@ -64,9 +65,7 @@ export default function Options() {
               onChange={(event) =>
                 setRatedInputValue(Number(event.target.value))
               }
-              onBlur={() =>
-                dispatch(setOption("ratedTreshold", ratedInputValue))
-              }
+              onBlur={() => dispatch(setOption(RATEDTRESHOLD, ratedInputValue))}
             />
             likes
           </div>
@@ -77,7 +76,7 @@ export default function Options() {
 
       <LabeledToggle
         value={originals}
-        onToggle={() => dispatch(setOption("originals", !originals))}
+        onToggle={() => dispatch(setOption(ORIGINALS, !originals))}
       >
         Load Original Sizes
       </LabeledToggle>

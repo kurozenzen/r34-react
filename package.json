@@ -9,6 +9,7 @@
     "@types/react": "^16.9.42",
     "@types/react-dom": "^16.9.8",
     "@types/redux-persist": "^4.3.1",
+    "firebase": "^7.17.1",
     "gh-pages": "2.0.1",
     "immer": "^4.0.1",
     "react": "^16.9.0",
@@ -18,6 +19,7 @@
     "react-toggle": "^4.0.2",
     "react-window": "^1.8.5",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.1.1",
     "typescript": "^3.9.6"

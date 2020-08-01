@@ -5,7 +5,7 @@ import TagSelector from "../components/tagSelector/TagSelector";
 import Options from "../components/features/Options";
 import TagList from "../components/tag/TagList";
 
-function Help() {
+export default function Help() {
   return (
     <>
       <Title>Help</Title>
@@ -91,5 +91,3 @@ function Help() {
     </>
   );
 }
-
-export default Help;

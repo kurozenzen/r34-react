@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, memo } from "react";
 import styled, { css } from "styled-components";
 import { TagWrapper } from "../components/tag/Tag";
 import { ThemeType } from "../misc/theme";
@@ -84,9 +84,11 @@ export const CloseIcon = styled(Icon).attrs({
   icon: "fa-times",
 })``;
 
-export const ExpandIcon = styled(Icon).attrs({
-  icon: "fa-expand",
-})``;
+export const ExpandIcon = memo(
+  styled(Icon).attrs({
+    icon: "fa-expand",
+  })``
+);
 
 export const ArrowIcon = styled(Icon).attrs({
   icon: "fa-caret-down",
@@ -108,13 +110,17 @@ export const HeartIcon = styled(Icon).attrs({
   icon: "fa-heart",
 })``;
 
-export const PlayIcon = styled(Icon).attrs({
-  icon: "fa-play",
-})``;
+export const PlayIcon = memo(
+  styled(Icon).attrs({
+    icon: "fa-play",
+  })``
+);
 
-export const PauseIcon = styled(Icon).attrs({
-  icon: "fa-pause",
-})``;
+export const PauseIcon = memo(
+  styled(Icon).attrs({
+    icon: "fa-pause",
+  })``
+);
 
 export const ArrowUp = styled(Icon).attrs({
   icon: "fa-caret-down",

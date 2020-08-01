@@ -1,6 +1,16 @@
 import React, { MouseEventHandler } from "react";
 import styled, { css } from "styled-components";
-import { ButtonType } from "../../data/types";
+import {
+  ButtonType,
+  TOPLEFT,
+  BLOCK,
+  INVISIBLE,
+  BOTTOMLEFT,
+  CENTER,
+  MODIFIER,
+  ADD,
+  MENU,
+} from "../../data/types";
 
 const BasicButton = styled.button`
   font-size: 14px;
@@ -120,21 +130,21 @@ export const ModifierButton = styled(BasicButton)(
 
 const getButtonByType = (type: ButtonType, active: boolean) => {
   switch (type) {
-    case "invisible":
+    case INVISIBLE:
       return InvisibleButton;
-    case "block":
+    case BLOCK:
       return BlockButton;
-    case "topLeft":
+    case TOPLEFT:
       return TopLeftButton;
-    case "bottomLeft":
+    case BOTTOMLEFT:
       return BottomLeftButton;
-    case "center":
+    case CENTER:
       return CenterButton;
-    case "modifier":
+    case MODIFIER:
       return ModifierButton;
-    case "add":
+    case ADD:
       return AddButton;
-    case "menu":
+    case MENU:
       return active ? ActiveMenuButton : MenuButton;
     default:
       return RedButton;
@@ -150,7 +160,7 @@ interface ButtonProps {
   label: string;
 }
 
-export default function Button(props: ButtonProps) {
+function Button(props: ButtonProps) {
   const {
     type,
     children,
@@ -167,3 +177,5 @@ export default function Button(props: ButtonProps) {
     </TypedButton>
   );
 }
+
+export default Button;

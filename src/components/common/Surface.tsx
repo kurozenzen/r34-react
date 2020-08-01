@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const Surface = styled.div(
+export default styled.div(
   (props) => css`
     padding: ${props.theme.dimensions.gutter};
     background: ${props.theme.misc.layer};
@@ -12,8 +12,6 @@ const Surface = styled.div(
     }
   `
 );
-
-export default Surface;
 
 export const Line = styled.div(
   (props) => css`

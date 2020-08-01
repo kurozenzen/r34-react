@@ -8,11 +8,13 @@ export const RESET = "R34_RESET";
 export const SET_ACTIVE_MENU = "R34_SET_ACTIVE_MENU";
 export const ADD_TAG = "R34_ADD_TAG";
 export const REMOVE_TAG = "R34_REMOVE_TAG";
-export const TOGGLE_TAG = "R34_TOGGLE_TAG";
 export const ADD_ALIASES = "R34_ADD_ALIASES";
 export const ADD_POSTS = "R34_ADD_POSTS";
 export const SET_POSTS = "R34_SET_POSTS";
 export const SET_OPTION = "R34_SET_OPTION";
+export const GET_RESULTS = "R34_GET_RESULTS";
+export const GET_MORE_RESULTS = "R34_GET_MORE_RESULTS";
+export const ALLOW_COOKIES = "R34_ALLOW_COOKIES";
 
 /////////////////////////////////////////////////////////
 
@@ -35,11 +37,6 @@ interface RemoveTagAction {
   tag: TagDataClass;
 }
 
-interface ToggleTagAction {
-  type: typeof TOGGLE_TAG;
-  tag: TagDataClass;
-}
-
 interface AddAliasesAction {
   type: typeof ADD_ALIASES;
   aliases: TagDataClass[];
@@ -54,13 +51,26 @@ interface AddPostsAction {
 interface SetPostsAction {
   type: typeof SET_POSTS;
   posts: PostDataClass[];
-  count: number;
+  count: string;
 }
 
 interface SetOptionAction {
   type: typeof SET_OPTION;
   key: PreferenceKey;
   value: any;
+}
+
+interface GetResultsAction {
+  type: typeof GET_RESULTS;
+}
+
+interface GetMoreResultsAction {
+  type: typeof GET_MORE_RESULTS;
+}
+
+interface AllowCookiesAction {
+  type: typeof ALLOW_COOKIES;
+  value: boolean;
 }
 
 /////////////////////////////////////////////////////////
@@ -84,11 +94,6 @@ export const removeTag = (tag: TagDataClass) => ({
   tag,
 });
 
-export const toggleTag = (tag: TagDataClass) => ({
-  type: TOGGLE_TAG,
-  tag,
-});
-
 export const addAliases = (aliases: TagDataClass[], forTag: string) => ({
   type: ADD_ALIASES,
   aliases,
@@ -100,7 +105,7 @@ export const addPosts = (posts: PostDataClass[]) => ({
   posts,
 });
 
-export const setPosts = (posts: PostDataClass[], count: number) => ({
+export const setPosts = (posts: PostDataClass[], count: string) => ({
   type: SET_POSTS,
   posts,
   count,
@@ -112,6 +117,19 @@ export const setOption = (key: PreferenceKey, value: any) => ({
   value,
 });
 
+export const getResults = () => ({
+  type: GET_RESULTS,
+});
+
+export const getMoreResults = () => ({
+  type: GET_MORE_RESULTS,
+});
+
+export const allowCookiesAction = () => ({
+  type: ALLOW_COOKIES,
+  value: true,
+});
+
 /////////////////////////////////////////////////////////
 
 export type AppAction =
@@ -119,8 +137,10 @@ export type AppAction =
   | SetActiveMenuAction
   | AddTagAction
   | RemoveTagAction
-  | ToggleTagAction
   | AddAliasesAction
   | AddPostsAction
   | SetPostsAction
-  | SetOptionAction;
+  | SetOptionAction
+  | GetResultsAction
+  | GetMoreResultsAction
+  | AllowCookiesAction;

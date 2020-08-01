@@ -44,7 +44,7 @@ interface DropdownListProps {
   onClick: (entry: TagDataClass) => void;
 }
 
-function DropdownList(props: DropdownListProps) {
+export default function DropdownList(props: DropdownListProps) {
   const { tagSelectorRef, entries, onClick } = props;
 
   return entries && entries.length > 0 ? (
@@ -52,8 +52,8 @@ function DropdownList(props: DropdownListProps) {
       {entries.map((entry) => (
         <Entry
           key={entry.name}
-          {...entry}
           onClick={() => onClick(entry)}
+          {...entry}
         ></Entry>
       ))}
     </ListWrapper>
@@ -89,7 +89,7 @@ interface EntryProps {
   onClick: MouseEventHandler;
 }
 
-function Entry(props: EntryProps) {
+const Entry = (props: EntryProps) => {
   const { name, posts, types, onClick } = props;
 
   return (
@@ -102,6 +102,4 @@ function Entry(props: EntryProps) {
       <span style={{ paddingRight: 5 }}>{formatCount(posts)} posts</span>
     </EntryWrapper>
   );
-}
-
-export default DropdownList;
+};

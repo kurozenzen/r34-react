@@ -22,7 +22,7 @@ const CenteredA = styled.a`
   text-align: center;
 `;
 
-function Footer() {
+export default function Footer() {
   return (
     <FotterWrapper>
       <CenteredA href="https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md">
@@ -39,5 +39,3 @@ function Footer() {
     </FotterWrapper>
   );
 }
-
-export default Footer;

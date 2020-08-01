@@ -34,14 +34,15 @@ export const TagSelectorWrapper = styled.div(
   `
 );
 
-function TagSelector() {
+export default function TagSelector() {
   const dispatch = useDispatch();
-  const [tagSelectorRef, setTagSelectorRef] = useState<HTMLDivElement | null>(
-    null
-  );
   const [value, setValue] = useState("");
   const [modifier, setModifier] = useState("+");
   const [suggestions, setSuggestions] = useState([]);
+
+  const [tagSelectorRef, setTagSelectorRef] = useState<HTMLDivElement | null>(
+    null
+  );
 
   const activateTag = useCallback(
     (suggestion) => {
@@ -73,30 +74,29 @@ function TagSelector() {
     return () => clearTimeout(handle);
   }, [value]);
 
+  const onModifierClick = useCallback(
+    () => setModifier(modifier === "+" ? "-" : "+"),
+    [modifier, setModifier]
+  );
+
+  const onAddClick = useCallback(() => {
+    if (value && value.trim() !== "") {
+      const suggestion =
+        suggestions.find((s: { name: string }) => s.name === value) || {};
+      activateTag({ ...suggestion, name: value });
+    }
+  }, [value, activateTag, suggestions]);
+
   return (
     <TagSelectorWrapper
       ref={setTagSelectorRef}
       closed={suggestions.length === 0}
     >
-      <Button
-        type="modifier"
-        onClick={() => setModifier(modifier === "+" ? "-" : "+")}
-        label="Tag Modifier"
-      >
+      <Button type="modifier" onClick={onModifierClick} label="Tag Modifier">
         {modifier}
       </Button>
       <TagInput value={value} setValue={setValue} />
-      <Button
-        type="add"
-        onClick={() => {
-          if (value && value.trim() !== "") {
-            const suggestion =
-              suggestions.find((s: { name: string }) => s.name === value) || {};
-            activateTag({ ...suggestion, name: value });
-          }
-        }}
-        label="Add Tag"
-      >
+      <Button type="add" onClick={onAddClick} label="Add Tag">
         Add
       </Button>
       {suggestions.length > 0 && (
@@ -109,5 +109,3 @@ function TagSelector() {
     </TagSelectorWrapper>
   );
 }
-
-export default TagSelector;

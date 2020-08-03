@@ -23,7 +23,7 @@ export default function Gif(props: GifProps) {
 
   return (
     <>
-      <FlexImage src={usedSource} alt={usedSource} />
+      <FlexImage src={usedSource} alt={usedSource} loading="lazy" />
       <Overlay
         isPlayable
         isPaused={isPaused}

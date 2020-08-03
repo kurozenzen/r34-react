@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo, useCallback, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectAliases,
@@ -24,19 +24,12 @@ const unlock = () => {
   concurrencyLock = true;
 };
 
-function hasReachedEndOfPage() {
-  return (
-    window.innerHeight + document.documentElement.scrollTop >=
-    document.documentElement.scrollHeight - window.innerHeight
-  );
-}
-
 export default function LoadMore() {
   const dispatch = useDispatch();
   const aliases = useSelector(selectAliases);
   const infinite = useSelector(selectInfinite);
-
   const isOutOfResults = useSelector(selectOutOfResults);
+  const divRef = useRef<HTMLDivElement>(null);
 
   const aliasesForRendering = useMemo(
     () =>
@@ -55,14 +48,22 @@ export default function LoadMore() {
     }
   }, [dispatch, isOutOfResults]);
 
-  window.onscroll = useCallback(() => {
-    if (infinite && hasReachedEndOfPage()) {
-      loadMore();
+  const observer = useMemo(
+    () => new IntersectionObserver(() => infinite && loadMore()),
+    [infinite, loadMore]
+  );
+
+  useEffect(() => {
+    if (divRef !== null) {
+      observer.observe(divRef.current as HTMLDivElement);
     }
-  }, [loadMore, infinite]);
+    return () => {
+      observer.disconnect();
+    };
+  }, [observer]);
 
   return (
-    <>
+    <div ref={divRef}>
       {!infinite && !isOutOfResults && (
         <Button type={BLOCK} onClick={loadMore} label="Load More">
           Load More
@@ -87,6 +88,6 @@ export default function LoadMore() {
           )}
         </Surface>
       )}
-    </>
+    </div>
   );
 }

@@ -88,7 +88,7 @@ function Tag(props: TagProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (activeTags[name])
+    if (loadAliases && activeTags[name])
       api.getAliases(name).then((newAliases: TagLike[]) => {
         newAliases.sort((a, b) => b.posts - a.posts);
         const filtered = newAliases
@@ -96,7 +96,7 @@ function Tag(props: TagProps) {
           .map((alias) => new TagDataClass(alias.name, [], alias.posts));
         dispatch(addAliases(filtered, name));
       });
-  }, [name, activeTags, dispatch]);
+  }, [loadAliases, name, activeTags, dispatch]);
 
   const isActive = Boolean(activeTags[name]);
   const showAliases = loadAliases && aliases && aliases.length > 0;

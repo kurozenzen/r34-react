@@ -19,7 +19,7 @@ export default function Picture(props: PictureProps) {
 
   return (
     <>
-      <FlexImage src={src} alt={src} />
+      <FlexImage src={src} alt={src} loading="lazy" />
       <Overlay isPlayable={false} />
     </>
   );

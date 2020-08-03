@@ -16,7 +16,9 @@ const Main = styled.main(
     align-self: strech;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     padding: 0 16px;
+    width: 100%;
     max-width: 1000px;
     margin: auto;
 

@@ -27,6 +27,7 @@ const InvisibleButton = styled(BasicButton)(
     border-radius: 1000px;
     padding: 5px;
     filter: ${props.theme.shadow.drop};
+    
     svg {
       transition: all 0.2s ease-in-out;
     }

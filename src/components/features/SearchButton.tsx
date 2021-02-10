@@ -6,10 +6,7 @@ import Button from "../common/Button";
 
 export default function SearchButton() {
   const dispatch = useDispatch();
-
-  const search = useCallback(() => {
-    dispatch(getResults());
-  }, [dispatch]);
+  const search = useCallback(() => dispatch(getResults()), [dispatch]);
 
   return (
     <Button type={BLOCK} onClick={search} label="Search">

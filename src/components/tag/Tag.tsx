@@ -1,4 +1,4 @@
-import React, { useState, useEffect, MouseEventHandler } from "react";
+import React, { useEffect, MouseEventHandler } from "react";
 import styled, { css } from "styled-components";
 import "./Tag.css";
 import api from "../../misc/api";
@@ -14,6 +14,7 @@ import {
 } from "../../redux/selectors";
 import { addAliases, removeTag, addTag } from "../../redux/actions";
 import { ThemeType } from "../../misc/theme";
+import useToggle from "../../misc/useToggle";
 
 const dropdownBorderRadius = (collapsed: boolean, theme: ThemeType) =>
   collapsed
@@ -84,7 +85,7 @@ function Tag(props: TagProps) {
   const { name, count, modifier, types, loadAliases } = props;
   const activeTags = useSelector(selectActiveTags);
   const aliases = useSelector(selectAliasesByTagName(name));
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, toggleCollapsed, resetCollapsed] = useToggle(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -105,13 +106,13 @@ function Tag(props: TagProps) {
     <TagWrapper
       active={isActive}
       collapsed={collapsed}
-      onMouseLeave={() => setCollapsed(true)}
+      onMouseLeave={resetCollapsed}
     >
       <TypeIcon types={types} left />
       <TagText name={name} count={count} modifier={modifier} types={types} />
       {showAliases && (
         <>
-          <IconWrapper right onClick={() => setCollapsed(!collapsed)}>
+          <IconWrapper right onClick={toggleCollapsed}>
             <ArrowIcon />
           </IconWrapper>
           <div className={"dropdown-list" + (!collapsed ? " visible" : "")}>

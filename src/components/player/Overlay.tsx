@@ -1,8 +1,9 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler } from "react";
 import Button from "../common/Button";
 import { ExpandIcon, PlayIcon, PauseIcon } from "../../icons/Icons";
 import styled, { css, keyframes } from "styled-components";
 import { NO_OP } from "../../data/constants";
+import useToggle from "../../misc/useToggle";
 
 const fade = keyframes`
   from {
@@ -54,18 +55,15 @@ function Overlay(props: OverlayProps) {
     onFullscreen = NO_OP,
     togglePlay = NO_OP,
     isPaused = true,
-    isPlayable,
-    currentTime,
-    duration,
+    isPlayable = false,
+    currentTime = 0,
+    duration = null,
   } = props;
 
-  const [isVisible, setVisible] = useState(false);
+  const [isVisible, toggleVisible] = useToggle();
 
   return (
-    <Wrapper
-      isVisible={isPaused || isVisible}
-      onClick={() => setVisible(!isVisible)}
-    >
+    <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible}>
       {onFullscreen && (
         <Button type="topLeft" onClick={onFullscreen} label="Open Fullscreen">
           <ExpandIcon color="white" />
@@ -91,14 +89,5 @@ function Overlay(props: OverlayProps) {
     </Wrapper>
   );
 }
-
-Overlay.defaultProps = {
-  onFullscreen: null,
-  togglePlay: NO_OP,
-  isPaused: true,
-  isPlayable: false,
-  currentTime: 0,
-  duration: null,
-};
 
 export default Overlay;

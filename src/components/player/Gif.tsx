@@ -13,17 +13,23 @@ const FlexImage = styled.img`
 interface GifProps {
   src: string;
   thumbnail_src: string;
+  onLoad: () => void;
 }
 
 export default function Gif(props: GifProps) {
-  const { src, thumbnail_src } = props;
+  const { src, thumbnail_src, onLoad } = props;
 
   const [isPaused, setPaused] = useState(true);
   const usedSource = isPaused ? thumbnail_src : src;
 
   return (
     <>
-      <FlexImage src={usedSource} alt={usedSource} loading="lazy" />
+      <FlexImage
+        src={usedSource}
+        alt={usedSource}
+        loading="lazy"
+        onLoad={onLoad}
+      />
       <Overlay
         isPlayable
         isPaused={isPaused}

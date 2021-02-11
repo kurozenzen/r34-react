@@ -14,7 +14,7 @@ const PostWrapper = styled.div(
     ${props.theme.shadow.box};
     border-radius: ${props.theme.dimensions.borderRadius};
     overflow: hidden;
-    margin-bottom: ${props.theme.dimensions.bigSpacing};
+    padding-bottom: ${props.theme.dimensions.bigSpacing};
     box-sizing: border-box;
   `
 );
@@ -38,7 +38,9 @@ export function getCorrectSource(
   return src;
 }
 
-export default function Post(props: PostDataClass) {
+export default function Post(
+  props: PostDataClass & { style: any; onLoad: () => void; virtualRef: any }
+) {
   const {
     id,
     media_type,
@@ -49,19 +51,23 @@ export default function Post(props: PostDataClass) {
     score,
     source,
     tags,
+    style,
+    onLoad,
+    virtualRef,
   } = props;
   const originals = useSelector(selectOriginals);
   const media_src = getCorrectSource(originals, big_src, small_src, id);
   const [collapsed, setCollapsed] = useState(true);
 
-  const toggleDetails = useCallback(() => setCollapsed(!collapsed), [
-    setCollapsed,
-    collapsed,
-  ]);
+  const toggleDetails = useCallback(() => {
+    setCollapsed(!collapsed);
+    setTimeout(onLoad, 100);
+  }, [collapsed, onLoad]);
 
   return (
-    <PostWrapper>
+    <PostWrapper style={style} ref={virtualRef}>
       <Player
+        onLoad={onLoad}
         type={media_type}
         src={media_src}
         thumbnail_src={thumbnail_src}

@@ -17,6 +17,7 @@ interface PlayerProps {
   src: string;
   thumbnail_src: string;
   toggleDetails: MouseEventHandler;
+  onLoad: () => void;
 }
 
 const getMedia = (type: PostType, src: string) => {
@@ -31,12 +32,14 @@ const getMedia = (type: PostType, src: string) => {
 };
 
 export default function Player(props: PlayerProps) {
-  const { toggleDetails, type, src, thumbnail_src } = props;
+  const { toggleDetails, type, src, thumbnail_src, onLoad } = props;
 
   const media = useMemo(() => {
     const MediaComponent = getMedia(type, src);
-    return <MediaComponent src={src} thumbnail_src={thumbnail_src} />;
-  }, [type, src, thumbnail_src]);
+    return (
+      <MediaComponent src={src} thumbnail_src={thumbnail_src} onLoad={onLoad} />
+    );
+  }, [type, src, thumbnail_src, onLoad]);
 
   return <PlayerWrapper onClick={toggleDetails}>{media}</PlayerWrapper>;
 }

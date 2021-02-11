@@ -24,7 +24,7 @@ const DetailsWrapper = styled.div(
       padding: ${props.theme.dimensions.spacing};
     }
     max-height: unset;
-    animation: ${fold} 0.4s ease-in;
+    /* animation: ${fold} 0.4s ease-in; */
   `
 );
 

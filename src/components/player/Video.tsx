@@ -14,15 +14,16 @@ const FlexVideo = styled.video`
 interface VideoProps {
   src: string;
   thumbnail_src: string;
+  onLoad: () => void;
 }
 
 export default function Video(props: VideoProps) {
-  const { src, thumbnail_src } = props;
+  const { src, thumbnail_src, onLoad } = props;
 
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
 
   const [, setTime] = useState(Date.now());
-  const [intervalId, setIntervalId] = useState(0);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
   const play = useCallback(() => {
     videoRef && videoRef.play();
@@ -37,8 +38,8 @@ export default function Video(props: VideoProps) {
 
   const pause = useCallback(() => {
     videoRef && videoRef.pause();
-    clearInterval(intervalId);
-    setIntervalId(-1);
+    clearInterval(intervalId as NodeJS.Timeout);
+    setIntervalId(null);
   }, [videoRef, intervalId]);
 
   const onFullscreen = useCallback(() => videoRef && openFullscreen(videoRef), [
@@ -62,6 +63,7 @@ export default function Video(props: VideoProps) {
         poster={thumbnail_src}
         preload="metadata"
         ref={setVideoRef}
+        onLoad={onLoad}
       />
       <Overlay
         isPaused={videoRef ? videoRef.paused : true}

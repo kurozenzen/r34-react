@@ -6,16 +6,26 @@ import { useSelector } from "react-redux";
 import { selectOriginals } from "../../redux/selectors";
 import PostDataClass from "../../data/Post";
 
+const ListDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+`;
+
 const PostWrapper = styled.div(
   (props) => css`
     display: flex;
     flex-direction: column;
-    background: ${props.theme.misc.layer};
-    ${props.theme.shadow.box};
     border-radius: ${props.theme.dimensions.borderRadius};
     overflow: hidden;
-    padding-bottom: ${props.theme.dimensions.bigSpacing};
+    width: calc(100% - 20px);
+    max-width: 1000px;
     box-sizing: border-box;
+
+    > * {
+      background: ${props.theme.misc.layer};
+    }
   `
 );
 
@@ -65,17 +75,19 @@ export default function Post(
   }, [collapsed, onLoad]);
 
   return (
-    <PostWrapper style={style} ref={virtualRef}>
-      <Player
-        onLoad={onLoad}
-        type={media_type}
-        src={media_src}
-        thumbnail_src={thumbnail_src}
-        toggleDetails={toggleDetails}
-      />
-      {!collapsed && (
-        <Details rating={rating} score={score} source={source} tags={tags} />
-      )}
-    </PostWrapper>
+    <ListDiv style={style} ref={virtualRef} className="list-div">
+      <PostWrapper className="post wrapper">
+        <Player
+          onLoad={onLoad}
+          type={media_type}
+          src={media_src}
+          thumbnail_src={thumbnail_src}
+          toggleDetails={toggleDetails}
+        />
+        {!collapsed && (
+          <Details rating={rating} score={score} source={source} tags={tags} />
+        )}
+      </PostWrapper>
+    </ListDiv>
   );
 }

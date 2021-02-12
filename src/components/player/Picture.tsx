@@ -1,14 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import FlexImage from "./FlexImage";
 import Overlay from "./Overlay";
-
-const FlexImage = styled.img`
-  width: 100%;
-  height: 100%;
-  max-height: 100vh;
-  display: block;
-  object-fit: contain;
-`;
 
 interface PictureProps {
   src: string;

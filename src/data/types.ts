@@ -57,13 +57,15 @@ export const RATED = "rated";
 export const RATEDTRESHOLD = "ratedTreshold";
 export const ORIGINALS = "originals";
 export const COOKIES = "cookies";
+export const PRELOAD_VIDEOS = "preload_videos";
 
 export type PreferenceKey =
   | typeof INFINITE
   | typeof RATED
   | typeof RATEDTRESHOLD
   | typeof ORIGINALS
-  | typeof COOKIES;
+  | typeof COOKIES
+  | typeof PRELOAD_VIDEOS;
 
 export interface SimpleMap<V> {
   [key: string]: V;

@@ -1,5 +1,12 @@
-import React, { ReactNode, useCallback, useMemo, useState } from "react";
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
+  AutoSizer,
   CellMeasurer,
   CellMeasurerCache,
   IndexRange,
@@ -8,8 +15,16 @@ import {
 } from "react-virtualized";
 
 interface InfiniteColumnProps<T> {
-  header?: ReactNode;
-  footer?: ReactNode;
+  Header?: (props: {
+    style: any;
+    virtualRef: any;
+    onLoad: () => void;
+  }) => JSX.Element;
+  Footer?: (props: {
+    style: any;
+    virtualRef: any;
+    onLoad: () => void;
+  }) => JSX.Element;
   items?: T[];
   loadingItem: ReactNode;
   hasMoreRows: boolean;
@@ -25,14 +40,16 @@ interface InfiniteColumnProps<T> {
 
 export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
   const {
-    header,
-    footer,
+    Header,
+    Footer,
     items = [],
     loadingItem,
     hasMoreRows,
     ItemComponent,
     loadMore,
   } = props;
+
+  const [listRef, setListRef] = useState<List | null>(null);
 
   const cache = useMemo(
     () =>
@@ -44,8 +61,8 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
 
   const [isLoading, setLoading] = useState(false);
 
-  const prependedRows = header ? 1 : 0;
-  const appendedRows = footer ? 1 : 0;
+  const prependedRows = Header ? 1 : 0;
+  const appendedRows = Footer ? 1 : 0;
   const loadingRows = hasMoreRows ? 1 : 0;
 
   const rowCount = items.length + prependedRows + appendedRows + loadingRows;
@@ -55,6 +72,25 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
       index < prependedRows + items.length + appendedRows, // maybe weird cause the loaded item (footer) is after the loading item
     [appendedRows, items.length, prependedRows]
   );
+
+  useEffect(() => {
+    console.log("EFFECT");
+    if (listRef) {
+      const listener = () => {
+        console.log("updating", listRef);
+        listRef.measureAllRows();
+        listRef.recomputeRowHeights();
+        listRef.forceUpdateGrid();
+      };
+
+      window.addEventListener("resize", listener);
+
+      return () => {
+        console.log("cleanup");
+        window.removeEventListener("resize", listener);
+      };
+    }
+  }, [listRef]);
 
   const rowRenderer = useCallback(
     ({
@@ -77,8 +113,14 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
           parent={parent}
         >
           {({ measure, registerChild }) => {
-            if (index < prependedRows) {
-              return header;
+            if (Header && index < prependedRows) {
+              return (
+                <Header
+                  style={style}
+                  virtualRef={registerChild}
+                  onLoad={measure}
+                />
+              );
             }
             if (index < prependedRows + items.length) {
               return (
@@ -90,12 +132,21 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
                 />
               );
             }
-            if (index < prependedRows + items.length + 1 && hasMoreRows) {
+            if (index < prependedRows + items.length + loadingRows) {
               return loadingItem;
             }
 
-            if (footer) {
-              return footer;
+            if (
+              Footer &&
+              index < prependedRows + items.length + loadingRows + appendedRows
+            ) {
+              return (
+                <Footer
+                  style={style}
+                  virtualRef={registerChild}
+                  onLoad={measure}
+                />
+              );
             }
 
             console.warn("index not found / out of bounds. INDEX:", index);
@@ -104,7 +155,16 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
         </CellMeasurer>
       );
     },
-    [cache, footer, hasMoreRows, header, items, loadingItem, prependedRows]
+    [
+      appendedRows,
+      cache,
+      Footer,
+      Header,
+      items,
+      loadingItem,
+      loadingRows,
+      prependedRows,
+    ]
   );
 
   const loadMoreRows = (params: IndexRange) => {
@@ -129,20 +189,31 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
       loadMoreRows={loadMoreRows}
       rowCount={rowCount}
     >
-      {({ onRowsRendered, registerChild }) => (
-        <List
-          ref={registerChild}
-          onRowsRendered={onRowsRendered}
-          rowRenderer={rowRenderer}
-          deferredMeasurementCache={cache}
-          overscanRowCount={0}
-          rowCount={100}
-          rowHeight={cache.rowHeight}
-          width={window.innerWidth}
-          height={window.innerHeight}
-          style={{ gap: 5 }}
-        />
-      )}
+      {({ onRowsRendered, registerChild }) => {
+        const registerChildHereAswell = (child: List) => {
+          setListRef(child);
+          registerChild(child);
+        };
+        return (
+          <AutoSizer>
+            {({ width, height }) => (
+              <List
+                ref={registerChildHereAswell}
+                onRowsRendered={onRowsRendered}
+                rowRenderer={rowRenderer}
+                deferredMeasurementCache={cache}
+                overscanRowCount={0}
+                rowCount={
+                  items.length + prependedRows + appendedRows + loadingRows
+                }
+                rowHeight={cache.rowHeight}
+                width={width}
+                height={height}
+              />
+            )}
+          </AutoSizer>
+        );
+      }}
     </InfiniteLoader>
   );
 }

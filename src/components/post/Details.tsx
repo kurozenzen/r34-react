@@ -60,8 +60,8 @@ export default function Details(props: DetailsProps) {
   const tagsForRendering = useMemo(() => listToMap(tags, "name"), [tags]);
 
   return (
-    <DetailsWrapper>
-      <Bar>
+    <DetailsWrapper className="details-wrapper">
+      <Bar className="bar">
         {rating && <Rating value={rating} />}
         {score && <Score value={score} />}
         {source && <Source value={source} />}

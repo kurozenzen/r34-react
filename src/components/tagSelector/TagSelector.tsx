@@ -69,7 +69,7 @@ export default function TagSelector() {
         api.getTags(normalizeTagname(value)).then((newSuggestions) => {
           setSuggestions(newSuggestions);
         });
-    }, 400);
+    }, 300);
 
     return () => clearTimeout(handle);
   }, [value]);

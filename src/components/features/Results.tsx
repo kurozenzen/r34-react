@@ -3,11 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { formatCount } from "../../misc/formatting";
 import { getMoreResults } from "../../redux/actions";
-import { selectCount, selectPosts } from "../../redux/selectors";
+import { selectCount } from "../../redux/selectors";
 import Title from "../common/Title";
 import DynamicList from "../post/DynamicList";
-import PostList from "../post/PostList";
-import LoadMore from "./LoadMore";
 
 const ResultsWrapper = styled.section(
   (props) => css`
@@ -18,7 +16,6 @@ const ResultsWrapper = styled.section(
 );
 
 export default function Results() {
-  const posts = useSelector(selectPosts);
   const count = useSelector(selectCount);
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();

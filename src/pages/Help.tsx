@@ -4,10 +4,13 @@ import Surface, { Line } from "../components/common/Surface";
 import TagSelector from "../components/tagSelector/TagSelector";
 import Options from "../components/features/Options";
 import TagList from "../components/tag/TagList";
+import Header from "../components/features/Header";
+import Footer from "../components/features/Footer";
 
 export default function Help() {
   return (
     <>
+      <Header />
       <Title>Help</Title>
       <Surface>
         <Title>Searching for Tags</Title>
@@ -88,6 +91,7 @@ export default function Help() {
           many posts there are with that tag.
         </p>
       </Surface>
+      <Footer />
     </>
   );
 }

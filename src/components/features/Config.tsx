@@ -9,13 +9,20 @@ import ActiveTags from "./ActiveTags";
 
 const ConfigWrapper = styled.section(
   (props) => css`
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    align-items: center;
+
     > *:not(:last-child) {
       margin-bottom: ${props.theme.dimensions.gutter};
     }
   `
 );
 
-export default function Config() {
+export default function Config(props: { onLoad: () => void }) {
+  const { onLoad } = props;
+
   return (
     <ConfigWrapper>
       <Title>
@@ -23,7 +30,7 @@ export default function Config() {
       </Title>
       <Surface>
         <TagSelector />
-        <ActiveTags />
+        <ActiveTags onChange={onLoad} />
         <Options />
         <SearchButton />
       </Surface>

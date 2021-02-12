@@ -6,6 +6,7 @@ import {
   RATEDTRESHOLD,
   ORIGINALS,
   COOKIES,
+  PRELOAD_VIDEOS,
 } from "../../data/types";
 import { AppAction, SET_OPTION, ALLOW_COOKIES } from "../actions";
 
@@ -15,6 +16,7 @@ export interface PreferencesState {
   ratedTreshold: number;
   originals: boolean;
   cookies: boolean;
+  preloadVideos: boolean;
 }
 
 export const initialPreferencesState: PreferencesState = {
@@ -23,6 +25,7 @@ export const initialPreferencesState: PreferencesState = {
   ratedTreshold: 1,
   originals: false,
   cookies: false,
+  preloadVideos: false,
 };
 
 const setOption = (state: PreferencesState, key: PreferenceKey, value: any) =>
@@ -42,6 +45,9 @@ const setOption = (state: PreferencesState, key: PreferenceKey, value: any) =>
         break;
       case COOKIES:
         draft.cookies = value;
+        break;
+      case PRELOAD_VIDEOS:
+        draft.preloadVideos = value;
         break;
     }
   });

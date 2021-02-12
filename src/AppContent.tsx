@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "./components/features/Header";
-import Footer from "./components/features/Footer";
 import styled, { css } from "styled-components";
 import { MenuType } from "./data/types";
 import Help from "./pages/Help";
@@ -10,30 +8,13 @@ import { useSelector } from "react-redux";
 import { selectActiveMenu, selectCookies } from "./redux/selectors";
 import CookieConfirmation from "./components/features/CookieConfirmation";
 
-const Main = styled.main(
-  (props) => css`
-    flex-grow: 1;
-    align-self: strech;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    padding: 0 16px;
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;
-
-    > *:not(:last-child) {
-      margin-bottom: ${props.theme.dimensions.gutter};
-    }
-  `
-);
-
 const AppWrapper = styled.div(
   (props) => css`
     display: flex;
     flex-direction: column;
     align-items: strech;
-    min-height: 100%;
+    width: 100vw;
+    min-height: 100vh;
     background: ${props.theme.colors.backgroundColor};
     color: ${props.theme.colors.backgroundColor2};
 
@@ -64,14 +45,13 @@ function getActivePage(activeMenu: MenuType) {
 
 export default function AppContent() {
   const activeMenu = useSelector(selectActiveMenu);
-  const activePage = getActivePage(activeMenu);
   const cookies = useSelector(selectCookies);
+
+  const activePage = getActivePage(activeMenu);
 
   return (
     <AppWrapper>
-      <Header />
-      <Main>{activePage}</Main>
-      <Footer />
+      {activePage}
       {!cookies && <CookieConfirmation />}
     </AppWrapper>
   );

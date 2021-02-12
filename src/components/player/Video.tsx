@@ -1,15 +1,9 @@
 import React, { useState, useCallback } from "react";
-import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { selectPreferences } from "../../redux/selectors";
+import FlexVideo from "./FlexVideo";
 import Overlay from "./Overlay";
 import { openFullscreen } from "./utils";
-
-const FlexVideo = styled.video`
-  width: 100%;
-  height: 100%;
-  max-height: 100vh;
-  display: block;
-  object-fit: contain;
-`;
 
 interface VideoProps {
   src: string;
@@ -54,6 +48,8 @@ export default function Video(props: VideoProps) {
     [videoRef, play, pause]
   );
 
+  const { preloadVideos } = useSelector(selectPreferences);
+
   return (
     <>
       <FlexVideo
@@ -61,9 +57,9 @@ export default function Video(props: VideoProps) {
         loop
         src={src}
         poster={thumbnail_src}
-        preload="metadata"
+        preload={preloadVideos ? "auto" : "metadata"}
         ref={setVideoRef}
-        onLoad={onLoad}
+        onLoadedMetadata={onLoad}
       />
       <Overlay
         isPaused={videoRef ? videoRef.paused : true}

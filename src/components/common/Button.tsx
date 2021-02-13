@@ -27,7 +27,7 @@ const InvisibleButton = styled(BasicButton)(
     border-radius: 1000px;
     padding: 5px;
     filter: ${props.theme.shadow.drop};
-    
+
     svg {
       transition: all 0.2s ease-in-out;
     }
@@ -77,6 +77,7 @@ const RedButton = styled(BasicButton)(
   (props) => css`
     height: 32px;
     font-size: 14px;
+    font-weight: bold;
     color: ${props.theme.colors.accentColor};
     background: ${props.theme.colors.backgroundColor};
     border: ${props.theme.colors.accentColor}

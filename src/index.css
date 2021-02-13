@@ -9,6 +9,10 @@ body {
   padding: 0;
 }
 
+* {
+  outline: none;
+}
+
 label,
 h1,
 h2,

@@ -7,6 +7,7 @@ import {
   ORIGINALS,
   COOKIES,
   PRELOAD_VIDEOS,
+  TAG_SUGGESTION_COUNT,
 } from "../../data/types";
 import { AppAction, SET_OPTION, ALLOW_COOKIES } from "../actions";
 
@@ -17,6 +18,7 @@ export interface PreferencesState {
   originals: boolean;
   cookies: boolean;
   preloadVideos: boolean;
+  tagSuggestionsCount: number;
 }
 
 export const initialPreferencesState: PreferencesState = {
@@ -26,6 +28,7 @@ export const initialPreferencesState: PreferencesState = {
   originals: false,
   cookies: false,
   preloadVideos: false,
+  tagSuggestionsCount: 20,
 };
 
 const setOption = (state: PreferencesState, key: PreferenceKey, value: any) =>
@@ -48,6 +51,9 @@ const setOption = (state: PreferencesState, key: PreferenceKey, value: any) =>
         break;
       case PRELOAD_VIDEOS:
         draft.preloadVideos = value;
+        break;
+      case TAG_SUGGESTION_COUNT:
+        draft.tagSuggestionsCount = value;
         break;
     }
   });

@@ -13,29 +13,17 @@ import {
   InfiniteLoader,
   List,
 } from "react-virtualized";
+import LayoutElementProps from "./LayoutElementProps";
 
 interface InfiniteColumnProps<T> {
-  Header?: (props: {
-    style: any;
-    virtualRef: any;
-    onLoad: () => void;
-  }) => JSX.Element;
-  Footer?: (props: {
-    style: any;
-    virtualRef: any;
-    onLoad: () => void;
-  }) => JSX.Element;
+  Header?: (props: LayoutElementProps) => JSX.Element;
+  Footer?: (props: LayoutElementProps) => JSX.Element;
+  OutOfItems?: (props: LayoutElementProps) => JSX.Element;
   items?: T[];
   loadingItem: ReactNode;
   hasMoreRows: boolean;
   loadMore: () => void;
-  ItemComponent: (
-    props: T & {
-      style: any;
-      virtualRef: ((element: Element) => void) | undefined;
-      onLoad: () => void;
-    }
-  ) => JSX.Element;
+  ItemComponent: (props: T & LayoutElementProps) => JSX.Element;
 }
 
 export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
@@ -47,6 +35,7 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
     hasMoreRows,
     ItemComponent,
     loadMore,
+    OutOfItems,
   } = props;
 
   const [listRef, setListRef] = useState<List | null>(null);
@@ -63,7 +52,7 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
 
   const prependedRows = Header ? 1 : 0;
   const appendedRows = Footer ? 1 : 0;
-  const loadingRows = hasMoreRows ? 1 : 0;
+  const loadingRows = 1;
 
   const rowCount = items.length + prependedRows + appendedRows + loadingRows;
 
@@ -104,6 +93,7 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
       parent: any;
       style: any;
     }) => {
+      console.log("index", index);
       return (
         <CellMeasurer
           cache={cache}
@@ -113,7 +103,9 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
           parent={parent}
         >
           {({ measure, registerChild }) => {
+            // Index 0
             if (Header && index < prependedRows) {
+              console.log("HEADER");
               return (
                 <Header
                   style={style}
@@ -122,7 +114,10 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
                 />
               );
             }
+
+            // Index 1
             if (index < prependedRows + items.length) {
+              console.log("ITEM ROW");
               return (
                 <ItemComponent
                   style={style}
@@ -132,14 +127,29 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
                 />
               );
             }
+
+            // Index 2
             if (index < prependedRows + items.length + loadingRows) {
-              return loadingItem;
+              console.log("LOADING ROW");
+              return hasMoreRows ? (
+                loadingItem
+              ) : OutOfItems && items.length > 0 ? (
+                <OutOfItems
+                  style={style}
+                  virtualRef={registerChild}
+                  onLoad={measure}
+                />
+              ) : (
+                <div></div>
+              );
             }
 
+            // Index 3
             if (
               Footer &&
               index < prependedRows + items.length + loadingRows + appendedRows
             ) {
+              console.log("FOOTER");
               return (
                 <Footer
                   style={style}
@@ -156,14 +166,15 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
       );
     },
     [
-      appendedRows,
       cache,
-      Footer,
       Header,
-      items,
-      loadingItem,
-      loadingRows,
       prependedRows,
+      items,
+      Footer,
+      appendedRows,
+      hasMoreRows,
+      loadingItem,
+      OutOfItems,
     ]
   );
 
@@ -207,8 +218,8 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
                   items.length + prependedRows + appendedRows + loadingRows
                 }
                 rowHeight={cache.rowHeight}
-                width={width}
-                height={height}
+                width={window.innerWidth}
+                height={window.innerHeight}
               />
             )}
           </AutoSizer>

@@ -11,9 +11,9 @@ let activeApi = apiUrl1;
 fetch(activeApi).catch(() => (activeApi = apiUrl2));
 
 export default {
-  async getTags(searchTerm: string) {
+  async getTags(searchTerm: string, limit: number = pageSize) {
     const res = await fetch(
-      `${activeApi}/tags?limit=${pageSize}&name=${searchTerm}*&order_by=posts`
+      `${activeApi}/tags?limit=${limit}&name=${searchTerm}*&order_by=posts`
     );
 
     return await res.json();

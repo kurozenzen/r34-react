@@ -11,11 +11,14 @@ function sizeAndPosition(tagSelector: HTMLDivElement | null) {
   if (tagSelector) {
     const { offsetTop, clientHeight, offsetLeft, clientWidth } = tagSelector;
 
-    return `
+    return css`
       position: absolute;
       top: ${offsetTop + clientHeight - 2}px;
       left: ${offsetLeft}px;
-      width: ${clientWidth}px;`;
+      width: ${clientWidth}px;
+      max-height: 50vh;
+      overflow-y: scroll;
+    `;
   }
 
   return "";

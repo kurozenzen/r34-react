@@ -58,6 +58,7 @@ export const RATEDTRESHOLD = "ratedTreshold";
 export const ORIGINALS = "originals";
 export const COOKIES = "cookies";
 export const PRELOAD_VIDEOS = "preload_videos";
+export const TAG_SUGGESTION_COUNT = "tag_suggestion_count";
 
 export type PreferenceKey =
   | typeof INFINITE
@@ -65,7 +66,8 @@ export type PreferenceKey =
   | typeof RATEDTRESHOLD
   | typeof ORIGINALS
   | typeof COOKIES
-  | typeof PRELOAD_VIDEOS;
+  | typeof PRELOAD_VIDEOS
+  | typeof TAG_SUGGESTION_COUNT;
 
 export interface SimpleMap<V> {
   [key: string]: V;

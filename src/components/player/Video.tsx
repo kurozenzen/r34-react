@@ -12,7 +12,7 @@ interface VideoProps {
 }
 
 export default function Video(props: VideoProps) {
-  const { src, thumbnail_src, onLoad } = props;
+  const { src, onLoad } = props;
 
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
 
@@ -56,7 +56,6 @@ export default function Video(props: VideoProps) {
         controls={false}
         loop
         src={src}
-        poster={thumbnail_src}
         preload={preloadVideos ? "auto" : "metadata"}
         ref={setVideoRef}
         onLoadedMetadata={onLoad}

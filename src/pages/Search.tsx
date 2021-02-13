@@ -1,12 +1,12 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Config from "../components/features/Config";
-import Footer from "../components/features/Footer";
-import Header from "../components/features/Header";
 import InifinteColumn from "../components/layout/InfiniteColumn";
 import Post from "../components/post/Post";
 import { getMoreResults } from "../redux/actions";
 import { selectOutOfResults, selectPosts } from "../redux/selectors";
+import LayoutHeader from "../components/layout/LayoutHeader";
+import LayoutFooter from "../components/layout/LayoutFooter";
+import LayoutLoadingItem from "../components/layout/LayoutLoadingItem";
 
 export default function Search() {
   const dispatch = useDispatch();
@@ -17,17 +17,9 @@ export default function Search() {
   return (
     <>
       <InifinteColumn
-        Header={({ onLoad, virtualRef, style }) => (
-          <div onLoad={onLoad} ref={virtualRef} style={style}>
-            <Header />
-            <Config onLoad={onLoad} />
-          </div>
-        )}
-        Footer={({ onLoad, virtualRef, style }) => (
-          <div onLoad={onLoad} ref={virtualRef} style={style}>
-            <Footer />
-          </div>
-        )}
+        Header={LayoutHeader}
+        Footer={LayoutFooter}
+        OutOfItems={LayoutLoadingItem}
         items={posts}
         loadingItem={<span>LOADING...</span>}
         hasMoreRows={hasMorePosts}

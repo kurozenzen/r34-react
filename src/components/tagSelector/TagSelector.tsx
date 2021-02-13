@@ -6,9 +6,10 @@ import Button, { AddButton, ModifierButton } from "../common/Button";
 import TagInput from "./TagInput";
 import DropdownList from "./DropdownList";
 import { normalizeTagname } from "../tag/tagUtils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTag } from "../../redux/actions";
 import { ThemeType } from "../../misc/theme";
+import { selectPreferences } from "../../redux/selectors";
 
 export const TagSelectorWrapper = styled.div(
   (props: {
@@ -39,6 +40,7 @@ export default function TagSelector() {
   const [value, setValue] = useState("");
   const [modifier, setModifier] = useState("+");
   const [suggestions, setSuggestions] = useState([]);
+  const { tagSuggestionsCount } = useSelector(selectPreferences);
 
   const [tagSelectorRef, setTagSelectorRef] = useState<HTMLDivElement | null>(
     null
@@ -65,14 +67,20 @@ export default function TagSelector() {
 
   useEffect(() => {
     const handle = setTimeout(() => {
-      if (value && value !== "")
-        api.getTags(normalizeTagname(value)).then((newSuggestions) => {
+      if (!value) {
+        setSuggestions([]);
+        return;
+      }
+
+      api
+        .getTags(normalizeTagname(value), tagSuggestionsCount)
+        .then((newSuggestions) => {
           setSuggestions(newSuggestions);
         });
     }, 300);
 
     return () => clearTimeout(handle);
-  }, [value]);
+  }, [tagSuggestionsCount, value]);
 
   const onModifierClick = useCallback(
     () => setModifier(modifier === "+" ? "-" : "+"),

@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled, { css } from "styled-components";
-import { MenuType } from "./data/types";
 import Help from "./pages/Help";
 import Settings from "./pages/Settings";
 import Search from "./pages/Search";
@@ -31,27 +30,22 @@ const AppWrapper = styled.div(
   `
 );
 
-function getActivePage(activeMenu: MenuType) {
-  switch (activeMenu) {
-    case "help":
-      return <Help />;
-    case "settings":
-      return <Settings />;
-    case "search":
-    default:
-      return <Search />;
-  }
-}
-
 export default function AppContent() {
   const activeMenu = useSelector(selectActiveMenu);
   const cookies = useSelector(selectCookies);
 
-  const activePage = getActivePage(activeMenu);
+  const pages = useMemo(
+    () => ({
+      help: <Help />,
+      settings: <Settings />,
+      search: <Search />,
+    }),
+    []
+  );
 
   return (
     <AppWrapper>
-      {activePage}
+      {pages[activeMenu]}
       {!cookies && <CookieConfirmation />}
     </AppWrapper>
   );

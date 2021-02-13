@@ -7,20 +7,19 @@ import { selectOriginals } from "../../redux/selectors";
 import PostDataClass from "../../data/Post";
 
 const ListDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   padding-top: 10px;
 `;
 
 const PostWrapper = styled.div(
   (props) => css`
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
     border-radius: ${props.theme.dimensions.borderRadius};
     overflow: hidden;
     width: calc(100% - 20px);
     max-width: 1000px;
+    margin: auto;
     box-sizing: border-box;
 
     > * {

@@ -15,3 +15,8 @@ export const BigTitle = styled.h1`
   text-align: center;
   margin: 0;
 `;
+
+export const SmallTitle = styled.h3`
+  font-size: 16px;
+  margin: 0;
+`;

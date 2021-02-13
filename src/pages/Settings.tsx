@@ -1,22 +1,27 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BlockButton } from "../components/common/Button";
-import LabeledToggle from "../components/common/LabeledToggle";
+import Setting from "../components/common/Setting";
+import SmallTextInput from "../components/common/SmallTextInput";
 import Surface, { Line } from "../components/common/Surface";
-import { Subdued } from "../components/common/Text";
 import Title from "../components/common/Title";
+import Toggle from "../components/common/Toggle";
 import Footer from "../components/features/Footer";
 import Header from "../components/features/Header";
-import { PRELOAD_VIDEOS } from "../data/types";
+import { PRELOAD_VIDEOS, TAG_SUGGESTION_COUNT } from "../data/types";
 import { setOption } from "../redux/actions";
 import { selectPreferences } from "../redux/selectors";
 
 export default function Settings() {
   const dispatch = useDispatch();
-  const { preloadVideos } = useSelector(selectPreferences);
+  const { preloadVideos, tagSuggestionsCount } = useSelector(selectPreferences);
   const togglePreloadVideos = useCallback(
     () => dispatch(setOption(PRELOAD_VIDEOS, !preloadVideos)),
     [dispatch, preloadVideos]
+  );
+  const setTagSuggestionCount = useCallback(
+    (event) => dispatch(setOption(TAG_SUGGESTION_COUNT, event.target.value)),
+    [dispatch]
   );
 
   const reset = useCallback(() => {
@@ -30,11 +35,24 @@ export default function Settings() {
       <Title>Settings</Title>
       <Surface>
         <Title>General</Title>
-        <LabeledToggle value={preloadVideos} onToggle={togglePreloadVideos}>
-          <span>
-            Preload Videos <Subdued>This will use a lot of data.</Subdued>
-          </span>
-        </LabeledToggle>
+
+        <Setting
+          title="Preload Videos"
+          description="Start loading videos immediately instead of just-in-time. This can improve the viewing experience but will consume a LOT of data. Only use with WIFI."
+        >
+          <Toggle value={preloadVideos} onToggle={togglePreloadVideos} />
+        </Setting>
+
+        <Setting
+          title="Number of Tag suggestions"
+          description="Controls the number of tags displayed when searching. Increase this when searching for niche tags."
+        >
+          <SmallTextInput
+            type="number"
+            value={tagSuggestionsCount}
+            onChange={setTagSuggestionCount}
+          />
+        </Setting>
         <Line />
         <Title>Developer</Title>
         <BlockButton onClick={reset}>Reset Application</BlockButton>

@@ -8,16 +8,22 @@ import Title from "../components/common/Title";
 import Toggle from "../components/common/Toggle";
 import Footer from "../components/features/Footer";
 import Header from "../components/features/Header";
-import { PRELOAD_VIDEOS, TAG_SUGGESTION_COUNT } from "../data/types";
+import { PRELOAD_VIDEOS, TAG_SUGGESTION_COUNT, ORIGINALS } from "../data/types";
 import { setOption } from "../redux/actions";
 import { selectPreferences } from "../redux/selectors";
 
 export default function Settings() {
   const dispatch = useDispatch();
-  const { preloadVideos, tagSuggestionsCount } = useSelector(selectPreferences);
+  const { preloadVideos, tagSuggestionsCount, originals } = useSelector(
+    selectPreferences
+  );
   const togglePreloadVideos = useCallback(
     () => dispatch(setOption(PRELOAD_VIDEOS, !preloadVideos)),
     [dispatch, preloadVideos]
+  );
+  const toggleOriginals = useCallback(
+    () => dispatch(setOption(ORIGINALS, !originals)),
+    [dispatch, originals]
   );
   const setTagSuggestionCount = useCallback(
     (event) => dispatch(setOption(TAG_SUGGESTION_COUNT, event.target.value)),
@@ -35,14 +41,21 @@ export default function Settings() {
       <Title>Settings</Title>
       <Surface>
         <Title>General</Title>
-
+        <Line />
         <Setting
           title="Preload Videos"
           description="Start loading videos immediately instead of just-in-time. This can improve the viewing experience but will consume a LOT of data. Only use with WIFI."
         >
           <Toggle value={preloadVideos} onToggle={togglePreloadVideos} />
         </Setting>
-
+        <Line />
+        <Setting
+          title="Load original sizes"
+          description="Display images and videos at their original resolution. This will consume more data but provides a nicer experience."
+        >
+          <Toggle value={originals} onToggle={toggleOriginals} />
+        </Setting>
+        <Line />
         <Setting
           title="Number of Tag suggestions"
           description="Controls the number of tags displayed when searching. Increase this when searching for niche tags."

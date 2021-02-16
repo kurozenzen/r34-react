@@ -1,19 +1,22 @@
 import React from "react";
+import styled from "styled-components";
+
+const StyledSvg = styled.svg`
+  height: 35px;
+  padding: 10px;
+`;
 
 export default function Loading() {
   return (
-    <svg
+    <StyledSvg
       version="1.1"
-      id="L4"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      x="0px"
-      y="0px"
-      viewBox="0 0 100 100"
+      viewBox="0 0 50 20"
       enable-background="new 0 0 0 0"
       xmlSpace="preserve"
     >
-      <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+      <circle fill="#fff" stroke="none" cx="6" cy="10" r="6">
         <animate
           attributeName="opacity"
           dur="1s"
@@ -22,7 +25,7 @@ export default function Loading() {
           begin="0.1"
         />
       </circle>
-      <circle fill="#fff" stroke="none" cx="26" cy="50" r="6">
+      <circle fill="#fff" stroke="none" cx="26" cy="10" r="6">
         <animate
           attributeName="opacity"
           dur="1s"
@@ -31,7 +34,7 @@ export default function Loading() {
           begin="0.2"
         />
       </circle>
-      <circle fill="#fff" stroke="none" cx="46" cy="50" r="6">
+      <circle fill="#fff" stroke="none" cx="46" cy="10" r="6">
         <animate
           attributeName="opacity"
           dur="1s"
@@ -40,6 +43,6 @@ export default function Loading() {
           begin="0.3"
         />
       </circle>
-    </svg>
+    </StyledSvg>
   );
 }

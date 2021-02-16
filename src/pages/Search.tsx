@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InifinteColumn from "../components/layout/InfiniteColumn";
 import Post from "../components/post/Post";
@@ -13,6 +13,7 @@ export default function Search() {
   const posts = useSelector(selectPosts);
   const hasMorePosts = !useSelector(selectOutOfResults);
   const loadMore = useCallback(() => dispatch(getMoreResults()), [dispatch]);
+  const [isLoading, setLoading] = useState(false);
 
   return (
     <>
@@ -24,6 +25,8 @@ export default function Search() {
         hasMoreRows={hasMorePosts}
         ItemComponent={Post}
         loadMore={loadMore}
+        isLoading={isLoading}
+        setLoading={setLoading}
       />
     </>
   );

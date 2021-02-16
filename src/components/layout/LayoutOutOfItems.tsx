@@ -25,7 +25,7 @@ export default function LayoutOutOfItems({
   );
 
   return (
-    <div style={style} ref={virtualRef} onLoad={onLoad}>
+    <div style={style} ref={virtualRef} onLoad={onLoad} role="row">
       <Surface>
         <img
           src={outOfResultsPicture}

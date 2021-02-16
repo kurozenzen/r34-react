@@ -2,15 +2,14 @@ const theme = {
   dimensions: {
     borderRadius: "3px",
     borderWidth: "2px",
-
     spacing: "4px",
     bigSpacing: "8px",
     appMargin: "16px",
     gutter: "8px",
   },
   colors: {
-    accentColor: "crimson",
-    hoverAccent: "crimson",
+    accentColor: "#ee3344",
+    hoverAccent: "#ee3344",
     backgroundColor: "#121212",
     backgroundColor2: "#fff",
   },
@@ -24,6 +23,9 @@ const theme = {
   misc: {
     layer:
       "#ffffff11; :hover { background: #ffffff16;} transition: background-color 0.2s ease-in-out",
+  },
+  fontSizes: {
+    content: "17px",
   },
 };
 

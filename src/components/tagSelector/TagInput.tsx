@@ -7,7 +7,7 @@ const Input = styled.input(
     border: none;
     outline: none;
     background: none;
-    font-size: 14px;
+    font-size: ${props.theme.fontSizes.content};
     border-top: ${props.theme.colors.accentColor}
       ${props.theme.dimensions.borderWidth} solid;
     border-bottom: ${props.theme.colors.accentColor}

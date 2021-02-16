@@ -8,7 +8,7 @@ export default function LayoutFooter({
   style,
 }: LayoutElementProps) {
   return (
-    <div onLoad={onLoad} ref={virtualRef} style={style}>
+    <div onLoad={onLoad} ref={virtualRef} style={style} role="row">
       <Footer />
     </div>
   );

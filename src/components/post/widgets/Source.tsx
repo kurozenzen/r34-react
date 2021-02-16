@@ -42,7 +42,7 @@ const TwitterLink = ({ value }: { value: string }) => {
       color="rgb(29, 161, 242)"
     >
       <TwitterIcon color="rgb(29, 161, 242)" left />
-      {value.split("twitter.com/")[1].split("?")[0].split("/")[0]}
+      {value.split("twitter.com/")[1].split(" ")[0].split("?")[0].split("/")[0]}
     </ColoredA>
   );
 };

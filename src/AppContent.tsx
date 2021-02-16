@@ -16,8 +16,7 @@ const AppWrapper = styled.div(
     min-height: 100vh;
     background: ${props.theme.colors.backgroundColor};
     color: ${props.theme.colors.backgroundColor2};
-
-    font-size: 14px;
+    font-size: ${props.theme.fontSizes.content};
 
     a {
       color: ${props.theme.colors.accentColor};

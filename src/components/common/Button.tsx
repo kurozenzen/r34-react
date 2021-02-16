@@ -12,13 +12,15 @@ import {
   MENU,
 } from "../../data/types";
 
-const BasicButton = styled.button`
-  font-size: 14px;
+const BasicButton = styled.button(
+  (props) => css`
+    font-size: ${props.theme.fontSizes.content};
 
-  :focus {
-    outline: none;
-  }
-`;
+    :focus {
+      outline: none;
+    }
+  `
+);
 
 const InvisibleButton = styled(BasicButton)(
   (props) => css`
@@ -76,7 +78,7 @@ const CenterButton = styled(InvisibleButton)`
 const RedButton = styled(BasicButton)(
   (props) => css`
     height: 32px;
-    font-size: 14px;
+    font-size: ${props.theme.fontSizes.content};
     font-weight: bold;
     color: ${props.theme.colors.accentColor};
     background: ${props.theme.colors.backgroundColor};

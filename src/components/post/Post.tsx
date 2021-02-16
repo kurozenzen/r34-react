@@ -79,7 +79,7 @@ export default function Post(
   return (
     <ItemWrapper style={style} ref={virtualRef} className="list-div">
       <PositonWrapper>
-        <PostWrapper className="post wrapper" onClick={toggleDetails}>
+        <PostWrapper onClick={toggleDetails} role="row">
           <Player
             onLoad={onLoad}
             type={media_type}

@@ -57,7 +57,7 @@ export const TagWrapper = styled.div(
       display: inline-block;
       padding: 0.25rem;
       border-radius: ${dropdownBorderRadius(props.collapsed, props.theme)};
-      font-size: 14px;
+      font-size: ${props.theme.fontSizes.content};
       line-height: 1.2;
       vertical-align: baseline;
       margin: ${props.theme.dimensions.spacing};

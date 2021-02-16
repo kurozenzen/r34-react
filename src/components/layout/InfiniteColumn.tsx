@@ -16,6 +16,8 @@ interface InfiniteColumnProps<T> {
   hasMoreRows: boolean;
   loadMore: () => void;
   ItemComponent: (props: T & LayoutElementProps) => JSX.Element;
+  isLoading: boolean;
+  setLoading: (value: boolean) => void;
 }
 
 export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
@@ -27,6 +29,8 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
     ItemComponent,
     loadMore,
     OutOfItems,
+    isLoading,
+    setLoading,
   } = props;
 
   const [listRef, setListRef] = useState<List | null>(null);
@@ -38,8 +42,6 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
       }),
     []
   );
-
-  const [isLoading, setLoading] = useState(false);
 
   const prependedRows = Header ? 1 : 0;
   const loadingRows = 1;
@@ -114,7 +116,7 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
 
             // Index 2
             if (index < prependedRows + items.length + loadingRows) {
-              return hasMoreRows ? (
+              return hasMoreRows || isLoading ? (
                 <LoadingItem
                   style={style}
                   virtualRef={registerChild}
@@ -137,12 +139,12 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
         </CellMeasurer>
       );
     },
-    [cache, Header, prependedRows, items, hasMoreRows, OutOfItems]
+    [cache, Header, prependedRows, items, hasMoreRows, isLoading, OutOfItems]
   );
 
   const loadMoreRows = (params: IndexRange) => {
     if (isLoading || !hasMoreRows) {
-      return Promise.resolve(0);
+      return Promise.reject(0);
     }
 
     setLoading(true);

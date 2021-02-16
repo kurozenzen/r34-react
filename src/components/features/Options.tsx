@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectPreferences } from "../../redux/selectors";
 import { setOption } from "../../redux/actions";
 import { ThemeType } from "../../misc/theme";
-import { RATED, RATEDTRESHOLD, ORIGINALS } from "../../data/types";
+import { RATED, RATEDTRESHOLD } from "../../data/types";
 
 const OptionsWrapper = styled.div(
   (props) => css`
@@ -21,10 +21,9 @@ const StyledInput = styled.input(
     border: none;
     outline: none;
     color: ${props.theme.colors.accentColor};
-    max-height: 16px;
-    width: ${0.57 * String(props.value).length}em;
+    width: ${0.65 * String(props.value).length}em;
     text-align: right;
-    font-size: 16px;
+    font-size: ${props.theme.fontSizes.content};
     margin: -1px 0.2em 0 0.2em;
 
     ::-webkit-inner-spin-button,
@@ -38,7 +37,7 @@ const StyledInput = styled.input(
 
 export default function Options() {
   const dispatch = useDispatch();
-  const { rated, ratedTreshold, originals } = useSelector(selectPreferences);
+  const { rated, ratedTreshold } = useSelector(selectPreferences);
 
   const [ratedInputValue, setRatedInputValue] = useState(ratedTreshold);
 
@@ -46,11 +45,6 @@ export default function Options() {
     dispatch,
     rated,
   ]);
-
-  const toggleOriginals = useCallback(
-    () => dispatch(setOption(ORIGINALS, !originals)),
-    [dispatch, originals]
-  );
 
   const setRatedThreshold = useCallback(
     () => dispatch(setOption(RATEDTRESHOLD, ratedInputValue)),
@@ -76,10 +70,6 @@ export default function Options() {
         ) : (
           "Only show Rated Posts"
         )}
-      </LabeledToggle>
-
-      <LabeledToggle value={originals} onToggle={toggleOriginals}>
-        Load Original Sizes
       </LabeledToggle>
     </OptionsWrapper>
   );

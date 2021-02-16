@@ -21,7 +21,7 @@ export default function LayoutHeader({
   }, [count, onLoad]);
 
   return (
-    <div onLoad={onLoad} ref={virtualRef} style={style}>
+    <div onLoad={onLoad} ref={virtualRef} style={style} role="row">
       <Header />
       <Config onLoad={onLoad} />
       {count > 0 && (

@@ -44,7 +44,7 @@ export default function Header() {
   const dispatch = useDispatch();
 
   return (
-    <HeaderWrapper>
+    <HeaderWrapper role="cell">
       <TitleBar>
         <BigTitle>
           <R34Icon size={32} />
@@ -55,7 +55,7 @@ export default function Header() {
         </BigTitle>
       </TitleBar>
 
-      <MenuBar>
+      <MenuBar role="cell">
         <Button
           type={MENU}
           active={activeMenu === SEARCH}

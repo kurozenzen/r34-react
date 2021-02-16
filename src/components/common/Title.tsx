@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export default styled.h2`
   font-size: 24px;
@@ -16,7 +16,9 @@ export const BigTitle = styled.h1`
   margin: 0;
 `;
 
-export const SmallTitle = styled.h3`
-  font-size: 16px;
-  margin: 0;
-`;
+export const SmallTitle = styled.h3(
+  (props) => css`
+    font-size: ${props.theme.fontSizes.content};
+    margin: 0;
+  `
+);

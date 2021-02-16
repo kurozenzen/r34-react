@@ -37,6 +37,7 @@ interface IconProps {
   onClick?: MouseEventHandler;
   left?: boolean;
   right?: boolean;
+  prefix?: string;
 }
 
 const Icon = (props: IconProps) => {
@@ -48,11 +49,12 @@ const Icon = (props: IconProps) => {
     onClick = () => {},
     left = false,
     right = false,
+    prefix = "fas",
   } = props;
   return (
     <IconWrapper onClick={onClick} left={left} right={right}>
       <StyledIcon
-        className={`fas ${icon} ${className}`}
+        className={`${prefix} ${icon} ${className}`}
         color={color}
         size={size}
       />
@@ -108,6 +110,15 @@ export const RatingIcon = styled(Icon).attrs({
 
 export const HeartIcon = styled(Icon).attrs({
   icon: "fa-heart",
+})``;
+
+export const TwitterIcon = styled(Icon).attrs({
+  prefix: "fab",
+  icon: "fa-twitter",
+})``;
+
+export const LinkIcon = styled(Icon).attrs({
+  icon: "fa-link",
 })``;
 
 export const PlayIcon = memo(

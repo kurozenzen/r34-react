@@ -5,6 +5,7 @@ const FlexImage = styled.img`
   height: 100%;
   display: block;
   object-fit: contain;
+  grid-area: 1/1/2/2;
 `;
 
 export default FlexImage;

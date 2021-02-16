@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, MouseEventHandler } from "react";
 import { useSelector } from "react-redux";
 import { selectPreferences } from "../../redux/selectors";
 import FlexVideo from "./FlexVideo";
@@ -9,10 +9,11 @@ interface VideoProps {
   src: string;
   thumbnail_src: string;
   onLoad: () => void;
+  openInNewTab: MouseEventHandler;
 }
 
 export default function Video(props: VideoProps) {
-  const { src, onLoad } = props;
+  const { src, onLoad, openInNewTab } = props;
 
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
 
@@ -66,6 +67,7 @@ export default function Video(props: VideoProps) {
         duration={videoRef ? videoRef.duration : undefined}
         onFullscreen={onFullscreen}
         togglePlay={togglePlay}
+        openInNewTab={openInNewTab}
         isPlayable
       />
     </>

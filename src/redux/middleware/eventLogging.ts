@@ -38,7 +38,6 @@ export default (store: MiddlewareAPI<any>) => (next: Dispatch<AppAction>) => (
     if (action.type === ADD_TAG) {
       const { id, payload } = addTagEvent(action.tag);
       analytics.logEvent<typeof id>(id, payload);
-      console.log("EVENT:", id, payload);
     }
 
     if (action.type === ADD_POSTS || action.type === SET_POSTS) {
@@ -51,7 +50,6 @@ export default (store: MiddlewareAPI<any>) => (next: Dispatch<AppAction>) => (
         preferences
       );
       analytics.logEvent<typeof id>(id, payload);
-      console.log("EVENT:", id, payload);
     }
   }
 

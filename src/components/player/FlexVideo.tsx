@@ -5,6 +5,7 @@ const FlexVideo = styled.video`
   height: 100%;
   display: block;
   object-fit: contain;
+  grid-area: 1/1/2/2;
 `;
 
 export default FlexVideo;

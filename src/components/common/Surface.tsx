@@ -6,8 +6,7 @@ export default styled.div(
     background: ${props.theme.misc.layer};
     ${props.theme.shadow.box};
     border-radius: ${props.theme.dimensions.borderRadius};
-    width: calc(100% - 20px);
-    max-width: 1000px;
+    width: 100%;
 
     > *:not(:last-child) {
       margin-bottom: ${props.theme.dimensions.gutter};

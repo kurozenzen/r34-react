@@ -53,21 +53,21 @@ const ActiveMenuButton = styled(InvisibleButton)(
 );
 
 const TopLeftButton = styled(InvisibleButton)`
-  position: absolute;
+  position: relative;
   left: 0;
   top: 0;
   margin: 10px;
 `;
 
 const BottomLeftButton = styled(InvisibleButton)`
-  position: absolute;
+  position: relative;
   left: 0;
   bottom: 0;
   margin: 10px;
 `;
 
 const CenterButton = styled(InvisibleButton)`
-  position: absolute;
+  position: relative;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -160,6 +160,7 @@ interface ButtonProps {
   active?: boolean;
   disabled?: boolean;
   label: string;
+  className?: string;
 }
 
 function Button(props: ButtonProps) {
@@ -170,11 +171,17 @@ function Button(props: ButtonProps) {
     active = false,
     disabled = false,
     label,
+    className = "",
   } = props;
   const TypedButton = getButtonByType(type, active);
 
   return (
-    <TypedButton onClick={onClick} disabled={disabled} aria-label={label}>
+    <TypedButton
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+      className={className}
+    >
       {children}
     </TypedButton>
   );

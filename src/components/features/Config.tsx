@@ -6,13 +6,12 @@ import Title from "../common/Title";
 import Surface from "../common/Surface";
 import SearchButton from "./SearchButton";
 import ActiveTags from "./ActiveTags";
+import MaxWidthStyle from "../common/MaxWidthStyle";
 
 const ConfigWrapper = styled.section(
   (props) => css`
-    display: flex;
-    flex-direction: column;
-    padding: 0 10px;
-    align-items: center;
+    display: grid;
+    ${MaxWidthStyle}
 
     > *:not(:last-child) {
       margin-bottom: ${props.theme.dimensions.gutter};

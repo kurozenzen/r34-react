@@ -5,7 +5,7 @@ import Post from "../components/post/Post";
 import { getMoreResults } from "../redux/actions";
 import { selectOutOfResults, selectPosts } from "../redux/selectors";
 import LayoutHeader from "../components/layout/LayoutHeader";
-import LayoutFooter from "../components/layout/LayoutFooter";
+import LayoutOutOfItems from "../components/layout/LayoutOutOfItems";
 import LayoutLoadingItem from "../components/layout/LayoutLoadingItem";
 
 export default function Search() {
@@ -18,10 +18,9 @@ export default function Search() {
     <>
       <InifinteColumn
         Header={LayoutHeader}
-        Footer={LayoutFooter}
-        OutOfItems={LayoutLoadingItem}
+        OutOfItems={LayoutOutOfItems}
         items={posts}
-        loadingItem={<span>LOADING...</span>}
+        LoadingItem={LayoutLoadingItem}
         hasMoreRows={hasMorePosts}
         ItemComponent={Post}
         loadMore={loadMore}

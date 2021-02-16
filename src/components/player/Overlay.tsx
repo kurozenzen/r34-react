@@ -1,31 +1,27 @@
 import React, { MouseEventHandler } from "react";
 import Button from "../common/Button";
-import { ExpandIcon, PlayIcon, PauseIcon } from "../../icons/Icons";
-import styled, { css, keyframes } from "styled-components";
+import {
+  ExpandIcon,
+  PlayIcon,
+  PauseIcon,
+  ExternalLinkIcon,
+} from "../../icons/Icons";
+import styled, { css } from "styled-components";
 import { NO_OP } from "../../data/constants";
 import useToggle from "../../misc/useToggle";
-
-const fade = keyframes`
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-`;
+import { fadeOut } from "../styled/animations";
 
 const Wrapper = styled.div(
   (props: { isVisible: boolean }) => css`
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    grid-area: 1/1/2/2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr) auto;
+
     ${!props.isVisible
       ? css`
           opacity: 0;
-          animation: ${fade} 0.4s ease-in-out;
+          animation: ${fadeOut} 0.4s ease-in-out;
         `
       : ""};
   `
@@ -33,16 +29,38 @@ const Wrapper = styled.div(
 
 const ProgressBar = styled.div(
   (props) => css`
-    position: absolute;
-    left: 0;
-    bottom: 0;
+    grid-area: 4/5/4/4;
     height: 5px;
     background-color: ${props.theme.colors.accentColor};
   `
 );
 
+const OverlayButton = styled(Button).attrs({ type: "invisible" })(
+  (props) => css`
+    width: max-content;
+    height: max-content;
+    padding: ${props.theme.dimensions.bigSpacing};
+  `
+);
+
+const FullScreenButton = styled(OverlayButton)`
+  grid-area: 1/1/2/2;
+  place-self: start start;
+`;
+
+const OpenExternalButton = styled(OverlayButton)`
+  grid-area: 3/1/4/1;
+  place-self: end start;
+`;
+
+const PlayButton = styled(OverlayButton)`
+  grid-area: 2/2/3/3;
+  place-self: center center;
+`;
+
 interface OverlayProps {
   onFullscreen?: MouseEventHandler;
+  openInNewTab: MouseEventHandler;
   togglePlay?: MouseEventHandler;
   isPaused?: boolean;
   isPlayable: boolean;
@@ -58,6 +76,7 @@ function Overlay(props: OverlayProps) {
     isPlayable = false,
     currentTime = 0,
     duration = null,
+    openInNewTab,
   } = props;
 
   const [isVisible, toggleVisible] = useToggle();
@@ -65,20 +84,24 @@ function Overlay(props: OverlayProps) {
   return (
     <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible}>
       {onFullscreen && (
-        <Button type="topLeft" onClick={onFullscreen} label="Open Fullscreen">
+        <FullScreenButton onClick={onFullscreen} label="Open Fullscreen">
           <ExpandIcon color="white" />
-        </Button>
+        </FullScreenButton>
       )}
+
+      <OpenExternalButton onClick={openInNewTab} label="Open In New Tab">
+        <ExternalLinkIcon color="white" />
+      </OpenExternalButton>
 
       {isPlayable && (
         <>
-          <Button type="center" onClick={togglePlay} label="Play/Pause">
+          <PlayButton onClick={togglePlay} label="Play/Pause">
             {isPaused ? (
               <PlayIcon color="white" size={50} />
             ) : (
               <PauseIcon color="white" size={50} />
             )}
-          </Button>
+          </PlayButton>
           {!!duration && !!currentTime && (
             <ProgressBar
               style={{ width: `${(currentTime / duration) * 100}%` }}

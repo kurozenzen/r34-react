@@ -1,5 +1,4 @@
-import React, { MouseEventHandler, useMemo } from "react";
-import styled from "styled-components";
+import React, { MouseEventHandler, useCallback, useMemo } from "react";
 import Video from "./Video";
 import Gif from "./Gif";
 import Picture from "./Picture";
@@ -7,16 +6,10 @@ import { VIDEO, GIF } from "../../data/constants";
 import { getMediaType } from "./utils";
 import { PostType } from "../../data/types";
 
-const PlayerWrapper = styled.div`
-  display: inline-block;
-  position: relative;
-`;
-
 interface PlayerProps {
   type: PostType;
   src: string;
   thumbnail_src: string;
-  toggleDetails: MouseEventHandler;
   onLoad: () => void;
 }
 
@@ -32,14 +25,31 @@ const getMedia = (type: PostType, src: string) => {
 };
 
 export default function Player(props: PlayerProps) {
-  const { toggleDetails, type, src, thumbnail_src, onLoad } = props;
+  const { type, src, thumbnail_src, onLoad } = props;
+
+  const openInNewTab: MouseEventHandler = useCallback(
+    (event) => {
+      event.stopPropagation();
+      const url = new URL(src).searchParams
+        .get("url")
+        ?.replace("//", "/")
+        .split("?")[0];
+      if (url) window.open(url);
+    },
+    [src]
+  );
 
   const media = useMemo(() => {
     const MediaComponent = getMedia(type, src);
     return (
-      <MediaComponent src={src} thumbnail_src={thumbnail_src} onLoad={onLoad} />
+      <MediaComponent
+        src={src}
+        thumbnail_src={thumbnail_src}
+        onLoad={onLoad}
+        openInNewTab={openInNewTab}
+      />
     );
-  }, [type, src, thumbnail_src, onLoad]);
+  }, [type, src, thumbnail_src, onLoad, openInNewTab]);
 
-  return <PlayerWrapper onClick={toggleDetails}>{media}</PlayerWrapper>;
+  return <>{media}</>;
 }

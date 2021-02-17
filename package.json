@@ -12,7 +12,7 @@
     "@types/redux-persist": "^4.3.1",
     "firebase": "^7.17.1",
     "gh-pages": "2.0.1",
-    "immer": "^4.0.1",
+    "immer": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.2.0",

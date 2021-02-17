@@ -2,14 +2,11 @@ import React, { MouseEventHandler } from "react";
 import styled, { css } from "styled-components";
 import Toggle from "./Toggle";
 
-const ToggleWrapper = styled.label`
-  display: flex;
-`;
-
-const Label = styled.span(
-  (props) => css`
-    margin: auto;
-    margin-left: ${props.theme.dimensions.gutter};
+const ToggleWrapper = styled.label(
+  ({ theme }) => css`
+    display: flex;
+    align-items: center;
+    gap: ${theme.dimensions.gutter};
   `
 );
 
@@ -25,7 +22,7 @@ export default function LabeledToggle(props: LabeledToggleProps) {
   return (
     <ToggleWrapper>
       <Toggle value={value} onToggle={onToggle} />
-      <Label>{children}</Label>
+      <span>{children}</span>
     </ToggleWrapper>
   );
 }

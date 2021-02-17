@@ -1,37 +1,22 @@
 import React, { MouseEventHandler } from "react";
 import styled, { css } from "styled-components";
-import {
-  ButtonType,
-  TOPLEFT,
-  BLOCK,
-  INVISIBLE,
-  BOTTOMLEFT,
-  CENTER,
-  MODIFIER,
-  ADD,
-  MENU,
-} from "../../data/types";
+import { ButtonType, BLOCK, INVISIBLE, MODIFIER, ADD } from "../../data/types";
 
 const BasicButton = styled.button(
-  (props) => css`
-    font-size: ${props.theme.fontSizes.content};
-
-    :focus {
-      outline: none;
-    }
+  ({ theme }) => css`
+    font-size: ${theme.fontSizes.content};
   `
 );
 
 const InvisibleButton = styled(BasicButton)(
-  (props) => css`
+  ({ theme }) => css`
     background-color: transparent;
     border: none;
-    border-radius: 1000px;
-    padding: 5px;
-    filter: ${props.theme.shadow.drop};
+    padding: ${theme.dimensions.spacing};
+    filter: ${theme.shadow.drop};
 
     svg {
-      transition: all 0.2s ease-in-out;
+      transition: all ${theme.timings.transitionTime} ease-in-out;
     }
 
     :hover {
@@ -42,92 +27,57 @@ const InvisibleButton = styled(BasicButton)(
   `
 );
 
-const MenuButton = styled(InvisibleButton)(
-  (props) => css`
-    color: ${props.theme.colors.backgroundColor2};
-  `
-);
-
-const ActiveMenuButton = styled(InvisibleButton)(
-  (props) => css`
-    color: ${props.theme.colors.accentColor};
-  `
-);
-
-const TopLeftButton = styled(InvisibleButton)`
-  position: relative;
-  left: 0;
-  top: 0;
-  margin: 10px;
-`;
-
-const BottomLeftButton = styled(InvisibleButton)`
-  position: relative;
-  left: 0;
-  bottom: 0;
-  margin: 10px;
-`;
-
-const CenterButton = styled(InvisibleButton)`
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-`;
-
 const RedButton = styled(BasicButton)(
-  (props) => css`
-    height: 32px;
-    font-size: ${props.theme.fontSizes.content};
-    font-weight: bold;
-    color: ${props.theme.colors.accentColor};
-    background: ${props.theme.colors.backgroundColor};
-    border: ${props.theme.colors.accentColor}
-      ${props.theme.dimensions.borderWidth} solid;
+  ({ theme }) => css`
+    height: ${theme.dimensions.blockHeight};
+    font-size: ${theme.fontSizes.content};
+    color: ${theme.colors.accentColor};
+    background: ${theme.colors.backgroundColor};
+    border: ${theme.colors.accentColor} ${theme.dimensions.borderWidth} solid;
+    border-radius: ${theme.dimensions.borderRadius};
+    padding: 0 ${theme.dimensions.bigSpacing};
 
-    transition: border-color 0.4s ease-in-out;
-    transition: color 0.4s ease-in-out;
-    transition: background-color 0.4s ease-in-out;
+    transition: border-color ${theme.timings.longTransitionTime} ease-in-out;
+    transition: color ${theme.timings.longTransitionTime} ease-in-out;
+    transition: background-color ${theme.timings.longTransitionTime} ease-in-out;
 
     :hover {
-      background-color: ${props.theme.colors.accentColor};
-      color: ${props.theme.colors.backgroundColor};
+      background-color: ${theme.colors.accentColor};
+      color: ${theme.colors.backgroundColor};
     }
 
     :active,
     :focus {
-      color: ${props.theme.colors.backgroundColor2};
+      color: ${theme.colors.backgroundColor2};
 
-      border-color: ${props.theme.colors.backgroundColor2};
+      border-color: ${theme.colors.backgroundColor2};
       cursor: pointer;
     }
   `
 );
 
 export const BlockButton = styled(RedButton)(
-  (props) => css`
+  ({ theme }) => css`
     width: 100%;
-    border-radius: ${props.theme.dimensions.borderRadius};
   `
 );
 
 export const AddButton = styled(RedButton)(
-  (props) => css`
+  ({ theme }) => css`
     border-left-width: 0;
-    border-radius: 0 ${props.theme.dimensions.borderRadius}
-      ${props.theme.dimensions.borderRadius} 0;
+    border-radius: 0 ${theme.dimensions.borderRadius}
+      ${theme.dimensions.borderRadius} 0;
   `
 );
 
 export const ModifierButton = styled(BasicButton)(
-  (props) => css`
+  ({ theme }) => css`
     background-color: transparent;
     min-width: 48px;
-    border: ${props.theme.colors.accentColor}
-      ${props.theme.dimensions.borderWidth} solid;
+    border: ${theme.colors.accentColor} ${theme.dimensions.borderWidth} solid;
     border-right-width: 0;
-    border-radius: ${props.theme.dimensions.borderRadius} 0 0
-      ${props.theme.dimensions.borderRadius};
+    border-radius: ${theme.dimensions.borderRadius} 0 0
+      ${theme.dimensions.borderRadius};
     font-weight: bold;
   `
 );
@@ -138,18 +88,10 @@ const getButtonByType = (type: ButtonType, active: boolean) => {
       return InvisibleButton;
     case BLOCK:
       return BlockButton;
-    case TOPLEFT:
-      return TopLeftButton;
-    case BOTTOMLEFT:
-      return BottomLeftButton;
-    case CENTER:
-      return CenterButton;
     case MODIFIER:
       return ModifierButton;
     case ADD:
       return AddButton;
-    case MENU:
-      return active ? ActiveMenuButton : MenuButton;
     default:
       return RedButton;
   }

@@ -1,10 +1,11 @@
 import { RatingType } from "../../../data/types";
 import React from "react";
 import { RatingIcon } from "../../../icons/Icons";
+import IconAndText from "../../common/IconAndText";
 
 export default (props: { value: RatingType }) => (
-  <span>
-    <RatingIcon color="white" left />
-    {props.value[0].toUpperCase()}
-  </span>
+  <IconAndText>
+    <RatingIcon color="white" />
+    <span>{props.value[0].toUpperCase()}</span>
+  </IconAndText>
 );

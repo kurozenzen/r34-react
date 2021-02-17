@@ -1,85 +1,80 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import styled, { css } from "styled-components";
-import { HELP, MENU, SEARCH, SETTINGS } from "../../data/types";
+import React, { RefAttributes } from "react";
+import { Link, LinkProps, useLocation } from "react-router-dom";
+import styled, { css, ThemeProps } from "styled-components";
 import R34Icon from "../../icons/R34Icon";
-import { setActiveMenu } from "../../redux/actions";
-import { selectActiveMenu } from "../../redux/selectors";
-import Button from "../common/Button";
 import { BigTitle } from "../common/Title";
 
 const HeaderWrapper = styled.header(
-  (props) => css`
-    > *:not(:last-child) {
-      margin-bottom: ${props.theme.dimensions.gutter};
-    }
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.dimensions.bigSpacing};
   `
 );
 
 const Divider = styled.div(
-  (props) => css`
+  ({ theme }) => css`
     width: 1px;
     height: 32px;
-    margin: 0 ${props.theme.dimensions.gutter};
-    background: ${props.theme.colors.backgroundColor2};
+    margin: 0 ${theme.dimensions.gutter};
+    background: ${theme.colors.backgroundColor2};
   `
 );
 
 const TitleBar = styled.div(
-  (props) => css`
-    background: ${props.theme.misc.layer};
-    ${props.theme.shadow.box};
-    padding: ${props.theme.dimensions.gutter} 0;
-    margin-bottom: ${props.theme.dimensions.bigSpacing};
+  ({ theme }) => css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: ${theme.misc.layer};
+    padding: ${theme.dimensions.gutter} 0;
+    ${theme.shadow.box};
   `
 );
 
-const MenuBar = styled.nav`
-  display: flex;
-  justify-content: center;
-`;
+const MenuBar = styled.nav(
+  ({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    gap: ${theme.dimensions.bigSpacing};
+  `
+);
+
+type LocationStyledLinkProps = LinkProps<unknown> &
+  RefAttributes<HTMLAnchorElement> &
+  ThemeProps<any> & { current: string };
+
+const LocationStyledLink = styled(Link)(
+  ({ to, current, theme }: LocationStyledLinkProps) => css`
+    color: ${to === current
+      ? theme.colors.accentColor
+      : theme.colors.backgroundColor2};
+  `
+);
 
 export default function Header() {
-  const activeMenu = useSelector(selectActiveMenu);
-  const dispatch = useDispatch();
+  const current = useLocation().pathname;
 
   return (
     <HeaderWrapper role="cell">
       <TitleBar>
+        <R34Icon size={32} />
+        <Divider />
         <BigTitle>
-          <R34Icon size={32} />
-          <Divider />
-          <span style={{ marginTop: 2 }}>
-            Browse <a href="https://rule34.xxx">Rule34</a>
-          </span>
+          Browse <a href="https://rule34.xxx">Rule34</a>
         </BigTitle>
       </TitleBar>
 
       <MenuBar role="cell">
-        <Button
-          type={MENU}
-          active={activeMenu === SEARCH}
-          onClick={() => dispatch(setActiveMenu(SEARCH))}
-          label={SEARCH}
-        >
+        <LocationStyledLink current={current} to="/">
           Search
-        </Button>
-        <Button
-          type={MENU}
-          active={activeMenu === HELP}
-          onClick={() => dispatch(setActiveMenu(HELP))}
-          label={HELP}
-        >
+        </LocationStyledLink>
+        <LocationStyledLink current={current} to="/help">
           Help
-        </Button>
-        <Button
-          type={MENU}
-          active={activeMenu === SETTINGS}
-          onClick={() => dispatch(setActiveMenu(SETTINGS))}
-          label={SETTINGS}
-        >
+        </LocationStyledLink>
+        <LocationStyledLink current={current} to="/settings">
           Settings
-        </Button>
+        </LocationStyledLink>
       </MenuBar>
     </HeaderWrapper>
   );

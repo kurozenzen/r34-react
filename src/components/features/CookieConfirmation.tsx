@@ -1,43 +1,40 @@
-import React, { useCallback } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import Button from "../common/Button";
 import { RED } from "../../data/types";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { allowCookiesAction } from "../../redux/actions";
+import { selectCookies } from "../../redux/selectors";
+import useAction from "../../hooks/useAction";
 
 const CookieWrapper = styled.div(
-  (props) => css`
+  ({ theme }) => css`
     position: fixed;
-    display: flex;
     bottom: 0;
-    bottom: left;
+    left: 0;
     width: 100%;
-    color: ${props.theme.colors.text};
-    background: ${props.theme.colors.backgroundColor};
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: ${props.theme.dimensions.gutter} 0;
 
-    span {
-      margin: auto 0;
-      margin-left: ${props.theme.dimensions.gutter};
-    }
+    color: ${theme.colors.text};
+    background: ${theme.misc.layer};
 
-    button {
-      margin-right: ${props.theme.dimensions.gutter};
-    }
+    padding: ${theme.dimensions.gutter};
   `
 );
 
+const StyledSpan = styled.span`
+  height: min-content;
+`;
+
 export default function CookieConfirmation() {
-  const dispatch = useDispatch();
+  const cookies = useSelector(selectCookies);
+  const onClick = useAction(allowCookiesAction);
 
-  const onClick = useCallback(() => {
-    dispatch(allowCookiesAction());
-  }, [dispatch]);
-
-  return (
+  return cookies ? null : (
     <CookieWrapper>
-      <span>This website uses cookies.</span>
+      <StyledSpan>This website uses cookies.</StyledSpan>
       <Button type={RED} onClick={onClick} label="Allow Cookies">
         Cool
       </Button>

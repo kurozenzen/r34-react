@@ -16,13 +16,13 @@ const PositonWrapper = styled.div`
 `;
 
 const PostWrapper = styled.div(
-  (props) => css`
+  ({ theme }) => css`
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
-    border-radius: ${props.theme.dimensions.borderRadius};
+    border-radius: ${theme.dimensions.borderRadius};
     overflow: hidden;
-    ${props.theme.misc.layer};
+    ${theme.misc.layer};
   `
 );
 

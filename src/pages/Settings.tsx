@@ -1,6 +1,9 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BlockButton } from "../components/common/Button";
+import FlexColumn, {
+  FlexColumnWithSpacing,
+} from "../components/common/FlexColumn";
 import Setting from "../components/common/Setting";
 import SmallTextInput from "../components/common/SmallTextInput";
 import Surface, { Line } from "../components/common/Surface";
@@ -36,41 +39,43 @@ export default function Settings() {
   }, []);
 
   return (
-    <>
+    <FlexColumn>
       <Header />
-      <Title>Settings</Title>
-      <Surface>
-        <Title>General</Title>
-        <Line />
-        <Setting
-          title="Preload Videos"
-          description="Start loading videos immediately instead of just-in-time. This can improve the viewing experience but will consume a LOT of data. Only use with WIFI."
-        >
-          <Toggle value={preloadVideos} onToggle={togglePreloadVideos} />
-        </Setting>
-        <Line />
-        <Setting
-          title="Load original sizes"
-          description="Display images and videos at their original resolution. This will consume more data but provides a nicer experience."
-        >
-          <Toggle value={originals} onToggle={toggleOriginals} />
-        </Setting>
-        <Line />
-        <Setting
-          title="Number of Tag suggestions"
-          description="Controls the number of tags displayed when searching. Increase this when searching for niche tags."
-        >
-          <SmallTextInput
-            type="number"
-            value={tagSuggestionsCount}
-            onChange={setTagSuggestionCount}
-          />
-        </Setting>
-        <Line />
-        <Title>Developer</Title>
-        <BlockButton onClick={reset}>Reset Application</BlockButton>
-      </Surface>
+      <FlexColumnWithSpacing>
+        <Title>Settings</Title>
+        <Surface>
+          <Title>General</Title>
+          <Line />
+          <Setting
+            title="Preload Videos"
+            description="Start loading videos immediately instead of just-in-time. This can improve the viewing experience but will consume a LOT of data. Only use with WIFI."
+          >
+            <Toggle value={preloadVideos} onToggle={togglePreloadVideos} />
+          </Setting>
+          <Line />
+          <Setting
+            title="Load original sizes"
+            description="Display images and videos at their original resolution. This will consume more data but provides a nicer experience."
+          >
+            <Toggle value={originals} onToggle={toggleOriginals} />
+          </Setting>
+          <Line />
+          <Setting
+            title="Number of Tag suggestions"
+            description="Controls the number of tags displayed when searching. Increase this when searching for niche tags."
+          >
+            <SmallTextInput
+              type="number"
+              value={tagSuggestionsCount}
+              onChange={setTagSuggestionCount}
+            />
+          </Setting>
+          <Line />
+          <Title>Developer</Title>
+          <BlockButton onClick={reset}>Reset Application</BlockButton>
+        </Surface>
+      </FlexColumnWithSpacing>
       <Footer />
-    </>
+    </FlexColumn>
   );
 }

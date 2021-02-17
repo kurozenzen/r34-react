@@ -7,7 +7,6 @@ const FotterWrapper = styled.footer(
     grid-template-columns: 1fr 1px 1fr 1px 1fr;
     justify-content: space-around;
     padding: ${props.theme.dimensions.spacing};
-    height: 50vh;
   `
 );
 

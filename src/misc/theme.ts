@@ -6,6 +6,7 @@ const theme = {
     bigSpacing: "8px",
     appMargin: "16px",
     gutter: "8px",
+    blockHeight: "32px",
   },
   colors: {
     accentColor: "#ee3344",
@@ -19,13 +20,14 @@ const theme = {
   },
   timings: {
     transistionTime: "0.2s",
+    longTransistionTime: "0.2s",
   },
   misc: {
     layer:
       "#ffffff11; :hover { background: #ffffff16;} transition: background-color 0.2s ease-in-out",
   },
   fontSizes: {
-    content: "17px",
+    content: "15px",
   },
 };
 

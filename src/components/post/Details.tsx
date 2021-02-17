@@ -38,7 +38,7 @@ export default function Details(props: DetailsProps) {
 
   return (
     <>
-      <Bar className="bar">
+      <Bar>
         {!!rating && <Rating value={rating} />}
         {!!score && <Score value={score} />}
         {!!source && <Source value={source} />}

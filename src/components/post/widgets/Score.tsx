@@ -1,9 +1,10 @@
 import React from "react";
 import { HeartIcon } from "../../../icons/Icons";
+import IconAndText from "../../common/IconAndText";
 
 export default (props: { value: number }) => (
-  <span>
-    {props.value}
-    <HeartIcon color="white" right />
-  </span>
+  <IconAndText>
+    <HeartIcon color="white" />
+    <span>{props.value}</span>
+  </IconAndText>
 );

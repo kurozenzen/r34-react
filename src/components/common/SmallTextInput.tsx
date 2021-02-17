@@ -2,13 +2,12 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 const TextInput = styled.input(
-  (props) => css`
+  ({ theme }) => css`
     width: 50px;
-    border: ${props.theme.dimensions.borderWidth} solid
-      ${props.theme.colors.accentColor};
-    background-color: ${props.theme.colors.backgroundColor2};
-    padding: 3px;
-    border-radius: 3px;
+    border: ${theme.dimensions.borderWidth} solid ${theme.colors.accentColor};
+    background-color: ${theme.colors.backgroundColor2};
+    padding: ${theme.dimensions.spacing};
+    border-radius: ${theme.dimensions.borderRadius};
     text-align: right;
   `
 );

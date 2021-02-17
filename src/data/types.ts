@@ -29,22 +29,14 @@ export type MenuType = typeof SEARCH | typeof HELP | typeof SETTINGS;
 
 export const INVISIBLE = "invisible";
 export const BLOCK = "block";
-export const TOPLEFT = "topLeft";
-export const BOTTOMLEFT = "bottomLeft";
-export const CENTER = "center";
 export const MODIFIER = "modifier";
 export const ADD = "add";
-export const MENU = "menu";
 export const RED = "red";
 export type ButtonType =
   | typeof INVISIBLE
   | typeof BLOCK
-  | typeof TOPLEFT
-  | typeof BOTTOMLEFT
-  | typeof CENTER
   | typeof MODIFIER
   | typeof ADD
-  | typeof MENU
   | typeof RED;
 
 export const SAFE = "safe";

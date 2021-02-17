@@ -116,8 +116,8 @@ function Tag(props: TagProps) {
             <ArrowIcon />
           </IconWrapper>
           <div className={"dropdown-list" + (!collapsed ? " visible" : "")}>
-            {aliases.map(({ name, count }) => (
-              <Alias key={"t_" + name} name={name} count={count} />
+            {aliases.map(({ name: aname, count: acount }) => (
+              <Alias key={"t_" + aname} name={aname} count={acount} />
             ))}
           </div>
         </>
@@ -133,15 +133,15 @@ function TagText(props: TagDataClass) {
   const text = count ? `${tagname} (${formatCount(count)})` : tagname;
   const activeTags = useSelector(selectActiveTags);
 
-  const onClick = () =>
-    activeTags[name]
-      ? dispatch(removeTag(new TagDataClass(name, types, count)))
-      : dispatch(addTag(new TagDataClass(name, types, count)));
+  const onClick: MouseEventHandler = (event) => {
+    event.stopPropagation();
+    if (activeTags[name])
+      dispatch(removeTag(new TagDataClass(name, types, count)));
+    else dispatch(addTag(new TagDataClass(name, types, count)));
+  };
 
   return (
-    <span onClick={onClick} onKeyDown={(e) => e.keyCode === 32 && onClick()}>
-      {modifier === "-" ? <s>{text}</s> : text}
-    </span>
+    <span onClick={onClick}>{modifier === "-" ? <s>{text}</s> : text}</span>
   );
 }
 

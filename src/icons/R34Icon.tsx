@@ -41,8 +41,8 @@ export default function R34Icon(props: { size: number }) {
         >
           <tspan
             id="tspan4531"
-            x="2.1363549"
-            y="289.02704"
+            x="2"
+            y="289.1"
             fontStyle="normal"
             fontVariant="normal"
             fontWeight="300"

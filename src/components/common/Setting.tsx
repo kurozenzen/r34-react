@@ -1,27 +1,37 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { SmallTitle } from "./Title";
 
-const SettingGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
+const SettingGrid = styled.div(
+  ({ theme }) => css`
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: ${theme.dimensions.spacing};
+  `
+);
 
-  > h3 {
+const SettingTitle = styled(SmallTitle)(
+  ({ theme }) => css`
     grid-column: 1/2;
     grid-row: 1/2;
-  }
+  `
+);
 
-  > p {
+const SettingBody = styled.p(
+  ({ theme }) => css`
     grid-column: 1/2;
     grid-row: 2/3;
-  }
+    opacity: 0.5;
+  `
+);
 
-  > :nth-child(3) {
+const SettingControl = styled.div(
+  ({ theme }) => css`
     grid-column: 2/3;
     grid-row: 1/3;
-  }
-`;
+  `
+);
 
 interface SettingProps {
   title: string;
@@ -36,9 +46,9 @@ export default function Setting({
 }: SettingProps) {
   return (
     <SettingGrid>
-      <SmallTitle>{title}</SmallTitle>
-      <p>{description}</p>
-      <div>{children}</div>
+      <SettingTitle>{title}</SettingTitle>
+      <SettingBody>{description}</SettingBody>
+      <SettingControl>{children}</SettingControl>
     </SettingGrid>
   );
 }

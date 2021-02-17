@@ -11,11 +11,8 @@ import MaxWidthStyle from "../common/MaxWidthStyle";
 const ConfigWrapper = styled.section(
   (props) => css`
     display: grid;
+    gap: ${props.theme.dimensions.gutter};
     ${MaxWidthStyle}
-
-    > *:not(:last-child) {
-      margin-bottom: ${props.theme.dimensions.gutter};
-    }
   `
 );
 

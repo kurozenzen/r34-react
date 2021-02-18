@@ -37,7 +37,7 @@ const setPosts = (
     window.posts = draft.posts;
   });
 
-export default (
+const results = (
   state: ResultsState = initialResultsState,
   action: AppAction
 ): ResultsState => {
@@ -50,3 +50,5 @@ export default (
       return state;
   }
 };
+
+export default results;

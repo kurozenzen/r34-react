@@ -54,6 +54,7 @@ const Icon = (props: IconProps) => {
     right = false,
     prefix = "fas",
   } = props;
+
   return (
     <IconWrapper onClick={onClick} left={left} right={right}>
       <StyledIcon

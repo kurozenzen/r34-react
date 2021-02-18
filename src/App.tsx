@@ -10,6 +10,7 @@ import Help from "./components/pages/Help";
 import Search from "./components/pages/Search";
 import Settings from "./components/pages/Settings";
 import { persistor, store } from "./redux/store";
+import { RouteName } from "./data/types";
 
 export default function App() {
   return (
@@ -19,13 +20,13 @@ export default function App() {
           <GlobalStyles />
           <HashRouter basename="/r34-react">
             <Switch>
-              <Route path="/help">
+              <Route path={RouteName.HELP}>
                 <Help />
               </Route>
-              <Route path="/settings">
+              <Route path={RouteName.SETTINGS}>
                 <Settings />
               </Route>
-              <Route path="/">
+              <Route path={RouteName.SEARCH}>
                 <Search />
               </Route>
             </Switch>

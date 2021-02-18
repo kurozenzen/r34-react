@@ -22,10 +22,11 @@ export const PICTURE = "picture";
 export const GIF = "gif";
 export type MediaType = typeof VIDEO | typeof PICTURE | typeof GIF;
 
-export const SEARCH = "search";
-export const HELP = "help";
-export const SETTINGS = "settings";
-export type MenuType = typeof SEARCH | typeof HELP | typeof SETTINGS;
+export enum RouteName {
+  SEARCH = "/",
+  HELP = "/help",
+  SETTINGS = "/settings",
+}
 
 export const INVISIBLE = "invisible";
 export const BLOCK = "block";

@@ -1,6 +1,7 @@
 import React, { RefAttributes } from "react";
 import { Link, LinkProps, useLocation } from "react-router-dom";
 import styled, { css, ThemeProps } from "styled-components";
+import { RouteName } from "../../data/types";
 import R34Icon from "../../icons/R34Icon";
 import { VerticalLine } from "../common/Lines";
 import { BigTitle } from "../common/Text";
@@ -59,13 +60,13 @@ export default function Header() {
       </TitleBar>
 
       <MenuBar role="cell">
-        <LocationStyledLink current={current} to="/">
+        <LocationStyledLink current={current} to={RouteName.SEARCH}>
           Search
         </LocationStyledLink>
-        <LocationStyledLink current={current} to="/help">
+        <LocationStyledLink current={current} to={RouteName.HELP}>
           Help
         </LocationStyledLink>
-        <LocationStyledLink current={current} to="/settings">
+        <LocationStyledLink current={current} to={RouteName.SETTINGS}>
           Settings
         </LocationStyledLink>
       </MenuBar>

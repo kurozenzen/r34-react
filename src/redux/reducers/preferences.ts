@@ -58,7 +58,7 @@ const setOption = (state: PreferencesState, key: PreferenceKey, value: any) =>
     }
   });
 
-export default (
+const preferences = (
   state: PreferencesState = initialPreferencesState,
   action: AppAction
 ): PreferencesState => {
@@ -71,3 +71,5 @@ export default (
       return state;
   }
 };
+
+export default preferences;

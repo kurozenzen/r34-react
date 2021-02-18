@@ -1,11 +1,9 @@
-import { MenuType, PreferenceKey } from "../data/types";
+import { PreferenceKey } from "../data/types";
 import TagDataClass from "../data/Tag";
 import PostDataClass from "../data/Post";
 
 /////////////////////////////////////////////////////////
 
-export const RESET = "R34_RESET";
-export const SET_ACTIVE_MENU = "R34_SET_ACTIVE_MENU";
 export const ADD_TAG = "R34_ADD_TAG";
 export const REMOVE_TAG = "R34_REMOVE_TAG";
 export const ADD_ALIASES = "R34_ADD_ALIASES";
@@ -17,15 +15,6 @@ export const GET_MORE_RESULTS = "R34_GET_MORE_RESULTS";
 export const ALLOW_COOKIES = "R34_ALLOW_COOKIES";
 
 /////////////////////////////////////////////////////////
-
-interface ResetAction {
-  type: typeof RESET;
-}
-
-interface SetActiveMenuAction {
-  type: typeof SET_ACTIVE_MENU;
-  menu: MenuType;
-}
 
 interface AddTagAction {
   type: typeof ADD_TAG;
@@ -74,15 +63,6 @@ interface AllowCookiesAction {
 }
 
 /////////////////////////////////////////////////////////
-
-export const reset = () => ({
-  type: RESET,
-});
-
-export const setActiveMenu = (menu: MenuType) => ({
-  type: SET_ACTIVE_MENU,
-  menu,
-});
 
 export const addTag = (tag: TagDataClass) => ({
   type: ADD_TAG,
@@ -133,8 +113,6 @@ export const allowCookiesAction = () => ({
 /////////////////////////////////////////////////////////
 
 export type AppAction =
-  | ResetAction
-  | SetActiveMenuAction
   | AddTagAction
   | RemoveTagAction
   | AddAliasesAction

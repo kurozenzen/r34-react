@@ -1,54 +1,60 @@
 import TagDataClass from "../data/Tag";
 import { SimpleMap } from "../data/types";
 
-export const pageSize = 20;
-const apiUrl1 = "https://r34-json.herokuapp.com";
-const apiUrl2 = "https://r34-api-clone.herokuapp.com";
+class API {
+  static pageSize = 20;
+  static apiUrl1 = "https://r34-json.herokuapp.com";
+  static apiUrl2 = "https://r34-api-clone.herokuapp.com";
+  activeApi = API.apiUrl2;
 
-let activeApi = apiUrl1;
+  constructor() {
+    this.activeApi = API.apiUrl1;
 
-// Failover to apiUrl2
-fetch(activeApi).catch(() => (activeApi = apiUrl2));
+    // Failover to apiUrl2
+    fetch(this.activeApi).catch(() => (this.activeApi = API.apiUrl2));
+  }
 
-export default {
-  async getTags(searchTerm: string, limit: number = pageSize) {
+  async getTags(searchTerm: string, limit: number = API.pageSize) {
     const res = await fetch(
-      `${activeApi}/tags?limit=${limit}&name=${searchTerm}*&order_by=posts`
+      `${this.activeApi}/tags?limit=${limit}&name=${searchTerm}*&order_by=posts`
     );
 
     return await res.json();
-  },
-
-  async getPosts(tags: SimpleMap<TagDataClass>, pageNumber = 0, minScore = 0) {
-    const res = await fetch(buildPostUrl(pageNumber, tags, minScore));
-
-    return await res.json();
-  },
-
-  async getAliases(tagName: string) {
-    const res = await fetch(`${activeApi}/alias/${tagName}`);
-
-    return await res.json();
-  },
-};
-
-function buildPostUrl(
-  page: number,
-  tags: SimpleMap<TagDataClass>,
-  minScore: number
-) {
-  const tagString = Object.values(tags)
-    .map(
-      (tag) =>
-        `${tag.modifier === "-" ? "-" : ""}${encodeURIComponent(tag.name)}`
-    )
-    .join("+");
-
-  let url = `${activeApi}/posts?pid=${page}&limit=${pageSize}&tags=${tagString}`;
-
-  if (minScore > 0) {
-    url += `+${encodeURIComponent("score:>=" + minScore)}`;
   }
 
-  return url;
+  async getPosts(tags: SimpleMap<TagDataClass>, pageNumber = 0, minScore = 0) {
+    const res = await fetch(this.buildPostUrl(pageNumber, tags, minScore));
+
+    return await res.json();
+  }
+
+  async getAliases(tagName: string) {
+    const res = await fetch(`${this.activeApi}/alias/${tagName}`);
+
+    return await res.json();
+  }
+
+  buildPostUrl(
+    page: number,
+    tags: SimpleMap<TagDataClass>,
+    minScore: number,
+    limit: number = API.pageSize
+  ) {
+    const tagString = Object.values(tags)
+      .map(
+        (tag) =>
+          `${tag.modifier === "-" ? "-" : ""}${encodeURIComponent(tag.name)}`
+      )
+      .join("+");
+
+    let url = `${this.activeApi}/posts?pid=${page}&limit=${limit}&tags=${tagString}`;
+
+    if (minScore > 0) {
+      url += `+${encodeURIComponent("score:>=" + minScore)}`;
+    }
+
+    return url;
+  }
 }
+
+export default new API();

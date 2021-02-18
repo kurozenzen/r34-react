@@ -16,9 +16,9 @@ import {
   selectOutOfResults,
 } from "../selectors";
 
-export default (store: MiddlewareAPI<any>) => (next: Dispatch<AppAction>) => (
-  action: AppAction
-) => {
+const apiRequests = (store: MiddlewareAPI<any>) => (
+  next: Dispatch<AppAction>
+) => (action: AppAction) => {
   if (action.type === GET_RESULTS) {
     const activeTags = selectActiveTags(store.getState());
     const { rated, ratedTreshold } = selectPreferences(store.getState());
@@ -42,3 +42,5 @@ export default (store: MiddlewareAPI<any>) => (next: Dispatch<AppAction>) => (
 
   next(action);
 };
+
+export default apiRequests;

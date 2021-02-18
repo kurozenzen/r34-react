@@ -33,7 +33,7 @@ const removeTag = (state: TagsState, tagToRemove: TagDataClass) =>
     delete draft.aliases[tagToRemove.name];
   });
 
-export default (
+const tags = (
   state: TagsState = initialTagsState,
   action: AppAction
 ): TagsState => {
@@ -48,3 +48,5 @@ export default (
       return state;
   }
 };
+
+export default tags;

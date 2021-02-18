@@ -24,9 +24,9 @@ const config = {
 let firebaseApp: firebase.app.App;
 let analytics: firebase.analytics.Analytics;
 
-export default (store: MiddlewareAPI<any>) => (next: Dispatch<AppAction>) => (
-  action: AppAction
-) => {
+const eventLogging = (store: MiddlewareAPI<any>) => (
+  next: Dispatch<AppAction>
+) => (action: AppAction) => {
   const cookies = selectCookies(store.getState());
 
   if (cookies) {
@@ -55,3 +55,5 @@ export default (store: MiddlewareAPI<any>) => (next: Dispatch<AppAction>) => (
 
   next(action);
 };
+
+export default eventLogging;

@@ -1,10 +1,8 @@
 import { TagsState } from "./reducers/tags";
-import { MiscState } from "./reducers/misc";
 import { ResultsState } from "./reducers/results";
 import { PreferencesState } from "./reducers/preferences";
 
 interface RootState {
-  misc: MiscState;
   results: ResultsState;
   preferences: PreferencesState;
   tags: TagsState;
@@ -22,7 +20,6 @@ export const selectRated = (state: RootState) => state.preferences.rated;
 export const selectRatedThreshold = (state: RootState) =>
   state.preferences.ratedTreshold;
 export const selectCookies = (state: RootState) => state.preferences.cookies;
-export const selectActiveMenu = (state: RootState) => state.misc.activeMenu;
 
 export const selectAliases = (state: RootState) =>
   Object.values(state.tags.aliases).flat();

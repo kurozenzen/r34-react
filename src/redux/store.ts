@@ -18,4 +18,5 @@ export const store = createStore(
   persistedReducer,
   composeWithDevTools(applyMiddleware(eventLogging, apiRequests))
 );
+
 export const persistor = persistStore(store);

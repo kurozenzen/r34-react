@@ -37,9 +37,15 @@ export default function Video(props: VideoProps) {
     setIntervalId(null);
   }, [videoRef, intervalId]);
 
-  const onFullscreen = useCallback(() => videoRef && openFullscreen(videoRef), [
-    videoRef,
-  ]);
+  const onFullscreen: MouseEventHandler = useCallback(
+    (event) => {
+      event.stopPropagation();
+      if (videoRef) {
+        openFullscreen(videoRef);
+      }
+    },
+    [videoRef]
+  );
 
   const togglePlay = useCallback(
     (event) => {

@@ -18,6 +18,7 @@ const Wrapper = styled.div(
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto 1fr auto auto;
+    z-index: 1;
 
     ${!props.isVisible
       ? css`
@@ -30,7 +31,7 @@ const Wrapper = styled.div(
 
 const ProgressBar = styled.div(
   (props) => css`
-    grid-area: 4/5/4/4;
+    grid-area: 4/1/4/4;
     height: 5px;
     background-color: ${props.theme.colors.accentColor};
   `

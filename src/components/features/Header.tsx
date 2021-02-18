@@ -2,7 +2,8 @@ import React, { RefAttributes } from "react";
 import { Link, LinkProps, useLocation } from "react-router-dom";
 import styled, { css, ThemeProps } from "styled-components";
 import R34Icon from "../../icons/R34Icon";
-import { BigTitle } from "../common/Title";
+import { VerticalLine } from "../common/Lines";
+import { BigTitle } from "../common/Text";
 
 const HeaderWrapper = styled.header(
   ({ theme }) => css`
@@ -12,18 +13,10 @@ const HeaderWrapper = styled.header(
   `
 );
 
-const Divider = styled.div(
-  ({ theme }) => css`
-    width: 1px;
-    height: 32px;
-    margin: 0 ${theme.dimensions.gutter};
-    background: ${theme.colors.backgroundColor2};
-  `
-);
-
 const TitleBar = styled.div(
   ({ theme }) => css`
     display: flex;
+    gap: ${theme.dimensions.bigSpacing};
     align-items: center;
     justify-content: center;
     background: ${theme.misc.layer};
@@ -59,7 +52,7 @@ export default function Header() {
     <HeaderWrapper role="cell">
       <TitleBar>
         <R34Icon size={32} />
-        <Divider />
+        <VerticalLine />
         <BigTitle>
           Browse <a href="https://rule34.xxx">Rule34</a>
         </BigTitle>

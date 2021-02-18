@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import Surface, { Line } from "../common/Surface";
-import Title from "../common/Title";
+import Surface from "../common/Surface";
+import { Title } from "../common/Text";
 import TagList from "../tag/TagList";
 import outOfResultsPicture from "../../icons/OutOfResults.png";
 import { useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { selectAliases } from "../../redux/selectors";
 import TagDataClass from "../../data/Tag";
 import { SimpleMap } from "../../data/types";
 import LayoutElementProps from "./LayoutElementProps";
+import { HorizontalLine } from "../common/Lines";
 
 export default function LayoutOutOfItems({
   onLoad,
@@ -32,7 +33,7 @@ export default function LayoutOutOfItems({
           alt={outOfResultsPicture}
           style={{ width: "100%" }}
         />
-        <Line />
+        <HorizontalLine />
         <Title>You have reached the end!</Title>
         <p style={{ textAlign: "center" }}>Go look for something else!</p>
         {aliases.length > 0 && (

@@ -1,11 +1,15 @@
 import React from "react";
 import { Provider } from "react-redux";
-import { store, persistor } from "./redux/store";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-import AppContent from "./AppContent";
 import { ThemeProvider } from "styled-components";
-import theme from "./misc/theme";
+import CookieConfirmation from "./components/features/CookieConfirmation";
 import GlobalStyles from "./GlobalStyles";
+import theme from "./misc/theme";
+import Help from "./components/pages/Help";
+import Search from "./components/pages/Search";
+import Settings from "./components/pages/Settings";
+import { persistor, store } from "./redux/store";
 
 export default function App() {
   return (
@@ -13,7 +17,20 @@ export default function App() {
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
-          <AppContent />
+          <HashRouter basename="/r34-react">
+            <Switch>
+              <Route path="/help">
+                <Help />
+              </Route>
+              <Route path="/settings">
+                <Settings />
+              </Route>
+              <Route path="/">
+                <Search />
+              </Route>
+            </Switch>
+            <CookieConfirmation />
+          </HashRouter>
         </ThemeProvider>
       </PersistGate>
     </Provider>

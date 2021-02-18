@@ -1,10 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const StyledSvg = styled.svg`
-  height: 35px;
-  padding: 10px;
-`;
+const StyledSvg = styled.svg(
+  ({ theme }) => css`
+    height: ${theme.dimensions.blockHeight};
+    padding: ${theme.dimensions.bigSpacing};
+  `
+);
 
 export default function Loading() {
   return (

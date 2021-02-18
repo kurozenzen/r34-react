@@ -11,11 +11,3 @@ export default styled.div(
     gap: ${props.theme.dimensions.gutter};
   `
 );
-
-export const Line = styled.div(
-  (props) => css`
-    width: 100%;
-    height: 1px;
-    background: ${props.theme.misc.layer};
-  `
-);

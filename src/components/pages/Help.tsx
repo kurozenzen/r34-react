@@ -1,15 +1,14 @@
 import React from "react";
-import Title from "../components/common/Title";
-import Surface, { Line } from "../components/common/Surface";
-import TagSelector from "../components/tagSelector/TagSelector";
-import Options from "../components/features/Options";
-import TagList from "../components/tag/TagList";
-import Header from "../components/features/Header";
-import Footer from "../components/features/Footer";
-import FlexColumn, {
-  FlexColumnWithSpacing,
-} from "../components/common/FlexColumn";
+import { Title } from "../common/Text";
+import Surface from "../common/Surface";
+import TagSelector from "../tagSelector/TagSelector";
+import Options from "../features/Options";
+import TagList from "../tag/TagList";
+import Header from "../features/Header";
+import Footer from "../features/Footer";
+import FlexColumn, { FlexColumnWithSpacing } from "../common/FlexColumn";
 import styled, { css } from "styled-components";
+import { HorizontalLine } from "../common/Lines";
 
 const StyledOl = styled.ol(
   ({ theme }) => css`
@@ -28,9 +27,9 @@ export default function Help() {
         <Title>Help</Title>
         <Surface>
           <Title>Searching for Tags</Title>
-          <Line />
+          <HorizontalLine />
           <TagSelector />
-          <Line />
+          <HorizontalLine />
           <p>
             You can use the Tag Selector to look for tags you like.The Tag
             Selector has 4 parts.
@@ -58,9 +57,9 @@ export default function Help() {
         </Surface>
         <Surface>
           <Title>Options</Title>
-          <Line />
+          <HorizontalLine />
           <Options />
-          <Line />
+          <HorizontalLine />
           <p>
             Options allow you to customize your experience in various ways.
             There are 3 options available
@@ -83,7 +82,7 @@ export default function Help() {
         </Surface>
         <Surface>
           <Title>Tags</Title>
-          <Line />
+          <HorizontalLine />
           <TagList
             tags={{
               "Tag 1": { name: "Tag 1" },
@@ -96,7 +95,7 @@ export default function Help() {
               },
             }}
           />
-          <Line />
+          <HorizontalLine />
           <p>
             This whole application is based on tags. Every Post has multiple
             tags. Usually you can enable/disable a tag just by tapping it. If a

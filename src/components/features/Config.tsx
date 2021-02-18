@@ -2,17 +2,20 @@ import React from "react";
 import styled, { css } from "styled-components";
 import TagSelector from "../tagSelector/TagSelector";
 import Options from "./Options";
-import Title from "../common/Title";
+import { Title } from "../common/Text";
 import Surface from "../common/Surface";
 import SearchButton from "./SearchButton";
 import ActiveTags from "./ActiveTags";
-import MaxWidthStyle from "../common/MaxWidthStyle";
 
 const ConfigWrapper = styled.section(
-  (props) => css`
-    display: grid;
-    gap: ${props.theme.dimensions.gutter};
-    ${MaxWidthStyle}
+  ({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.dimensions.gutter};
+    padding: ${theme.dimensions.gutter};
+    width: 100%;
+    max-width: ${theme.dimensions.bodyWidth};
+    margin: auto;
   `
 );
 

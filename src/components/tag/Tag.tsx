@@ -14,7 +14,7 @@ import {
 } from "../../redux/selectors";
 import { addAliases, removeTag, addTag } from "../../redux/actions";
 import { ThemeType } from "../../misc/theme";
-import useToggle from "../../misc/useToggle";
+import useToggle from "../../hooks/useToggle";
 
 const dropdownBorderRadius = (collapsed: boolean, theme: ThemeType) =>
   collapsed

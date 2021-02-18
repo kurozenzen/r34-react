@@ -8,10 +8,9 @@ import { ThemeType } from "../../misc/theme";
 import { RATED, RATEDTRESHOLD } from "../../data/types";
 
 const OptionsWrapper = styled.div(
-  (props) => css`
-    > *:not(:last-child) {
-      margin-bottom: ${props.theme.dimensions.gutter};
-    }
+  ({ theme }) => css`
+    display: grid;
+    gap: ${theme.dimensions.gutter};
   `
 );
 

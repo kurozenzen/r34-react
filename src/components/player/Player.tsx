@@ -2,9 +2,9 @@ import React, { MouseEventHandler, useCallback, useMemo } from "react";
 import Video from "./Video";
 import Gif from "./Gif";
 import Picture from "./Picture";
-import { VIDEO, GIF } from "../../data/constants";
+
 import { getMediaType } from "./utils";
-import { PostType } from "../../data/types";
+import { GIF, PostType, VIDEO } from "../../data/types";
 
 interface PlayerProps {
   type: PostType;

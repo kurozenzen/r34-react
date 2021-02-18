@@ -1,7 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import Button from "../common/Button";
-import { RED } from "../../data/types";
+import { RedButton } from "../common/Buttons";
 import { useSelector } from "react-redux";
 import { allowCookiesAction } from "../../redux/actions";
 import { selectCookies } from "../../redux/selectors";
@@ -35,9 +34,9 @@ export default function CookieConfirmation() {
   return cookies ? null : (
     <CookieWrapper>
       <StyledSpan>This website uses cookies.</StyledSpan>
-      <Button type={RED} onClick={onClick} label="Allow Cookies">
-        Cool
-      </Button>
+      <RedButton onClick={onClick} aria-label="Allow Cookies">
+        Got it
+      </RedButton>
     </CookieWrapper>
   );
 }

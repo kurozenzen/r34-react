@@ -1,6 +1,8 @@
 import React, { MouseEventHandler, memo } from "react";
 import styled, { css } from "styled-components";
 import { TagWrapper } from "../components/tag/Tag";
+import { NO_OP } from "../data/types";
+
 import { ThemeType } from "../misc/theme";
 
 export const StyledIcon = styled.i(
@@ -47,7 +49,7 @@ const Icon = (props: IconProps) => {
     className = "",
     color = "black",
     size = 14,
-    onClick = () => {},
+    onClick = NO_OP,
     left = false,
     right = false,
     prefix = "fas",
@@ -146,7 +148,7 @@ export const PixivIcon = (props: Omit<IconProps, "icon">) => {
   const {
     color = "black",
     size = 14,
-    onClick = () => {},
+    onClick = NO_OP,
     left = false,
     right = false,
   } = props;

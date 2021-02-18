@@ -2,14 +2,14 @@ import React, { MouseEventHandler } from "react";
 import styled, { css } from "styled-components";
 import { ThemeType } from "../../misc/theme";
 
-const Wrapper = styled.div(
+const Track = styled.div(
   (props) => css`
     border-radius: 30px;
     width: 50px;
     border: ${props.theme.dimensions.borderWidth} solid
       ${props.theme.colors.accentColor};
     background-color: ${props.theme.colors.backgroundColor};
-    transition: transform 0.4s ease-in-out;
+    transition: transform ${props.theme.timings.longTransitionTime} ease-in-out;
   `
 );
 
@@ -35,8 +35,8 @@ export default function Toggle(props: ToggleProps) {
   const { value, onToggle } = props;
 
   return (
-    <Wrapper onClick={onToggle}>
+    <Track onClick={onToggle}>
       <Thumb value={value} />
-    </Wrapper>
+    </Track>
   );
 }

@@ -68,3 +68,5 @@ export interface SimpleMap<V> {
 export interface SimpleList<V> {
   [key: number]: V;
 }
+
+export const NO_OP = () => {};

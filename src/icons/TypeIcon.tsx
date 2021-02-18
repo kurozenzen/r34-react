@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from "react";
+import { NO_OP } from "../data/types";
 import { CharacterIcon, CopyrightIcon, ArtistIcon } from "./Icons";
-import { NO_OP } from "../data/constants";
 
 interface TypeIconProps {
   types?: string[];
@@ -18,11 +18,11 @@ export default function TypeIcon(props: TypeIconProps) {
 
   switch (interestingType) {
     case "character":
-      return <CharacterIcon className={className} onClick={onClick} left />;
+      return <CharacterIcon className={className} onClick={onClick} />;
     case "copyright":
-      return <CopyrightIcon className={className} onClick={onClick} left />;
+      return <CopyrightIcon className={className} onClick={onClick} />;
     case "artist":
-      return <ArtistIcon className={className} onClick={onClick} left />;
+      return <ArtistIcon className={className} onClick={onClick} />;
     default:
       return <div className={className}></div>;
   }

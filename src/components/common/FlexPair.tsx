@@ -1,17 +1,18 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-interface IconAndTextProps {
+interface FlexPairProps {
   children: [JSX.Element, JSX.Element];
 }
 
 const Wrapper = styled.div(
   ({ theme }) => css`
     display: flex;
+    align-items: center;
     gap: ${theme.dimensions.spacing};
   `
 );
 
-export default function IconAndText({ children }: IconAndTextProps) {
+export default function FlexPair({ children }: FlexPairProps) {
   return <Wrapper>{children}</Wrapper>;
 }

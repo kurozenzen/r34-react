@@ -8,7 +8,7 @@ const TextInput = styled.input(
     background-color: ${theme.colors.backgroundColor2};
     padding: ${theme.dimensions.spacing};
     border-radius: ${theme.dimensions.borderRadius};
-    text-align: right;
+    text-align: center;
   `
 );
 

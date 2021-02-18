@@ -4,9 +4,9 @@ import TagList from "../tag/TagList";
 import { RatingType } from "../../data/types";
 import TagDataClass from "../../data/Tag";
 import { listToMap } from "../../data/utils";
-import Rating from "./widgets/Rating";
-import Score from "./widgets/Score";
-import Source from "./widgets/Source";
+import Rating from "./Rating";
+import Score from "./Score";
+import Source from "./Source";
 
 const Bar = styled.div(
   ({ theme: { dimensions, misc, shadow } }) => css`

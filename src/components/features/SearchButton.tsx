@@ -1,16 +1,14 @@
-import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { BLOCK } from "../../data/types";
+import React from "react";
+import useAction from "../../hooks/useAction";
 import { getResults } from "../../redux/actions";
-import Button from "../common/Button";
+import { BlockButton } from "../common/Buttons";
 
 export default function SearchButton() {
-  const dispatch = useDispatch();
-  const search = useCallback(() => dispatch(getResults()), [dispatch]);
+  const search = useAction(getResults);
 
   return (
-    <Button type={BLOCK} onClick={search} label="Search">
+    <BlockButton onClick={search} aria-label="Search">
       Search
-    </Button>
+    </BlockButton>
   );
 }

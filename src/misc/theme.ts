@@ -7,12 +7,14 @@ const theme = {
     appMargin: "16px",
     gutter: "8px",
     blockHeight: "32px",
+    bodyWidth: "1000px",
   },
   colors: {
     accentColor: "#ee3344",
     hoverAccent: "#ee3344",
     backgroundColor: "#121212",
     backgroundColor2: "#fff",
+    subduedText: "#ffffff80",
   },
   shadow: {
     box: "box-shadow: 0 0 8px #000",
@@ -20,7 +22,7 @@ const theme = {
   },
   timings: {
     transistionTime: "0.2s",
-    longTransistionTime: "0.2s",
+    longTransitionTime: "0.2s",
   },
   misc: {
     layer:
@@ -28,6 +30,7 @@ const theme = {
   },
   fontSizes: {
     content: "15px",
+    bigTitle: "24px",
   },
 };
 

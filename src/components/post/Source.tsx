@@ -1,19 +1,19 @@
 import React from "react";
-import { formatSource } from "../../../misc/formatting";
+import styled, { css } from "styled-components";
 import {
   LinkIcon,
   PixivIcon,
   SourceIcon,
   TwitterIcon,
-} from "../../../icons/Icons";
-import styled, { css } from "styled-components";
-import IconAndText from "../../common/IconAndText";
+} from "../../icons/Icons";
+import { formatSource } from "../../misc/formatting";
+import FlexPair from "../common/FlexPair";
 
 const ColoredA = styled.a(
   (props) => css`
     color: ${props.color} !important;
     display: flex;
-    gap: 5px;
+    gap: ${props.theme.dimensions.spacing};
   `
 );
 
@@ -39,10 +39,10 @@ export default ({ value }: SourceProps) => {
 
 const FallbackSource = ({ value }: SourceProps) => {
   return (
-    <IconAndText>
+    <FlexPair>
       <SourceIcon color="white" left />
       <span>{value}</span>
-    </IconAndText>
+    </FlexPair>
   );
 };
 

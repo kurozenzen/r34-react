@@ -5,15 +5,21 @@ import Player from "../player/Player";
 import { useSelector } from "react-redux";
 import { selectOriginals } from "../../redux/selectors";
 import PostDataClass from "../../data/Post";
-import MaxWidthStyle from "../common/MaxWidthStyle";
 
-const ItemWrapper = styled.div`
-  padding-top: 10px;
-`;
+const ItemWrapper = styled.div(
+  ({ theme }) => css`
+    padding-top: ${theme.dimensions.gutter};
+  `
+);
 
-const PositonWrapper = styled.div`
-  ${MaxWidthStyle}
-`;
+const PositonWrapper = styled.div(
+  ({ theme }) => css`
+    padding: 0 ${theme.dimensions.gutter};
+    width: 100%;
+    max-width: ${theme.dimensions.bodyWidth};
+    margin: auto;
+  `
+);
 
 const PostWrapper = styled.div(
   ({ theme }) => css`
@@ -22,7 +28,7 @@ const PostWrapper = styled.div(
     grid-template-rows: auto auto auto;
     border-radius: ${theme.dimensions.borderRadius};
     overflow: hidden;
-    ${theme.misc.layer};
+    background: ${theme.misc.layer};
   `
 );
 
@@ -33,6 +39,7 @@ export function getCorrectSource(
   id: number
 ) {
   let src;
+
   if (loadOriginal) {
     src = big_src;
   } else {

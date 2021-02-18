@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import Button from "../common/Button";
+
 import {
   ExpandIcon,
   PlayIcon,
@@ -7,9 +7,10 @@ import {
   ExternalLinkIcon,
 } from "../../icons/Icons";
 import styled, { css } from "styled-components";
-import { NO_OP } from "../../data/constants";
-import useToggle from "../../misc/useToggle";
+import useToggle from "../../hooks/useToggle";
 import { fadeOut } from "../styled/animations";
+import { InvisButton } from "../common/Buttons";
+import { NO_OP } from "../../data/types";
 
 const Wrapper = styled.div(
   (props: { isVisible: boolean }) => css`
@@ -35,7 +36,7 @@ const ProgressBar = styled.div(
   `
 );
 
-const OverlayButton = styled(Button).attrs({ type: "invisible" })(
+const OverlayButton = styled(InvisButton)(
   (props) => css`
     width: max-content;
     height: max-content;
@@ -84,18 +85,18 @@ function Overlay(props: OverlayProps) {
   return (
     <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible}>
       {onFullscreen && (
-        <FullScreenButton onClick={onFullscreen} label="Open Fullscreen">
+        <FullScreenButton onClick={onFullscreen} aria-label="Open Fullscreen">
           <ExpandIcon color="white" />
         </FullScreenButton>
       )}
 
-      <OpenExternalButton onClick={openInNewTab} label="Open In New Tab">
+      <OpenExternalButton onClick={openInNewTab} aria-label="Open In New Tab">
         <ExternalLinkIcon color="white" />
       </OpenExternalButton>
 
       {isPlayable && (
         <>
-          <PlayButton onClick={togglePlay} label="Play/Pause">
+          <PlayButton onClick={togglePlay} aria-label="Play/Pause">
             {isPaused ? (
               <PlayIcon color="white" size={50} />
             ) : (

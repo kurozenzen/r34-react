@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import styled, { css } from "styled-components";
 import api from "../../misc/api";
 import { prepareTag } from "../../misc/prepare";
-import Button, { AddButton, ModifierButton } from "../common/Button";
+import { AddButton, ModifierButton } from "../common/Buttons";
 import TagInput from "./TagInput";
 import DropdownList from "./DropdownList";
 import { normalizeTagname } from "../tag/tagUtils";
@@ -20,18 +20,21 @@ export const TagSelectorWrapper = styled.div(
     display: flex;
     background: white;
     ${props.closed
-      ? `border-radius: ${props.theme.dimensions.borderRadius};`
-      : `
-        border-radius: ${props.theme.dimensions.borderRadius} ${props.theme.dimensions.borderRadius} 0 0;
+      ? css`
+          border-radius: ${props.theme.dimensions.borderRadius};
+        `
+      : css`
+          border-radius: ${props.theme.dimensions.borderRadius}
+            ${props.theme.dimensions.borderRadius} 0 0;
 
-        > ${AddButton} {
-          border-radius: 0 ${props.theme.dimensions.borderRadius} 0 0;
-        }
+          > ${AddButton} {
+            border-radius: 0 ${props.theme.dimensions.borderRadius} 0 0;
+          }
 
-        > ${ModifierButton} {
-          border-radius: ${props.theme.dimensions.borderRadius} 0 0 0;
-        }
-      `}
+          > ${ModifierButton} {
+            border-radius: ${props.theme.dimensions.borderRadius} 0 0 0;
+          }
+        `}
   `
 );
 
@@ -47,14 +50,14 @@ export default function TagSelector() {
   );
 
   const activateTag = useCallback(
-    (suggestion) => {
+    ({ name, posts, types }) => {
       dispatch(
         addTag(
           prepareTag({
-            name: suggestion.name,
-            modifier: modifier,
-            count: suggestion.posts,
-            types: suggestion.types,
+            name,
+            types,
+            modifier,
+            count: posts,
           })
         )
       );
@@ -95,23 +98,27 @@ export default function TagSelector() {
     }
   }, [value, activateTag, suggestions]);
 
+  const onSuggestionClick = useCallback((entry) => activateTag(entry), [
+    activateTag,
+  ]);
+
   return (
     <TagSelectorWrapper
       ref={setTagSelectorRef}
       closed={suggestions.length === 0}
     >
-      <Button type="modifier" onClick={onModifierClick} label="Tag Modifier">
+      <ModifierButton onClick={onModifierClick} aria-label="Tag Modifier">
         {modifier}
-      </Button>
+      </ModifierButton>
       <TagInput value={value} setValue={setValue} />
-      <Button type="add" onClick={onAddClick} label="Add Tag">
+      <AddButton onClick={onAddClick} aria-label="Add Tag">
         Add
-      </Button>
+      </AddButton>
       {suggestions.length > 0 && (
         <DropdownList
           tagSelectorRef={tagSelectorRef}
           entries={suggestions}
-          onClick={(entry) => activateTag(entry)}
+          onClick={onSuggestionClick}
         />
       )}
     </TagSelectorWrapper>

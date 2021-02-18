@@ -175,7 +175,7 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
             onRowsRendered={onRowsRendered}
             rowRenderer={rowRenderer}
             deferredMeasurementCache={cache}
-            overscanRowCount={0}
+            overscanRowCount={10}
             rowCount={items.length + prependedRows + loadingRows}
             rowHeight={cache.rowHeight}
             width={window.innerWidth}

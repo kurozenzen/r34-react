@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { VerticalLine } from "../common/Lines";
 
 const FotterWrapper = styled.footer(
   (props) => css`
@@ -7,14 +8,6 @@ const FotterWrapper = styled.footer(
     grid-template-columns: 1fr 1px 1fr 1px 1fr;
     justify-content: space-around;
     padding: ${props.theme.dimensions.spacing};
-  `
-);
-
-const Divider = styled.div(
-  (props) => css`
-    width: 1px;
-    height: 20px;
-    background: ${props.theme.colors.backgroundColor2};
   `
 );
 
@@ -28,11 +21,11 @@ export default function Footer() {
       <CenteredA href="https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md">
         Report a bug
       </CenteredA>
-      <Divider />
+      <VerticalLine />
       <CenteredA href="https://github.com/kurozenzen/r34-react">
         Github
       </CenteredA>
-      <Divider />
+      <VerticalLine />
       <CenteredA href="https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md">
         Feature request
       </CenteredA>

@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { SmallTitle } from "./Title";
+import { SmallTitle } from "./Text";
 
-const SettingGrid = styled.div(
+const Grid = styled.div(
   ({ theme }) => css`
     display: grid;
     grid-template-columns: 1fr auto;
@@ -11,14 +11,14 @@ const SettingGrid = styled.div(
   `
 );
 
-const SettingTitle = styled(SmallTitle)(
+const Title = styled(SmallTitle)(
   ({ theme }) => css`
     grid-column: 1/2;
     grid-row: 1/2;
   `
 );
 
-const SettingBody = styled.p(
+const Body = styled.p(
   ({ theme }) => css`
     grid-column: 1/2;
     grid-row: 2/3;
@@ -26,7 +26,7 @@ const SettingBody = styled.p(
   `
 );
 
-const SettingControl = styled.div(
+const Control = styled.div(
   ({ theme }) => css`
     grid-column: 2/3;
     grid-row: 1/3;
@@ -45,10 +45,10 @@ export default function Setting({
   children,
 }: SettingProps) {
   return (
-    <SettingGrid>
-      <SettingTitle>{title}</SettingTitle>
-      <SettingBody>{description}</SettingBody>
-      <SettingControl>{children}</SettingControl>
-    </SettingGrid>
+    <Grid>
+      <Title>{title}</Title>
+      <Body>{description}</Body>
+      <Control>{children}</Control>
+    </Grid>
   );
 }

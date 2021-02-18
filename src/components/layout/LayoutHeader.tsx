@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { formatCount } from "../../misc/formatting";
-import useToggle from "../../misc/useToggle";
+import useToggle from "../../hooks/useToggle";
 import { selectCount } from "../../redux/selectors";
-import Title from "../common/Title";
+import { Title } from "../common/Text";
 import Config from "../features/Config";
 import Header from "../features/Header";
 import LayoutElementProps from "./LayoutElementProps";

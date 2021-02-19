@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from "react";
+import React, { useState } from "react";
 import FlexImage from "./FlexImage";
 import Overlay from "./Overlay";
 
@@ -6,11 +6,11 @@ interface GifProps {
   src: string;
   thumbnail_src: string;
   onLoad: () => void;
-  openInNewTab: MouseEventHandler;
+  externalSrc: string;
 }
 
 export default function Gif(props: GifProps) {
-  const { src, thumbnail_src, onLoad, openInNewTab } = props;
+  const { src, thumbnail_src, onLoad, externalSrc } = props;
 
   const [isPaused, setPaused] = useState(true);
   const usedSource = isPaused ? thumbnail_src : src;
@@ -30,7 +30,7 @@ export default function Gif(props: GifProps) {
           event.stopPropagation();
           setPaused(!isPaused);
         }}
-        openInNewTab={openInNewTab}
+        externalSrc={externalSrc}
       />
     </>
   );

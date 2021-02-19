@@ -1,20 +1,20 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import FlexImage from "./FlexImage";
 import Overlay from "./Overlay";
 
 interface PictureProps {
   src: string;
   onLoad: () => void;
-  openInNewTab: MouseEventHandler;
+  externalSrc: string;
 }
 
 export default function Picture(props: PictureProps) {
-  const { src, onLoad, openInNewTab } = props;
+  const { src, onLoad, externalSrc } = props;
 
   return (
     <>
       <FlexImage src={src} alt={src} onLoad={onLoad} loading="lazy" />
-      <Overlay isPlayable={false} openInNewTab={openInNewTab} />
+      <Overlay isPlayable={false} externalSrc={externalSrc} />
     </>
   );
 }

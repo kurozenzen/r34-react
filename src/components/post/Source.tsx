@@ -21,7 +21,7 @@ interface SourceProps {
   value: string;
 }
 
-export default ({ value }: SourceProps) => {
+export default function Source({ value }: SourceProps) {
   if (value.startsWith("http")) {
     if (value.includes("twitter")) {
       return <TwitterLink value={value} />;
@@ -35,7 +35,7 @@ export default ({ value }: SourceProps) => {
   }
 
   return <FallbackSource value={value} />;
-};
+}
 
 const FallbackSource = ({ value }: SourceProps) => {
   return (

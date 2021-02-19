@@ -9,11 +9,11 @@ interface VideoProps {
   src: string;
   thumbnail_src: string;
   onLoad: () => void;
-  openInNewTab: MouseEventHandler;
+  externalSrc: string;
 }
 
 export default function Video(props: VideoProps) {
-  const { src, onLoad, openInNewTab } = props;
+  const { src, onLoad, externalSrc } = props;
 
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
 
@@ -62,18 +62,19 @@ export default function Video(props: VideoProps) {
       <FlexVideo
         controls={false}
         loop
-        src={src}
         preload={preloadVideos ? "auto" : "metadata"}
         ref={setVideoRef}
         onLoadedMetadata={onLoad}
-      />
+      >
+        <source src={src} />
+      </FlexVideo>
       <Overlay
         isPaused={videoRef ? videoRef.paused : true}
         currentTime={videoRef ? videoRef.currentTime : undefined}
         duration={videoRef ? videoRef.duration : undefined}
         onFullscreen={onFullscreen}
         togglePlay={togglePlay}
-        openInNewTab={openInNewTab}
+        externalSrc={externalSrc}
         isPlayable
       />
     </>

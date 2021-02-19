@@ -35,28 +35,15 @@ const PostWrapper = styled.div(
 export function getCorrectSource(
   loadOriginal: boolean,
   big_src: string,
-  small_src: string,
-  id: number
+  small_src: string
 ) {
-  let src;
-
-  if (loadOriginal) {
-    src = big_src;
-  } else {
-    src = `${small_src}?${id}`;
-    if (src.includes("//images")) {
-      src = src.replace("//images", "/images");
-    }
-  }
-
-  return src;
+  return loadOriginal ? big_src : small_src;
 }
 
 export default function Post(
   props: PostDataClass & { style: any; onLoad: () => void; virtualRef: any }
 ) {
   const {
-    id,
     media_type,
     small_src,
     big_src,
@@ -70,7 +57,7 @@ export default function Post(
     virtualRef,
   } = props;
   const originals = useSelector(selectOriginals);
-  const media_src = getCorrectSource(originals, big_src, small_src, id);
+  const media_src = getCorrectSource(originals, big_src, small_src);
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleDetails = useCallback(() => {

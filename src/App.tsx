@@ -18,7 +18,7 @@ export default function App() {
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
-          <HashRouter basename="/r34-react">
+          <HashRouter>
             <Switch>
               <Route path={RouteName.HELP}>
                 <Help />

@@ -62,7 +62,7 @@ const PlayButton = styled(OverlayButton)`
 
 interface OverlayProps {
   onFullscreen?: MouseEventHandler;
-  openInNewTab: MouseEventHandler;
+  externalSrc: string;
   togglePlay?: MouseEventHandler;
   isPaused?: boolean;
   isPlayable: boolean;
@@ -78,7 +78,7 @@ function Overlay(props: OverlayProps) {
     isPlayable = false,
     currentTime = 0,
     duration = null,
-    openInNewTab,
+    externalSrc,
   } = props;
 
   const [isVisible, toggleVisible] = useToggle();
@@ -91,8 +91,15 @@ function Overlay(props: OverlayProps) {
         </FullScreenButton>
       )}
 
-      <OpenExternalButton onClick={openInNewTab} aria-label="Open In New Tab">
-        <ExternalLinkIcon color="white" />
+      <OpenExternalButton>
+        <a
+          href={externalSrc}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open In New Tab"
+        >
+          <ExternalLinkIcon color="white" />
+        </a>
       </OpenExternalButton>
 
       {isPlayable && (

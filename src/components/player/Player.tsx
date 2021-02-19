@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import Video from "./Video";
 import Gif from "./Gif";
 import Picture from "./Picture";
@@ -27,17 +27,9 @@ const getMedia = (type: PostType, src: string) => {
 export default function Player(props: PlayerProps) {
   const { type, src, thumbnail_src, onLoad } = props;
 
-  const openInNewTab: MouseEventHandler = useCallback(
-    (event) => {
-      event.stopPropagation();
-      const url = new URL(src).searchParams
-        .get("url")
-        ?.replace("//", "/")
-        .split("?")[0];
-      if (url) window.open(url);
-    },
-    [src]
-  );
+  const externalSrc =
+    new URL(src).searchParams.get("url")?.replace("//", "/").split("?")[0] ||
+    "";
 
   const media = useMemo(() => {
     const MediaComponent = getMedia(type, src);
@@ -46,10 +38,10 @@ export default function Player(props: PlayerProps) {
         src={src}
         thumbnail_src={thumbnail_src}
         onLoad={onLoad}
-        openInNewTab={openInNewTab}
+        externalSrc={externalSrc}
       />
     );
-  }, [type, src, thumbnail_src, onLoad, openInNewTab]);
+  }, [type, src, thumbnail_src, onLoad, externalSrc]);
 
   return <>{media}</>;
 }

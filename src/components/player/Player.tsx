@@ -27,9 +27,7 @@ const getMedia = (type: PostType, src: string) => {
 export default function Player(props: PlayerProps) {
   const { type, src, thumbnail_src, onLoad } = props;
 
-  const externalSrc =
-    new URL(src).searchParams.get("url")?.replace("//", "/").split("?")[0] ||
-    "";
+  const externalSrc = new URL(src).searchParams.get("url") || "";
 
   const media = useMemo(() => {
     const MediaComponent = getMedia(type, src);

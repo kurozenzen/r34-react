@@ -21,20 +21,32 @@ const apiRequests = (store: MiddlewareAPI<any>) => (
 ) => (action: AppAction) => {
   if (action.type === GET_RESULTS) {
     const activeTags = selectActiveTags(store.getState());
+    const { pageSize } = selectPreferences(store.getState());
     const { rated, ratedTreshold } = selectPreferences(store.getState());
-    api.getPosts(activeTags, 0, rated ? ratedTreshold : 0).then((res) => {
-      store.dispatch(setPosts(res.posts.map(preparePost), res.count));
-    });
+
+    api
+      .getPosts(
+        activeTags,
+        pageSize,
+        action.pageNumber,
+        rated ? ratedTreshold : 0
+      )
+      .then((res) => {
+        store.dispatch(
+          setPosts(res.posts.map(preparePost), res.count, action.pageNumber)
+        );
+      });
   }
 
   const isOutOfResults = selectOutOfResults(store.getState());
   if (action.type === GET_MORE_RESULTS && !isOutOfResults) {
     const activeTags = selectActiveTags(store.getState());
+    const { pageSize } = selectPreferences(store.getState());
     const pageNumber = selectPageNumber(store.getState());
     const { rated, ratedTreshold } = selectPreferences(store.getState());
 
     api
-      .getPosts(activeTags, pageNumber + 1, rated ? ratedTreshold : 0)
+      .getPosts(activeTags, pageSize, pageNumber + 1, rated ? ratedTreshold : 0)
       .then((res) => {
         store.dispatch(addPosts(res.posts.map(preparePost)));
       });

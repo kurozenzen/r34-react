@@ -9,7 +9,6 @@ import { composeWithDevTools } from "redux-devtools-extension";
 const persistConfig = {
   key: "appstate",
   storage,
-  blacklist: ["results"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

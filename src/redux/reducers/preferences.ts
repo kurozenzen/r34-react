@@ -8,6 +8,9 @@ import {
   COOKIES,
   PRELOAD_VIDEOS,
   TAG_SUGGESTION_COUNT,
+  RESULTS_LAYOUT,
+  ResultLayout,
+  PAGE_SIZE,
 } from "../../data/types";
 import { AppAction, SET_OPTION, ALLOW_COOKIES } from "../actions";
 
@@ -19,6 +22,8 @@ export interface PreferencesState {
   cookies: boolean;
   preloadVideos: boolean;
   tagSuggestionsCount: number;
+  resultsLayout: ResultLayout;
+  pageSize: number;
 }
 
 export const initialPreferencesState: PreferencesState = {
@@ -29,6 +34,8 @@ export const initialPreferencesState: PreferencesState = {
   cookies: false,
   preloadVideos: false,
   tagSuggestionsCount: 20,
+  resultsLayout: ResultLayout.INFINITE_COLUMN,
+  pageSize: 20,
 };
 
 const setOption = (state: PreferencesState, key: PreferenceKey, value: any) =>
@@ -54,6 +61,12 @@ const setOption = (state: PreferencesState, key: PreferenceKey, value: any) =>
         break;
       case TAG_SUGGESTION_COUNT:
         draft.tagSuggestionsCount = value;
+        break;
+      case RESULTS_LAYOUT:
+        draft.resultsLayout = value;
+        break;
+      case PAGE_SIZE:
+        draft.pageSize = value;
         break;
     }
   });

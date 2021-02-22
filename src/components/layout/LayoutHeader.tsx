@@ -9,6 +9,7 @@ import Header from "../features/Header";
 import LayoutElementProps from "./LayoutElementProps";
 import KofiButton from "../features/KofiButton";
 import styled, { css } from "styled-components";
+import { NO_OP } from "../../data/types";
 
 const Placeholder = styled.div(
   ({ theme }) => css`
@@ -19,7 +20,7 @@ const Placeholder = styled.div(
 );
 
 export default function LayoutHeader({
-  onLoad,
+  onLoad = NO_OP,
   virtualRef,
   style,
 }: LayoutElementProps) {

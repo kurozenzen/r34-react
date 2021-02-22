@@ -14,25 +14,53 @@ import {
   PRELOAD_VIDEOS,
   TAG_SUGGESTION_COUNT,
   ORIGINALS,
+  RESULTS_LAYOUT,
+  ResultLayout,
+  PAGE_SIZE,
 } from "../../data/types";
 import { setOption } from "../../redux/actions";
 import { selectPreferences } from "../../redux/selectors";
+import Select from "../common/Select";
+
+const layouts = {
+  [ResultLayout.INFINITE_COLUMN]: "Infinite",
+  [ResultLayout.PAGES]: "Pages",
+};
 
 export default function Settings() {
   const dispatch = useDispatch();
-  const { preloadVideos, tagSuggestionsCount, originals } = useSelector(
-    selectPreferences
-  );
+  const {
+    preloadVideos,
+    tagSuggestionsCount,
+    originals,
+    resultsLayout,
+    pageSize,
+  } = useSelector(selectPreferences);
+
   const togglePreloadVideos = useCallback(
     () => dispatch(setOption(PRELOAD_VIDEOS, !preloadVideos)),
     [dispatch, preloadVideos]
   );
+
   const toggleOriginals = useCallback(
     () => dispatch(setOption(ORIGINALS, !originals)),
     [dispatch, originals]
   );
+
   const setTagSuggestionCount = useCallback(
-    (event) => dispatch(setOption(TAG_SUGGESTION_COUNT, event.target.value)),
+    (newValue: string | number) =>
+      dispatch(setOption(TAG_SUGGESTION_COUNT, Number(newValue))),
+    [dispatch]
+  );
+
+  const setPageSize = useCallback(
+    (newValue: string | number) =>
+      dispatch(setOption(PAGE_SIZE, Number(newValue))),
+    [dispatch]
+  );
+
+  const setResultsLayout = useCallback(
+    (event) => dispatch(setOption(RESULTS_LAYOUT, event.target.value)),
     [dispatch]
   );
 
@@ -49,6 +77,17 @@ export default function Settings() {
         <Surface>
           <Title>General</Title>
           <HorizontalLine />
+          <Setting
+            title="Results Layout"
+            description="Choose how your results are displayed."
+          >
+            <Select
+              options={layouts}
+              value={resultsLayout}
+              onChange={setResultsLayout}
+            />
+          </Setting>
+
           <Setting
             title="Preload Videos"
             description="Start loading videos immediately instead of just-in-time. This can improve the viewing experience but will consume a LOT of data. Only use with WIFI."
@@ -67,10 +106,15 @@ export default function Settings() {
             description="Controls the number of tags displayed when searching. Increase this when searching for niche tags."
           >
             <SmallTextInput
-              type="number"
               value={tagSuggestionsCount}
-              onChange={setTagSuggestionCount}
+              onSubmit={setTagSuggestionCount}
             />
+          </Setting>
+          <Setting
+            title="Page size"
+            description="Controls the number of posts loaded at once."
+          >
+            <SmallTextInput value={pageSize} onSubmit={setPageSize} />
           </Setting>
           <Title>Developer</Title>
           <HorizontalLine />
@@ -78,7 +122,7 @@ export default function Settings() {
         </Surface>
         <div style={{ margin: "auto" }}>
           <CodeBranchIcon color="#ffffff80" />{" "}
-          <span style={{ color: "#ffffff80" }}>Version 2.1</span>
+          <span style={{ color: "#ffffff80" }}>Version 2.2.0</span>
         </div>
       </FlexColumnWithSpacing>
     </FlexColumn>

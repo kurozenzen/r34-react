@@ -41,6 +41,7 @@ interface SetPostsAction {
   type: typeof SET_POSTS;
   posts: PostDataClass[];
   count: string;
+  pageNumber?: number;
 }
 
 interface SetOptionAction {
@@ -51,6 +52,7 @@ interface SetOptionAction {
 
 interface GetResultsAction {
   type: typeof GET_RESULTS;
+  pageNumber: number;
 }
 
 interface GetMoreResultsAction {
@@ -85,10 +87,15 @@ export const addPosts = (posts: PostDataClass[]) => ({
   posts,
 });
 
-export const setPosts = (posts: PostDataClass[], count: string) => ({
+export const setPosts = (
+  posts: PostDataClass[],
+  count: string,
+  pageNumber: number = 0
+) => ({
   type: SET_POSTS,
   posts,
   count,
+  pageNumber,
 });
 
 export const setOption = (key: PreferenceKey, value: any) => ({
@@ -97,8 +104,9 @@ export const setOption = (key: PreferenceKey, value: any) => ({
   value,
 });
 
-export const getResults = () => ({
+export const getResults = (pageNumber: number = 0) => ({
   type: GET_RESULTS,
+  pageNumber,
 });
 
 export const getMoreResults = () => ({

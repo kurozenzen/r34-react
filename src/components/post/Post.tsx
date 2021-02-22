@@ -5,6 +5,8 @@ import Player from "../player/Player";
 import { useSelector } from "react-redux";
 import { selectOriginals } from "../../redux/selectors";
 import PostDataClass from "../../data/Post";
+import LayoutElementProps from "../layout/LayoutElementProps";
+import { NO_OP } from "../../data/types";
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
@@ -40,9 +42,7 @@ export function getCorrectSource(
   return loadOriginal ? big_src : small_src;
 }
 
-export default function Post(
-  props: PostDataClass & { style: any; onLoad: () => void; virtualRef: any }
-) {
+export default function Post(props: PostDataClass & LayoutElementProps) {
   const {
     media_type,
     small_src,
@@ -62,7 +62,7 @@ export default function Post(
 
   const toggleDetails = useCallback(() => {
     setCollapsed(!collapsed);
-    setTimeout(onLoad, 100);
+    onLoad && setTimeout(onLoad, 100);
   }, [collapsed, onLoad]);
 
   const details = useMemo(
@@ -75,7 +75,7 @@ export default function Post(
       <PositonWrapper>
         <PostWrapper onClick={toggleDetails} role="row">
           <Player
-            onLoad={onLoad}
+            onLoad={onLoad || NO_OP}
             type={media_type}
             src={media_src}
             thumbnail_src={thumbnail_src}

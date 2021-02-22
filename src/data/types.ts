@@ -24,6 +24,11 @@ export const PICTURE = "picture";
 export const GIF = "gif";
 export type MediaType = typeof VIDEO | typeof PICTURE | typeof GIF;
 
+export enum ResultLayout {
+  INFINITE_COLUMN = "infinite_column",
+  PAGES = "pages",
+}
+
 export enum RouteName {
   SEARCH = "/",
   HELP = "/help",
@@ -54,6 +59,8 @@ export const ORIGINALS = "originals";
 export const COOKIES = "cookies";
 export const PRELOAD_VIDEOS = "preload_videos";
 export const TAG_SUGGESTION_COUNT = "tag_suggestion_count";
+export const RESULTS_LAYOUT = "results_layout";
+export const PAGE_SIZE = "page_size";
 
 export type PreferenceKey =
   | typeof INFINITE
@@ -62,7 +69,9 @@ export type PreferenceKey =
   | typeof ORIGINALS
   | typeof COOKIES
   | typeof PRELOAD_VIDEOS
-  | typeof TAG_SUGGESTION_COUNT;
+  | typeof TAG_SUGGESTION_COUNT
+  | typeof RESULTS_LAYOUT
+  | typeof PAGE_SIZE;
 
 export interface SimpleMap<V> {
   [key: string]: V;

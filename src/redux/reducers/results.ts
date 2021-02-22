@@ -26,15 +26,13 @@ const addPosts = (state: ResultsState, posts: PostDataClass[]) =>
 const setPosts = (
   state: ResultsState,
   posts: PostDataClass[],
-  postCount: string
+  postCount: string,
+  pageNumber: number = 0
 ) =>
   produce(state, (draft) => {
     draft.posts = posts;
     draft.count = Number(postCount);
-    draft.pageNumber = 0;
-
-    //@ts-expect-error
-    window.posts = draft.posts;
+    draft.pageNumber = pageNumber;
   });
 
 const results = (
@@ -45,7 +43,7 @@ const results = (
     case ADD_POSTS:
       return addPosts(state, action.posts);
     case SET_POSTS:
-      return setPosts(state, action.posts, action.count);
+      return setPosts(state, action.posts, action.count, action.pageNumber);
     default:
       return state;
   }

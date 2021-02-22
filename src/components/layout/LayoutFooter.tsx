@@ -1,9 +1,10 @@
 import React from "react";
+import { NO_OP } from "../../data/types";
 import Footer from "../features/Footer";
 import LayoutElementProps from "./LayoutElementProps";
 
 export default function LayoutFooter({
-  onLoad,
+  onLoad = NO_OP,
   virtualRef,
   style,
 }: LayoutElementProps) {

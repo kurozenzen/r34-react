@@ -6,12 +6,12 @@ import outOfResultsPicture from "../../icons/OutOfResults.png";
 import { useSelector } from "react-redux";
 import { selectAliases } from "../../redux/selectors";
 import TagDataClass from "../../data/Tag";
-import { SimpleMap } from "../../data/types";
+import { NO_OP, SimpleMap } from "../../data/types";
 import LayoutElementProps from "./LayoutElementProps";
 import { HorizontalLine } from "../common/Lines";
 
 export default function LayoutOutOfItems({
-  onLoad,
+  onLoad = NO_OP,
   virtualRef,
   style,
 }: LayoutElementProps) {

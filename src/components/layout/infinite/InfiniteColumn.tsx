@@ -6,7 +6,7 @@ import {
   InfiniteLoader,
   List,
 } from "react-virtualized";
-import LayoutElementProps from "./LayoutElementProps";
+import LayoutElementProps from "../LayoutElementProps";
 
 interface InfiniteColumnProps<T> {
   Header?: (props: LayoutElementProps) => JSX.Element;

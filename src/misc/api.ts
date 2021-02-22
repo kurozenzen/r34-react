@@ -1,7 +1,7 @@
 import TagDataClass from "../data/Tag";
 import { Modifier, SimpleMap } from "../data/types";
 
-class API {
+export class API {
   static pageSize = 20;
   static apiUrl1 = "https://r34-json.herokuapp.com";
   static apiUrl2 = "https://r34-api-clone.herokuapp.com";
@@ -22,8 +22,15 @@ class API {
     return await res.json();
   }
 
-  async getPosts(tags: SimpleMap<TagDataClass>, pageNumber = 0, minScore = 0) {
-    const res = await fetch(this.buildPostUrl(pageNumber, tags, minScore));
+  async getPosts(
+    tags: SimpleMap<TagDataClass>,
+    limit: number = API.pageSize,
+    pageNumber = 0,
+    minScore = 0
+  ) {
+    const res = await fetch(
+      this.buildPostUrl(pageNumber, tags, minScore, limit)
+    );
 
     return await res.json();
   }

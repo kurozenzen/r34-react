@@ -10,7 +10,7 @@ export default class TagDataClass {
     name: string,
     types: TagType[] = [],
     count: number | null = null,
-    modifier: Modifier = "+"
+    modifier: Modifier = Modifier.PLUS
   ) {
     this.name = name;
     this.types = types;

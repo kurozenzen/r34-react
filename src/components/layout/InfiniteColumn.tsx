@@ -139,7 +139,17 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
         </CellMeasurer>
       );
     },
-    [cache, Header, prependedRows, items, hasMoreRows, isLoading, OutOfItems]
+    [
+      cache,
+      Header,
+      prependedRows,
+      items,
+      ItemComponent,
+      hasMoreRows,
+      isLoading,
+      LoadingItem,
+      OutOfItems,
+    ]
   );
 
   const loadMoreRows = (params: IndexRange) => {

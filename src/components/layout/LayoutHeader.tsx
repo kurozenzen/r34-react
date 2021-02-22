@@ -7,6 +7,16 @@ import { Title } from "../common/Text";
 import Config from "../features/Config";
 import Header from "../features/Header";
 import LayoutElementProps from "./LayoutElementProps";
+import KofiButton from "../features/KofiButton";
+import styled, { css } from "styled-components";
+
+const Placeholder = styled.div(
+  ({ theme }) => css`
+    display: grid;
+    gap: ${theme.dimensions.gutter};
+    place-items: center;
+  `
+);
 
 export default function LayoutHeader({
   onLoad,
@@ -24,11 +34,15 @@ export default function LayoutHeader({
     <div onLoad={onLoad} ref={virtualRef} style={style} role="row">
       <Header />
       <Config onLoad={onLoad} />
-      {count > 0 && (
+      {count > 0 ? (
         <Title onClick={toggleFullNumber}>
           {(fullNumber ? count.toLocaleString() : formatCount(count)) +
             " results"}
         </Title>
+      ) : (
+        <Placeholder>
+          <KofiButton id="V7V73PWW9" label="Support Me on Ko-fi" />
+        </Placeholder>
       )}
     </div>
   );

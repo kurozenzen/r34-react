@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addTag } from "../../redux/actions";
 import { ThemeType } from "../../misc/theme";
 import { selectPreferences } from "../../redux/selectors";
+import { MODIFIER, Modifier } from "../../data/types";
 
 export const TagSelectorWrapper = styled.div(
   (props: {
@@ -41,7 +42,7 @@ export const TagSelectorWrapper = styled.div(
 export default function TagSelector() {
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
-  const [modifier, setModifier] = useState("+");
+  const [modifier, setModifier] = useState(Modifier.PLUS);
   const [suggestions, setSuggestions] = useState([]);
   const { tagSuggestionsCount } = useSelector(selectPreferences);
 
@@ -86,7 +87,14 @@ export default function TagSelector() {
   }, [tagSuggestionsCount, value]);
 
   const onModifierClick = useCallback(
-    () => setModifier(modifier === "+" ? "-" : "+"),
+    () =>
+      setModifier(
+        modifier === Modifier.PLUS
+          ? Modifier.MINUS
+          : modifier === Modifier.MINUS
+          ? Modifier.OR
+          : Modifier.PLUS
+      ),
     [modifier, setModifier]
   );
 

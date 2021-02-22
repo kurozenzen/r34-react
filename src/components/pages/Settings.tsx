@@ -8,7 +8,7 @@ import SmallTextInput from "../common/SmallTextInput";
 import Surface from "../common/Surface";
 import { Title } from "../common/Text";
 import Toggle from "../common/Toggle";
-import Footer from "../features/Footer";
+import { CodeBranchIcon } from "../../icons/Icons";
 import Header from "../features/Header";
 import {
   PRELOAD_VIDEOS,
@@ -76,8 +76,11 @@ export default function Settings() {
           <HorizontalLine />
           <BlockButton onClick={reset}>Reset Application</BlockButton>
         </Surface>
+        <div style={{ margin: "auto" }}>
+          <CodeBranchIcon color="#ffffff80" />{" "}
+          <span style={{ color: "#ffffff80" }}>Version 2.1</span>
+        </div>
       </FlexColumnWithSpacing>
-      <Footer />
     </FlexColumn>
   );
 }

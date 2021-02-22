@@ -34,3 +34,10 @@ export const formatSource = (sourceString: string) => {
     return sourceString;
   }
 };
+
+export function formatDuration(duration: number) {
+  const min = Math.trunc(duration / 60);
+  const sec = Math.trunc(duration % 60);
+
+  return min + ":" + (sec < 10 ? "0" : "") + sec;
+}

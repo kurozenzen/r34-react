@@ -69,9 +69,10 @@ export default function Video(props: VideoProps) {
         <source src={src} />
       </FlexVideo>
       <Overlay
+        mediaRef={videoRef}
         isPaused={videoRef ? videoRef.paused : true}
-        currentTime={videoRef ? videoRef.currentTime : undefined}
-        duration={videoRef ? videoRef.duration : undefined}
+        currentTime={videoRef?.currentTime}
+        duration={videoRef?.duration}
         onFullscreen={onFullscreen}
         togglePlay={togglePlay}
         externalSrc={externalSrc}

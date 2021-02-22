@@ -10,9 +10,11 @@ export type TagType =
   | typeof ARTIST
   | typeof COPYRIGHT;
 
-export const PLUS = "+";
-export const MINUS = "-";
-export type Modifier = typeof PLUS | typeof MINUS;
+export enum Modifier {
+  PLUS = "+",
+  MINUS = "-",
+  OR = "~",
+}
 
 export const VIDEO = "video";
 export const IMAGE = "image";

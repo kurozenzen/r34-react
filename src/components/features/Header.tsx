@@ -30,7 +30,8 @@ const MenuBar = styled.nav(
   ({ theme }) => css`
     display: flex;
     justify-content: center;
-    gap: ${theme.dimensions.bigSpacing};
+    padding: ${theme.dimensions.bigSpacing};
+    gap: ${theme.dimensions.hugeSpacing};
   `
 );
 
@@ -63,9 +64,11 @@ export default function Header() {
         <LocationStyledLink current={current} to={RouteName.SEARCH}>
           Search
         </LocationStyledLink>
+        <VerticalLine />
         <LocationStyledLink current={current} to={RouteName.HELP}>
           Help
         </LocationStyledLink>
+        <VerticalLine />
         <LocationStyledLink current={current} to={RouteName.SETTINGS}>
           Settings
         </LocationStyledLink>

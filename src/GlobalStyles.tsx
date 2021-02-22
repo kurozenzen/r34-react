@@ -14,6 +14,7 @@ export default createGlobalStyle(
 
       :focus {
         outline: none;
+        text-decoration: underline;
       }
     }
 

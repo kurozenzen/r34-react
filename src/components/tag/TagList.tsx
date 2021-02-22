@@ -1,18 +1,15 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import TagDataClass from "../../data/Tag";
-import Tag from "./Tag";
 import { SimpleMap } from "../../data/types";
 import { ThemeType } from "../../misc/theme";
+import NewTag from "./NewTag";
 
 export const TagListWrapper = styled.div(
   (props: { padding: boolean; theme: ThemeType }) => css`
     display: inline-flex;
     flex-wrap: wrap;
-    margin: calc(
-      ${props.padding ? props.theme.dimensions.gutter : "0px"} -
-        ${props.theme.dimensions.spacing}
-    );
+    gap: ${props.theme.dimensions.gutter};
   `
 );
 
@@ -29,7 +26,7 @@ export default function TagList(props: TagListProps) {
     <div>
       <TagListWrapper padding={padding}>
         {Object.entries(tags).map(([key, tag]) => (
-          <Tag key={key} {...tag} loadAliases={loadAliases} />
+          <NewTag key={key} {...tag} loadAliases={loadAliases} />
         ))}
       </TagListWrapper>
     </div>

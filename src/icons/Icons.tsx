@@ -11,6 +11,10 @@ export const StyledIcon = styled.i(
     min-width: ${props.size}px;
     height: ${props.size}px;
 
+    svg {
+      color: ${props.color};
+    }
+
     ${TagWrapper}:hover & {
       color: ${props.theme.colors.accentColor};
     }
@@ -143,6 +147,10 @@ export const ArrowUp = styled(Icon).attrs({
 
 export const ArrowDown = styled(Icon).attrs({
   icon: "fa-caret-up",
+})``;
+
+export const CodeBranchIcon = styled(Icon).attrs({
+  icon: " fa-code-branch",
 })``;
 
 export const PixivIcon = (props: Omit<IconProps, "icon">) => {

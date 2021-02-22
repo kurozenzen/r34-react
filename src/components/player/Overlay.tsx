@@ -11,6 +11,7 @@ import useToggle from "../../hooks/useToggle";
 import { fadeOut } from "../styled/animations";
 import { InvisButton } from "../common/Buttons";
 import { NO_OP } from "../../data/types";
+import { formatDuration } from "../../misc/formatting";
 
 const Wrapper = styled.div(
   (props: { isVisible: boolean }) => css`
@@ -60,6 +61,17 @@ const PlayButton = styled(OverlayButton)`
   place-self: center center;
 `;
 
+const LengthDisplay = styled.span(
+  (props) => css`
+    grid-area: 3/3/4/4;
+    place-self: end end;
+    background: #00000080;
+    border-radius: 4px;
+    padding: ${props.theme.dimensions.spacing};
+    margin: ${props.theme.dimensions.spacing};
+  `
+);
+
 interface OverlayProps {
   onFullscreen?: MouseEventHandler;
   externalSrc: string;
@@ -68,6 +80,7 @@ interface OverlayProps {
   isPlayable: boolean;
   currentTime?: number;
   duration?: number;
+  mediaRef?: HTMLVideoElement | null;
 }
 
 function Overlay(props: OverlayProps) {
@@ -79,6 +92,7 @@ function Overlay(props: OverlayProps) {
     currentTime = 0,
     duration = null,
     externalSrc,
+    mediaRef,
   } = props;
 
   const [isVisible, toggleVisible] = useToggle();
@@ -116,6 +130,11 @@ function Overlay(props: OverlayProps) {
               style={{ width: `${(currentTime / duration) * 100}%` }}
             />
           )}
+
+          {mediaRef && !isNaN(mediaRef.duration) && (
+            <LengthDisplay>{formatDuration(mediaRef.duration)}</LengthDisplay>
+          )}
+          {externalSrc.includes(".gif") && <LengthDisplay>gif</LengthDisplay>}
         </>
       )}
     </Wrapper>

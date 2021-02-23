@@ -55,7 +55,9 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
     style,
     onLoad,
     virtualRef,
+    id,
   } = props;
+
   const originals = useSelector(selectOriginals);
   const media_src = getCorrectSource(originals, big_src, small_src);
   const [collapsed, setCollapsed] = useState(true);
@@ -79,6 +81,7 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
             type={media_type}
             src={media_src}
             thumbnail_src={thumbnail_src}
+            postId={id}
           />
           {!collapsed && details}
         </PostWrapper>

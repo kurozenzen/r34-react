@@ -1,19 +1,19 @@
-import React, { useState, useCallback, MouseEventHandler } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { selectPreferences } from "../../redux/selectors";
 import FlexVideo from "./FlexVideo";
 import Overlay from "./Overlay";
-import { openFullscreen } from "./utils";
 
 interface VideoProps {
   src: string;
   thumbnail_src: string;
   onLoad: () => void;
   externalSrc: string;
+  postId: number;
 }
 
 export default function Video(props: VideoProps) {
-  const { src, onLoad, externalSrc } = props;
+  const { src, onLoad, externalSrc, postId } = props;
 
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
 
@@ -36,16 +36,6 @@ export default function Video(props: VideoProps) {
     clearInterval(intervalId as NodeJS.Timeout);
     setIntervalId(null);
   }, [videoRef, intervalId]);
-
-  const onFullscreen: MouseEventHandler = useCallback(
-    (event) => {
-      event.stopPropagation();
-      if (videoRef) {
-        openFullscreen(videoRef);
-      }
-    },
-    [videoRef]
-  );
 
   const togglePlay = useCallback(
     (event) => {
@@ -73,7 +63,7 @@ export default function Video(props: VideoProps) {
         isPaused={videoRef ? videoRef.paused : true}
         currentTime={videoRef?.currentTime}
         duration={videoRef?.duration}
-        onFullscreen={onFullscreen}
+        postId={postId}
         togglePlay={togglePlay}
         externalSrc={externalSrc}
         isPlayable

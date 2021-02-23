@@ -149,6 +149,14 @@ export const ArrowDown = styled(Icon).attrs({
   icon: "fa-caret-up",
 })``;
 
+export const ArrowLeft = styled(Icon).attrs({
+  icon: "fa-caret-left",
+})``;
+
+export const ArrowRight = styled(Icon).attrs({
+  icon: "fa-caret-right",
+})``;
+
 export const CodeBranchIcon = styled(Icon).attrs({
   icon: " fa-code-branch",
 })``;

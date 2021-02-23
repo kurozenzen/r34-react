@@ -13,6 +13,9 @@ export const SET_OPTION = "R34_SET_OPTION";
 export const GET_RESULTS = "R34_GET_RESULTS";
 export const GET_MORE_RESULTS = "R34_GET_MORE_RESULTS";
 export const ALLOW_COOKIES = "R34_ALLOW_COOKIES";
+export const ENTER_FULLSCREEN = "R34_ENTER_FULLSCREEN";
+export const EXIT_FULLSCREEN = "R34_EXIT_FULLSCREEN";
+export const SET_FULLSCREEN_POST = "R34_SET_FULLSCREEN_POST";
 
 /////////////////////////////////////////////////////////
 
@@ -62,6 +65,20 @@ interface GetMoreResultsAction {
 interface AllowCookiesAction {
   type: typeof ALLOW_COOKIES;
   value: boolean;
+}
+
+interface EnterFullcreenAction {
+  type: typeof ENTER_FULLSCREEN;
+  postId: number;
+}
+
+interface SetFullScreenPostAction {
+  type: typeof SET_FULLSCREEN_POST;
+  postId: number;
+}
+
+interface ExitFullscreenAction {
+  type: typeof EXIT_FULLSCREEN;
 }
 
 /////////////////////////////////////////////////////////
@@ -118,6 +135,20 @@ export const allowCookiesAction = () => ({
   value: true,
 });
 
+export const enterFullscreen = (postId: number) => ({
+  type: ENTER_FULLSCREEN,
+  postId,
+});
+
+export const exitFullscreen = () => ({
+  type: EXIT_FULLSCREEN,
+});
+
+export const setFullScreenPost = (postId: number) => ({
+  type: SET_FULLSCREEN_POST,
+  postId,
+});
+
 /////////////////////////////////////////////////////////
 
 export type AppAction =
@@ -129,4 +160,7 @@ export type AppAction =
   | SetOptionAction
   | GetResultsAction
   | GetMoreResultsAction
-  | AllowCookiesAction;
+  | AllowCookiesAction
+  | EnterFullcreenAction
+  | ExitFullscreenAction
+  | SetFullScreenPostAction;

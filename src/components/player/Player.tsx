@@ -7,6 +7,7 @@ import { getMediaType } from "./utils";
 import { GIF, PostType, VIDEO } from "../../data/types";
 
 interface PlayerProps {
+  postId: number;
   type: PostType;
   src: string;
   thumbnail_src: string;
@@ -25,7 +26,7 @@ const getMedia = (type: PostType, src: string) => {
 };
 
 export default function Player(props: PlayerProps) {
-  const { type, src, thumbnail_src, onLoad } = props;
+  const { type, src, thumbnail_src, onLoad, postId } = props;
 
   const externalSrc = new URL(src).searchParams.get("url") || "";
 
@@ -37,9 +38,10 @@ export default function Player(props: PlayerProps) {
         thumbnail_src={thumbnail_src}
         onLoad={onLoad}
         externalSrc={externalSrc}
+        postId={postId}
       />
     );
-  }, [type, src, thumbnail_src, onLoad, externalSrc]);
+  }, [type, src, thumbnail_src, onLoad, externalSrc, postId]);
 
   return <>{media}</>;
 }

@@ -1,10 +1,13 @@
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useCallback } from "react";
 
 import {
   ExpandIcon,
   PlayIcon,
   PauseIcon,
   ExternalLinkIcon,
+  CloseIcon,
+  ArrowLeft,
+  ArrowRight,
 } from "../../icons/Icons";
 import styled, { css } from "styled-components";
 import useToggle from "../../hooks/useToggle";
@@ -12,6 +15,13 @@ import { fadeOut } from "../styled/animations";
 import { InvisButton } from "../common/Buttons";
 import { NO_OP } from "../../data/types";
 import { formatDuration } from "../../misc/formatting";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFullsceenState, selectPosts } from "../../redux/selectors";
+import {
+  enterFullscreen,
+  exitFullscreen,
+  setFullScreenPost,
+} from "../../redux/actions";
 
 const Wrapper = styled.div(
   (props: { isVisible: boolean }) => css`
@@ -61,6 +71,16 @@ const PlayButton = styled(OverlayButton)`
   place-self: center center;
 `;
 
+const PreviousButton = styled(OverlayButton)`
+  grid-area: 2/1/3/2;
+  place-self: center start;
+`;
+
+const NextButton = styled(OverlayButton)`
+  grid-area: 2/3/3/4;
+  place-self: center end;
+`;
+
 const LengthDisplay = styled.span(
   (props) => css`
     grid-area: 3/3/4/4;
@@ -73,7 +93,7 @@ const LengthDisplay = styled.span(
 );
 
 interface OverlayProps {
-  onFullscreen?: MouseEventHandler;
+  postId: number;
   externalSrc: string;
   togglePlay?: MouseEventHandler;
   isPaused?: boolean;
@@ -85,7 +105,6 @@ interface OverlayProps {
 
 function Overlay(props: OverlayProps) {
   const {
-    onFullscreen = NO_OP,
     togglePlay = NO_OP,
     isPaused = true,
     isPlayable = false,
@@ -93,17 +112,54 @@ function Overlay(props: OverlayProps) {
     duration = null,
     externalSrc,
     mediaRef,
+    postId,
   } = props;
 
+  const posts = useSelector(selectPosts);
   const [isVisible, toggleVisible] = useToggle();
+  const isReaderOpen = useSelector(selectFullsceenState);
+
+  const dispatch = useDispatch();
+  const onExpandClick = useCallback(() => {
+    if (isReaderOpen) {
+      dispatch(exitFullscreen());
+    } else {
+      dispatch(enterFullscreen(postId));
+    }
+  }, [dispatch, isReaderOpen, postId]);
+
+  const selectedIndex = posts.findIndex((post) => post.id === postId);
+
+  const selectPostAt = useCallback(
+    (index: number) => {
+      const nextPost = posts[index];
+
+      if (nextPost) {
+        dispatch(setFullScreenPost(nextPost.id));
+      }
+    },
+    [dispatch, posts]
+  );
+
+  const hasNext = selectedIndex + 1 < posts.length;
+  const selectNext = useCallback(() => {
+    selectPostAt(selectedIndex + 1);
+  }, [selectPostAt, selectedIndex]);
+
+  const hasPrevious = selectedIndex > 0;
+  const selectPrevious = useCallback(() => {
+    selectPostAt(selectedIndex - 1);
+  }, [selectPostAt, selectedIndex]);
 
   return (
     <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible}>
-      {onFullscreen && (
-        <FullScreenButton onClick={onFullscreen} aria-label="Open Fullscreen">
+      <FullScreenButton onClick={onExpandClick} aria-label="Open Fullscreen">
+        {isReaderOpen ? (
+          <CloseIcon color="white" />
+        ) : (
           <ExpandIcon color="white" />
-        </FullScreenButton>
-      )}
+        )}
+      </FullScreenButton>
 
       <OpenExternalButton>
         <a
@@ -136,6 +192,17 @@ function Overlay(props: OverlayProps) {
           )}
           {externalSrc.includes(".gif") && <LengthDisplay>gif</LengthDisplay>}
         </>
+      )}
+
+      {isReaderOpen && hasPrevious && (
+        <PreviousButton onClick={selectPrevious}>
+          <ArrowLeft size={40} color="white" />
+        </PreviousButton>
+      )}
+      {isReaderOpen && hasNext && (
+        <NextButton onClick={selectNext}>
+          <ArrowRight size={40} color="white" />
+        </NextButton>
       )}
     </Wrapper>
   );

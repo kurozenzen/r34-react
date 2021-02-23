@@ -1,12 +1,15 @@
 import { TagsState } from "./reducers/tags";
 import { ResultsState } from "./reducers/results";
 import { PreferencesState } from "./reducers/preferences";
+import { ReaderState } from "./reducers/reader";
 
 interface RootState {
   results: ResultsState;
   preferences: PreferencesState;
   tags: TagsState;
+  reader: ReaderState;
 }
+
 export const selectActiveTags = (state: RootState) => state.tags.active;
 export const selectResults = (state: RootState) => state.results;
 export const selectPosts = (state: RootState) => state.results.posts;
@@ -30,3 +33,8 @@ export const selectOutOfResults = (state: RootState) =>
 
 export const selectAliasesByTagName = (tagName: string) => (state: RootState) =>
   state.tags.aliases[tagName];
+
+export const selectFullsceenState = (state: RootState) =>
+  state.reader.isEnabled;
+
+export const selectFullsceenPostId = (state: RootState) => state.reader.postId;

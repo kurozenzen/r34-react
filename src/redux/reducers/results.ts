@@ -18,9 +18,6 @@ const addPosts = (state: ResultsState, posts: PostDataClass[]) =>
   produce(state, (draft) => {
     draft.posts = [...state.posts, ...posts];
     draft.pageNumber = state.pageNumber + 1;
-
-    //@ts-expect-error
-    window.posts = draft.posts;
   });
 
 const setPosts = (

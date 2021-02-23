@@ -133,7 +133,7 @@ export default function Settings() {
           <CodeBranchIcon
             color={(useTheme() as ThemeType).colors.subduedText}
           />{" "}
-          <Faded>Version 2.2.1</Faded>
+          <Faded>Version 2.3.1</Faded>
         </Centered>
       </FlexColumnWithSpacing>
     </FlexColumn>

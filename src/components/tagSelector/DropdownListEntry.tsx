@@ -19,25 +19,32 @@ const EntryWrapper = styled.div(
     height: ${theme.dimensions.blockHeight};
     background: white;
     align-items: center;
-
-    > :first-child {
-      text-align: center;
-    }
-
-    :focus {
-      text-decoration: underline;
-    }
   `
 );
+
+const Name = styled.span`
+  grid-column: 2/3;
+`;
+
+const Count = styled.span`
+  grid-column: 3/4;
+`;
+
+const Icon = styled.div`
+  grid-column: 1/2;
+  text-align: center;
+`;
 
 export default function DropdownListEntry(props: EntryProps) {
   const { name, posts, types, onClick } = props;
 
   return (
     <EntryWrapper onClick={onClick}>
-      <TypeIcon types={types} />
-      <span style={{ flexGrow: 1 }}>{prettifyTagname(name)}</span>
-      <span style={{ paddingRight: 5 }}>{formatCount(posts)} posts</span>
+      <Icon>
+        <TypeIcon types={types} />
+      </Icon>
+      <Name>{prettifyTagname(name)}</Name>
+      <Count>{formatCount(posts)} posts</Count>
     </EntryWrapper>
   );
 }

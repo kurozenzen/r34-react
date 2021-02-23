@@ -15,6 +15,8 @@ const PageRow = styled.div(
     gap: ${theme.dimensions.gutter};
     padding: ${theme.dimensions.gutter};
     padding-bottom: 0;
+    max-width: ${theme.dimensions.bodyWidth};
+    margin: auto;
   `
 );
 

@@ -1,31 +1,41 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled, { css, useTheme } from "styled-components";
+import {
+  ORIGINALS,
+  PAGE_SIZE,
+  PRELOAD_VIDEOS,
+  ResultLayout,
+  RESULTS_LAYOUT,
+  TAG_SUGGESTION_COUNT,
+} from "../../data/types";
+import { CodeBranchIcon } from "../../icons/Icons";
+import { ThemeType } from "../../misc/theme";
+import { setOption } from "../../redux/actions";
+import { selectPreferences } from "../../redux/selectors";
 import { BlockButton } from "../common/Buttons";
+import Centered from "../common/Centered";
 import FlexColumn, { FlexColumnWithSpacing } from "../common/FlexColumn";
 import { HorizontalLine } from "../common/Lines";
+import Select from "../common/Select";
 import Setting from "../common/Setting";
 import SmallTextInput from "../common/SmallTextInput";
 import Surface from "../common/Surface";
-import { Title } from "../common/Text";
+import { Faded, Title } from "../common/Text";
 import Toggle from "../common/Toggle";
-import { CodeBranchIcon } from "../../icons/Icons";
 import Header from "../features/Header";
-import {
-  PRELOAD_VIDEOS,
-  TAG_SUGGESTION_COUNT,
-  ORIGINALS,
-  RESULTS_LAYOUT,
-  ResultLayout,
-  PAGE_SIZE,
-} from "../../data/types";
-import { setOption } from "../../redux/actions";
-import { selectPreferences } from "../../redux/selectors";
-import Select from "../common/Select";
 
 const layouts = {
   [ResultLayout.INFINITE_COLUMN]: "Infinite",
   [ResultLayout.PAGES]: "Pages",
 };
+
+const SettingsSurface = styled(Surface)(
+  ({ theme }) => css`
+    padding: ${theme.dimensions.hugeSpacing};
+    gap: ${theme.dimensions.hugeSpacing};
+  `
+);
 
 export default function Settings() {
   const dispatch = useDispatch();
@@ -73,8 +83,7 @@ export default function Settings() {
     <FlexColumn>
       <Header />
       <FlexColumnWithSpacing>
-        <Title>Settings</Title>
-        <Surface>
+        <SettingsSurface>
           <Title>General</Title>
           <HorizontalLine />
           <Setting
@@ -119,11 +128,13 @@ export default function Settings() {
           <Title>Developer</Title>
           <HorizontalLine />
           <BlockButton onClick={reset}>Reset Application</BlockButton>
-        </Surface>
-        <div style={{ margin: "auto" }}>
-          <CodeBranchIcon color="#ffffff80" />{" "}
-          <span style={{ color: "#ffffff80" }}>Version 2.2.0</span>
-        </div>
+        </SettingsSurface>
+        <Centered>
+          <CodeBranchIcon
+            color={(useTheme() as ThemeType).colors.subduedText}
+          />{" "}
+          <Faded>Version 2.2.1</Faded>
+        </Centered>
       </FlexColumnWithSpacing>
     </FlexColumn>
   );

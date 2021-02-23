@@ -24,6 +24,6 @@ export default function TypeIcon(props: TypeIconProps) {
     case "artist":
       return <ArtistIcon className={className} onClick={onClick} />;
     default:
-      return <div className={className}></div>;
+      return null;
   }
 }

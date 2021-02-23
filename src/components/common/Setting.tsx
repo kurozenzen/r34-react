@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { SmallTitle } from "./Text";
+import { SmallTitle, Faded } from "./Text";
 
 const Grid = styled.div(
   ({ theme }) => css`
@@ -18,11 +18,10 @@ const Title = styled(SmallTitle)(
   `
 );
 
-const Body = styled.p(
+const Body = styled(Faded)(
   ({ theme }) => css`
     grid-column: 1/2;
     grid-row: 2/3;
-    opacity: 0.5;
   `
 );
 

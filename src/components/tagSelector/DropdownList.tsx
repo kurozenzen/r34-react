@@ -35,7 +35,7 @@ export const ListWrapper = styled.div(
     border-top: none;
     border-radius: 0 0 3px 3px;
     color: black;
-    z-index: 1;
+    z-index: 3;
   `
 );
 

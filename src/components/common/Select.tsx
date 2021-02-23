@@ -8,6 +8,7 @@ const SelectWrapper = styled.select(
     background-color: ${theme.colors.backgroundColor2};
     padding: ${theme.dimensions.spacing};
     border-radius: ${theme.dimensions.borderRadius};
+    height: ${theme.dimensions.blockHeight};
   `
 );
 

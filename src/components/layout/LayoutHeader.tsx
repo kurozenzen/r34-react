@@ -10,6 +10,7 @@ import LayoutElementProps from "./LayoutElementProps";
 import KofiButton from "../features/KofiButton";
 import styled, { css } from "styled-components";
 import { NO_OP } from "../../data/types";
+import RandomTip from "../common/RandomTip";
 
 const Placeholder = styled.div(
   ({ theme }) => css`
@@ -43,6 +44,7 @@ export default function LayoutHeader({
       ) : (
         <Placeholder>
           <KofiButton id="V7V73PWW9" label="Support Me on Ko-fi" />
+          <RandomTip />
         </Placeholder>
       )}
     </div>

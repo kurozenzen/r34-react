@@ -21,9 +21,12 @@ const Bar = styled.div(
   `
 );
 
-const DetailsTagList = styled(TagList)`
-  grid-row: 3/4;
-`;
+const DetailsTagList = styled(TagList)(
+  ({ theme }) => css`
+    grid-row: 3/4;
+    padding: ${theme.dimensions.gutter};
+  `
+);
 
 interface DetailsProps {
   rating: RatingType;
@@ -43,7 +46,7 @@ export default function Details(props: DetailsProps) {
         {!!score && <Score value={score} />}
         {!!source && <Source value={source} />}
       </Bar>
-      <DetailsTagList tags={tagsForRendering} padding loadAliases={false} />
+      <DetailsTagList tags={tagsForRendering} loadAliases={false} />
     </>
   );
 }

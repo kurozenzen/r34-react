@@ -2,14 +2,13 @@ import React from "react";
 import styled, { css } from "styled-components";
 import TagDataClass from "../../data/Tag";
 import { SimpleMap } from "../../data/types";
-import { ThemeType } from "../../misc/theme";
 import NewTag from "./NewTag";
 
 export const TagListWrapper = styled.div(
-  (props: { padding: boolean; theme: ThemeType }) => css`
+  ({ theme }) => css`
     display: inline-flex;
     flex-wrap: wrap;
-    gap: ${props.theme.dimensions.gutter};
+    gap: ${theme.dimensions.gutter};
   `
 );
 
@@ -17,18 +16,17 @@ interface TagListProps {
   tags: SimpleMap<TagDataClass>;
   loadAliases?: boolean;
   padding?: boolean;
+  className?: string;
 }
 
 export default function TagList(props: TagListProps) {
-  const { tags, loadAliases = false, padding = false } = props;
+  const { tags, loadAliases = false, className } = props;
 
   return (
-    <div>
-      <TagListWrapper padding={padding}>
-        {Object.entries(tags).map(([key, tag]) => (
-          <NewTag key={key} {...tag} loadAliases={loadAliases} />
-        ))}
-      </TagListWrapper>
-    </div>
+    <TagListWrapper className={className}>
+      {Object.entries(tags).map(([key, tag]) => (
+        <NewTag key={key} {...tag} loadAliases={loadAliases} />
+      ))}
+    </TagListWrapper>
   );
 }

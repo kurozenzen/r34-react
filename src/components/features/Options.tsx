@@ -15,12 +15,12 @@ const OptionsWrapper = styled.div(
 );
 
 const StyledInput = styled.input(
-  (props: { value: number; theme: ThemeType }) => css`
+  (props: { value: string; theme: ThemeType }) => css`
     background: none;
     border: none;
     outline: none;
     color: ${props.theme.colors.accentColor};
-    width: ${0.65 * String(props.value).length}em;
+    width: ${0.65 * props.value.length}em;
     text-align: right;
     font-size: ${props.theme.fontSizes.content};
     margin: -1px 0.2em 0 0.2em;
@@ -38,7 +38,9 @@ export default function Options() {
   const dispatch = useDispatch();
   const { rated, ratedTreshold } = useSelector(selectPreferences);
 
-  const [ratedInputValue, setRatedInputValue] = useState(ratedTreshold);
+  const [ratedInputValue, setRatedInputValue] = useState(
+    ratedTreshold.toString()
+  );
 
   const toggleRated = useCallback(() => dispatch(setOption(RATED, !rated)), [
     dispatch,
@@ -46,7 +48,7 @@ export default function Options() {
   ]);
 
   const setRatedThreshold = useCallback(
-    () => dispatch(setOption(RATEDTRESHOLD, ratedInputValue)),
+    () => dispatch(setOption(RATEDTRESHOLD, Number(ratedInputValue))),
     [dispatch, ratedInputValue]
   );
 
@@ -57,11 +59,9 @@ export default function Options() {
           <div style={{ display: "flex" }}>
             <span>More than</span>
             <StyledInput
-              type="number"
+              type="text"
               value={ratedInputValue}
-              onChange={(event) =>
-                setRatedInputValue(Number(event.target.value))
-              }
+              onChange={(event) => setRatedInputValue(event.target.value)}
               onBlur={setRatedThreshold}
             />
             <span>likes</span>

@@ -1,9 +1,8 @@
-import React, { useCallback, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import PostDataClass from "../../data/Post";
 import { NO_OP } from "../../data/types";
-import { setFullScreenPost } from "../../redux/actions";
 import {
   selectFullsceenPostId,
   selectFullsceenState,

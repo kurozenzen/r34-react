@@ -125,6 +125,16 @@ export const TwitterIcon = styled(Icon).attrs({
   icon: "fa-twitter",
 })``;
 
+export const PatreonIcon = styled(Icon).attrs({
+  prefix: "fab",
+  icon: "fa-patreon",
+})``;
+
+export const DeviantArtIcon = styled(Icon).attrs({
+  prefix: "fab",
+  icon: "fa-deviantart",
+})``;
+
 export const LinkIcon = styled(Icon).attrs({
   icon: "fa-link",
 })``;

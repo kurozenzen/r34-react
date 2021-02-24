@@ -4,7 +4,6 @@ import InifinteColumn from "../layout/infinite/InfiniteColumn";
 import Post from "../post/Post";
 import { getMoreResults, getResults } from "../../redux/actions";
 import {
-  selectFullsceenState,
   selectOutOfResults,
   selectPageNumber,
   selectPosts,

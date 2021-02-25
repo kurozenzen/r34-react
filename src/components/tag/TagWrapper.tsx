@@ -1,7 +1,7 @@
-import { MouseEventHandler } from "react"
-import styled, { css } from "styled-components"
+import { MouseEventHandler } from 'react'
+import styled, { css } from 'styled-components'
 
-import { ThemeType } from "../../misc/theme"
+import { ThemeType } from '../../misc/theme'
 
 const dropdownBorderRadius = (collapsed: boolean, theme: ThemeType) =>
   collapsed ? theme.dimensions.borderRadius : `${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0 0`

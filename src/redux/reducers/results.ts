@@ -1,6 +1,6 @@
-import produce from "immer"
-import PostDataClass from "../../data/Post"
-import { SET_POSTS, ADD_POSTS, AppAction } from "../actions"
+import produce from 'immer'
+import PostDataClass from '../../data/Post'
+import { SET_POSTS, ADD_POSTS, AppAction } from '../actions'
 
 export interface ResultsState {
   posts: PostDataClass[]

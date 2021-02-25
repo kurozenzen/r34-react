@@ -1,11 +1,11 @@
-import React, { useMemo } from "react"
-import { useSelector } from "react-redux"
-import styled, { css } from "styled-components"
-import PostDataClass from "../../data/Post"
-import { NO_OP } from "../../data/types"
-import { selectFullsceenPostId, selectFullsceenState, selectPosts, selectPreferences } from "../../redux/selectors"
-import Player from "../player/Player"
-import { getCorrectSource } from "../post/Post"
+import React, { useMemo } from 'react'
+import { useSelector } from 'react-redux'
+import styled, { css } from 'styled-components'
+import PostDataClass from '../../data/Post'
+import { NO_OP } from '../../data/types'
+import { selectFullsceenPostId, selectFullsceenState, selectPosts, selectPreferences } from '../../redux/selectors'
+import Player from '../player/Player'
+import { getCorrectSource } from '../post/Post'
 
 const FullScreenDiv = styled.div(
   ({ theme }) => css`

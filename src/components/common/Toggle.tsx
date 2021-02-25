@@ -1,6 +1,6 @@
-import React, { MouseEventHandler } from "react"
-import styled, { css } from "styled-components"
-import { ThemeType } from "../../misc/theme"
+import React, { MouseEventHandler } from 'react'
+import styled, { css } from 'styled-components'
+import { ThemeType } from '../../misc/theme'
 
 const Track = styled.div(
   (props) => css`
@@ -20,7 +20,7 @@ const Thumb = styled.div(
     background-color: ${props.value ? props.theme.colors.accentColor : props.theme.colors.backgroundColor2};
     border-radius: 50%;
     transition: all 0.2s ease-in-out;
-    transform: translate(${props.value ? "26px" : "0px"});
+    transform: translate(${props.value ? '26px' : '0px'});
   `
 )
 

@@ -1,5 +1,5 @@
-import { RatingType, PostType } from "./types"
-import TagDataClass from "./Tag"
+import { RatingType, PostType } from './types'
+import TagDataClass from './Tag'
 
 export default class PostDataClass {
   id: number

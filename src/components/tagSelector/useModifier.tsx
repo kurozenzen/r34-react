@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react"
-import { Modifier } from "../../data/types"
+import { useCallback, useState } from 'react'
+import { Modifier } from '../../data/types'
 
 const order = [Modifier.PLUS, Modifier.MINUS, Modifier.OR]
 

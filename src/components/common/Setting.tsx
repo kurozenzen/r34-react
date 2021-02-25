@@ -1,6 +1,6 @@
-import React from "react"
-import styled, { css } from "styled-components"
-import { SmallTitle, Faded } from "./Text"
+import React from 'react'
+import styled, { css } from 'styled-components'
+import { SmallTitle, Faded } from './Text'
 
 const Grid = styled.div(
   ({ theme }) => css`

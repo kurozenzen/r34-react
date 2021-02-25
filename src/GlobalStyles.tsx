@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from "styled-components"
+import { createGlobalStyle, css } from 'styled-components'
 
 export default createGlobalStyle(
   ({ theme }) => css`
@@ -7,7 +7,7 @@ export default createGlobalStyle(
       padding: 0;
       box-sizing: border-box;
 
-      font-family: "Raleway", sans-serif;
+      font-family: 'Raleway', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
 

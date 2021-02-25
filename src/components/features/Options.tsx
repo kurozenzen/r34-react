@@ -1,9 +1,9 @@
-import React, { ChangeEventHandler, useCallback, useState } from "react"
-import styled, { css } from "styled-components"
-import LabeledToggle from "../common/LabeledToggle"
-import { ThemeType } from "../../misc/theme"
-import { RATED, RATEDTRESHOLD } from "../../data/types"
-import usePreference from "../../hooks/usePreference"
+import React, { ChangeEventHandler, useCallback, useState } from 'react'
+import styled, { css } from 'styled-components'
+import LabeledToggle from '../common/LabeledToggle'
+import { ThemeType } from '../../misc/theme'
+import { RATED, RATEDTRESHOLD } from '../../data/types'
+import usePreference from '../../hooks/usePreference'
 
 const OptionsWrapper = styled.div(
   ({ theme }) => css`
@@ -52,13 +52,13 @@ export default function Options() {
     <OptionsWrapper>
       <LabeledToggle value={rated} onToggle={toggleRated}>
         {rated ? (
-          <div style={{ display: "flex" }}>
+          <div style={{ display: 'flex' }}>
             <span>More than</span>
-            <StyledInput type="text" value={ratedTresholdInternal} onChange={onChange} onBlur={onBlur} />
+            <StyledInput type='text' value={ratedTresholdInternal} onChange={onChange} onBlur={onBlur} />
             <span>likes</span>
           </div>
         ) : (
-          "Only show Rated Posts"
+          'Only show Rated Posts'
         )}
       </LabeledToggle>
     </OptionsWrapper>

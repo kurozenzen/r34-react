@@ -1,5 +1,5 @@
-import React, { ChangeEventHandler } from "react"
-import styled, { css } from "styled-components"
+import React, { ChangeEventHandler } from 'react'
+import styled, { css } from 'styled-components'
 
 const SelectWrapper = styled.select(
   ({ theme }) => css`

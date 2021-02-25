@@ -1,12 +1,12 @@
-import React, { useMemo } from "react"
-import styled, { css } from "styled-components"
-import TagList from "../tag/TagList"
-import { RatingType } from "../../data/types"
-import TagDataClass from "../../data/Tag"
-import { listToMap } from "../../data/utils"
-import Rating from "./Rating"
-import Score from "./Score"
-import Source from "./Source"
+import React, { useMemo } from 'react'
+import styled, { css } from 'styled-components'
+import TagList from '../tag/TagList'
+import { RatingType } from '../../data/types'
+import TagDataClass from '../../data/Tag'
+import { listToMap } from '../../data/utils'
+import Rating from './Rating'
+import Score from './Score'
+import Source from './Source'
 
 const Bar = styled.div(
   ({ theme: { dimensions, misc, shadow } }) => css`
@@ -37,7 +37,7 @@ interface DetailsProps {
 
 export default function Details(props: DetailsProps) {
   const { rating, score, source, tags } = props
-  const tagsForRendering = useMemo(() => listToMap(tags, "name"), [tags])
+  const tagsForRendering = useMemo(() => listToMap(tags, 'name'), [tags])
 
   return (
     <>

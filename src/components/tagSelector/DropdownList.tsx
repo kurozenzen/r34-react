@@ -1,9 +1,9 @@
-import React from "react"
-import styled, { css } from "styled-components"
-import DropdownListEntry from "./DropdownListEntry"
-import TagDataClass from "../../data/Tag"
-import { TagType } from "../../data/types"
-import { ThemeType } from "../../misc/theme"
+import React from 'react'
+import styled, { css } from 'styled-components'
+import DropdownListEntry from './DropdownListEntry'
+import TagDataClass from '../../data/Tag'
+import { TagType } from '../../data/types'
+import { ThemeType } from '../../misc/theme'
 
 function sizeAndPosition(tagSelector: HTMLDivElement | null) {
   if (tagSelector) {
@@ -19,7 +19,7 @@ function sizeAndPosition(tagSelector: HTMLDivElement | null) {
     `
   }
 
-  return ""
+  return ''
 }
 
 export const ListWrapper = styled.div(

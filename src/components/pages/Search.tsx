@@ -1,17 +1,17 @@
-import React, { useCallback, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import InifinteColumn from "../layout/infinite/InfiniteColumn"
-import Post from "../post/Post"
-import { getMoreResults, getResults } from "../../redux/actions"
-import { selectHasMoreResults, selectPageNumber, selectPosts, selectPreferences } from "../../redux/selectors"
-import LayoutHeader from "../layout/LayoutHeader"
-import LayoutOutOfItems from "../layout/LayoutOutOfItems"
-import LayoutLoadingItem from "../layout/LayoutLoadingItem"
-import useAction from "../../hooks/useAction"
-import { ResultLayout } from "../../data/types"
-import PageLayout from "../layout/pages/PageLayout"
+import React, { useCallback, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import InifinteColumn from '../layout/infinite/InfiniteColumn'
+import Post from '../post/Post'
+import { getMoreResults, getResults } from '../../redux/actions'
+import { selectHasMoreResults, selectPageNumber, selectPosts, selectPreferences } from '../../redux/selectors'
+import LayoutHeader from '../layout/LayoutHeader'
+import LayoutOutOfItems from '../layout/LayoutOutOfItems'
+import LayoutLoadingItem from '../layout/LayoutLoadingItem'
+import useAction from '../../hooks/useAction'
+import { ResultLayout } from '../../data/types'
+import PageLayout from '../layout/pages/PageLayout'
 
-import Reader from "../reader/Reader"
+import Reader from '../reader/Reader'
 
 export default function Search() {
   const [isLoading, setLoading] = useState(false)

@@ -1,16 +1,16 @@
-import React, { useMemo } from "react"
-import Surface from "../common/Surface"
-import { Title } from "../common/Text"
-import TagList from "../tag/TagList"
-import outOfResultsPicture from "../../icons/OutOfResults.png"
-import { useSelector } from "react-redux"
-import { selectAliasesAsList } from "../../redux/selectors"
-import TagDataClass from "../../data/Tag"
-import { NO_OP, SimpleMap } from "../../data/types"
-import LayoutElementProps from "./LayoutElementProps"
-import { HorizontalLine } from "../common/Lines"
-import styled, { css } from "styled-components"
-import FlexImage from "../player/FlexImage"
+import React, { useMemo } from 'react'
+import Surface from '../common/Surface'
+import { Title } from '../common/Text'
+import TagList from '../tag/TagList'
+import outOfResultsPicture from '../../icons/OutOfResults.png'
+import { useSelector } from 'react-redux'
+import { selectAliasesAsList } from '../../redux/selectors'
+import TagDataClass from '../../data/Tag'
+import { NO_OP, SimpleMap } from '../../data/types'
+import LayoutElementProps from './LayoutElementProps'
+import { HorizontalLine } from '../common/Lines'
+import styled, { css } from 'styled-components'
+import FlexImage from '../player/FlexImage'
 
 const Div = styled.div(
   ({ theme }) => css`
@@ -42,9 +42,9 @@ export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: 
   )
 
   return (
-    <Div style={style} ref={virtualRef} onLoad={onLoad} role="row">
+    <Div style={style} ref={virtualRef} onLoad={onLoad} role='row'>
       <StyledSurface>
-        <StyledImage src={outOfResultsPicture} alt="Shironeko does not understand" />
+        <StyledImage src={outOfResultsPicture} alt='Shironeko does not understand' />
         <HorizontalLine />
         <Title>You have reached the end!</Title>
         <p>Go look for something else!</p>

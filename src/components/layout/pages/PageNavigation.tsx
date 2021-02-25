@@ -1,9 +1,9 @@
-import React, { MouseEventHandler, useCallback } from "react"
-import { useSelector } from "react-redux"
-import styled, { css } from "styled-components"
-import { selectLastPage } from "../../../redux/selectors"
-import { RedButton } from "../../common/Buttons"
-import { SmallNumberInput } from "../../common/SmallInput"
+import React, { MouseEventHandler, useCallback } from 'react'
+import { useSelector } from 'react-redux'
+import styled, { css } from 'styled-components'
+import { selectLastPage } from '../../../redux/selectors'
+import { RedButton } from '../../common/Buttons'
+import { SmallNumberInput } from '../../common/SmallInput'
 
 const PageRow = styled.div(
   ({ theme }) => css`
@@ -48,7 +48,7 @@ export default function PageNavigation(props: PageNavigationProps) {
   // Render Empty divs to keep everything lined up
   // Could achive the same with grid-column (might do that in the future)
   return (
-    <PageRow className="page-navigation">
+    <PageRow className='page-navigation'>
       {currentPage > 1 ? <PageNumber onClick={loadFirst}>0</PageNumber> : <div></div>}
       {currentPage > 0 ? <PageNumber onClick={loadPrevious}>{currentPage - 1}</PageNumber> : <div></div>}
       <CurrentNumber value={currentPage} onSubmit={loadSpecificPage} />

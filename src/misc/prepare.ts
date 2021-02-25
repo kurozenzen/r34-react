@@ -1,6 +1,6 @@
-import PostDataClass from "../data/Post"
-import TagDataClass from "../data/Tag"
-import { TagType, Modifier, RatingType } from "../data/types"
+import PostDataClass from '../data/Post'
+import TagDataClass from '../data/Tag'
+import { TagType, Modifier, RatingType } from '../data/types'
 
 interface DirtyTag {
   name: string

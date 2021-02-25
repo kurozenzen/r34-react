@@ -1,18 +1,18 @@
-import React, { useEffect } from "react"
-import { useSelector } from "react-redux"
-import { formatCount } from "../../misc/formatting"
-import useToggle from "../../hooks/useToggle"
-import { selectCount } from "../../redux/selectors"
-import { Title } from "../common/Text"
-import Config from "../features/Config"
-import Header from "../features/Header"
-import LayoutElementProps from "./LayoutElementProps"
-import KofiButton from "../features/KofiButton"
-import styled, { css } from "styled-components"
-import { NO_OP } from "../../data/types"
-import RandomTip from "../common/RandomTip"
-import Surface from "../common/Surface"
-import { HorizontalLine } from "../common/Lines"
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { formatCount } from '../../misc/formatting'
+import useToggle from '../../hooks/useToggle'
+import { selectCount } from '../../redux/selectors'
+import { Title } from '../common/Text'
+import Config from '../features/Config'
+import Header from '../features/Header'
+import LayoutElementProps from './LayoutElementProps'
+import KofiButton from '../features/KofiButton'
+import styled, { css } from 'styled-components'
+import { NO_OP } from '../../data/types'
+import RandomTip from '../common/RandomTip'
+import Surface from '../common/Surface'
+import { HorizontalLine } from '../common/Lines'
 
 const Placeholder = styled.div(
   ({ theme }) => css`
@@ -39,18 +39,18 @@ export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: Layo
   }, [count, onLoad])
 
   return (
-    <div onLoad={onLoad} ref={virtualRef} style={style} role="row">
+    <div onLoad={onLoad} ref={virtualRef} style={style} role='row'>
       <Header />
       <Config onLoad={onLoad} />
       {count > 0 ? (
         <Title onClick={toggleFullNumber}>
-          {(fullNumber ? count.toLocaleString() : formatCount(count)) + " results"}
+          {(fullNumber ? count.toLocaleString() : formatCount(count)) + ' results'}
         </Title>
       ) : (
         <Placeholder>
           <RandomTip />
 
-          <KofiButton id="V7V73PWW9" label="Support Me on Ko-fi" />
+          <KofiButton id='V7V73PWW9' label='Support Me on Ko-fi' />
         </Placeholder>
       )}
     </div>

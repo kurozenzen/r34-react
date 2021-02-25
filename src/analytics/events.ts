@@ -1,9 +1,9 @@
-import { Modifier, SimpleMap } from "../data/types"
-import TagDataClass from "../data/Tag"
-import { PreferencesState } from "../redux/reducers/preferences"
+import { Modifier, SimpleMap } from '../data/types'
+import TagDataClass from '../data/Tag'
+import { PreferencesState } from '../redux/reducers/preferences'
 
-const SEARCH = "r34_search"
-const ADD_TAG = "r34_add_tag"
+const SEARCH = 'r34_search'
+const ADD_TAG = 'r34_add_tag'
 
 interface SearchEvent {
   id: typeof SEARCH

@@ -1,10 +1,10 @@
-import React from "react"
-import styled, { css } from "styled-components"
-import { RedButton } from "../common/Buttons"
-import { useSelector } from "react-redux"
-import { allowCookiesAction } from "../../redux/actions"
-import { selectCookies } from "../../redux/selectors"
-import useAction from "../../hooks/useAction"
+import React from 'react'
+import styled, { css } from 'styled-components'
+import { RedButton } from '../common/Buttons'
+import { useSelector } from 'react-redux'
+import { allowCookiesAction } from '../../redux/actions'
+import { selectCookies } from '../../redux/selectors'
+import useAction from '../../hooks/useAction'
 
 const CookieWrapper = styled.div(
   ({ theme }) => css`
@@ -34,7 +34,7 @@ export default function CookieConfirmation() {
   return cookies ? null : (
     <CookieWrapper>
       <StyledSpan>This website uses cookies.</StyledSpan>
-      <RedButton onClick={onClick} aria-label="Allow Cookies">
+      <RedButton onClick={onClick} aria-label='Allow Cookies'>
         Got it
       </RedButton>
     </CookieWrapper>

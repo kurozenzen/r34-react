@@ -1,4 +1,4 @@
-import { PostType, VIDEO, GIF, PICTURE } from "../../data/types"
+import { PostType, VIDEO, GIF, PICTURE } from '../../data/types'
 
 export const openFullscreen = (elem: HTMLVideoElement) => {
   elem.requestFullscreen()
@@ -10,7 +10,7 @@ export const getMediaType = (type: PostType, src: string) => {
   }
 
   // can't use .endsWith because of queryString
-  if (src.includes(".gif")) {
+  if (src.includes('.gif')) {
     return GIF
   }
 

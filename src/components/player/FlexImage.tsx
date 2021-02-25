@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components"
+import styled, { css } from 'styled-components'
 
 const FlexImage = styled.img(
   ({ width, height }) => css`
@@ -11,7 +11,7 @@ const FlexImage = styled.img(
       ? css`
           aspect-ratio: ${width} / ${height};
         `
-      : ""}
+      : ''}
   `
 )
 

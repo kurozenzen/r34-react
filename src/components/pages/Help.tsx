@@ -1,15 +1,15 @@
-import React from "react"
-import { Title } from "../common/Text"
-import Surface from "../common/Surface"
-import TagSelector from "../tagSelector/TagSelector"
-import Options from "../features/Options"
-import TagList from "../tag/TagList"
-import Header from "../features/Header"
-import Footer from "../features/Footer"
-import FlexColumn, { FlexColumnWithSpacing } from "../common/FlexColumn"
-import styled, { css } from "styled-components"
-import { HorizontalLine } from "../common/Lines"
-import { Modifier } from "../../data/types"
+import React from 'react'
+import { Title } from '../common/Text'
+import Surface from '../common/Surface'
+import TagSelector from '../tagSelector/TagSelector'
+import Options from '../features/Options'
+import TagList from '../tag/TagList'
+import Header from '../features/Header'
+import Footer from '../features/Footer'
+import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
+import styled, { css } from 'styled-components'
+import { HorizontalLine } from '../common/Lines'
+import { Modifier } from '../../data/types'
 
 const FlexRow = styled.div(
   ({ theme }) => css`
@@ -36,9 +36,9 @@ export default function Help() {
       <FlexColumnWithSpacing>
         <Title>Help</Title>
         <FlexRow>
-          <a href="https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md">Report a bug</a>
+          <a href='https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md'>Report a bug</a>
           or
-          <a href="https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md">Request a feature</a>
+          <a href='https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md'>Request a feature</a>
         </FlexRow>
         <Surface>
           <Title>Searching for Tags</Title>
@@ -84,12 +84,12 @@ export default function Help() {
           <HorizontalLine />
           <TagList
             tags={{
-              "Tag 1": { name: "Tag 1" },
-              "Tag 2": { name: "Tag 2", types: ["character"] },
-              "Tag 3": {
-                name: "Tag 3",
+              'Tag 1': { name: 'Tag 1' },
+              'Tag 2': { name: 'Tag 2', types: ['character'] },
+              'Tag 3': {
+                name: 'Tag 3',
                 modifier: Modifier.MINUS,
-                types: ["copyright"],
+                types: ['copyright'],
                 count: 1020,
               },
             }}

@@ -1,4 +1,4 @@
-import { TagType, Modifier } from "./types"
+import { TagType, Modifier } from './types'
 
 export default class TagDataClass {
   name: string

@@ -1,5 +1,5 @@
-import React from "react"
-import styled, { css } from "styled-components"
+import React from 'react'
+import styled, { css } from 'styled-components'
 
 const Container = styled.div`
   display: inline-block;
@@ -22,7 +22,7 @@ const AButton = styled.a(
     overflow-wrap: break-word;
     vertical-align: middle;
     border: 0 none #fff !important;
-    font-family: "Quicksand", Helvetica, Century Gothic, sans-serif !important;
+    font-family: 'Quicksand', Helvetica, Century Gothic, sans-serif !important;
     text-decoration: none;
     text-shadow: none;
     font-weight: 700 !important;
@@ -79,7 +79,7 @@ const Image = styled.img`
   margin-right: 5px;
   margin-left: 0;
   margin-bottom: 3px;
-  content: url("https://ko-fi.com/img/cup-border.png");
+  content: url('https://ko-fi.com/img/cup-border.png');
 
   :after {
     vertical-align: middle;
@@ -91,7 +91,7 @@ const Image = styled.img`
     margin-right: 6px;
     margin-left: 0;
     margin-bottom: 4px !important;
-    content: url("https://ko-fi.com/img/whitelogo.svg");
+    content: url('https://ko-fi.com/img/whitelogo.svg');
 
     height: 15px !important;
     width: 22px !important;
@@ -110,9 +110,9 @@ export default function KofiButton(props: KofiButtonProps) {
 
   return (
     <Container>
-      <AButton title={label} href={"https://ko-fi.com/" + id} target="_blank" rel="noopener noreferrer">
+      <AButton title={label} href={'https://ko-fi.com/' + id} target='_blank' rel='noopener noreferrer'>
         <Text>
-          <Image src="https://ko-fi.com/img/cup-border.png" className="kofiimg" alt="Ko-Fi button" />
+          <Image src='https://ko-fi.com/img/cup-border.png' className='kofiimg' alt='Ko-Fi button' />
           {label}
         </Text>
       </AButton>

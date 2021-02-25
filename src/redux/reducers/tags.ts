@@ -1,7 +1,7 @@
-import produce from "immer"
-import TagDataClass from "../../data/Tag"
-import { SimpleMap } from "../../data/types"
-import { ADD_TAG, AppAction, REMOVE_TAG, ADD_ALIASES } from "../actions"
+import produce from 'immer'
+import TagDataClass from '../../data/Tag'
+import { SimpleMap } from '../../data/types'
+import { ADD_TAG, AppAction, REMOVE_TAG, ADD_ALIASES } from '../actions'
 
 export interface TagsState {
   active: SimpleMap<TagDataClass>

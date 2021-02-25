@@ -1,21 +1,21 @@
-import { PreferenceKey } from "../data/types"
-import TagDataClass from "../data/Tag"
-import PostDataClass from "../data/Post"
+import { PreferenceKey } from '../data/types'
+import TagDataClass from '../data/Tag'
+import PostDataClass from '../data/Post'
 
 /////////////////////////////////////////////////////////
 
-export const ADD_TAG = "R34_ADD_TAG"
-export const REMOVE_TAG = "R34_REMOVE_TAG"
-export const ADD_ALIASES = "R34_ADD_ALIASES"
-export const ADD_POSTS = "R34_ADD_POSTS"
-export const SET_POSTS = "R34_SET_POSTS"
-export const SET_OPTION = "R34_SET_OPTION"
-export const GET_RESULTS = "R34_GET_RESULTS"
-export const GET_MORE_RESULTS = "R34_GET_MORE_RESULTS"
-export const ALLOW_COOKIES = "R34_ALLOW_COOKIES"
-export const ENTER_FULLSCREEN = "R34_ENTER_FULLSCREEN"
-export const EXIT_FULLSCREEN = "R34_EXIT_FULLSCREEN"
-export const SET_FULLSCREEN_POST = "R34_SET_FULLSCREEN_POST"
+export const ADD_TAG = 'R34_ADD_TAG'
+export const REMOVE_TAG = 'R34_REMOVE_TAG'
+export const ADD_ALIASES = 'R34_ADD_ALIASES'
+export const ADD_POSTS = 'R34_ADD_POSTS'
+export const SET_POSTS = 'R34_SET_POSTS'
+export const SET_OPTION = 'R34_SET_OPTION'
+export const GET_RESULTS = 'R34_GET_RESULTS'
+export const GET_MORE_RESULTS = 'R34_GET_MORE_RESULTS'
+export const ALLOW_COOKIES = 'R34_ALLOW_COOKIES'
+export const ENTER_FULLSCREEN = 'R34_ENTER_FULLSCREEN'
+export const EXIT_FULLSCREEN = 'R34_EXIT_FULLSCREEN'
+export const SET_FULLSCREEN_POST = 'R34_SET_FULLSCREEN_POST'
 
 /////////////////////////////////////////////////////////
 

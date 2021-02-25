@@ -1,7 +1,7 @@
-import React, { useEffect } from "react"
-import { useSelector } from "react-redux"
-import { selectActiveTags, selectNumberOfActiveTags } from "../../redux/selectors"
-import TagList from "../tag/TagList"
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { selectActiveTags, selectNumberOfActiveTags } from '../../redux/selectors'
+import TagList from '../tag/TagList'
 
 interface ActiveTagsProps {
   onChange: () => void

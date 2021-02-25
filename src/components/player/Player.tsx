@@ -1,10 +1,10 @@
-import React, { useMemo } from "react"
-import Video from "./Video"
-import Gif from "./Gif"
-import Picture from "./Picture"
+import React, { useMemo } from 'react'
+import Video from './Video'
+import Gif from './Gif'
+import Picture from './Picture'
 
-import { getMediaType } from "./utils"
-import { GIF, PostType, VIDEO } from "../../data/types"
+import { getMediaType } from './utils'
+import { GIF, PostType, VIDEO } from '../../data/types'
 
 interface PlayerProps {
   postId: number
@@ -30,7 +30,7 @@ const getMedia = (type: PostType, src: string) => {
 export default function Player(props: PlayerProps) {
   const { type, src, thumbnail_src, onLoad, postId, width, height } = props
 
-  const externalSrc = new URL(src).searchParams.get("url") || ""
+  const externalSrc = new URL(src).searchParams.get('url') || ''
 
   const media = useMemo(() => {
     const MediaComponent = getMedia(type, src)

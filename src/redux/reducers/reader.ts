@@ -1,5 +1,5 @@
-import produce from "immer"
-import { ENTER_FULLSCREEN, EXIT_FULLSCREEN, SET_FULLSCREEN_POST, AppAction } from "../actions"
+import produce from 'immer'
+import { ENTER_FULLSCREEN, EXIT_FULLSCREEN, SET_FULLSCREEN_POST, AppAction } from '../actions'
 
 export interface ReaderState {
   isEnabled: boolean

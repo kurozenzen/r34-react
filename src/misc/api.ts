@@ -1,10 +1,10 @@
-import TagDataClass from "../data/Tag"
-import { Modifier, SimpleMap } from "../data/types"
+import TagDataClass from '../data/Tag'
+import { Modifier, SimpleMap } from '../data/types'
 
 export class API {
   static pageSize = 20
-  static apiUrl1 = "https://r34-json.herokuapp.com"
-  static apiUrl2 = "https://r34-api-clone.herokuapp.com"
+  static apiUrl1 = 'https://r34-json.herokuapp.com'
+  static apiUrl2 = 'https://r34-api-clone.herokuapp.com'
   activeApi = API.apiUrl2
 
   constructor() {
@@ -37,17 +37,17 @@ export class API {
     const orTags = Object.values(tags).filter((tag) => tag.modifier === Modifier.OR)
 
     let tagString = normalTags
-      .map((tag) => `${tag.modifier === "-" ? "-" : ""}${encodeURIComponent(tag.name)}`)
-      .join(" + ")
+      .map((tag) => `${tag.modifier === '-' ? '-' : ''}${encodeURIComponent(tag.name)}`)
+      .join(' + ')
 
     if (orTags.length > 0) {
-      tagString += "+ ( " + orTags.map((tag) => encodeURIComponent(tag.name)).join(" ~ ") + " )"
+      tagString += '+ ( ' + orTags.map((tag) => encodeURIComponent(tag.name)).join(' ~ ') + ' )'
     }
 
     let url = `${this.activeApi}/posts?pid=${page}&limit=${limit}&tags=${tagString}`
 
     if (minScore > 0) {
-      url += `+${encodeURIComponent("score:>=" + minScore)}`
+      url += `+${encodeURIComponent('score:>=' + minScore)}`
     }
 
     return url

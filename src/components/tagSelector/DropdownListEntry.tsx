@@ -1,9 +1,9 @@
-import React, { MouseEventHandler } from "react"
-import styled, { css } from "styled-components"
-import { TagType } from "../../data/types"
-import TypeIcon from "../../icons/TypeIcon"
-import { formatCount } from "../../misc/formatting"
-import { prettifyTagname } from "../tag/tagUtils"
+import React, { MouseEventHandler } from 'react'
+import styled, { css } from 'styled-components'
+import { TagType } from '../../data/types'
+import TypeIcon from '../../icons/TypeIcon'
+import { formatCount } from '../../misc/formatting'
+import { prettifyTagname } from '../tag/tagUtils'
 
 interface EntryProps {
   name: string

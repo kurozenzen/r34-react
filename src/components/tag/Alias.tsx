@@ -1,7 +1,7 @@
-import React from "react"
-import styled, { css } from "styled-components"
-import { Modifier } from "../../data/types"
-import TagName from "./TagName"
+import React from 'react'
+import styled, { css } from 'styled-components'
+import { Modifier } from '../../data/types'
+import TagName from './TagName'
 
 interface AliasProps {
   modifier: Modifier

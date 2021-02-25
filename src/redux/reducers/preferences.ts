@@ -1,6 +1,6 @@
-import produce from "immer"
-import { PreferenceKey, COOKIES, ResultLayout } from "../../data/types"
-import { AppAction, SET_OPTION, ALLOW_COOKIES } from "../actions"
+import produce from 'immer'
+import { PreferenceKey, COOKIES, ResultLayout } from '../../data/types'
+import { AppAction, SET_OPTION, ALLOW_COOKIES } from '../actions'
 
 export interface PreferencesState {
   infinite: boolean

@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react"
-import api from "../../misc/api"
-import TypeIcon from "../../icons/TypeIcon"
-import { ArrowIcon } from "../../icons/Icons"
-import TagDataClass from "../../data/Tag"
-import { useDispatch, useSelector } from "react-redux"
-import { selectActiveTags, selectAliasesByTagName } from "../../redux/selectors"
-import { addAliases } from "../../redux/actions"
-import useToggle from "../../hooks/useToggle"
-import TagWrapper from "./TagWrapper"
-import TagName from "./TagName"
-import { Modifier } from "../../data/types"
-import AliasesList from "./AliasesList"
+import React, { useEffect, useState } from 'react'
+import api from '../../misc/api'
+import TypeIcon from '../../icons/TypeIcon'
+import { ArrowIcon } from '../../icons/Icons'
+import TagDataClass from '../../data/Tag'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectActiveTags, selectAliasesByTagName } from '../../redux/selectors'
+import { addAliases } from '../../redux/actions'
+import useToggle from '../../hooks/useToggle'
+import TagWrapper from './TagWrapper'
+import TagName from './TagName'
+import { Modifier } from '../../data/types'
+import AliasesList from './AliasesList'
 
 /**
  * Same data as a tag but different names

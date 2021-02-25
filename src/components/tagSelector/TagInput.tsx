@@ -1,5 +1,5 @@
-import React from "react"
-import styled, { css } from "styled-components"
+import React from 'react'
+import styled, { css } from 'styled-components'
 
 const Input = styled.input(
   (props) => css`
@@ -22,11 +22,11 @@ export default function TagInput(props: TagInputProps) {
   const { value, setValue } = props
   return (
     <Input
-      id="tag-input"
+      id='tag-input'
       value={value}
       onChange={(event) => setValue(event.target.value)}
-      placeholder="Search for tags"
-      aria-label="Search"
+      placeholder='Search for tags'
+      aria-label='Search'
     />
   )
 }

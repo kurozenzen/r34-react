@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useMemo } from "react"
-import styled, { css } from "styled-components"
-import Details from "./Details"
-import Player from "../player/Player"
-import { useSelector } from "react-redux"
-import { selectPreferences } from "../../redux/selectors"
-import PostDataClass from "../../data/Post"
-import LayoutElementProps from "../layout/LayoutElementProps"
-import { NO_OP } from "../../data/types"
-import useToggle from "../../hooks/useToggle"
+import React, { useCallback, useEffect, useMemo } from 'react'
+import styled, { css } from 'styled-components'
+import Details from './Details'
+import Player from '../player/Player'
+import { useSelector } from 'react-redux'
+import { selectPreferences } from '../../redux/selectors'
+import PostDataClass from '../../data/Post'
+import LayoutElementProps from '../layout/LayoutElementProps'
+import { NO_OP } from '../../data/types'
+import useToggle from '../../hooks/useToggle'
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
@@ -73,9 +73,9 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
   }, [onLoad, collapsed])
 
   return (
-    <ItemWrapper style={style} ref={virtualRef} className="list-div">
+    <ItemWrapper style={style} ref={virtualRef} className='list-div'>
       <PositonWrapper>
-        <PostWrapper onClick={toggleDetails} role="row">
+        <PostWrapper onClick={toggleDetails} role='row'>
           <Player
             onLoad={onLoad}
             type={media_type}

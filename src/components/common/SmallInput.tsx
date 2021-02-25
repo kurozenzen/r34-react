@@ -1,5 +1,5 @@
-import React, { ChangeEventHandler, KeyboardEventHandler, useCallback, useEffect, useState } from "react"
-import styled, { css } from "styled-components"
+import React, { ChangeEventHandler, KeyboardEventHandler, useCallback, useEffect, useState } from 'react'
+import styled, { css } from 'styled-components'
 
 const TextInput = styled.input(
   ({ theme }) => css`
@@ -36,14 +36,14 @@ export function SmallTextInput(props: SmallInputProps<string>) {
 
   const onKeyDown: KeyboardEventHandler = useCallback(
     (event) => {
-      if (event.key === "Enter") {
+      if (event.key === 'Enter') {
         onSubmit(internalValue)
       }
     },
     [internalValue, onSubmit]
   )
 
-  return <TextInput type="text" value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
+  return <TextInput type='text' value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
 }
 
 export function SmallNumberInput(props: SmallInputProps<number>) {
@@ -64,12 +64,12 @@ export function SmallNumberInput(props: SmallInputProps<number>) {
 
   const onKeyDown: KeyboardEventHandler = useCallback(
     (event) => {
-      if (event.key === "Enter") {
+      if (event.key === 'Enter') {
         onSubmit(Number(internalValue))
       }
     },
     [internalValue, onSubmit]
   )
 
-  return <TextInput type="number" value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
+  return <TextInput type='number' value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
 }

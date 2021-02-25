@@ -1,6 +1,6 @@
-import React, { MouseEventHandler } from "react"
-import FlexPair from "./FlexPair"
-import Toggle from "./Toggle"
+import React, { MouseEventHandler } from 'react'
+import FlexPair from './FlexPair'
+import Toggle from './Toggle'
 
 interface LabeledToggleProps {
   children: JSX.Element | string

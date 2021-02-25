@@ -1,5 +1,5 @@
-import React from "react"
-import styled, { css } from "styled-components"
+import React from 'react'
+import styled, { css } from 'styled-components'
 
 interface FlexPairProps {
   children: [JSX.Element, JSX.Element]

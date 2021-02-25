@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from "react"
-import { useSelector } from "react-redux"
-import { selectPreferences } from "../../redux/selectors"
-import FlexVideo from "./FlexVideo"
-import MediaProps from "./MediaProps"
-import Overlay from "./Overlay"
+import React, { useState, useCallback } from 'react'
+import { useSelector } from 'react-redux'
+import { selectPreferences } from '../../redux/selectors'
+import FlexVideo from './FlexVideo'
+import MediaProps from './MediaProps'
+import Overlay from './Overlay'
 
 export default function Video(props: MediaProps) {
   const { src, onLoad, externalSrc, postId, width, height } = props
@@ -45,7 +45,7 @@ export default function Video(props: MediaProps) {
       <FlexVideo
         controls={false}
         loop
-        preload={preloadVideos ? "auto" : "metadata"}
+        preload={preloadVideos ? 'auto' : 'metadata'}
         ref={setVideoRef}
         onLoad={onLoad}
         width={width}

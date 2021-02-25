@@ -1,10 +1,10 @@
-import React, { RefAttributes } from "react"
-import { Link, LinkProps, useLocation } from "react-router-dom"
-import styled, { css, ThemeProps } from "styled-components"
-import { RouteName } from "../../data/types"
-import R34Icon from "../../icons/R34Icon"
-import { VerticalLine } from "../common/Lines"
-import { BigTitle } from "../common/Text"
+import React, { RefAttributes } from 'react'
+import { Link, LinkProps, useLocation } from 'react-router-dom'
+import styled, { css, ThemeProps } from 'styled-components'
+import { RouteName } from '../../data/types'
+import R34Icon from '../../icons/R34Icon'
+import { VerticalLine } from '../common/Lines'
+import { BigTitle } from '../common/Text'
 
 const HeaderWrapper = styled.header(
   ({ theme }) => css`
@@ -49,16 +49,16 @@ export default function Header() {
   const current = useLocation().pathname
 
   return (
-    <HeaderWrapper role="cell">
+    <HeaderWrapper role='cell'>
       <TitleBar>
         <R34Icon size={32} />
         <VerticalLine />
         <BigTitle>
-          Browse <a href="https://rule34.xxx">Rule34</a>
+          Browse <a href='https://rule34.xxx'>Rule34</a>
         </BigTitle>
       </TitleBar>
 
-      <MenuBar role="cell">
+      <MenuBar role='cell'>
         <LocationStyledLink current={current} to={RouteName.SEARCH}>
           Search
         </LocationStyledLink>

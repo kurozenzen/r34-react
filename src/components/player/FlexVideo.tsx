@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components"
+import styled, { css } from 'styled-components'
 
 const FlexVideo = styled.video(
   ({ width, height }) => css`
@@ -11,7 +11,7 @@ const FlexVideo = styled.video(
       ? css`
           aspect-ratio: ${width} / ${height};
         `
-      : ""}
+      : ''}
   `
 )
 

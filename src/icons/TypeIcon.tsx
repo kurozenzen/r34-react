@@ -1,6 +1,6 @@
-import React, { MouseEventHandler } from "react"
-import { NO_OP } from "../data/types"
-import { CharacterIcon, CopyrightIcon, ArtistIcon } from "./Icons"
+import React, { MouseEventHandler } from 'react'
+import { NO_OP } from '../data/types'
+import { CharacterIcon, CopyrightIcon, ArtistIcon } from './Icons'
 
 interface TypeIconProps {
   types?: string[]
@@ -13,15 +13,15 @@ interface TypeIconProps {
 }
 
 export default function TypeIcon(props: TypeIconProps) {
-  const { types = [], className = "", onClick = NO_OP } = props
+  const { types = [], className = '', onClick = NO_OP } = props
   const interestingType = types.find((t) => !t.match(/^[general|ambiguous]$/))
 
   switch (interestingType) {
-    case "character":
+    case 'character':
       return <CharacterIcon className={className} onClick={onClick} />
-    case "copyright":
+    case 'copyright':
       return <CopyrightIcon className={className} onClick={onClick} />
-    case "artist":
+    case 'artist':
       return <ArtistIcon className={className} onClick={onClick} />
     default:
       return null

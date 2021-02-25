@@ -1,6 +1,6 @@
-import React from "react"
-import styled, { css } from "styled-components"
-import { VerticalLine } from "../common/Lines"
+import React from 'react'
+import styled, { css } from 'styled-components'
+import { VerticalLine } from '../common/Lines'
 
 const FotterWrapper = styled.footer(
   (props) => css`
@@ -18,13 +18,13 @@ const CenteredA = styled.a`
 export default function Footer() {
   return (
     <FotterWrapper>
-      <CenteredA href="https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md">
+      <CenteredA href='https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md'>
         Report a bug
       </CenteredA>
       <VerticalLine />
-      <CenteredA href="https://github.com/kurozenzen/r34-react">Github</CenteredA>
+      <CenteredA href='https://github.com/kurozenzen/r34-react'>Github</CenteredA>
       <VerticalLine />
-      <CenteredA href="https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md">
+      <CenteredA href='https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md'>
         Feature request
       </CenteredA>
     </FotterWrapper>

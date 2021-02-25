@@ -1,15 +1,15 @@
-import React, { MouseEventHandler, useCallback, useMemo } from "react"
+import React, { MouseEventHandler, useCallback, useMemo } from 'react'
 
-import { ExpandIcon, PlayIcon, PauseIcon, ExternalLinkIcon, CloseIcon, ArrowLeft, ArrowRight } from "../../icons/Icons"
-import styled, { css } from "styled-components"
-import useToggle from "../../hooks/useToggle"
-import { fadeOut } from "../styled/animations"
-import { InvisButton } from "../common/Buttons"
-import { NO_OP } from "../../data/types"
-import { formatDuration } from "../../misc/formatting"
-import { useDispatch, useSelector } from "react-redux"
-import { selectFullsceenState, selectPosts } from "../../redux/selectors"
-import { enterFullscreen, exitFullscreen, setFullScreenPost } from "../../redux/actions"
+import { ExpandIcon, PlayIcon, PauseIcon, ExternalLinkIcon, CloseIcon, ArrowLeft, ArrowRight } from '../../icons/Icons'
+import styled, { css } from 'styled-components'
+import useToggle from '../../hooks/useToggle'
+import { fadeOut } from '../styled/animations'
+import { InvisButton } from '../common/Buttons'
+import { NO_OP } from '../../data/types'
+import { formatDuration } from '../../misc/formatting'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectFullsceenState, selectPosts } from '../../redux/selectors'
+import { enterFullscreen, exitFullscreen, setFullScreenPost } from '../../redux/actions'
 
 const Wrapper = styled.div(
   (props: { isVisible: boolean }) => css`
@@ -24,7 +24,7 @@ const Wrapper = styled.div(
           opacity: 0;
           animation: ${fadeOut} 0.4s ease-in-out;
         `
-      : ""};
+      : ''};
   `
 )
 
@@ -141,36 +141,36 @@ function Overlay(props: OverlayProps) {
 
   return (
     <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible}>
-      <FullScreenButton onClick={onExpandClick} aria-label="Open Fullscreen">
-        {isReaderOpen ? <CloseIcon color="white" /> : <ExpandIcon color="white" />}
+      <FullScreenButton onClick={onExpandClick} aria-label='Open Fullscreen'>
+        {isReaderOpen ? <CloseIcon color='white' /> : <ExpandIcon color='white' />}
       </FullScreenButton>
 
       <OpenExternalButton>
-        <a href={externalSrc} target="_blank" rel="noopener noreferrer" aria-label="Open In New Tab">
-          <ExternalLinkIcon color="white" />
+        <a href={externalSrc} target='_blank' rel='noopener noreferrer' aria-label='Open In New Tab'>
+          <ExternalLinkIcon color='white' />
         </a>
       </OpenExternalButton>
 
       {isPlayable && (
         <>
-          <PlayButton onClick={togglePlay} aria-label="Play/Pause">
-            {isPaused ? <PlayIcon color="white" size={50} /> : <PauseIcon color="white" size={50} />}
+          <PlayButton onClick={togglePlay} aria-label='Play/Pause'>
+            {isPaused ? <PlayIcon color='white' size={50} /> : <PauseIcon color='white' size={50} />}
           </PlayButton>
           {!!duration && !!currentTime && <ProgressBar style={{ width: `${(currentTime / duration) * 100}%` }} />}
 
           {mediaRef && !isNaN(mediaRef.duration) && <LengthDisplay>{formatDuration(mediaRef.duration)}</LengthDisplay>}
-          {externalSrc.includes(".gif") && <LengthDisplay>gif</LengthDisplay>}
+          {externalSrc.includes('.gif') && <LengthDisplay>gif</LengthDisplay>}
         </>
       )}
 
       {isReaderOpen && hasPrevious && (
         <PreviousButton onClick={selectPrevious}>
-          <ArrowLeft size={40} color="white" />
+          <ArrowLeft size={40} color='white' />
         </PreviousButton>
       )}
       {isReaderOpen && hasNext && (
         <NextButton onClick={selectNext}>
-          <ArrowRight size={40} color="white" />
+          <ArrowRight size={40} color='white' />
         </NextButton>
       )}
     </Wrapper>

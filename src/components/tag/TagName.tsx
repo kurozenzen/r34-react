@@ -1,12 +1,12 @@
-import { MouseEventHandler, useCallback } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import styled, { css } from "styled-components"
-import TagDataClass from "../../data/Tag"
-import { Modifier, TagType } from "../../data/types"
-import { formatCount } from "../../misc/formatting"
-import { removeTag, addTag } from "../../redux/actions"
-import { selectActiveTags } from "../../redux/selectors"
-import { prettifyTagname } from "./tagUtils"
+import { MouseEventHandler, useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import styled, { css } from 'styled-components'
+import TagDataClass from '../../data/Tag'
+import { Modifier, TagType } from '../../data/types'
+import { formatCount } from '../../misc/formatting'
+import { removeTag, addTag } from '../../redux/actions'
+import { selectActiveTags } from '../../redux/selectors'
+import { prettifyTagname } from './tagUtils'
 
 interface TagNameProps {
   modifier: Modifier
@@ -26,7 +26,7 @@ const modifierToStyle = {
 }
 
 const TagNameSpan = styled.span(
-  ({ modifier = Modifier.PLUS }: Pick<TagNameProps, "modifier">) => css`
+  ({ modifier = Modifier.PLUS }: Pick<TagNameProps, 'modifier'>) => css`
     ${modifierToStyle[modifier]};
   `
 )

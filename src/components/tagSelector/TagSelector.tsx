@@ -1,17 +1,17 @@
-import React, { useState, useCallback } from "react"
-import styled, { css } from "styled-components"
-import api from "../../misc/api"
-import { prepareTag } from "../../misc/prepare"
-import { AddButton, ModifierButton } from "../common/Buttons"
-import TagInput from "./TagInput"
-import DropdownList from "./DropdownList"
-import { normalizeTagname } from "../tag/tagUtils"
-import { useDispatch, useSelector } from "react-redux"
-import { addTag } from "../../redux/actions"
-import { ThemeType } from "../../misc/theme"
-import { selectPreferences } from "../../redux/selectors"
-import useThrottledEffect from "../../hooks/useThrottledEffect"
-import useModifier from "./useModifier"
+import React, { useState, useCallback } from 'react'
+import styled, { css } from 'styled-components'
+import api from '../../misc/api'
+import { prepareTag } from '../../misc/prepare'
+import { AddButton, ModifierButton } from '../common/Buttons'
+import TagInput from './TagInput'
+import DropdownList from './DropdownList'
+import { normalizeTagname } from '../tag/tagUtils'
+import { useDispatch, useSelector } from 'react-redux'
+import { addTag } from '../../redux/actions'
+import { ThemeType } from '../../misc/theme'
+import { selectPreferences } from '../../redux/selectors'
+import useThrottledEffect from '../../hooks/useThrottledEffect'
+import useModifier from './useModifier'
 
 export const TagSelectorWrapper = styled.div(
   (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: ThemeType }) => css`
@@ -38,7 +38,7 @@ export const TagSelectorWrapper = styled.div(
 export default function TagSelector() {
   const dispatch = useDispatch()
 
-  const [value, setValue] = useState("")
+  const [value, setValue] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const [tagSelectorRef, setTagSelectorRef] = useState<HTMLDivElement | null>(null)
   const [modifier, nextModifier] = useModifier()
@@ -58,7 +58,7 @@ export default function TagSelector() {
         )
       )
 
-      setValue("")
+      setValue('')
       setSuggestions([])
     },
     [dispatch, modifier]
@@ -90,11 +90,11 @@ export default function TagSelector() {
 
   return (
     <TagSelectorWrapper ref={setTagSelectorRef} closed={suggestions.length === 0}>
-      <ModifierButton onClick={nextModifier} aria-label="Tag Modifier">
+      <ModifierButton onClick={nextModifier} aria-label='Tag Modifier'>
         {modifier}
       </ModifierButton>
       <TagInput value={value} setValue={setValue} />
-      <AddButton onClick={onAddClick} aria-label="Add Tag">
+      <AddButton onClick={onAddClick} aria-label='Add Tag'>
         Add
       </AddButton>
       {suggestions.length > 0 && (

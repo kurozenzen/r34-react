@@ -1,8 +1,8 @@
-import { createSelector } from "reselect"
-import { PreferencesState } from "./reducers/preferences"
-import { ReaderState } from "./reducers/reader"
-import { ResultsState } from "./reducers/results"
-import { TagsState } from "./reducers/tags"
+import { createSelector } from 'reselect'
+import { PreferencesState } from './reducers/preferences'
+import { ReaderState } from './reducers/reader'
+import { ResultsState } from './reducers/results'
+import { TagsState } from './reducers/tags'
 
 interface RootState {
   results: ResultsState

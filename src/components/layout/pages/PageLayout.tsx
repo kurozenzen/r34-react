@@ -1,8 +1,8 @@
-import React, { useCallback } from "react"
-import styled, { css } from "styled-components"
-import PostDataClass from "../../../data/Post"
-import BaseFlexColumn from "../../common/FlexColumn"
-import PageNavigation from "./PageNavigation"
+import React, { useCallback } from 'react'
+import styled, { css } from 'styled-components'
+import PostDataClass from '../../../data/Post'
+import BaseFlexColumn from '../../common/FlexColumn'
+import PageNavigation from './PageNavigation'
 
 const FlexColumn = styled(BaseFlexColumn)(
   ({ theme }) => css`
@@ -29,7 +29,7 @@ export default function PageLayout(props: PageLayoutProps<PostDataClass>) {
   const scrollAndLoadPage = useCallback(
     (value: number) => {
       loadPage(value)
-      document.getElementsByClassName("page-navigation")[0].scrollIntoView()
+      document.getElementsByClassName('page-navigation')[0].scrollIntoView()
     },
     [loadPage]
   )

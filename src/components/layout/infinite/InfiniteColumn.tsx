@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react"
-import { CellMeasurer, CellMeasurerCache, IndexRange, InfiniteLoader, List } from "react-virtualized"
-import LayoutElementProps from "../LayoutElementProps"
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { CellMeasurer, CellMeasurerCache, IndexRange, InfiniteLoader, List } from 'react-virtualized'
+import LayoutElementProps from '../LayoutElementProps'
 
 interface InfiniteColumnProps<T> {
   Header?: (props: LayoutElementProps) => JSX.Element
@@ -55,10 +55,10 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
         listRef.forceUpdateGrid()
       }
 
-      window.addEventListener("resize", listener)
+      window.addEventListener('resize', listener)
 
       return () => {
-        window.removeEventListener("resize", listener)
+        window.removeEventListener('resize', listener)
       }
     }
   }, [listRef])
@@ -96,7 +96,7 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
               )
             }
 
-            console.warn("index not found / out of bounds. INDEX:", index)
+            console.warn('index not found / out of bounds. INDEX:', index)
             return null
           }}
         </CellMeasurer>

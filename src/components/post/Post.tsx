@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react"
+import React, { useCallback, useEffect, useMemo } from "react"
 import styled, { css } from "styled-components"
 import Details from "./Details"
 import Player from "../player/Player"
@@ -65,10 +65,12 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
 
   const toggleDetails = useCallback(() => {
     toggleCollapsed()
+  }, [toggleCollapsed])
 
-    // Hacky way to re-measure
-    onLoad && setTimeout(onLoad, 100)
-  }, [onLoad, toggleCollapsed])
+  // re-measure when collapsed state changes
+  useEffect(() => {
+    onLoad()
+  }, [onLoad, collapsed])
 
   return (
     <ItemWrapper style={style} ref={virtualRef} className="list-div">

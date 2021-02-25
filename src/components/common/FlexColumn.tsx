@@ -13,5 +13,7 @@ export const FlexColumnWithSpacing = styled(FlexColumn)(
   ({ theme }) => css`
     gap: ${theme.dimensions.gutter};
     padding: ${theme.dimensions.gutter};
+    max-width: ${theme.dimensions.bodyWidth};
+    margin: 0 auto;
   `
 )

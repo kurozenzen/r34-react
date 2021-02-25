@@ -1,18 +1,18 @@
-import React, { useCallback, useState } from "react";
-import styled, { css } from "styled-components";
-import LabeledToggle from "../common/LabeledToggle";
-import { useDispatch, useSelector } from "react-redux";
-import { selectPreferences } from "../../redux/selectors";
-import { setOption } from "../../redux/actions";
-import { ThemeType } from "../../misc/theme";
-import { RATED, RATEDTRESHOLD } from "../../data/types";
+import React, { useCallback, useState } from "react"
+import styled, { css } from "styled-components"
+import LabeledToggle from "../common/LabeledToggle"
+import { useDispatch, useSelector } from "react-redux"
+import { selectPreferences } from "../../redux/selectors"
+import { setOption } from "../../redux/actions"
+import { ThemeType } from "../../misc/theme"
+import { RATED, RATEDTRESHOLD } from "../../data/types"
 
 const OptionsWrapper = styled.div(
   ({ theme }) => css`
     display: grid;
     gap: ${theme.dimensions.gutter};
   `
-);
+)
 
 const StyledInput = styled.input(
   (props: { value: string; theme: ThemeType }) => css`
@@ -32,25 +32,20 @@ const StyledInput = styled.input(
     }
     -moz-appearance: textfield;
   `
-);
+)
 
 export default function Options() {
-  const dispatch = useDispatch();
-  const { rated, ratedTreshold } = useSelector(selectPreferences);
+  const dispatch = useDispatch()
+  const { rated, ratedTreshold } = useSelector(selectPreferences)
 
-  const [ratedInputValue, setRatedInputValue] = useState(
-    ratedTreshold.toString()
-  );
+  const [ratedInputValue, setRatedInputValue] = useState(ratedTreshold.toString())
 
-  const toggleRated = useCallback(() => dispatch(setOption(RATED, !rated)), [
+  const toggleRated = useCallback(() => dispatch(setOption(RATED, !rated)), [dispatch, rated])
+
+  const setRatedThreshold = useCallback(() => dispatch(setOption(RATEDTRESHOLD, Number(ratedInputValue))), [
     dispatch,
-    rated,
-  ]);
-
-  const setRatedThreshold = useCallback(
-    () => dispatch(setOption(RATEDTRESHOLD, Number(ratedInputValue))),
-    [dispatch, ratedInputValue]
-  );
+    ratedInputValue,
+  ])
 
   return (
     <OptionsWrapper>
@@ -71,5 +66,5 @@ export default function Options() {
         )}
       </LabeledToggle>
     </OptionsWrapper>
-  );
+  )
 }

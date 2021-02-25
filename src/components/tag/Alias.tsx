@@ -1,12 +1,12 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import { Modifier } from "../../data/types";
-import TagName from "./TagName";
+import React from "react"
+import styled, { css } from "styled-components"
+import { Modifier } from "../../data/types"
+import TagName from "./TagName"
 
 interface AliasProps {
-  modifier: Modifier;
-  name: string;
-  count?: number | null;
+  modifier: Modifier
+  name: string
+  count?: number | null
 }
 
 const AliasWrapper = styled.div(
@@ -18,14 +18,14 @@ const AliasWrapper = styled.div(
     height: ${theme.dimensions.blockHeight};
     font-size: ${theme.fontSizes.content};
   `
-);
+)
 
 export default function Alias(props: AliasProps) {
-  const { modifier, name, count } = props;
+  const { modifier, name, count } = props
 
   return (
     <AliasWrapper>
       <TagName modifier={modifier} name={name} count={count} />
     </AliasWrapper>
-  );
+  )
 }

@@ -1,52 +1,45 @@
-import produce from "immer";
-import TagDataClass from "../../data/Tag";
-import { SimpleMap } from "../../data/types";
-import { ADD_TAG, AppAction, REMOVE_TAG, ADD_ALIASES } from "../actions";
+import produce from "immer"
+import TagDataClass from "../../data/Tag"
+import { SimpleMap } from "../../data/types"
+import { ADD_TAG, AppAction, REMOVE_TAG, ADD_ALIASES } from "../actions"
 
 export interface TagsState {
-  active: SimpleMap<TagDataClass>;
-  aliases: SimpleMap<TagDataClass[]>;
+  active: SimpleMap<TagDataClass>
+  aliases: SimpleMap<TagDataClass[]>
 }
 
 export const initialTagsState: TagsState = {
   active: {},
   aliases: {},
-};
+}
 
 const addTag = (state: TagsState, newTag: TagDataClass) =>
   produce(state, (draft) => {
-    draft.active[newTag.name] = { ...state.active[newTag.name], ...newTag };
-  });
+    draft.active[newTag.name] = { ...state.active[newTag.name], ...newTag }
+  })
 
-const addAliases = (
-  state: TagsState,
-  aliases: TagDataClass[],
-  forTag: string
-) =>
+const addAliases = (state: TagsState, aliases: TagDataClass[], forTag: string) =>
   produce(state, (draft) => {
-    draft.aliases[forTag] = aliases;
-  });
+    draft.aliases[forTag] = aliases
+  })
 
 const removeTag = (state: TagsState, tagToRemove: TagDataClass) =>
   produce(state, (draft) => {
-    delete draft.active[tagToRemove.name];
-    delete draft.aliases[tagToRemove.name];
-  });
+    delete draft.active[tagToRemove.name]
+    delete draft.aliases[tagToRemove.name]
+  })
 
-const tags = (
-  state: TagsState = initialTagsState,
-  action: AppAction
-): TagsState => {
+const tags = (state: TagsState = initialTagsState, action: AppAction): TagsState => {
   switch (action.type) {
     case ADD_TAG:
-      return addTag(state, action.tag);
+      return addTag(state, action.tag)
     case REMOVE_TAG:
-      return removeTag(state, action.tag);
+      return removeTag(state, action.tag)
     case ADD_ALIASES:
-      return addAliases(state, action.aliases, action.forTag);
+      return addAliases(state, action.aliases, action.forTag)
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default tags;
+export default tags

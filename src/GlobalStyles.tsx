@@ -1,5 +1,5 @@
-import { createGlobalStyle, css } from "styled-components";
-import { ThemeType } from "./misc/theme";
+import { createGlobalStyle, css } from "styled-components"
+import { ThemeType } from "./misc/theme"
 
 export default createGlobalStyle(
   (props: { theme: ThemeType }) => css`
@@ -36,4 +36,4 @@ export default createGlobalStyle(
       text-decoration: none;
     }
   `
-);
+)

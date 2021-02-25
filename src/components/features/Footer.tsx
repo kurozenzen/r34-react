@@ -1,6 +1,6 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import { VerticalLine } from "../common/Lines";
+import React from "react"
+import styled, { css } from "styled-components"
+import { VerticalLine } from "../common/Lines"
 
 const FotterWrapper = styled.footer(
   (props) => css`
@@ -9,11 +9,11 @@ const FotterWrapper = styled.footer(
     justify-content: space-around;
     padding: ${props.theme.dimensions.spacing};
   `
-);
+)
 
 const CenteredA = styled.a`
   text-align: center;
-`;
+`
 
 export default function Footer() {
   return (
@@ -22,13 +22,11 @@ export default function Footer() {
         Report a bug
       </CenteredA>
       <VerticalLine />
-      <CenteredA href="https://github.com/kurozenzen/r34-react">
-        Github
-      </CenteredA>
+      <CenteredA href="https://github.com/kurozenzen/r34-react">Github</CenteredA>
       <VerticalLine />
       <CenteredA href="https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md">
         Feature request
       </CenteredA>
     </FotterWrapper>
-  );
+  )
 }

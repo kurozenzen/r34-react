@@ -1,15 +1,15 @@
-import React from "react";
-import { Title } from "../common/Text";
-import Surface from "../common/Surface";
-import TagSelector from "../tagSelector/TagSelector";
-import Options from "../features/Options";
-import TagList from "../tag/TagList";
-import Header from "../features/Header";
-import Footer from "../features/Footer";
-import FlexColumn, { FlexColumnWithSpacing } from "../common/FlexColumn";
-import styled, { css } from "styled-components";
-import { HorizontalLine } from "../common/Lines";
-import { Modifier } from "../../data/types";
+import React from "react"
+import { Title } from "../common/Text"
+import Surface from "../common/Surface"
+import TagSelector from "../tagSelector/TagSelector"
+import Options from "../features/Options"
+import TagList from "../tag/TagList"
+import Header from "../features/Header"
+import Footer from "../features/Footer"
+import FlexColumn, { FlexColumnWithSpacing } from "../common/FlexColumn"
+import styled, { css } from "styled-components"
+import { HorizontalLine } from "../common/Lines"
+import { Modifier } from "../../data/types"
 
 const FlexRow = styled.div(
   ({ theme }) => css`
@@ -18,7 +18,7 @@ const FlexRow = styled.div(
     justify-content: center;
     padding: ${theme.dimensions.spacing};
   `
-);
+)
 
 const StyledOl = styled.ol(
   ({ theme }) => css`
@@ -27,7 +27,7 @@ const StyledOl = styled.ol(
     flex-direction: column;
     gap: ${theme.dimensions.spacing};
   `
-);
+)
 
 export default function Help() {
   return (
@@ -36,41 +36,31 @@ export default function Help() {
       <FlexColumnWithSpacing>
         <Title>Help</Title>
         <FlexRow>
-          <a href="https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md">
-            Report a bug
-          </a>
+          <a href="https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md">Report a bug</a>
           or
-          <a href="https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md">
-            Request a feature
-          </a>
+          <a href="https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md">Request a feature</a>
         </FlexRow>
         <Surface>
           <Title>Searching for Tags</Title>
           <HorizontalLine />
           <TagSelector />
           <HorizontalLine />
-          <p>
-            You can use the Tag Selector to look for tags you like.The Tag
-            Selector has 4 parts.
-          </p>
+          <p>You can use the Tag Selector to look for tags you like.The Tag Selector has 4 parts.</p>
           <StyledOl>
             <li>
-              The modifier (left) determines wether posts must match a tag or
-              not. Putting "-" will hide all posts with this tag
+              The modifier (left) determines wether posts must match a tag or not. Putting "-" will hide all posts with
+              this tag
             </li>
             <li>
-              The Search Box (center) allows you to search for tags. As soon as
-              you start typing the Tag Selector will show you relevant tags to
-              choose from (4).
+              The Search Box (center) allows you to search for tags. As soon as you start typing the Tag Selector will
+              show you relevant tags to choose from (4).
             </li>
             <li>
-              The Add Button (right) Allows you to add any tag to the current
-              filter. Usefull when using wildcards.
+              The Add Button (right) Allows you to add any tag to the current filter. Usefull when using wildcards.
             </li>
             <li>
-              The Tag Dropdown (left) automatically shows tags that start with
-              your input. It also includes The number of posts tagged, to allow
-              you to weigh tags against each other.
+              The Tag Dropdown (left) automatically shows tags that start with your input. It also includes The number
+              of posts tagged, to allow you to weigh tags against each other.
             </li>
           </StyledOl>
         </Surface>
@@ -79,23 +69,13 @@ export default function Help() {
           <HorizontalLine />
           <Options />
           <HorizontalLine />
-          <p>
-            Options allow you to customize your experience in various ways.
-            There are 3 options available
-          </p>
+          <p>Options allow you to customize your experience in various ways. There are 3 options available</p>
           <StyledOl>
+            <li>Infinite Scrolling automatically loads new posts when you get close to the bottom of the page.</li>
+            <li>Only show Rated posts filters out posts below the specified amount of posts.</li>
             <li>
-              Infinite Scrolling automatically loads new posts when you get
-              close to the bottom of the page.
-            </li>
-            <li>
-              Only show Rated posts filters out posts below the specified amount
-              of posts.
-            </li>
-            <li>
-              Load original sizes always loads the highest quality of an image.
-              This can easily cause extreme data consumption. Don't use with
-              mobile data.
+              Load original sizes always loads the highest quality of an image. This can easily cause extreme data
+              consumption. Don't use with mobile data.
             </li>
           </StyledOl>
         </Surface>
@@ -116,16 +96,14 @@ export default function Help() {
           />
           <HorizontalLine />
           <p>
-            This whole application is based on tags. Every Post has multiple
-            tags. Usually you can enable/disable a tag just by tapping it. If a
-            tag is red it means its active. The icons next to the name show what
-            type of tag it is. Not every tag has a type. The number on the right
-            shows how many posts there are with that tag.
+            This whole application is based on tags. Every Post has multiple tags. Usually you can enable/disable a tag
+            just by tapping it. If a tag is red it means its active. The icons next to the name show what type of tag it
+            is. Not every tag has a type. The number on the right shows how many posts there are with that tag.
           </p>
         </Surface>
       </FlexColumnWithSpacing>
 
       <Footer />
     </FlexColumn>
-  );
+  )
 }

@@ -1,15 +1,15 @@
-import React, { MouseEventHandler } from "react";
-import styled, { css } from "styled-components";
-import { TagType } from "../../data/types";
-import TypeIcon from "../../icons/TypeIcon";
-import { formatCount } from "../../misc/formatting";
-import { prettifyTagname } from "../tag/tagUtils";
+import React, { MouseEventHandler } from "react"
+import styled, { css } from "styled-components"
+import { TagType } from "../../data/types"
+import TypeIcon from "../../icons/TypeIcon"
+import { formatCount } from "../../misc/formatting"
+import { prettifyTagname } from "../tag/tagUtils"
 
 interface EntryProps {
-  name: string;
-  posts: number;
-  types: TagType[];
-  onClick: MouseEventHandler;
+  name: string
+  posts: number
+  types: TagType[]
+  onClick: MouseEventHandler
 }
 
 const EntryWrapper = styled.div(
@@ -20,23 +20,23 @@ const EntryWrapper = styled.div(
     background: white;
     align-items: center;
   `
-);
+)
 
 const Name = styled.span`
   grid-column: 2/3;
-`;
+`
 
 const Count = styled.span`
   grid-column: 3/4;
-`;
+`
 
 const Icon = styled.div`
   grid-column: 1/2;
   text-align: center;
-`;
+`
 
 export default function DropdownListEntry(props: EntryProps) {
-  const { name, posts, types, onClick } = props;
+  const { name, posts, types, onClick } = props
 
   return (
     <EntryWrapper onClick={onClick}>
@@ -46,5 +46,5 @@ export default function DropdownListEntry(props: EntryProps) {
       <Name>{prettifyTagname(name)}</Name>
       <Count>{formatCount(posts)} posts</Count>
     </EntryWrapper>
-  );
+  )
 }

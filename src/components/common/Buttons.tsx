@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components"
 
 export const TextButton = styled.button(
   ({ theme }) => css`
@@ -10,7 +10,7 @@ export const TextButton = styled.button(
 
     transition: all ${theme.timings.longTransitionTime} ease-in-out;
   `
-);
+)
 
 export const InvisButton = styled.button(
   ({ theme }) => css`
@@ -29,7 +29,7 @@ export const InvisButton = styled.button(
       }
     }
   `
-);
+)
 
 export const RedButton = styled(TextButton)(
   ({ theme }) => css`
@@ -47,21 +47,20 @@ export const RedButton = styled(TextButton)(
       border-color: ${theme.colors.backgroundColor2};
     }
   `
-);
+)
 
 export const BlockButton = styled(RedButton)(
   ({ theme }) => css`
     width: 100%;
   `
-);
+)
 
 export const AddButton = styled(RedButton)(
   ({ theme }) => css`
     border-left-width: 0;
-    border-radius: 0 ${theme.dimensions.borderRadius}
-      ${theme.dimensions.borderRadius} 0;
+    border-radius: 0 ${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0;
   `
-);
+)
 
 export const ModifierButton = styled(TextButton)(
   ({ theme }) => css`
@@ -69,8 +68,7 @@ export const ModifierButton = styled(TextButton)(
     min-width: 48px;
     border: ${theme.colors.accentColor} ${theme.dimensions.borderWidth} solid;
     border-right-width: 0;
-    border-radius: ${theme.dimensions.borderRadius} 0 0
-      ${theme.dimensions.borderRadius};
+    border-radius: ${theme.dimensions.borderRadius} 0 0 ${theme.dimensions.borderRadius};
     font-weight: bold;
   `
-);
+)

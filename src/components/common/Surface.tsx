@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components"
 
 export default styled.div(
   (props) => css`
@@ -10,4 +10,4 @@ export default styled.div(
     width: 100%;
     gap: ${props.theme.dimensions.gutter};
   `
-);
+)

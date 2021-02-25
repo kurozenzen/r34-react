@@ -1,23 +1,23 @@
-import { Modifier, SimpleMap } from "../data/types";
-import TagDataClass from "../data/Tag";
-import { PreferencesState } from "../redux/reducers/preferences";
+import { Modifier, SimpleMap } from "../data/types"
+import TagDataClass from "../data/Tag"
+import { PreferencesState } from "../redux/reducers/preferences"
 
-const SEARCH = "r34_search";
-const ADD_TAG = "r34_add_tag";
+const SEARCH = "r34_search"
+const ADD_TAG = "r34_add_tag"
 
 interface SearchEvent {
-  id: typeof SEARCH;
+  id: typeof SEARCH
   payload: {
-    tags: string[];
-  };
+    tags: string[]
+  }
 }
 
 interface TagActivateEvent {
-  id: typeof ADD_TAG;
+  id: typeof ADD_TAG
   payload: {
-    name: string;
-    modifier: Modifier | undefined;
-  };
+    name: string
+    modifier: Modifier | undefined
+  }
 }
 
 export const searchEvent = (
@@ -33,7 +33,7 @@ export const searchEvent = (
     page_number,
     preferences,
   },
-});
+})
 
 export const addTagEvent = (tag: TagDataClass) => ({
   id: ADD_TAG,
@@ -41,6 +41,6 @@ export const addTagEvent = (tag: TagDataClass) => ({
     name: tag.name,
     modifier: tag.modifier,
   },
-});
+})
 
-export type EventType = SearchEvent | TagActivateEvent;
+export type EventType = SearchEvent | TagActivateEvent

@@ -1,11 +1,11 @@
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { AnyAction } from "redux";
+import { useCallback } from "react"
+import { useDispatch } from "react-redux"
+import { AnyAction } from "redux"
 
 export default function useAction(actionCreator: () => AnyAction) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   return useCallback(() => {
-    dispatch(actionCreator());
-  }, [actionCreator, dispatch]);
+    dispatch(actionCreator())
+  }, [actionCreator, dispatch])
 }

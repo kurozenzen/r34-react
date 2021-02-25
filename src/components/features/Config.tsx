@@ -1,11 +1,11 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import TagSelector from "../tagSelector/TagSelector";
-import Options from "./Options";
-import { Title } from "../common/Text";
-import Surface from "../common/Surface";
-import SearchButton from "./SearchButton";
-import ActiveTags from "./ActiveTags";
+import React from "react"
+import styled, { css } from "styled-components"
+import TagSelector from "../tagSelector/TagSelector"
+import Options from "./Options"
+import { Title } from "../common/Text"
+import Surface from "../common/Surface"
+import SearchButton from "./SearchButton"
+import ActiveTags from "./ActiveTags"
 
 const ConfigWrapper = styled.section(
   ({ theme }) => css`
@@ -17,10 +17,10 @@ const ConfigWrapper = styled.section(
     max-width: ${theme.dimensions.bodyWidth};
     margin: auto;
   `
-);
+)
 
 export default function Config(props: { onLoad: () => void }) {
-  const { onLoad } = props;
+  const { onLoad } = props
 
   return (
     <ConfigWrapper>
@@ -34,5 +34,5 @@ export default function Config(props: { onLoad: () => void }) {
         <SearchButton />
       </Surface>
     </ConfigWrapper>
-  );
+  )
 }

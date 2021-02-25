@@ -1,18 +1,12 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import TagDataClass from "../../data/Tag";
-import { Modifier } from "../../data/types";
-import Alias from "./Alias";
-import { ThemeType } from "../../misc/theme";
+import React from "react"
+import styled, { css } from "styled-components"
+import TagDataClass from "../../data/Tag"
+import { Modifier } from "../../data/types"
+import Alias from "./Alias"
+import { ThemeType } from "../../misc/theme"
 
 const ListWrapper = styled.div(
-  ({
-    theme,
-    parentRef,
-  }: {
-    theme: ThemeType;
-    parentRef: HTMLDivElement;
-  }) => css`
+  ({ theme, parentRef }: { theme: ThemeType; parentRef: HTMLDivElement }) => css`
     position: absolute;
     top: ${parentRef.offsetTop + parentRef.clientHeight + 4}px;
     left: ${parentRef.offsetLeft}px;
@@ -31,31 +25,25 @@ const ListWrapper = styled.div(
     color: ${theme.colors.accentColor};
 
     > :not(:last-child) {
-      border-bottom: ${theme.dimensions.borderWidth} solid
-        ${theme.colors.accentColor};
+      border-bottom: ${theme.dimensions.borderWidth} solid ${theme.colors.accentColor};
     }
   `
-);
+)
 
 interface AliasesListProps {
-  aliases: TagDataClass[];
-  modifier: Modifier;
-  parentRef: HTMLDivElement;
+  aliases: TagDataClass[]
+  modifier: Modifier
+  parentRef: HTMLDivElement
 }
 
 export default function AliasesList(props: AliasesListProps) {
-  const { aliases, modifier, parentRef } = props;
+  const { aliases, modifier, parentRef } = props
 
   return (
     <ListWrapper parentRef={parentRef}>
       {aliases.map(({ name, count }) => (
-        <Alias
-          key={"a_" + name}
-          modifier={modifier}
-          name={name}
-          count={count}
-        />
+        <Alias key={"a_" + name} modifier={modifier} name={name} count={count} />
       ))}
     </ListWrapper>
-  );
+  )
 }

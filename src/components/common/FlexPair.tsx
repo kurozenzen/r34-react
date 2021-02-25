@@ -1,8 +1,8 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React from "react"
+import styled, { css } from "styled-components"
 
 interface FlexPairProps {
-  children: [JSX.Element, JSX.Element];
+  children: [JSX.Element, JSX.Element]
 }
 
 const Wrapper = styled.div(
@@ -11,8 +11,8 @@ const Wrapper = styled.div(
     align-items: center;
     gap: ${theme.dimensions.spacing};
   `
-);
+)
 
 export default function FlexPair({ children }: FlexPairProps) {
-  return <Wrapper>{children}</Wrapper>;
+  return <Wrapper>{children}</Wrapper>
 }

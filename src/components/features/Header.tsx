@@ -1,10 +1,10 @@
-import React, { RefAttributes } from "react";
-import { Link, LinkProps, useLocation } from "react-router-dom";
-import styled, { css, ThemeProps } from "styled-components";
-import { RouteName } from "../../data/types";
-import R34Icon from "../../icons/R34Icon";
-import { VerticalLine } from "../common/Lines";
-import { BigTitle } from "../common/Text";
+import React, { RefAttributes } from "react"
+import { Link, LinkProps, useLocation } from "react-router-dom"
+import styled, { css, ThemeProps } from "styled-components"
+import { RouteName } from "../../data/types"
+import R34Icon from "../../icons/R34Icon"
+import { VerticalLine } from "../common/Lines"
+import { BigTitle } from "../common/Text"
 
 const HeaderWrapper = styled.header(
   ({ theme }) => css`
@@ -12,7 +12,7 @@ const HeaderWrapper = styled.header(
     flex-direction: column;
     gap: ${theme.dimensions.bigSpacing};
   `
-);
+)
 
 const TitleBar = styled.div(
   ({ theme }) => css`
@@ -24,7 +24,7 @@ const TitleBar = styled.div(
     padding: ${theme.dimensions.gutter} 0;
     ${theme.shadow.box};
   `
-);
+)
 
 const MenuBar = styled.nav(
   ({ theme }) => css`
@@ -33,22 +33,20 @@ const MenuBar = styled.nav(
     padding: ${theme.dimensions.bigSpacing};
     gap: ${theme.dimensions.hugeSpacing};
   `
-);
+)
 
 type LocationStyledLinkProps = LinkProps<unknown> &
   RefAttributes<HTMLAnchorElement> &
-  ThemeProps<any> & { current: string };
+  ThemeProps<any> & { current: string }
 
 const LocationStyledLink = styled(Link)(
   ({ to, current, theme }: LocationStyledLinkProps) => css`
-    color: ${to === current
-      ? theme.colors.accentColor
-      : theme.colors.backgroundColor2};
+    color: ${to === current ? theme.colors.accentColor : theme.colors.backgroundColor2};
   `
-);
+)
 
 export default function Header() {
-  const current = useLocation().pathname;
+  const current = useLocation().pathname
 
   return (
     <HeaderWrapper role="cell">
@@ -74,5 +72,5 @@ export default function Header() {
         </LocationStyledLink>
       </MenuBar>
     </HeaderWrapper>
-  );
+  )
 }

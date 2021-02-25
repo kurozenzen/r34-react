@@ -1,4 +1,4 @@
-import { keyframes } from "styled-components";
+import { keyframes } from "styled-components"
 
 export const fadeOut = keyframes`
   from {
@@ -8,7 +8,7 @@ export const fadeOut = keyframes`
   to {
     opacity: 0;
   }
-`;
+`
 
 export const kofiWiggle = keyframes`
   0% {
@@ -38,4 +38,4 @@ export const kofiWiggle = keyframes`
   100% {
     transform: rotate(0) scale(1);
   }
-`;
+`

@@ -1,14 +1,9 @@
-export const GENERAL = "general";
-export const CHARACTER = "character";
-export const AMBIGUOUS = "ambiguous";
-export const ARTIST = "artist";
-export const COPYRIGHT = "copyright";
-export type TagType =
-  | typeof GENERAL
-  | typeof CHARACTER
-  | typeof AMBIGUOUS
-  | typeof ARTIST
-  | typeof COPYRIGHT;
+export const GENERAL = "general"
+export const CHARACTER = "character"
+export const AMBIGUOUS = "ambiguous"
+export const ARTIST = "artist"
+export const COPYRIGHT = "copyright"
+export type TagType = typeof GENERAL | typeof CHARACTER | typeof AMBIGUOUS | typeof ARTIST | typeof COPYRIGHT
 
 export enum Modifier {
   PLUS = "+",
@@ -16,13 +11,13 @@ export enum Modifier {
   OR = "~",
 }
 
-export const VIDEO = "video";
-export const IMAGE = "image";
-export type PostType = typeof VIDEO | typeof IMAGE;
+export const VIDEO = "video"
+export const IMAGE = "image"
+export type PostType = typeof VIDEO | typeof IMAGE
 
-export const PICTURE = "picture";
-export const GIF = "gif";
-export type MediaType = typeof VIDEO | typeof PICTURE | typeof GIF;
+export const PICTURE = "picture"
+export const GIF = "gif"
+export type MediaType = typeof VIDEO | typeof PICTURE | typeof GIF
 
 export enum ResultLayout {
   INFINITE_COLUMN = "infinite_column",
@@ -35,32 +30,27 @@ export enum RouteName {
   SETTINGS = "/settings",
 }
 
-export const INVISIBLE = "invisible";
-export const BLOCK = "block";
-export const MODIFIER = "modifier";
-export const ADD = "add";
-export const RED = "red";
-export type ButtonType =
-  | typeof INVISIBLE
-  | typeof BLOCK
-  | typeof MODIFIER
-  | typeof ADD
-  | typeof RED;
+export const INVISIBLE = "invisible"
+export const BLOCK = "block"
+export const MODIFIER = "modifier"
+export const ADD = "add"
+export const RED = "red"
+export type ButtonType = typeof INVISIBLE | typeof BLOCK | typeof MODIFIER | typeof ADD | typeof RED
 
-export const SAFE = "safe";
-export const QUESTIONABLE = "questionable";
-export const EXPLICIT = "explicit";
-export type RatingType = typeof SAFE | typeof QUESTIONABLE | typeof EXPLICIT;
+export const SAFE = "safe"
+export const QUESTIONABLE = "questionable"
+export const EXPLICIT = "explicit"
+export type RatingType = typeof SAFE | typeof QUESTIONABLE | typeof EXPLICIT
 
-export const INFINITE = "infinite";
-export const RATED = "rated";
-export const RATEDTRESHOLD = "ratedTreshold";
-export const ORIGINALS = "originals";
-export const COOKIES = "cookies";
-export const PRELOAD_VIDEOS = "preload_videos";
-export const TAG_SUGGESTION_COUNT = "tag_suggestion_count";
-export const RESULTS_LAYOUT = "results_layout";
-export const PAGE_SIZE = "page_size";
+export const INFINITE = "infinite"
+export const RATED = "rated"
+export const RATEDTRESHOLD = "ratedTreshold"
+export const ORIGINALS = "originals"
+export const COOKIES = "cookies"
+export const PRELOAD_VIDEOS = "preload_videos"
+export const TAG_SUGGESTION_COUNT = "tag_suggestion_count"
+export const RESULTS_LAYOUT = "results_layout"
+export const PAGE_SIZE = "page_size"
 
 export type PreferenceKey =
   | typeof INFINITE
@@ -71,14 +61,14 @@ export type PreferenceKey =
   | typeof PRELOAD_VIDEOS
   | typeof TAG_SUGGESTION_COUNT
   | typeof RESULTS_LAYOUT
-  | typeof PAGE_SIZE;
+  | typeof PAGE_SIZE
 
 export interface SimpleMap<V> {
-  [key: string]: V;
+  [key: string]: V
 }
 
 export interface SimpleList<V> {
-  [key: number]: V;
+  [key: number]: V
 }
 
-export const NO_OP = () => {};
+export const NO_OP = () => {}

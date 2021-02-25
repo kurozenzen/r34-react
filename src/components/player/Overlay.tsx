@@ -1,27 +1,15 @@
-import React, { MouseEventHandler, useCallback } from "react";
+import React, { MouseEventHandler, useCallback } from "react"
 
-import {
-  ExpandIcon,
-  PlayIcon,
-  PauseIcon,
-  ExternalLinkIcon,
-  CloseIcon,
-  ArrowLeft,
-  ArrowRight,
-} from "../../icons/Icons";
-import styled, { css } from "styled-components";
-import useToggle from "../../hooks/useToggle";
-import { fadeOut } from "../styled/animations";
-import { InvisButton } from "../common/Buttons";
-import { NO_OP } from "../../data/types";
-import { formatDuration } from "../../misc/formatting";
-import { useDispatch, useSelector } from "react-redux";
-import { selectFullsceenState, selectPosts } from "../../redux/selectors";
-import {
-  enterFullscreen,
-  exitFullscreen,
-  setFullScreenPost,
-} from "../../redux/actions";
+import { ExpandIcon, PlayIcon, PauseIcon, ExternalLinkIcon, CloseIcon, ArrowLeft, ArrowRight } from "../../icons/Icons"
+import styled, { css } from "styled-components"
+import useToggle from "../../hooks/useToggle"
+import { fadeOut } from "../styled/animations"
+import { InvisButton } from "../common/Buttons"
+import { NO_OP } from "../../data/types"
+import { formatDuration } from "../../misc/formatting"
+import { useDispatch, useSelector } from "react-redux"
+import { selectFullsceenState, selectPosts } from "../../redux/selectors"
+import { enterFullscreen, exitFullscreen, setFullScreenPost } from "../../redux/actions"
 
 const Wrapper = styled.div(
   (props: { isVisible: boolean }) => css`
@@ -38,7 +26,7 @@ const Wrapper = styled.div(
         `
       : ""};
   `
-);
+)
 
 const ProgressBar = styled.div(
   (props) => css`
@@ -46,7 +34,7 @@ const ProgressBar = styled.div(
     height: 5px;
     background-color: ${props.theme.colors.accentColor};
   `
-);
+)
 
 const OverlayButton = styled(InvisButton)(
   (props) => css`
@@ -54,32 +42,32 @@ const OverlayButton = styled(InvisButton)(
     height: max-content;
     padding: ${props.theme.dimensions.bigSpacing};
   `
-);
+)
 
 const FullScreenButton = styled(OverlayButton)`
   grid-area: 1/1/2/2;
   place-self: start start;
-`;
+`
 
 const OpenExternalButton = styled(OverlayButton)`
   grid-area: 3/1/4/1;
   place-self: end start;
-`;
+`
 
 const PlayButton = styled(OverlayButton)`
   grid-area: 2/2/3/3;
   place-self: center center;
-`;
+`
 
 const PreviousButton = styled(OverlayButton)`
   grid-area: 2/1/3/2;
   place-self: center start;
-`;
+`
 
 const NextButton = styled(OverlayButton)`
   grid-area: 2/3/3/4;
   place-self: center end;
-`;
+`
 
 const LengthDisplay = styled.span(
   (props) => css`
@@ -90,17 +78,17 @@ const LengthDisplay = styled.span(
     padding: ${props.theme.dimensions.spacing};
     margin: ${props.theme.dimensions.spacing};
   `
-);
+)
 
 interface OverlayProps {
-  postId: number;
-  externalSrc: string;
-  togglePlay?: MouseEventHandler;
-  isPaused?: boolean;
-  isPlayable: boolean;
-  currentTime?: number;
-  duration?: number;
-  mediaRef?: HTMLVideoElement | null;
+  postId: number
+  externalSrc: string
+  togglePlay?: MouseEventHandler
+  isPaused?: boolean
+  isPlayable: boolean
+  currentTime?: number
+  duration?: number
+  mediaRef?: HTMLVideoElement | null
 }
 
 function Overlay(props: OverlayProps) {
@@ -113,61 +101,52 @@ function Overlay(props: OverlayProps) {
     externalSrc,
     mediaRef,
     postId,
-  } = props;
+  } = props
 
-  const posts = useSelector(selectPosts);
-  const [isVisible, toggleVisible] = useToggle();
-  const isReaderOpen = useSelector(selectFullsceenState);
+  const posts = useSelector(selectPosts)
+  const [isVisible, toggleVisible] = useToggle()
+  const isReaderOpen = useSelector(selectFullsceenState)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const onExpandClick = useCallback(() => {
     if (isReaderOpen) {
-      dispatch(exitFullscreen());
+      dispatch(exitFullscreen())
     } else {
-      dispatch(enterFullscreen(postId));
+      dispatch(enterFullscreen(postId))
     }
-  }, [dispatch, isReaderOpen, postId]);
+  }, [dispatch, isReaderOpen, postId])
 
-  const selectedIndex = posts.findIndex((post) => post.id === postId);
+  const selectedIndex = posts.findIndex((post) => post.id === postId)
 
   const selectPostAt = useCallback(
     (index: number) => {
-      const nextPost = posts[index];
+      const nextPost = posts[index]
 
       if (nextPost) {
-        dispatch(setFullScreenPost(nextPost.id));
+        dispatch(setFullScreenPost(nextPost.id))
       }
     },
     [dispatch, posts]
-  );
+  )
 
-  const hasNext = selectedIndex + 1 < posts.length;
+  const hasNext = selectedIndex + 1 < posts.length
   const selectNext = useCallback(() => {
-    selectPostAt(selectedIndex + 1);
-  }, [selectPostAt, selectedIndex]);
+    selectPostAt(selectedIndex + 1)
+  }, [selectPostAt, selectedIndex])
 
-  const hasPrevious = selectedIndex > 0;
+  const hasPrevious = selectedIndex > 0
   const selectPrevious = useCallback(() => {
-    selectPostAt(selectedIndex - 1);
-  }, [selectPostAt, selectedIndex]);
+    selectPostAt(selectedIndex - 1)
+  }, [selectPostAt, selectedIndex])
 
   return (
     <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible}>
       <FullScreenButton onClick={onExpandClick} aria-label="Open Fullscreen">
-        {isReaderOpen ? (
-          <CloseIcon color="white" />
-        ) : (
-          <ExpandIcon color="white" />
-        )}
+        {isReaderOpen ? <CloseIcon color="white" /> : <ExpandIcon color="white" />}
       </FullScreenButton>
 
       <OpenExternalButton>
-        <a
-          href={externalSrc}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Open In New Tab"
-        >
+        <a href={externalSrc} target="_blank" rel="noopener noreferrer" aria-label="Open In New Tab">
           <ExternalLinkIcon color="white" />
         </a>
       </OpenExternalButton>
@@ -175,21 +154,11 @@ function Overlay(props: OverlayProps) {
       {isPlayable && (
         <>
           <PlayButton onClick={togglePlay} aria-label="Play/Pause">
-            {isPaused ? (
-              <PlayIcon color="white" size={50} />
-            ) : (
-              <PauseIcon color="white" size={50} />
-            )}
+            {isPaused ? <PlayIcon color="white" size={50} /> : <PauseIcon color="white" size={50} />}
           </PlayButton>
-          {!!duration && !!currentTime && (
-            <ProgressBar
-              style={{ width: `${(currentTime / duration) * 100}%` }}
-            />
-          )}
+          {!!duration && !!currentTime && <ProgressBar style={{ width: `${(currentTime / duration) * 100}%` }} />}
 
-          {mediaRef && !isNaN(mediaRef.duration) && (
-            <LengthDisplay>{formatDuration(mediaRef.duration)}</LengthDisplay>
-          )}
+          {mediaRef && !isNaN(mediaRef.duration) && <LengthDisplay>{formatDuration(mediaRef.duration)}</LengthDisplay>}
           {externalSrc.includes(".gif") && <LengthDisplay>gif</LengthDisplay>}
         </>
       )}
@@ -205,7 +174,7 @@ function Overlay(props: OverlayProps) {
         </NextButton>
       )}
     </Wrapper>
-  );
+  )
 }
 
-export default Overlay;
+export default Overlay

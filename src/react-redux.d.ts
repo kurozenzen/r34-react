@@ -1,1 +1,1 @@
-declare type DefaultRootState = any;
+declare type DefaultRootState = any

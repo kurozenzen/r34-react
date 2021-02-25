@@ -1,4 +1,4 @@
-import produce from "immer";
+import produce from "immer"
 import {
   PreferenceKey,
   INFINITE,
@@ -11,19 +11,19 @@ import {
   RESULTS_LAYOUT,
   ResultLayout,
   PAGE_SIZE,
-} from "../../data/types";
-import { AppAction, SET_OPTION, ALLOW_COOKIES } from "../actions";
+} from "../../data/types"
+import { AppAction, SET_OPTION, ALLOW_COOKIES } from "../actions"
 
 export interface PreferencesState {
-  infinite: boolean;
-  rated: boolean;
-  ratedTreshold: number;
-  originals: boolean;
-  cookies: boolean;
-  preloadVideos: boolean;
-  tagSuggestionsCount: number;
-  resultsLayout: ResultLayout;
-  pageSize: number;
+  infinite: boolean
+  rated: boolean
+  ratedTreshold: number
+  originals: boolean
+  cookies: boolean
+  preloadVideos: boolean
+  tagSuggestionsCount: number
+  resultsLayout: ResultLayout
+  pageSize: number
 }
 
 export const initialPreferencesState: PreferencesState = {
@@ -36,53 +36,50 @@ export const initialPreferencesState: PreferencesState = {
   tagSuggestionsCount: 20,
   resultsLayout: ResultLayout.INFINITE_COLUMN,
   pageSize: 20,
-};
+}
 
 const setOption = (state: PreferencesState, key: PreferenceKey, value: any) =>
   produce(state, (draft) => {
     switch (key) {
       case INFINITE:
-        draft.infinite = value;
-        break;
+        draft.infinite = value
+        break
       case RATED:
-        draft.rated = value;
-        break;
+        draft.rated = value
+        break
       case RATEDTRESHOLD:
-        draft.ratedTreshold = value;
-        break;
+        draft.ratedTreshold = value
+        break
       case ORIGINALS:
-        draft.originals = value;
-        break;
+        draft.originals = value
+        break
       case COOKIES:
-        draft.cookies = value;
-        break;
+        draft.cookies = value
+        break
       case PRELOAD_VIDEOS:
-        draft.preloadVideos = value;
-        break;
+        draft.preloadVideos = value
+        break
       case TAG_SUGGESTION_COUNT:
-        draft.tagSuggestionsCount = value;
-        break;
+        draft.tagSuggestionsCount = value
+        break
       case RESULTS_LAYOUT:
-        draft.resultsLayout = value;
-        break;
+        draft.resultsLayout = value
+        break
       case PAGE_SIZE:
-        draft.pageSize = value;
-        break;
+        draft.pageSize = value
+        break
     }
-  });
+  })
 
-const preferences = (
-  state: PreferencesState = initialPreferencesState,
-  action: AppAction
-): PreferencesState => {
+const preferences = (state: PreferencesState = initialPreferencesState, action: AppAction): PreferencesState => {
   switch (action.type) {
     case SET_OPTION:
-      return setOption(state, action.key, action.value);
+      return setOption(state, action.key, action.value)
     case ALLOW_COOKIES:
-      return setOption(state, COOKIES, action.value);
+      return setOption(state, COOKIES, action.value)
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default preferences;
+export default preferences

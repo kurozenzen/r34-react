@@ -1,17 +1,12 @@
-import React from "react";
-import { ThemeType } from "../misc/theme";
-import { useTheme } from "styled-components";
+import React from "react"
+import { ThemeType } from "../misc/theme"
+import { useTheme } from "styled-components"
 
 export default function R34Icon(props: { size: number }) {
-  const theme = useTheme() as ThemeType;
+  const theme = useTheme() as ThemeType
 
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={props.size}
-      height={props.size}
-      viewBox="0 0 12.7 12.7"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width={props.size} height={props.size} viewBox="0 0 12.7 12.7">
       <g transform="translate(0,-284.3)">
         <circle
           id="path18"
@@ -56,5 +51,5 @@ export default function R34Icon(props: { size: number }) {
         </text>
       </g>
     </svg>
-  );
+  )
 }

@@ -1,16 +1,14 @@
-import { MouseEventHandler } from "react";
-import styled, { css } from "styled-components";
+import { MouseEventHandler } from "react"
+import styled, { css } from "styled-components"
 
-import { ThemeType } from "../../misc/theme";
+import { ThemeType } from "../../misc/theme"
 
 const dropdownBorderRadius = (collapsed: boolean, theme: ThemeType) =>
-  collapsed
-    ? theme.dimensions.borderRadius
-    : `${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0 0`;
+  collapsed ? theme.dimensions.borderRadius : `${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0 0`
 
 const switchingColors = (active: boolean, theme: ThemeType) => {
-  const fg = active ? theme.colors.backgroundColor : theme.colors.accentColor;
-  const bg = active ? theme.colors.accentColor : theme.colors.backgroundColor;
+  const fg = active ? theme.colors.backgroundColor : theme.colors.accentColor
+  const bg = active ? theme.colors.accentColor : theme.colors.backgroundColor
 
   return css`
     color: ${fg};
@@ -30,16 +28,11 @@ const switchingColors = (active: boolean, theme: ThemeType) => {
         color: ${theme.colors.backgroundColor2} !important;
       }
     }
-  `;
-};
+  `
+}
 
 const TagWrapper = styled.div(
-  (props: {
-    active: boolean;
-    collapsed: boolean;
-    onMouseLeave: MouseEventHandler;
-    theme: ThemeType;
-  }) =>
+  (props: { active: boolean; collapsed: boolean; onMouseLeave: MouseEventHandler; theme: ThemeType }) =>
     css`
       display: flex;
       padding: 0 ${props.theme.dimensions.spacing};
@@ -50,6 +43,6 @@ const TagWrapper = styled.div(
       font-size: ${props.theme.fontSizes.content};
       ${switchingColors(props.active, props.theme)}
     `
-);
+)
 
-export default TagWrapper;
+export default TagWrapper

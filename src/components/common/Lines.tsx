@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from "styled-components"
 
 export const HorizontalLine = styled.div(
   (props) => css`
@@ -6,7 +6,7 @@ export const HorizontalLine = styled.div(
     height: 1px;
     background: ${props.theme.misc.layer};
   `
-);
+)
 
 export const VerticalLine = styled.div(
   (props) => css`
@@ -14,4 +14,4 @@ export const VerticalLine = styled.div(
     align-self: stretch;
     background: ${props.theme.misc.layer};
   `
-);
+)

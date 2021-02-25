@@ -1,47 +1,42 @@
-import PostDataClass from "../data/Post";
-import TagDataClass from "../data/Tag";
-import { TagType, Modifier, RatingType } from "../data/types";
+import PostDataClass from "../data/Post"
+import TagDataClass from "../data/Tag"
+import { TagType, Modifier, RatingType } from "../data/types"
 
 interface DirtyTag {
-  name: string;
-  types: string[];
-  count: string;
-  modifier: string;
+  name: string
+  types: string[]
+  count: string
+  modifier: string
 }
 
 interface DirtyPost {
-  id: string;
-  type: string;
-  score: string;
-  rating: string;
-  source: string;
-  tags: string[];
-  file_url: string;
-  width: string;
-  height: string;
-  creator_id: string;
-  creator_url: string;
-  sample_url: string;
-  preview_url: string;
-  status: string;
-  parent_id: string;
-  has_children: string;
-  has_comments: string;
-  comments_url: string;
-  has_notes: string;
-  created_at: string;
-  change: string;
+  id: string
+  type: string
+  score: string
+  rating: string
+  source: string
+  tags: string[]
+  file_url: string
+  width: string
+  height: string
+  creator_id: string
+  creator_url: string
+  sample_url: string
+  preview_url: string
+  status: string
+  parent_id: string
+  has_children: string
+  has_comments: string
+  comments_url: string
+  has_notes: string
+  created_at: string
+  change: string
 }
 
 export function prepareTag(dirtyTag: DirtyTag) {
-  const { name, types, count, modifier } = dirtyTag;
+  const { name, types, count, modifier } = dirtyTag
 
-  return new TagDataClass(
-    name,
-    types as TagType[],
-    Number(count),
-    modifier as Modifier
-  );
+  return new TagDataClass(name, types as TagType[], Number(count), modifier as Modifier)
 }
 
 export function preparePost(post: DirtyPost) {
@@ -67,7 +62,7 @@ export function preparePost(post: DirtyPost) {
     has_notes,
     created_at,
     change,
-  } = post;
+  } = post
   return new PostDataClass(
     Number(id),
     Number(score),
@@ -90,5 +85,5 @@ export function preparePost(post: DirtyPost) {
     Boolean(has_notes),
     created_at,
     change
-  );
+  )
 }

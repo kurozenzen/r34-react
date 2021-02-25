@@ -1,10 +1,10 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import { RedButton } from "../common/Buttons";
-import { useSelector } from "react-redux";
-import { allowCookiesAction } from "../../redux/actions";
-import { selectCookies } from "../../redux/selectors";
-import useAction from "../../hooks/useAction";
+import React from "react"
+import styled, { css } from "styled-components"
+import { RedButton } from "../common/Buttons"
+import { useSelector } from "react-redux"
+import { allowCookiesAction } from "../../redux/actions"
+import { selectCookies } from "../../redux/selectors"
+import useAction from "../../hooks/useAction"
 
 const CookieWrapper = styled.div(
   ({ theme }) => css`
@@ -21,15 +21,15 @@ const CookieWrapper = styled.div(
 
     padding: ${theme.dimensions.gutter};
   `
-);
+)
 
 const StyledSpan = styled.span`
   height: min-content;
-`;
+`
 
 export default function CookieConfirmation() {
-  const cookies = useSelector(selectCookies);
-  const onClick = useAction(allowCookiesAction);
+  const cookies = useSelector(selectCookies)
+  const onClick = useAction(allowCookiesAction)
 
   return cookies ? null : (
     <CookieWrapper>
@@ -38,5 +38,5 @@ export default function CookieConfirmation() {
         Got it
       </RedButton>
     </CookieWrapper>
-  );
+  )
 }

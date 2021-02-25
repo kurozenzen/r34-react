@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React from "react"
+import styled, { css } from "styled-components"
 
 const Input = styled.input(
   (props) => css`
@@ -8,20 +8,18 @@ const Input = styled.input(
     outline: none;
     background: none;
     font-size: ${props.theme.fontSizes.content};
-    border-top: ${props.theme.colors.accentColor}
-      ${props.theme.dimensions.borderWidth} solid;
-    border-bottom: ${props.theme.colors.accentColor}
-      ${props.theme.dimensions.borderWidth} solid;
+    border-top: ${props.theme.colors.accentColor} ${props.theme.dimensions.borderWidth} solid;
+    border-bottom: ${props.theme.colors.accentColor} ${props.theme.dimensions.borderWidth} solid;
   `
-);
+)
 
 interface TagInputProps {
-  value: string;
-  setValue: (newValue: string) => void;
+  value: string
+  setValue: (newValue: string) => void
 }
 
 export default function TagInput(props: TagInputProps) {
-  const { value, setValue } = props;
+  const { value, setValue } = props
   return (
     <Input
       id="tag-input"
@@ -30,5 +28,5 @@ export default function TagInput(props: TagInputProps) {
       placeholder="Search for tags"
       aria-label="Search"
     />
-  );
+  )
 }

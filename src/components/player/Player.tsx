@@ -1,37 +1,37 @@
-import React, { useMemo } from "react";
-import Video from "./Video";
-import Gif from "./Gif";
-import Picture from "./Picture";
+import React, { useMemo } from "react"
+import Video from "./Video"
+import Gif from "./Gif"
+import Picture from "./Picture"
 
-import { getMediaType } from "./utils";
-import { GIF, PostType, VIDEO } from "../../data/types";
+import { getMediaType } from "./utils"
+import { GIF, PostType, VIDEO } from "../../data/types"
 
 interface PlayerProps {
-  postId: number;
-  type: PostType;
-  src: string;
-  thumbnail_src: string;
-  onLoad: () => void;
+  postId: number
+  type: PostType
+  src: string
+  thumbnail_src: string
+  onLoad: () => void
 }
 
 const getMedia = (type: PostType, src: string) => {
   switch (getMediaType(type, src)) {
     case VIDEO:
-      return Video;
+      return Video
     case GIF:
-      return Gif;
+      return Gif
     default:
-      return Picture;
+      return Picture
   }
-};
+}
 
 export default function Player(props: PlayerProps) {
-  const { type, src, thumbnail_src, onLoad, postId } = props;
+  const { type, src, thumbnail_src, onLoad, postId } = props
 
-  const externalSrc = new URL(src).searchParams.get("url") || "";
+  const externalSrc = new URL(src).searchParams.get("url") || ""
 
   const media = useMemo(() => {
-    const MediaComponent = getMedia(type, src);
+    const MediaComponent = getMedia(type, src)
     return (
       <MediaComponent
         src={src}
@@ -40,8 +40,8 @@ export default function Player(props: PlayerProps) {
         externalSrc={externalSrc}
         postId={postId}
       />
-    );
-  }, [type, src, thumbnail_src, onLoad, externalSrc, postId]);
+    )
+  }, [type, src, thumbnail_src, onLoad, externalSrc, postId])
 
-  return <>{media}</>;
+  return <>{media}</>
 }

@@ -1,11 +1,11 @@
-import React from "react";
-import styled, { css } from "styled-components";
+import React from "react"
+import styled, { css } from "styled-components"
 
 const Container = styled.div`
   display: inline-block;
   white-space: nowrap;
   min-width: 160px;
-`;
+`
 
 const AButton = styled.a(
   ({ theme }) => css`
@@ -44,7 +44,7 @@ const AButton = styled.a(
       text-decoration: none !important;
     }
   `
-);
+)
 
 const Text = styled.span`
   color: #fff !important;
@@ -65,7 +65,7 @@ const Text = styled.span`
     color: #fff !important;
     text-decoration: none;
   }
-`;
+`
 
 const Image = styled.img`
   display: initial !important;
@@ -98,33 +98,24 @@ const Image = styled.img`
     display: initial;
     animation: kofi-wiggle 3s infinite;
   }
-`;
+`
 
 interface KofiButtonProps {
-  id: string;
-  label: string;
+  id: string
+  label: string
 }
 
 export default function KofiButton(props: KofiButtonProps) {
-  const { id, label } = props;
+  const { id, label } = props
 
   return (
     <Container>
-      <AButton
-        title={label}
-        href={"https://ko-fi.com/" + id}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <AButton title={label} href={"https://ko-fi.com/" + id} target="_blank" rel="noopener noreferrer">
         <Text>
-          <Image
-            src="https://ko-fi.com/img/cup-border.png"
-            className="kofiimg"
-            alt="Ko-Fi button"
-          />
+          <Image src="https://ko-fi.com/img/cup-border.png" className="kofiimg" alt="Ko-Fi button" />
           {label}
         </Text>
       </AButton>
     </Container>
-  );
+  )
 }

@@ -1,8 +1,8 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import TagDataClass from "../../data/Tag";
-import { SimpleMap } from "../../data/types";
-import NewTag from "./NewTag";
+import React from "react"
+import styled, { css } from "styled-components"
+import TagDataClass from "../../data/Tag"
+import { SimpleMap } from "../../data/types"
+import NewTag from "./NewTag"
 
 export const TagListWrapper = styled.div(
   ({ theme }) => css`
@@ -10,17 +10,17 @@ export const TagListWrapper = styled.div(
     flex-wrap: wrap;
     gap: ${theme.dimensions.gutter};
   `
-);
+)
 
 interface TagListProps {
-  tags: SimpleMap<TagDataClass>;
-  loadAliases?: boolean;
-  padding?: boolean;
-  className?: string;
+  tags: SimpleMap<TagDataClass>
+  loadAliases?: boolean
+  padding?: boolean
+  className?: string
 }
 
 export default function TagList(props: TagListProps) {
-  const { tags, loadAliases = false, className } = props;
+  const { tags, loadAliases = false, className } = props
 
   return (
     <TagListWrapper className={className}>
@@ -28,5 +28,5 @@ export default function TagList(props: TagListProps) {
         <NewTag key={key} {...tag} loadAliases={loadAliases} />
       ))}
     </TagListWrapper>
-  );
+  )
 }

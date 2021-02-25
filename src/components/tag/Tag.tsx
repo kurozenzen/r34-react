@@ -1,29 +1,24 @@
-import React, { useEffect, MouseEventHandler } from "react";
-import styled, { css } from "styled-components";
-import "./Tag.css";
-import api from "../../misc/api";
-import TypeIcon from "../../icons/TypeIcon";
-import { ArrowIcon } from "../../icons/Icons";
-import { prettifyTagname } from "./tagUtils";
-import { formatCount } from "../../misc/formatting";
-import TagDataClass from "../../data/Tag";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectActiveTags,
-  selectAliasesByTagName,
-} from "../../redux/selectors";
-import { addAliases, removeTag, addTag } from "../../redux/actions";
-import { ThemeType } from "../../misc/theme";
-import useToggle from "../../hooks/useToggle";
+import React, { useEffect, MouseEventHandler } from "react"
+import styled, { css } from "styled-components"
+import "./Tag.css"
+import api from "../../misc/api"
+import TypeIcon from "../../icons/TypeIcon"
+import { ArrowIcon } from "../../icons/Icons"
+import { prettifyTagname } from "./tagUtils"
+import { formatCount } from "../../misc/formatting"
+import TagDataClass from "../../data/Tag"
+import { useDispatch, useSelector } from "react-redux"
+import { selectActiveTags, selectAliasesByTagName } from "../../redux/selectors"
+import { addAliases, removeTag, addTag } from "../../redux/actions"
+import { ThemeType } from "../../misc/theme"
+import useToggle from "../../hooks/useToggle"
 
 const dropdownBorderRadius = (collapsed: boolean, theme: ThemeType) =>
-  collapsed
-    ? theme.dimensions.borderRadius
-    : `${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0 0`;
+  collapsed ? theme.dimensions.borderRadius : `${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0 0`
 
 const switchingColors = (active: boolean, theme: ThemeType) => {
-  const fg = active ? theme.colors.backgroundColor : theme.colors.accentColor;
-  const bg = active ? theme.colors.accentColor : theme.colors.backgroundColor;
+  const fg = active ? theme.colors.backgroundColor : theme.colors.accentColor
+  const bg = active ? theme.colors.accentColor : theme.colors.backgroundColor
 
   return css`
     color: ${fg};
@@ -43,16 +38,11 @@ const switchingColors = (active: boolean, theme: ThemeType) => {
         color: ${theme.colors.backgroundColor2};
       }
     }
-  `;
-};
+  `
+}
 
 export const TagWrapper = styled.div(
-  (props: {
-    active: boolean;
-    collapsed: boolean;
-    onMouseLeave: MouseEventHandler;
-    theme: ThemeType;
-  }) =>
+  (props: { active: boolean; collapsed: boolean; onMouseLeave: MouseEventHandler; theme: ThemeType }) =>
     css`
       display: inline-block;
       padding: 0.25rem;
@@ -63,51 +53,47 @@ export const TagWrapper = styled.div(
       margin: ${props.theme.dimensions.spacing};
       ${switchingColors(props.active, props.theme)}
     `
-);
+)
 
 const IconWrapper = styled.span(
   (props: { left?: boolean; right?: boolean }) => css`
     ${props.left ? "margin-right: 5px;" : ""}
     ${props.right ? "margin-left: 5px;" : ""}
   `
-);
+)
 
 interface TagProps extends TagDataClass {
-  loadAliases: boolean;
+  loadAliases: boolean
 }
 
 type TagLike = {
-  name: string;
-  posts: number;
-};
+  name: string
+  posts: number
+}
 
 function Tag(props: TagProps) {
-  const { name, count, modifier, types, loadAliases } = props;
-  const activeTags = useSelector(selectActiveTags);
-  const aliases = useSelector(selectAliasesByTagName(name));
-  const [collapsed, toggleCollapsed, resetCollapsed] = useToggle(true);
-  const dispatch = useDispatch();
+  const { name, count, modifier, types, loadAliases } = props
+  const activeTags = useSelector(selectActiveTags)
+  const aliases = useSelector(selectAliasesByTagName(name))
+  const [collapsed, toggleCollapsed, resetCollapsed] = useToggle(true)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (loadAliases && activeTags[name])
       api.getAliases(name).then((newAliases: TagLike[]) => {
-        newAliases.sort((a, b) => b.posts - a.posts);
+        newAliases.sort((a, b) => b.posts - a.posts)
         const filtered = newAliases
           .filter((alias) => !activeTags[alias.name])
-          .map((alias) => new TagDataClass(alias.name, [], alias.posts));
-        dispatch(addAliases(filtered, name));
-      });
-  }, [loadAliases, name, activeTags, dispatch]);
+          .map((alias) => new TagDataClass(alias.name, [], alias.posts))
+        dispatch(addAliases(filtered, name))
+      })
+  }, [loadAliases, name, activeTags, dispatch])
 
-  const isActive = Boolean(activeTags[name]);
-  const showAliases = loadAliases && aliases && aliases.length > 0;
+  const isActive = Boolean(activeTags[name])
+  const showAliases = loadAliases && aliases && aliases.length > 0
 
   return (
-    <TagWrapper
-      active={isActive}
-      collapsed={collapsed}
-      onMouseLeave={resetCollapsed}
-    >
+    <TagWrapper active={isActive} collapsed={collapsed} onMouseLeave={resetCollapsed}>
       <TypeIcon types={types} left />
       <TagText name={name} count={count} modifier={modifier} types={types} />
       {showAliases && (
@@ -123,35 +109,32 @@ function Tag(props: TagProps) {
         </>
       )}
     </TagWrapper>
-  );
+  )
 }
 
 function TagText(props: TagDataClass) {
-  const { name, count, modifier, types } = props;
-  const dispatch = useDispatch();
-  const tagname = prettifyTagname(name);
-  const text = count ? `${tagname} (${formatCount(count)})` : tagname;
-  const activeTags = useSelector(selectActiveTags);
+  const { name, count, modifier, types } = props
+  const dispatch = useDispatch()
+  const tagname = prettifyTagname(name)
+  const text = count ? `${tagname} (${formatCount(count)})` : tagname
+  const activeTags = useSelector(selectActiveTags)
 
   const onClick: MouseEventHandler = (event) => {
-    event.stopPropagation();
-    if (activeTags[name])
-      dispatch(removeTag(new TagDataClass(name, types, count)));
-    else dispatch(addTag(new TagDataClass(name, types, count)));
-  };
+    event.stopPropagation()
+    if (activeTags[name]) dispatch(removeTag(new TagDataClass(name, types, count)))
+    else dispatch(addTag(new TagDataClass(name, types, count)))
+  }
 
-  return (
-    <span onClick={onClick}>{modifier === "-" ? <s>{text}</s> : text}</span>
-  );
+  return <span onClick={onClick}>{modifier === "-" ? <s>{text}</s> : text}</span>
 }
 
 function Alias(props: TagDataClass) {
-  const { name, count } = props;
+  const { name, count } = props
   return (
     <div className="alias">
       <TagText name={name} count={count} />
     </div>
-  );
+  )
 }
 
-export default Tag;
+export default Tag

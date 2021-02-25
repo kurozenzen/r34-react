@@ -1,17 +1,5 @@
 import produce from "immer"
-import {
-  PreferenceKey,
-  INFINITE,
-  RATED,
-  RATEDTRESHOLD,
-  ORIGINALS,
-  COOKIES,
-  PRELOAD_VIDEOS,
-  TAG_SUGGESTIONS_COUNT,
-  RESULTS_LAYOUT,
-  ResultLayout,
-  PAGE_SIZE,
-} from "../../data/types"
+import { PreferenceKey, COOKIES, ResultLayout } from "../../data/types"
 import { AppAction, SET_OPTION, ALLOW_COOKIES } from "../actions"
 
 export interface PreferencesState {

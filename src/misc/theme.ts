@@ -16,6 +16,7 @@ const theme = {
     backgroundColor2: "#fff",
     subduedText: "#ffffff80",
     layerBg: "#ffffff11",
+    layerBgSolid: "#222222",
   },
   shadow: {
     box: "box-shadow: 0 0 8px #000",

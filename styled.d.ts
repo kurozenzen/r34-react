@@ -19,6 +19,7 @@ declare module "styled-components" {
       backgroundColor2: string
       subduedText: string
       layerBg: string
+      layerBgSolid: string
     }
     shadow: {
       box: string

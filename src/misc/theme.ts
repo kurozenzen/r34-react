@@ -22,19 +22,18 @@ const theme = {
     drop: "drop-shadow(0 0 4px #000)",
   },
   timings: {
-    transistionTime: "0.2s",
+    transitionTime: "0.2s",
     longTransitionTime: "0.2s",
   },
   misc: {
-    layer:
-      "#ffffff11; :hover { background: #ffffff16;} transition: background-color 0.2s ease-in-out",
+    layer: "#ffffff11; :hover { background: #ffffff16;} transition: background-color 0.2s ease-in-out",
   },
   fontSizes: {
     content: "15px",
     bigTitle: "24px",
   },
-};
+}
 
-export default theme;
+export default theme
 
-export type ThemeType = typeof theme;
+export type ThemeType = typeof theme

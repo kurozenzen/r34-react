@@ -4,14 +4,34 @@ import { Title } from "../common/Text"
 import TagList from "../tag/TagList"
 import outOfResultsPicture from "../../icons/OutOfResults.png"
 import { useSelector } from "react-redux"
-import { selectAliases } from "../../redux/selectors"
+import { selectAliasesAsList } from "../../redux/selectors"
 import TagDataClass from "../../data/Tag"
 import { NO_OP, SimpleMap } from "../../data/types"
 import LayoutElementProps from "./LayoutElementProps"
 import { HorizontalLine } from "../common/Lines"
+import styled, { css } from "styled-components"
+import FlexImage from "../player/FlexImage"
+
+const Div = styled.div(
+  ({ theme }) => css`
+    padding: ${theme.dimensions.gutter};
+  `
+)
+
+const StyledSurface = styled(Surface)(
+  ({ theme }) => css`
+    max-width: ${theme.dimensions.bodyWidth};
+    margin: auto;
+    text-align: center;
+  `
+)
+
+const StyledImage = styled(FlexImage)`
+  max-height: 50vh;
+`
 
 export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: LayoutElementProps) {
-  const aliases = useSelector(selectAliases)
+  const aliases = useSelector(selectAliasesAsList)
   const aliasesForRendering = useMemo(
     () =>
       aliases.reduce((result: SimpleMap<TagDataClass>, alias) => {
@@ -22,19 +42,19 @@ export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: 
   )
 
   return (
-    <div style={style} ref={virtualRef} onLoad={onLoad} role="row">
-      <Surface>
-        <img src={outOfResultsPicture} alt={outOfResultsPicture} style={{ width: "100%" }} />
+    <Div style={style} ref={virtualRef} onLoad={onLoad} role="row">
+      <StyledSurface>
+        <StyledImage src={outOfResultsPicture} alt="Shironeko does not understand" />
         <HorizontalLine />
         <Title>You have reached the end!</Title>
-        <p style={{ textAlign: "center" }}>Go look for something else!</p>
+        <p>Go look for something else!</p>
         {aliases.length > 0 && (
           <>
-            <p style={{ textAlign: "center" }}>How about some of these?</p>
+            <p>How about some of these?</p>
             <TagList tags={aliasesForRendering} padding />
           </>
         )}
-      </Surface>
-    </div>
+      </StyledSurface>
+    </Div>
   )
 }

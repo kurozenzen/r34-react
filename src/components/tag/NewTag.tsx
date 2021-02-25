@@ -1,13 +1,11 @@
-import React, { useEffect, MouseEventHandler, useState } from "react"
-import "./Tag.css"
+import React, { useEffect, useState } from "react"
 import api from "../../misc/api"
 import TypeIcon from "../../icons/TypeIcon"
 import { ArrowIcon } from "../../icons/Icons"
-import { formatCount } from "../../misc/formatting"
 import TagDataClass from "../../data/Tag"
 import { useDispatch, useSelector } from "react-redux"
 import { selectActiveTags, selectAliasesByTagName } from "../../redux/selectors"
-import { addAliases, removeTag, addTag } from "../../redux/actions"
+import { addAliases } from "../../redux/actions"
 import useToggle from "../../hooks/useToggle"
 import TagWrapper from "./TagWrapper"
 import TagName from "./TagName"
@@ -28,13 +26,15 @@ interface TagProps extends TagDataClass {
 
 export default function NewTag(props: TagProps) {
   const { name, count, modifier = Modifier.PLUS, types, loadAliases } = props
+
+  const [tagRef, setTagRef] = useState<HTMLDivElement | null>(null)
+  const [collapsed, toggleCollapsed, resetCollapsed] = useToggle(true)
+
   const dispatch = useDispatch()
   const activeTags = useSelector(selectActiveTags)
-  const [collapsed, toggleCollapsed, resetCollapsed] = useToggle(true)
   const aliases = useSelector(selectAliasesByTagName(name))
-  const [tagRef, setTagRef] = useState<HTMLDivElement | null>(null)
 
-  const isActive = Boolean(activeTags[name])
+  const isActive = name in activeTags
 
   useEffect(() => {
     if (loadAliases && activeTags[name])

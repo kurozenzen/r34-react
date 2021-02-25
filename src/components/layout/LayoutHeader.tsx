@@ -11,12 +11,18 @@ import KofiButton from "../features/KofiButton"
 import styled, { css } from "styled-components"
 import { NO_OP } from "../../data/types"
 import RandomTip from "../common/RandomTip"
+import Surface from "../common/Surface"
+import { HorizontalLine } from "../common/Lines"
 
 const Placeholder = styled.div(
   ({ theme }) => css`
-    display: grid;
-    gap: ${theme.dimensions.gutter};
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: ${theme.dimensions.hugeSpacing};
+    align-items: center;
+
+    height: calc(100vh - 400px);
+    padding: 0 10%;
   `
 )
 
@@ -24,8 +30,10 @@ export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: Layo
   const [fullNumber, toggleFullNumber] = useToggle()
   const count = useSelector(selectCount)
 
+  // Trigger load event when count is > 0
+  // This is used to re-measure the element
   useEffect(() => {
-    if (count > 0) onLoad()
+    count > 0 && onLoad()
   }, [count, onLoad])
 
   return (
@@ -38,8 +46,12 @@ export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: Layo
         </Title>
       ) : (
         <Placeholder>
+          <Surface>
+            <HorizontalLine />
+            <RandomTip />
+            <HorizontalLine />
+          </Surface>
           <KofiButton id="V7V73PWW9" label="Support Me on Ko-fi" />
-          <RandomTip />
         </Placeholder>
       )}
     </div>

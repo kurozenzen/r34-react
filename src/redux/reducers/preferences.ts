@@ -7,7 +7,7 @@ import {
   ORIGINALS,
   COOKIES,
   PRELOAD_VIDEOS,
-  TAG_SUGGESTION_COUNT,
+  TAG_SUGGESTIONS_COUNT,
   RESULTS_LAYOUT,
   ResultLayout,
   PAGE_SIZE,
@@ -38,38 +38,11 @@ export const initialPreferencesState: PreferencesState = {
   pageSize: 20,
 }
 
-const setOption = (state: PreferencesState, key: PreferenceKey, value: any) =>
-  produce(state, (draft) => {
-    switch (key) {
-      case INFINITE:
-        draft.infinite = value
-        break
-      case RATED:
-        draft.rated = value
-        break
-      case RATEDTRESHOLD:
-        draft.ratedTreshold = value
-        break
-      case ORIGINALS:
-        draft.originals = value
-        break
-      case COOKIES:
-        draft.cookies = value
-        break
-      case PRELOAD_VIDEOS:
-        draft.preloadVideos = value
-        break
-      case TAG_SUGGESTION_COUNT:
-        draft.tagSuggestionsCount = value
-        break
-      case RESULTS_LAYOUT:
-        draft.resultsLayout = value
-        break
-      case PAGE_SIZE:
-        draft.pageSize = value
-        break
-    }
+function setOption<T extends PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {
+  return produce(state, (draft) => {
+    draft[key] = value
   })
+}
 
 const preferences = (state: PreferencesState = initialPreferencesState, action: AppAction): PreferencesState => {
   switch (action.type) {

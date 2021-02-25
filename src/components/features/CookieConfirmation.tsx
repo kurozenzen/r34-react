@@ -16,7 +16,7 @@ const CookieWrapper = styled.div(
     align-items: center;
     justify-content: space-between;
 
-    color: ${theme.colors.text};
+    color: ${theme.colors.backgroundColor2};
     background: ${theme.misc.layer};
 
     padding: ${theme.dimensions.gutter};

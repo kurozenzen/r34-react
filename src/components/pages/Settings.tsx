@@ -1,5 +1,4 @@
 import React, { useCallback } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import styled, { css, useTheme } from "styled-components"
 import {
   ORIGINALS,
@@ -7,19 +6,18 @@ import {
   PRELOAD_VIDEOS,
   ResultLayout,
   RESULTS_LAYOUT,
-  TAG_SUGGESTION_COUNT,
+  TAG_SUGGESTIONS_COUNT,
 } from "../../data/types"
+import usePreference from "../../hooks/usePreference"
 import { CodeBranchIcon } from "../../icons/Icons"
 import { ThemeType } from "../../misc/theme"
-import { setOption } from "../../redux/actions"
-import { selectPreferences } from "../../redux/selectors"
 import { BlockButton } from "../common/Buttons"
 import Centered from "../common/Centered"
 import FlexColumn, { FlexColumnWithSpacing } from "../common/FlexColumn"
 import { HorizontalLine } from "../common/Lines"
 import Select from "../common/Select"
 import Setting from "../common/Setting"
-import SmallTextInput from "../common/SmallTextInput"
+import { SmallNumberInput } from "../common/SmallInput"
 import Surface from "../common/Surface"
 import { Faded, Title } from "../common/Text"
 import Toggle from "../common/Toggle"
@@ -38,26 +36,16 @@ const SettingsSurface = styled(Surface)(
 )
 
 export default function Settings() {
-  const dispatch = useDispatch()
-  const { preloadVideos, tagSuggestionsCount, originals, resultsLayout, pageSize } = useSelector(selectPreferences)
+  const [resultsLayout, setResultsLayout] = usePreference(RESULTS_LAYOUT)
+  const [pageSize, setPageSize] = usePreference(PAGE_SIZE)
+  const [originals, setOriginals] = usePreference(ORIGINALS)
+  const [preloadVideos, setPreloadVideos] = usePreference(PRELOAD_VIDEOS)
+  const [tagSuggestionsCount, setTagSuggestionsCount] = usePreference(TAG_SUGGESTIONS_COUNT)
 
-  const togglePreloadVideos = useCallback(() => dispatch(setOption(PRELOAD_VIDEOS, !preloadVideos)), [
-    dispatch,
-    preloadVideos,
-  ])
+  const togglePreloadVideos = useCallback(() => setPreloadVideos(!preloadVideos), [preloadVideos, setPreloadVideos])
+  const toggleOriginals = useCallback(() => setOriginals(!originals), [originals, setOriginals])
 
-  const toggleOriginals = useCallback(() => dispatch(setOption(ORIGINALS, !originals)), [dispatch, originals])
-
-  const setTagSuggestionCount = useCallback(
-    (newValue: string | number) => dispatch(setOption(TAG_SUGGESTION_COUNT, Number(newValue))),
-    [dispatch]
-  )
-
-  const setPageSize = useCallback((newValue: string | number) => dispatch(setOption(PAGE_SIZE, Number(newValue))), [
-    dispatch,
-  ])
-
-  const setResultsLayout = useCallback((event) => dispatch(setOption(RESULTS_LAYOUT, event.target.value)), [dispatch])
+  const onChangeResultsLayout = useCallback((event) => setResultsLayout(event.target.value), [setResultsLayout])
 
   const reset = useCallback(() => {
     localStorage.clear()
@@ -72,7 +60,7 @@ export default function Settings() {
           <Title>General</Title>
           <HorizontalLine />
           <Setting title="Results Layout" description="Choose how your results are displayed.">
-            <Select options={layouts} value={resultsLayout} onChange={setResultsLayout} />
+            <Select options={layouts} value={resultsLayout} onChange={onChangeResultsLayout} />
           </Setting>
 
           <Setting
@@ -92,10 +80,10 @@ export default function Settings() {
             title="Number of Tag suggestions"
             description="Controls the number of tags displayed when searching. Increase this when searching for niche tags."
           >
-            <SmallTextInput value={tagSuggestionsCount} onSubmit={setTagSuggestionCount} />
+            <SmallNumberInput value={tagSuggestionsCount} onSubmit={setTagSuggestionsCount} />
           </Setting>
           <Setting title="Page size" description="Controls the number of posts loaded at once.">
-            <SmallTextInput value={pageSize} onSubmit={setPageSize} />
+            <SmallNumberInput value={pageSize} onSubmit={setPageSize} />
           </Setting>
           <Title>Developer</Title>
           <HorizontalLine />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useCallback } from "react"
 import styled, { css } from "styled-components"
 import api from "../../misc/api"
 import { prepareTag } from "../../misc/prepare"
@@ -10,7 +10,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { addTag } from "../../redux/actions"
 import { ThemeType } from "../../misc/theme"
 import { selectPreferences } from "../../redux/selectors"
-import { MODIFIER, Modifier } from "../../data/types"
+import useThrottledEffect from "../../hooks/useThrottledEffect"
+import useModifier from "./useModifier"
 
 export const TagSelectorWrapper = styled.div(
   (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: ThemeType }) => css`
@@ -36,12 +37,13 @@ export const TagSelectorWrapper = styled.div(
 
 export default function TagSelector() {
   const dispatch = useDispatch()
-  const [value, setValue] = useState("")
-  const [modifier, setModifier] = useState(Modifier.PLUS)
-  const [suggestions, setSuggestions] = useState([])
-  const { tagSuggestionsCount } = useSelector(selectPreferences)
 
+  const [value, setValue] = useState("")
+  const [suggestions, setSuggestions] = useState([])
   const [tagSelectorRef, setTagSelectorRef] = useState<HTMLDivElement | null>(null)
+  const [modifier, nextModifier] = useModifier()
+
+  const { tagSuggestionsCount } = useSelector(selectPreferences)
 
   const activateTag = useCallback(
     ({ name, posts, types }) => {
@@ -62,8 +64,8 @@ export default function TagSelector() {
     [dispatch, modifier]
   )
 
-  useEffect(() => {
-    const handle = setTimeout(() => {
+  useThrottledEffect(
+    () => {
       if (!value) {
         setSuggestions([])
         return
@@ -72,21 +74,13 @@ export default function TagSelector() {
       api.getTags(normalizeTagname(value), tagSuggestionsCount).then((newSuggestions) => {
         setSuggestions(newSuggestions)
       })
-    }, 300)
-
-    return () => clearTimeout(handle)
-  }, [tagSuggestionsCount, value])
-
-  const onModifierClick = useCallback(
-    () =>
-      setModifier(
-        modifier === Modifier.PLUS ? Modifier.MINUS : modifier === Modifier.MINUS ? Modifier.OR : Modifier.PLUS
-      ),
-    [modifier, setModifier]
+    },
+    300,
+    [tagSuggestionsCount, value]
   )
 
   const onAddClick = useCallback(() => {
-    if (value && value.trim() !== "") {
+    if (value && value.trim()) {
       const suggestion = suggestions.find((s: { name: string }) => s.name === value) || {}
       activateTag({ ...suggestion, name: value })
     }
@@ -96,7 +90,7 @@ export default function TagSelector() {
 
   return (
     <TagSelectorWrapper ref={setTagSelectorRef} closed={suggestions.length === 0}>
-      <ModifierButton onClick={onModifierClick} aria-label="Tag Modifier">
+      <ModifierButton onClick={nextModifier} aria-label="Tag Modifier">
         {modifier}
       </ModifierButton>
       <TagInput value={value} setValue={setValue} />

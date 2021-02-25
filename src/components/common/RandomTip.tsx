@@ -12,14 +12,14 @@ const tips = [
   "Large gifs and videos can take a while to load in the app. Try clicking the 'Open in new tab' icon in the bottom left corner for faster loading times.",
   "If anything stops working or gets weird. Reset the app in the settings.",
   "I hope you are having a nice day!",
+  "If a tag is ambiguous, it will have a little arrow on the right. Tapping it shows related tags.",
 ]
 
 const Span = styled(Faded)(
   ({ theme }) => css`
     text-align: center;
     font-size: 16px;
-    opacity: 0.5;
-    padding: 1vh ${theme.dimensions.spacing};
+    padding: ${theme.dimensions.hugeSpacing};
     max-width: ${theme.dimensions.bodyWidth};
   `
 )

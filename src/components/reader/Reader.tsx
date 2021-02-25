@@ -40,12 +40,20 @@ export default function Reader() {
     return null
   }
 
-  const { media_type, small_src, big_src, thumbnail_src, id } = fullScreenPost as PostDataClass
+  const { media_type, small_src, big_src, thumbnail_src, id, width, height } = fullScreenPost as PostDataClass
   const media_src = getCorrectSource(originals, big_src, small_src)
 
   return (
     <FullScreenDiv>
-      <Player onLoad={NO_OP} type={media_type} src={media_src} thumbnail_src={thumbnail_src} postId={id} />
+      <Player
+        onLoad={NO_OP}
+        type={media_type}
+        src={media_src}
+        thumbnail_src={thumbnail_src}
+        postId={id}
+        width={width}
+        height={height}
+      />
     </FullScreenDiv>
   )
 }

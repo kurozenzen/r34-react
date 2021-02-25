@@ -1,25 +1,18 @@
 import React, { useState } from "react"
 import { NO_OP } from "../../data/types"
 import FlexImage from "./FlexImage"
+import MediaProps from "./MediaProps"
 import Overlay from "./Overlay"
 
-interface GifProps {
-  src: string
-  thumbnail_src: string
-  onLoad?: () => void
-  externalSrc: string
-  postId: number
-}
-
-export default function Gif(props: GifProps) {
-  const { src, thumbnail_src, onLoad = NO_OP, externalSrc, postId } = props
+export default function Gif(props: MediaProps) {
+  const { src, thumbnail_src, onLoad = NO_OP, externalSrc, postId, width, height } = props
 
   const [isPaused, setPaused] = useState(true)
   const usedSource = isPaused ? thumbnail_src : src
 
   return (
     <>
-      <FlexImage src={usedSource} alt={usedSource} loading="lazy" onLoad={onLoad} />
+      <FlexImage src={usedSource} alt={usedSource} loading="lazy" onLoad={onLoad} width={width} height={height} />
       <Overlay
         isPlayable
         isPaused={isPaused}

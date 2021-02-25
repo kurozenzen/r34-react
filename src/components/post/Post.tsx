@@ -1,12 +1,13 @@
-import React, { useState, useCallback, useMemo } from "react"
+import React, { useCallback, useMemo } from "react"
 import styled, { css } from "styled-components"
 import Details from "./Details"
 import Player from "../player/Player"
 import { useSelector } from "react-redux"
-import { selectOriginals } from "../../redux/selectors"
+import { selectPreferences } from "../../redux/selectors"
 import PostDataClass from "../../data/Post"
 import LayoutElementProps from "../layout/LayoutElementProps"
 import { NO_OP } from "../../data/types"
+import useToggle from "../../hooks/useToggle"
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
@@ -49,39 +50,40 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
     source,
     tags,
     style,
-    onLoad,
+    onLoad = NO_OP,
     virtualRef,
     id,
+    width,
+    height,
   } = props
 
-  const originals = useSelector(selectOriginals)
-  const media_src = getCorrectSource(originals, big_src, small_src)
-  const [collapsed, setCollapsed] = useState(true)
+  const { originals } = useSelector(selectPreferences)
+
+  const [collapsed, toggleCollapsed] = useToggle(true)
+
+  const media_src = useMemo(() => getCorrectSource(originals, big_src, small_src), [big_src, originals, small_src])
 
   const toggleDetails = useCallback(() => {
-    setCollapsed(!collapsed)
-    onLoad && setTimeout(onLoad, 100)
-  }, [collapsed, onLoad])
+    toggleCollapsed()
 
-  const details = useMemo(() => <Details rating={rating} score={score} source={source} tags={tags} />, [
-    rating,
-    score,
-    source,
-    tags,
-  ])
+    // Hacky way to re-measure
+    onLoad && setTimeout(onLoad, 100)
+  }, [onLoad, toggleCollapsed])
 
   return (
     <ItemWrapper style={style} ref={virtualRef} className="list-div">
       <PositonWrapper>
         <PostWrapper onClick={toggleDetails} role="row">
           <Player
-            onLoad={onLoad || NO_OP}
+            onLoad={onLoad}
             type={media_type}
             src={media_src}
             thumbnail_src={thumbnail_src}
             postId={id}
+            width={width}
+            height={height}
           />
-          {!collapsed && details}
+          {!collapsed && <Details rating={rating} score={score} source={source} tags={tags} />}
         </PostWrapper>
       </PositonWrapper>
     </ItemWrapper>

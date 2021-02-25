@@ -13,12 +13,12 @@ const TextInput = styled.input(
   `
 )
 
-interface SmallTextInputProps {
-  value: string | number
-  onSubmit: (value: string | number) => void
+interface SmallInputProps<T> {
+  value: T
+  onSubmit: (value: T) => void
 }
 
-export default function SmallTextInput(props: SmallTextInputProps) {
+export function SmallTextInput(props: SmallInputProps<string>) {
   const { value, onSubmit } = props
   const [internalValue, setInternalValue] = useState(value)
 
@@ -44,4 +44,32 @@ export default function SmallTextInput(props: SmallTextInputProps) {
   )
 
   return <TextInput type="text" value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
+}
+
+export function SmallNumberInput(props: SmallInputProps<number>) {
+  const { value, onSubmit } = props
+  const [internalValue, setInternalValue] = useState(value.toString())
+
+  useEffect(() => {
+    setInternalValue(value.toString())
+  }, [value])
+
+  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
+    setInternalValue(event.target.value)
+  }, [])
+
+  const onBlur = useCallback(() => {
+    onSubmit(Number(internalValue))
+  }, [internalValue, onSubmit])
+
+  const onKeyDown: KeyboardEventHandler = useCallback(
+    (event) => {
+      if (event.key === "Enter") {
+        onSubmit(Number(internalValue))
+      }
+    },
+    [internalValue, onSubmit]
+  )
+
+  return <TextInput type="number" value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
 }

@@ -2,18 +2,11 @@ import React, { useState, useCallback } from "react"
 import { useSelector } from "react-redux"
 import { selectPreferences } from "../../redux/selectors"
 import FlexVideo from "./FlexVideo"
+import MediaProps from "./MediaProps"
 import Overlay from "./Overlay"
 
-interface VideoProps {
-  src: string
-  thumbnail_src: string
-  onLoad: () => void
-  externalSrc: string
-  postId: number
-}
-
-export default function Video(props: VideoProps) {
-  const { src, onLoad, externalSrc, postId } = props
+export default function Video(props: MediaProps) {
+  const { src, onLoad, externalSrc, postId, width, height } = props
 
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null)
 
@@ -54,7 +47,9 @@ export default function Video(props: VideoProps) {
         loop
         preload={preloadVideos ? "auto" : "metadata"}
         ref={setVideoRef}
-        onLoadedMetadata={onLoad}
+        onLoad={onLoad}
+        width={width}
+        height={height}
       >
         <source src={src} />
       </FlexVideo>

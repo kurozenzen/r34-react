@@ -1,14 +1,20 @@
 import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
-import { selectActiveTags } from "../../redux/selectors"
+import { selectActiveTags, selectNumberOfActiveTags } from "../../redux/selectors"
 import TagList from "../tag/TagList"
 
-export default function ActiveTags({ onChange }: { onChange: () => void }) {
+interface ActiveTagsProps {
+  onChange: () => void
+}
+
+export default function ActiveTags(props: ActiveTagsProps) {
+  const { onChange } = props
   const activeTags = useSelector(selectActiveTags)
+  const numberOfActiveTags = useSelector(selectNumberOfActiveTags)
 
-  useEffect(() => {
-    onChange()
-  }, [onChange, activeTags])
+  // Fire change event when tags change
+  // This is used to re-measure the height
+  useEffect(() => onChange(), [onChange, activeTags])
 
-  return Object.keys(activeTags).length > 0 ? <TagList tags={activeTags} loadAliases /> : null
+  return numberOfActiveTags > 0 ? <TagList tags={activeTags} loadAliases /> : null
 }

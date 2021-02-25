@@ -1,7 +1,8 @@
-import { TagsState } from "./reducers/tags"
-import { ResultsState } from "./reducers/results"
+import { createSelector } from "reselect"
 import { PreferencesState } from "./reducers/preferences"
 import { ReaderState } from "./reducers/reader"
+import { ResultsState } from "./reducers/results"
+import { TagsState } from "./reducers/tags"
 
 interface RootState {
   results: ResultsState
@@ -10,6 +11,7 @@ interface RootState {
   reader: ReaderState
 }
 
+// Simple selectors
 export const selectActiveTags = (state: RootState) => state.tags.active
 export const selectResults = (state: RootState) => state.results
 export const selectPosts = (state: RootState) => state.results.posts
@@ -21,13 +23,23 @@ export const selectOriginals = (state: RootState) => state.preferences.originals
 export const selectRated = (state: RootState) => state.preferences.rated
 export const selectRatedThreshold = (state: RootState) => state.preferences.ratedTreshold
 export const selectCookies = (state: RootState) => state.preferences.cookies
-
-export const selectAliases = (state: RootState) => Object.values(state.tags.aliases).flat()
-export const selectHasResults = (state: RootState) => Object.keys(state.results.posts).length !== 0
-export const selectOutOfResults = (state: RootState) => Object.keys(state.results.posts).length === state.results.count
-
-export const selectAliasesByTagName = (tagName: string) => (state: RootState) => state.tags.aliases[tagName]
-
 export const selectFullsceenState = (state: RootState) => state.reader.isEnabled
-
 export const selectFullsceenPostId = (state: RootState) => state.reader.postId
+export const selectAliases = (state: RootState) => state.tags.aliases
+export const selectPageSize = (state: RootState) => state.preferences.pageSize
+
+// Memoized selectors
+export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)
+export const selectAliasesAsList = createSelector(selectAliases, (aliases) => Object.values(aliases).flat())
+
+export const selectHasResults = createSelector(selectPosts, (posts) => posts.length !== 0)
+export const selectOutOfResults = createSelector(selectPosts, selectCount, (posts, count) => posts.length === count)
+export const selectHasMoreResults = createSelector(selectOutOfResults, (outOfResults) => !outOfResults)
+export const selectLastPage = createSelector(
+  selectCount,
+  selectPageSize,
+  (count, pageSize) => Math.ceil(count / pageSize) - 1
+)
+
+// Parameterized selectors
+export const selectAliasesByTagName = (tagName: string) => (state: RootState) => state.tags.aliases[tagName]

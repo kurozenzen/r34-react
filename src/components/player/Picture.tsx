@@ -1,21 +1,15 @@
 import React from "react"
 import { NO_OP } from "../../data/types"
 import FlexImage from "./FlexImage"
+import MediaProps from "./MediaProps"
 import Overlay from "./Overlay"
 
-interface PictureProps {
-  src: string
-  onLoad?: () => void
-  externalSrc: string
-  postId: number
-}
-
-export default function Picture(props: PictureProps) {
-  const { src, onLoad = NO_OP, externalSrc, postId } = props
+export default function Picture(props: MediaProps) {
+  const { src, onLoad = NO_OP, externalSrc, postId, width, height } = props
 
   return (
     <>
-      <FlexImage src={src} alt={src} onLoad={onLoad} loading="lazy" />
+      <FlexImage src={src} alt={src} onLoad={onLoad} loading="lazy" width={width} height={height} />
       <Overlay isPlayable={false} externalSrc={externalSrc} postId={postId} />
     </>
   )

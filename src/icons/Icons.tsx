@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, memo } from "react"
 import styled, { css } from "styled-components"
-import { TagWrapper } from "../components/tag/Tag"
+import TagWrapper from "../components/tag/TagWrapper"
 import { NO_OP } from "../data/types"
 
 import { ThemeType } from "../misc/theme"

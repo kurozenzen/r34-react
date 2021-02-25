@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useCallback } from "react"
+import React, { MouseEventHandler, useCallback, useMemo } from "react"
 
 import { ExpandIcon, PlayIcon, PauseIcon, ExternalLinkIcon, CloseIcon, ArrowLeft, ArrowRight } from "../../icons/Icons"
 import styled, { css } from "styled-components"
@@ -116,14 +116,14 @@ function Overlay(props: OverlayProps) {
     }
   }, [dispatch, isReaderOpen, postId])
 
-  const selectedIndex = posts.findIndex((post) => post.id === postId)
+  const selectedIndex = useMemo(() => posts.findIndex((post) => post.id === postId), [postId, posts])
 
   const selectPostAt = useCallback(
     (index: number) => {
-      const nextPost = posts[index]
+      const postAtindex = posts[index]
 
-      if (nextPost) {
-        dispatch(setFullScreenPost(nextPost.id))
+      if (postAtindex) {
+        dispatch(setFullScreenPost(postAtindex.id))
       }
     },
     [dispatch, posts]

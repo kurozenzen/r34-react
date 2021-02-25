@@ -1,8 +1,7 @@
 import { createGlobalStyle, css } from "styled-components"
-import { ThemeType } from "./misc/theme"
 
 export default createGlobalStyle(
-  (props: { theme: ThemeType }) => css`
+  ({ theme }) => css`
     * {
       margin: 0;
       padding: 0;
@@ -26,13 +25,13 @@ export default createGlobalStyle(
     }
 
     body {
-      font-size: ${props.theme.fontSizes.content};
-      color: ${props.theme.colors.backgroundColor2};
-      background-color: ${props.theme.colors.backgroundColor};
+      font-size: ${theme.fontSizes.content};
+      color: ${theme.colors.backgroundColor2};
+      background-color: ${theme.colors.backgroundColor};
     }
 
     a {
-      color: ${props.theme.colors.accentColor};
+      color: ${theme.colors.accentColor};
       text-decoration: none;
     }
   `

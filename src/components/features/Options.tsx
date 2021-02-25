@@ -1,11 +1,9 @@
-import React, { useCallback, useState } from "react"
+import React, { ChangeEventHandler, useCallback, useState } from "react"
 import styled, { css } from "styled-components"
 import LabeledToggle from "../common/LabeledToggle"
-import { useDispatch, useSelector } from "react-redux"
-import { selectPreferences } from "../../redux/selectors"
-import { setOption } from "../../redux/actions"
 import { ThemeType } from "../../misc/theme"
 import { RATED, RATEDTRESHOLD } from "../../data/types"
+import usePreference from "../../hooks/usePreference"
 
 const OptionsWrapper = styled.div(
   ({ theme }) => css`
@@ -35,16 +33,19 @@ const StyledInput = styled.input(
 )
 
 export default function Options() {
-  const dispatch = useDispatch()
-  const { rated, ratedTreshold } = useSelector(selectPreferences)
+  const [rated, setRated] = usePreference(RATED)
+  const [ratedTreshold, setRatedThreshold] = usePreference(RATEDTRESHOLD)
+  const toggleRated = useCallback(() => setRated(!rated), [rated, setRated])
 
-  const [ratedInputValue, setRatedInputValue] = useState(ratedTreshold.toString())
+  const [ratedTresholdInternal, setRatedThresholdInternal] = useState(ratedTreshold.toString())
 
-  const toggleRated = useCallback(() => dispatch(setOption(RATED, !rated)), [dispatch, rated])
-
-  const setRatedThreshold = useCallback(() => dispatch(setOption(RATEDTRESHOLD, Number(ratedInputValue))), [
-    dispatch,
-    ratedInputValue,
+  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (event) => setRatedThresholdInternal(event.target.value),
+    []
+  )
+  const onBlur = useCallback(() => setRatedThreshold(Number(ratedTresholdInternal)), [
+    ratedTresholdInternal,
+    setRatedThreshold,
   ])
 
   return (
@@ -53,12 +54,7 @@ export default function Options() {
         {rated ? (
           <div style={{ display: "flex" }}>
             <span>More than</span>
-            <StyledInput
-              type="text"
-              value={ratedInputValue}
-              onChange={(event) => setRatedInputValue(event.target.value)}
-              onBlur={setRatedThreshold}
-            />
+            <StyledInput type="text" value={ratedTresholdInternal} onChange={onChange} onBlur={onBlur} />
             <span>likes</span>
           </div>
         ) : (

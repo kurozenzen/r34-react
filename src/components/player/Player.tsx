@@ -12,6 +12,8 @@ interface PlayerProps {
   src: string
   thumbnail_src: string
   onLoad: () => void
+  width: number
+  height: number
 }
 
 const getMedia = (type: PostType, src: string) => {
@@ -26,7 +28,7 @@ const getMedia = (type: PostType, src: string) => {
 }
 
 export default function Player(props: PlayerProps) {
-  const { type, src, thumbnail_src, onLoad, postId } = props
+  const { type, src, thumbnail_src, onLoad, postId, width, height } = props
 
   const externalSrc = new URL(src).searchParams.get("url") || ""
 
@@ -39,9 +41,11 @@ export default function Player(props: PlayerProps) {
         onLoad={onLoad}
         externalSrc={externalSrc}
         postId={postId}
+        width={width}
+        height={height}
       />
     )
-  }, [type, src, thumbnail_src, onLoad, externalSrc, postId])
+  }, [type, src, thumbnail_src, onLoad, externalSrc, postId, width, height])
 
   return <>{media}</>
 }

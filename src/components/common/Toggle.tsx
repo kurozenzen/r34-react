@@ -9,17 +9,18 @@ const Track = styled.div(
     border: ${props.theme.dimensions.borderWidth} solid ${props.theme.colors.accentColor};
     background-color: ${props.theme.colors.backgroundColor};
     transition: transform ${props.theme.timings.longTransitionTime} ease-in-out;
+    height: 24px;
   `
 )
 
 const Thumb = styled.div(
   (props: { value: boolean; theme: ThemeType }) => css`
-    width: 20px;
-    height: 20px;
+    height: 100%;
+    aspect-ratio: 1/1;
     background-color: ${props.value ? props.theme.colors.accentColor : props.theme.colors.backgroundColor2};
     border-radius: 50%;
     transition: all 0.2s ease-in-out;
-    transform: translate(${props.value ? "30px" : "0px"});
+    transform: translate(${props.value ? "26px" : "0px"});
   `
 )
 

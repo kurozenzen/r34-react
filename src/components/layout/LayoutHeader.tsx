@@ -20,6 +20,8 @@ const Placeholder = styled.div(
     flex-direction: column;
     gap: ${theme.dimensions.hugeSpacing};
     align-items: center;
+    max-width: ${theme.dimensions.bodyWidth};
+    margin: auto;
 
     height: calc(100vh - 400px);
     padding: 0 10%;
@@ -46,11 +48,8 @@ export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: Layo
         </Title>
       ) : (
         <Placeholder>
-          <Surface>
-            <HorizontalLine />
-            <RandomTip />
-            <HorizontalLine />
-          </Surface>
+          <RandomTip />
+
           <KofiButton id="V7V73PWW9" label="Support Me on Ko-fi" />
         </Placeholder>
       )}

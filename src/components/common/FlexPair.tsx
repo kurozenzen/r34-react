@@ -9,7 +9,7 @@ const Wrapper = styled.div(
   ({ theme }) => css`
     display: flex;
     align-items: center;
-    gap: ${theme.dimensions.spacing};
+    gap: ${theme.dimensions.gutter};
   `
 )
 

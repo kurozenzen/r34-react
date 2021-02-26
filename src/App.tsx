@@ -6,12 +6,13 @@ import { ThemeProvider } from 'styled-components'
 import CookieConfirmation from './components/features/CookieConfirmation'
 import GlobalStyles from './GlobalStyles'
 import theme from './misc/theme'
-import Search from './components/pages/Search'
 import { persistor, store } from './redux/store'
 import { RouteName } from './data/types'
+import LoadingScreen from './components/pages/LoadingScreen'
 
 const Help = React.lazy(() => import('./components/pages/Help'))
 const Settings = React.lazy(() => import('./components/pages/Settings'))
+const Search = React.lazy(() => import('./components/pages/Search'))
 
 export default function App() {
   return (
@@ -20,7 +21,7 @@ export default function App() {
         <ThemeProvider theme={theme}>
           <GlobalStyles />
           <HashRouter>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<LoadingScreen />}>
               <Switch>
                 <Route path={RouteName.HELP}>
                   <Help />

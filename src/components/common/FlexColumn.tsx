@@ -1,19 +1,15 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+import { flexColum, gutter, centeredMaxWidth } from '../../styled/mixins'
 
 const FlexColumn = styled.div`
-  display: flex;
-  flex-direction: column;
+  ${flexColum}
   width: 100%;
   min-height: 100%;
 `
 
 export default FlexColumn
 
-export const FlexColumnWithSpacing = styled(FlexColumn)(
-  ({ theme }) => css`
-    gap: ${theme.dimensions.gutter};
-    padding: ${theme.dimensions.gutter};
-    max-width: ${theme.dimensions.bodyWidth};
-    margin: 0 auto;
-  `
-)
+export const FlexColumnWithSpacing = styled(FlexColumn)`
+  ${gutter}
+  ${centeredMaxWidth}
+`

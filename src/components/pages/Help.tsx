@@ -16,7 +16,7 @@ const FlexRow = styled.div(
     display: flex;
     gap: ${theme.dimensions.bigSpacing};
     justify-content: center;
-    padding: ${theme.dimensions.spacing};
+    padding: ${theme.dimensions.gutter};
   `
 )
 
@@ -25,7 +25,7 @@ const StyledOl = styled.ol(
     padding-left: 1rem;
     display: flex;
     flex-direction: column;
-    gap: ${theme.dimensions.spacing};
+    gap: ${theme.dimensions.gutter};
   `
 )
 

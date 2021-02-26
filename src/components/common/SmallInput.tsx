@@ -1,15 +1,14 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, useCallback, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
+import { defaultBorder, defaultBlock } from '../../styled/mixins'
 
-const TextInput = styled.input(
+const StyledInput = styled.input(
   ({ theme }) => css`
     width: 50px;
-    border: ${theme.dimensions.borderWidth} solid ${theme.colors.accentColor};
+    ${defaultBorder({ theme })}
     background-color: ${theme.colors.backgroundColor2};
-    padding: ${theme.dimensions.spacing};
-    border-radius: ${theme.dimensions.borderRadius};
+    ${defaultBlock({ theme })}
     text-align: center;
-    height: ${theme.dimensions.blockHeight};
   `
 )
 
@@ -43,7 +42,7 @@ export function SmallTextInput(props: SmallInputProps<string>) {
     [internalValue, onSubmit]
   )
 
-  return <TextInput type='text' value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
+  return <StyledInput type='text' value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
 }
 
 export function SmallNumberInput(props: SmallInputProps<number>) {
@@ -71,5 +70,5 @@ export function SmallNumberInput(props: SmallInputProps<number>) {
     [internalValue, onSubmit]
   )
 
-  return <TextInput type='number' value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
+  return <StyledInput type='number' value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
 }

@@ -34,5 +34,24 @@ export default createGlobalStyle(
       color: ${theme.colors.accentColor};
       text-decoration: none;
     }
+
+    ::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: ${theme.colors.layerBg};
+      border-radius: 1000px;
+
+      :hover {
+        background: ${theme.colors.layerBgHighlight};
+      }
+    }
   `
 )

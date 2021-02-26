@@ -1,15 +1,16 @@
 import React, { MouseEventHandler } from 'react'
 import styled, { css } from 'styled-components'
 import { ThemeType } from '../../misc/theme'
+import { defaultBorder } from '../../styled/mixins'
 
 const Track = styled.div(
   (props) => css`
-    border-radius: 30px;
+    height: 24px;
     width: 50px;
-    border: ${props.theme.dimensions.borderWidth} solid ${props.theme.colors.accentColor};
+    ${defaultBorder(props)}
+    border-radius: 30px;
     background-color: ${props.theme.colors.backgroundColor};
     transition: transform ${props.theme.timings.longTransitionTime} ease-in-out;
-    height: 24px;
   `
 )
 

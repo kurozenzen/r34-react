@@ -10,9 +10,7 @@ import {
 } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
 import { CodeBranchIcon } from '../../icons/Icons'
-import { ThemeType } from '../../misc/theme'
 import { BlockButton } from '../common/Buttons'
-import Centered from '../common/Centered'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
 import { HorizontalLine } from '../common/Lines'
 import Select from '../common/Select'
@@ -35,6 +33,19 @@ const SettingsSurface = styled(Surface)(
   `
 )
 
+const VersionWrapper = styled.div`
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+`
+
+const SettingsColumn = styled(FlexColumnWithSpacing)`
+  flex-grow: 1;
+`
+
 export default function Settings() {
   const [resultsLayout, setResultsLayout] = usePreference(RESULTS_LAYOUT)
   const [pageSize, setPageSize] = usePreference(PAGE_SIZE)
@@ -55,7 +66,7 @@ export default function Settings() {
   return (
     <FlexColumn>
       <Header />
-      <FlexColumnWithSpacing>
+      <SettingsColumn>
         <SettingsSurface>
           <Title>General</Title>
           <HorizontalLine />
@@ -89,10 +100,10 @@ export default function Settings() {
           <HorizontalLine />
           <BlockButton onClick={reset}>Reset Application</BlockButton>
         </SettingsSurface>
-        <Centered>
-          <CodeBranchIcon color={(useTheme() as ThemeType).colors.subduedText} /> <Faded>Version 2.3.1</Faded>
-        </Centered>
-      </FlexColumnWithSpacing>
+        <VersionWrapper>
+          <CodeBranchIcon color={useTheme().colors.subduedText} /> <Faded>Version 2.3.2</Faded>
+        </VersionWrapper>
+      </SettingsColumn>
     </FlexColumn>
   )
 }

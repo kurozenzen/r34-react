@@ -15,6 +15,7 @@ export const BigTitle = styled.h1(
     font-size: ${theme.fontSizes.bigTitle};
     font-weight: lighter;
     text-align: center;
+    gap: ${theme.dimensions.gutter};
   `
 )
 

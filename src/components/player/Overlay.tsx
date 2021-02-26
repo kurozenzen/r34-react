@@ -59,14 +59,12 @@ const PlayButton = styled(OverlayButton)`
   place-self: center center;
 `
 
-const PreviousButton = styled(OverlayButton)`
+const PreviousButton = styled.div`
   grid-area: 2/1/3/2;
-  place-self: center start;
 `
 
-const NextButton = styled(OverlayButton)`
+const NextButton = styled.div`
   grid-area: 2/3/3/4;
-  place-self: center end;
 `
 
 const LengthDisplay = styled.span(
@@ -75,8 +73,8 @@ const LengthDisplay = styled.span(
     place-self: end end;
     background: #00000080;
     border-radius: 4px;
-    padding: ${props.theme.dimensions.spacing};
-    margin: ${props.theme.dimensions.spacing};
+    padding: ${props.theme.dimensions.gutter};
+    margin: ${props.theme.dimensions.gutter};
   `
 )
 
@@ -163,16 +161,8 @@ function Overlay(props: OverlayProps) {
         </>
       )}
 
-      {isReaderOpen && hasPrevious && (
-        <PreviousButton onClick={selectPrevious}>
-          <ArrowLeft size={40} color='white' />
-        </PreviousButton>
-      )}
-      {isReaderOpen && hasNext && (
-        <NextButton onClick={selectNext}>
-          <ArrowRight size={40} color='white' />
-        </NextButton>
-      )}
+      {isReaderOpen && hasPrevious && <PreviousButton onClick={selectPrevious}></PreviousButton>}
+      {isReaderOpen && hasNext && <NextButton onClick={selectNext}></NextButton>}
     </Wrapper>
   )
 }

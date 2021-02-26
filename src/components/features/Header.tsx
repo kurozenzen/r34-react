@@ -3,13 +3,13 @@ import { Link, LinkProps, useLocation } from 'react-router-dom'
 import styled, { css, ThemeProps } from 'styled-components'
 import { RouteName } from '../../data/types'
 import R34Icon from '../../icons/R34Icon'
+import { flexColum } from '../../styled/mixins'
 import { VerticalLine } from '../common/Lines'
 import { BigTitle } from '../common/Text'
 
 const HeaderWrapper = styled.header(
   ({ theme }) => css`
-    display: flex;
-    flex-direction: column;
+    ${flexColum()}
     gap: ${theme.dimensions.bigSpacing};
   `
 )
@@ -20,7 +20,7 @@ const TitleBar = styled.div(
     gap: ${theme.dimensions.bigSpacing};
     align-items: center;
     justify-content: center;
-    background: ${theme.misc.layer};
+    background: ${theme.colors.layerBgSolid};
     padding: ${theme.dimensions.gutter} 0;
     ${theme.shadow.box};
   `
@@ -54,7 +54,7 @@ export default function Header() {
         <R34Icon size={32} />
         <VerticalLine />
         <BigTitle>
-          Browse <a href='https://rule34.xxx'>Rule34</a>
+          <span>Browse</span> <a href='https://rule34.xxx'>Rule34</a>
         </BigTitle>
       </TitleBar>
 

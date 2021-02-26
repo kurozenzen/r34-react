@@ -57,6 +57,10 @@ const Icon = (props: IconProps) => {
     prefix = 'fas',
   } = props
 
+  if (icon === 'pixiv') {
+    return <PixivIcon {...props} />
+  }
+
   return (
     <IconWrapper onClick={onClick} left={left} right={right}>
       <StyledIcon className={`${prefix} ${icon} ${className}`} color={color} size={size} />
@@ -94,10 +98,6 @@ export const ExpandIcon = memo(
   })``
 )
 
-export const ArrowIcon = styled(Icon).attrs({
-  icon: 'fa-caret-down',
-})``
-
 export const ExternalLinkIcon = styled(Icon).attrs({
   icon: 'fa-external-link-alt',
 })``
@@ -114,23 +114,12 @@ export const HeartIcon = styled(Icon).attrs({
   icon: 'fa-heart',
 })``
 
-export const TwitterIcon = styled(Icon).attrs({
-  prefix: 'fab',
-  icon: 'fa-twitter',
-})``
-
-export const PatreonIcon = styled(Icon).attrs({
-  prefix: 'fab',
-  icon: 'fa-patreon',
-})``
-
-export const DeviantArtIcon = styled(Icon).attrs({
-  prefix: 'fab',
-  icon: 'fa-deviantart',
-})``
-
 export const LinkIcon = styled(Icon).attrs({
   icon: 'fa-link',
+})``
+
+export const BrandIcon = styled(Icon).attrs({
+  prefix: 'fab',
 })``
 
 export const PlayIcon = memo(

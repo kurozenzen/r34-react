@@ -36,6 +36,8 @@ export class API {
     const normalTags = Object.values(tags).filter((tag) => tag.modifier !== Modifier.OR)
     const orTags = Object.values(tags).filter((tag) => tag.modifier === Modifier.OR)
 
+    let url = `${this.activeApi}/posts?pid=${page}&limit=${limit}`
+
     let tagString = normalTags
       .map((tag) => `${tag.modifier === '-' ? '-' : ''}${encodeURIComponent(tag.name)}`)
       .join(' + ')
@@ -44,7 +46,9 @@ export class API {
       tagString += '+ ( ' + orTags.map((tag) => encodeURIComponent(tag.name)).join(' ~ ') + ' )'
     }
 
-    let url = `${this.activeApi}/posts?pid=${page}&limit=${limit}&tags=${tagString}`
+    if (tagString) {
+      url += `&tags=${tagString}`
+    }
 
     if (minScore > 0) {
       url += `+${encodeURIComponent('score:>=' + minScore)}`

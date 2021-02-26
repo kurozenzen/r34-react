@@ -1,13 +1,13 @@
 import styled, { css } from 'styled-components'
+import { gutter, layer } from '../../styled/mixins'
 
 export default styled.div(
   (props) => css`
     display: grid;
-    padding: ${props.theme.dimensions.gutter};
-    background: ${props.theme.misc.layer};
+    ${gutter(props)}
+    ${layer(props)}
     ${props.theme.shadow.box};
     border-radius: ${props.theme.dimensions.borderRadius};
     width: 100%;
-    gap: ${props.theme.dimensions.gutter};
   `
 )

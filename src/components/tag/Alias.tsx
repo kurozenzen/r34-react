@@ -13,7 +13,7 @@ const AliasWrapper = styled.div(
   ({ theme }) => css`
     display: flex;
     padding: 0 ${theme.dimensions.bigSpacing};
-    gap: ${theme.dimensions.spacing};
+    gap: ${theme.dimensions.gutter};
     align-items: center;
     height: ${theme.dimensions.blockHeight};
     font-size: ${theme.fontSizes.content};

@@ -17,6 +17,7 @@ const theme = {
     subduedText: '#ffffff80',
     layerBg: '#ffffff11',
     layerBgSolid: '#222222',
+    layerBgHighlight: '#ffffff22',
   },
   shadow: {
     box: 'box-shadow: 0 0 8px #000',

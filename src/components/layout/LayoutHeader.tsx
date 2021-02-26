@@ -11,13 +11,11 @@ import KofiButton from '../features/KofiButton'
 import styled, { css } from 'styled-components'
 import { NO_OP } from '../../data/types'
 import RandomTip from '../common/RandomTip'
-import Surface from '../common/Surface'
-import { HorizontalLine } from '../common/Lines'
+import { flexColum } from '../../styled/mixins'
 
 const Placeholder = styled.div(
   ({ theme }) => css`
-    display: flex;
-    flex-direction: column;
+    ${flexColum()}
     gap: ${theme.dimensions.hugeSpacing};
     align-items: center;
     max-width: ${theme.dimensions.bodyWidth};

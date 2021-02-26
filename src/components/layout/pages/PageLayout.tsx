@@ -24,7 +24,7 @@ interface PageLayoutProps<T> {
 }
 
 export default function PageLayout(props: PageLayoutProps<PostDataClass>) {
-  const { header, items, ItemComponent, pageSize, currentPage, loadPage } = props
+  const { header, items, ItemComponent, currentPage, loadPage } = props
 
   const scrollAndLoadPage = useCallback(
     (value: number) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../misc/api'
 import TypeIcon from '../../icons/TypeIcon'
-import { ArrowIcon } from '../../icons/Icons'
+import { ArrowDown } from '../../icons/Icons'
 import TagDataClass from '../../data/Tag'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectActiveTags, selectAliasesByTagName } from '../../redux/selectors'
@@ -53,7 +53,7 @@ export default function NewTag(props: TagProps) {
       <TagName modifier={modifier} name={name} count={count} />
       {loadAliases && aliases?.length > 0 && (
         <>
-          <ArrowIcon onClick={toggleCollapsed} />
+          <ArrowDown onClick={toggleCollapsed} />
           {!collapsed && tagRef && <AliasesList aliases={aliases} modifier={modifier} parentRef={tagRef} />}
         </>
       )}

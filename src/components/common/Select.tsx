@@ -1,24 +1,29 @@
 import React, { ChangeEventHandler } from 'react'
 import styled, { css } from 'styled-components'
+import { defaultBorder, defaultBlock } from '../../styled/mixins'
 
-const SelectWrapper = styled.select(
+const Wrapper = styled.div(
   ({ theme }) => css`
     width: 100px;
-    border: ${theme.dimensions.borderWidth} solid ${theme.colors.accentColor};
-    background-color: ${theme.colors.backgroundColor2};
-    padding: ${theme.dimensions.spacing};
-    border-radius: ${theme.dimensions.borderRadius};
     height: ${theme.dimensions.blockHeight};
+  `
+)
+
+const StyledSelect = styled.select(
+  ({ theme }) => css`
+    ${defaultBorder({ theme })}
+    ${defaultBlock({ theme })}
+    width: 100%;
+    height: 100%;
+    background-color: ${theme.colors.backgroundColor2};
   `
 )
 
 const Option = styled.option(
   ({ theme }) => css`
-    border: ${theme.dimensions.borderWidth} solid ${theme.colors.accentColor};
+    ${defaultBorder({ theme })}
     background-color: ${theme.colors.backgroundColor2};
-    padding: ${theme.dimensions.spacing};
-    border-radius: ${theme.dimensions.borderRadius};
-    text-align: center;
+    ${defaultBlock({ theme })}
   `
 )
 
@@ -31,12 +36,14 @@ interface SelectProps {
 export default function Select(props: SelectProps) {
   const { options, value, onChange } = props
   return (
-    <SelectWrapper value={value} onChange={onChange}>
-      {Object.entries(options).map(([optionKey, optionValue]) => (
-        <Option key={optionKey} value={optionKey}>
-          {optionValue}
-        </Option>
-      ))}
-    </SelectWrapper>
+    <Wrapper>
+      <StyledSelect value={value} onChange={onChange}>
+        {Object.entries(options).map(([optionKey, optionValue]) => (
+          <Option key={optionKey} value={optionKey}>
+            {optionValue}
+          </Option>
+        ))}
+      </StyledSelect>
+    </Wrapper>
   )
 }

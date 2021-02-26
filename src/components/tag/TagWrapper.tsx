@@ -35,8 +35,8 @@ const TagWrapper = styled.div(
   (props: { active: boolean; collapsed: boolean; onMouseLeave: MouseEventHandler; theme: ThemeType }) =>
     css`
       display: flex;
-      padding: 0 ${props.theme.dimensions.spacing};
-      gap: ${props.theme.dimensions.spacing};
+      padding: 0 ${props.theme.dimensions.gutter};
+      gap: ${props.theme.dimensions.gutter};
       align-items: center;
       height: ${props.theme.dimensions.blockHeight};
       border-radius: ${dropdownBorderRadius(props.collapsed, props.theme)};

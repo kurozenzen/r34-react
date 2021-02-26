@@ -6,18 +6,23 @@ import TagDataClass from '../../data/Tag'
 import { listToMap } from '../../data/utils'
 import Rating from './Rating'
 import Score from './Score'
-import Source from './Source'
+import Source from './source/Source'
+import { layer } from '../../styled/mixins'
 
 const Bar = styled.div(
-  ({ theme: { dimensions, misc, shadow } }) => css`
+  ({ theme }) => css`
     grid-row: 2/3;
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
     justify-content: space-between;
-    background: ${misc.layer};
-    padding: ${dimensions.bigSpacing};
-    ${shadow.box};
-    border-radius: 0 0 ${dimensions.borderRadius} ${dimensions.borderRadius};
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    ${layer({ theme })}
+    padding: ${theme.dimensions.gutter};
+    gap: ${theme.dimensions.hugeSpacing};
+
+    ${theme.shadow.box};
+    border-radius: 0 0 ${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius};
   `
 )
 

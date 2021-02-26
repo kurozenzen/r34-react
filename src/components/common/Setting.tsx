@@ -7,7 +7,7 @@ const Grid = styled.div(
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto;
-    gap: ${theme.dimensions.spacing};
+    gap: ${theme.dimensions.gutter};
   `
 )
 

@@ -1,13 +1,6 @@
 import React, { useCallback } from 'react'
 import styled, { css, useTheme } from 'styled-components'
-import {
-  ORIGINALS,
-  PAGE_SIZE,
-  PRELOAD_VIDEOS,
-  ResultLayout,
-  RESULTS_LAYOUT,
-  TAG_SUGGESTIONS_COUNT,
-} from '../../data/types'
+import { ResultLayout, PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
 import { CodeBranchIcon } from '../../icons/Icons'
 import { BlockButton } from '../common/Buttons'
@@ -47,11 +40,11 @@ const SettingsColumn = styled(FlexColumnWithSpacing)`
 `
 
 export default function Settings() {
-  const [resultsLayout, setResultsLayout] = usePreference(RESULTS_LAYOUT)
-  const [pageSize, setPageSize] = usePreference(PAGE_SIZE)
-  const [originals, setOriginals] = usePreference(ORIGINALS)
-  const [preloadVideos, setPreloadVideos] = usePreference(PRELOAD_VIDEOS)
-  const [tagSuggestionsCount, setTagSuggestionsCount] = usePreference(TAG_SUGGESTIONS_COUNT)
+  const [resultsLayout, setResultsLayout] = usePreference(PreferenceKey.RESULTS_LAYOUT)
+  const [pageSize, setPageSize] = usePreference(PreferenceKey.PAGE_SIZE)
+  const [originals, setOriginals] = usePreference(PreferenceKey.ORIGINALS)
+  const [preloadVideos, setPreloadVideos] = usePreference(PreferenceKey.PRELOAD_VIDEOS)
+  const [tagSuggestionsCount, setTagSuggestionsCount] = usePreference(PreferenceKey.TAG_SUGGESTIONS_COUNT)
 
   const togglePreloadVideos = useCallback(() => setPreloadVideos(!preloadVideos), [preloadVideos, setPreloadVideos])
   const toggleOriginals = useCallback(() => setOriginals(!originals), [originals, setOriginals])

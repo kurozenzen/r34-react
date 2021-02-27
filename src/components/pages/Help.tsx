@@ -9,7 +9,7 @@ import Footer from '../features/Footer'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
 import styled, { css } from 'styled-components'
 import { HorizontalLine } from '../common/Lines'
-import { Modifier } from '../../data/types'
+import { Modifier, TagType } from '../../data/types'
 
 const FlexRow = styled.div(
   ({ theme }) => css`
@@ -85,11 +85,11 @@ export default function Help() {
           <TagList
             tags={{
               'Tag 1': { name: 'Tag 1' },
-              'Tag 2': { name: 'Tag 2', types: ['character'] },
+              'Tag 2': { name: 'Tag 2', types: [TagType.CHARACTER] },
               'Tag 3': {
                 name: 'Tag 3',
                 modifier: Modifier.MINUS,
-                types: ['copyright'],
+                types: [TagType.COPYRIGHT],
                 count: 1020,
               },
             }}

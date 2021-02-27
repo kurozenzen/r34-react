@@ -17,22 +17,17 @@ export function defaultBorder({ theme }: PropsWithTheme) {
 }
 
 /**
- * Element will look like a new layer TODO: add shadow
+ * Element will look like a new layer
  */
 export function layer({ theme }: PropsWithTheme) {
   return css`
     background-color: ${theme.colors.layerBg};
-    transition-property: background-color;
-    transition-duration: ${theme.timings.transitionTime};
-
-    :hover {
-      background: ${theme.colors.layerBgHighlight};
-    }
+    ${theme.shadow.box}
   `
 }
 
 /**
- * Element becomes accentColor on hover, and is highlighted when active/focused TODO: rename
+ * Element becomes accentColor on hover, and is highlighted when active/focused
  */
 export function primaryHover({ theme }: PropsWithTheme) {
   return css`

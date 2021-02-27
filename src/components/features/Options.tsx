@@ -2,7 +2,7 @@ import React, { ChangeEventHandler, useCallback, useState } from 'react'
 import styled, { css } from 'styled-components'
 import LabeledToggle from '../common/LabeledToggle'
 import { ThemeType } from '../../misc/theme'
-import { RATED, RATEDTRESHOLD } from '../../data/types'
+import { PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
 
 const OptionsWrapper = styled.div(
@@ -33,8 +33,8 @@ const StyledInput = styled.input(
 )
 
 export default function Options() {
-  const [rated, setRated] = usePreference(RATED)
-  const [ratedTreshold, setRatedThreshold] = usePreference(RATEDTRESHOLD)
+  const [rated, setRated] = usePreference(PreferenceKey.RATED)
+  const [ratedTreshold, setRatedThreshold] = usePreference(PreferenceKey.RATEDTRESHOLD)
   const toggleRated = useCallback(() => setRated(!rated), [rated, setRated])
 
   const [ratedTresholdInternal, setRatedThresholdInternal] = useState(ratedTreshold.toString())

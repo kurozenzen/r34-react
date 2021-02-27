@@ -6,7 +6,7 @@ import outOfResultsPicture from '../../icons/OutOfResults.png'
 import { useSelector } from 'react-redux'
 import { selectAliasesAsList } from '../../redux/selectors'
 import TagDataClass from '../../data/Tag'
-import { NO_OP, SimpleMap } from '../../data/types'
+import { NO_OP } from '../../data/types'
 import LayoutElementProps from './LayoutElementProps'
 import { HorizontalLine } from '../common/Lines'
 import styled, { css } from 'styled-components'
@@ -34,7 +34,7 @@ export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: 
   const aliases = useSelector(selectAliasesAsList)
   const aliasesForRendering = useMemo(
     () =>
-      aliases.reduce((result: SimpleMap<TagDataClass>, alias) => {
+      aliases.reduce((result: Record<string, TagDataClass>, alias) => {
         result[alias.name] = alias
         return result
       }, {}),

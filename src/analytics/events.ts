@@ -1,4 +1,4 @@
-import { Modifier, SimpleMap } from '../data/types'
+import { Modifier } from '../data/types'
 import TagDataClass from '../data/Tag'
 import { PreferencesState } from '../redux/reducers/preferences'
 
@@ -21,7 +21,7 @@ interface TagActivateEvent {
 }
 
 export const searchEvent = (
-  activeTags: SimpleMap<TagDataClass>,
+  activeTags: Record<string, TagDataClass>,
   page_number: number,
   preferences: PreferencesState
 ) => ({

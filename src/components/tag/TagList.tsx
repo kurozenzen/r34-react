@@ -1,7 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import TagDataClass from '../../data/Tag'
-import { SimpleMap } from '../../data/types'
 import NewTag from './NewTag'
 
 export const TagListWrapper = styled.div(
@@ -13,7 +12,7 @@ export const TagListWrapper = styled.div(
 )
 
 interface TagListProps {
-  tags: SimpleMap<TagDataClass>
+  tags: Record<string, TagDataClass>
   loadAliases?: boolean
   padding?: boolean
   className?: string

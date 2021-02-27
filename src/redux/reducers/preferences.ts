@@ -1,5 +1,5 @@
 import produce from 'immer'
-import { PreferenceKey, COOKIES, ResultLayout } from '../../data/types'
+import { PreferenceKey, ResultLayout } from '../../data/types'
 import { AppAction, SET_OPTION, ALLOW_COOKIES } from '../actions'
 
 export interface PreferencesState {
@@ -37,7 +37,7 @@ const preferences = (state: PreferencesState = initialPreferencesState, action: 
     case SET_OPTION:
       return setOption(state, action.key, action.value)
     case ALLOW_COOKIES:
-      return setOption(state, COOKIES, action.value)
+      return setOption(state, PreferenceKey.COOKIES, action.value)
     default:
       return state
   }

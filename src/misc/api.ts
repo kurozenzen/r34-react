@@ -1,5 +1,5 @@
 import TagDataClass from '../data/Tag'
-import { Modifier, SimpleMap } from '../data/types'
+import { Modifier } from '../data/types'
 
 export class API {
   static pageSize = 20
@@ -20,7 +20,7 @@ export class API {
     return await res.json()
   }
 
-  async getPosts(tags: SimpleMap<TagDataClass>, limit: number = API.pageSize, pageNumber = 0, minScore = 0) {
+  async getPosts(tags: Record<string, TagDataClass>, limit: number = API.pageSize, pageNumber = 0, minScore = 0) {
     const res = await fetch(this.buildPostUrl(pageNumber, tags, minScore, limit))
 
     return await res.json()
@@ -32,7 +32,7 @@ export class API {
     return await res.json()
   }
 
-  buildPostUrl(page: number, tags: SimpleMap<TagDataClass>, minScore: number, limit: number = API.pageSize) {
+  buildPostUrl(page: number, tags: Record<string, TagDataClass>, minScore: number, limit: number = API.pageSize) {
     const normalTags = Object.values(tags).filter((tag) => tag.modifier !== Modifier.OR)
     const orTags = Object.values(tags).filter((tag) => tag.modifier === Modifier.OR)
 

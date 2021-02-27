@@ -1,74 +1,82 @@
-export const GENERAL = 'general'
-export const CHARACTER = 'character'
-export const AMBIGUOUS = 'ambiguous'
-export const ARTIST = 'artist'
-export const COPYRIGHT = 'copyright'
-export type TagType = typeof GENERAL | typeof CHARACTER | typeof AMBIGUOUS | typeof ARTIST | typeof COPYRIGHT
+/**
+ * Metadata. Describes the kind of tag.
+ */
+export enum TagType {
+  GENERAL = 'general',
+  CHARACTER = 'character',
+  AMBIGUOUS = 'ambiguous',
+  ARTIST = 'artist',
+  COPYRIGHT = 'copyright',
+}
 
+/**
+ * Describes how the tag should influence the search.
+ */
 export enum Modifier {
   PLUS = '+',
   MINUS = '-',
   OR = '~',
 }
 
-export const VIDEO = 'video'
-export const IMAGE = 'image'
-export type PostType = typeof VIDEO | typeof IMAGE
+/**
+ * Type of a post according to the backend.
+ */
+export enum PostType {
+  VIDEO = 'video',
+  IMAGE = 'image',
+}
 
-export const PICTURE = 'picture'
-export const GIF = 'gif'
-export type MediaType = typeof VIDEO | typeof PICTURE | typeof GIF
+/**
+ * Derived form PostType. On the frontend I split PostType.IMAGE into GIF and PICTURE.
+ */
+export enum MediaType {
+  VIDEO = 'video',
+  PICTURE = 'picture',
+  GIF = 'gif',
+}
 
+/**
+ * The possible layouts.
+ */
 export enum ResultLayout {
   INFINITE_COLUMN = 'infinite_column',
   PAGES = 'pages',
 }
 
+/**
+ * All routes of the app.
+ */
 export enum RouteName {
   SEARCH = '/',
   HELP = '/help',
   SETTINGS = '/settings',
 }
 
-export const INVISIBLE = 'invisible'
-export const BLOCK = 'block'
-export const MODIFIER = 'modifier'
-export const ADD = 'add'
-export const RED = 'red'
-export type ButtonType = typeof INVISIBLE | typeof BLOCK | typeof MODIFIER | typeof ADD | typeof RED
-
-export const SAFE = 'safe'
-export const QUESTIONABLE = 'questionable'
-export const EXPLICIT = 'explicit'
-export type RatingType = typeof SAFE | typeof QUESTIONABLE | typeof EXPLICIT
-
-export const INFINITE = 'infinite'
-export const RATED = 'rated'
-export const RATEDTRESHOLD = 'ratedTreshold'
-export const ORIGINALS = 'originals'
-export const COOKIES = 'cookies'
-export const PRELOAD_VIDEOS = 'preloadVideos'
-export const TAG_SUGGESTIONS_COUNT = 'tagSuggestionsCount'
-export const RESULTS_LAYOUT = 'resultsLayout'
-export const PAGE_SIZE = 'pageSize'
-
-export type PreferenceKey =
-  | typeof INFINITE
-  | typeof RATED
-  | typeof RATEDTRESHOLD
-  | typeof ORIGINALS
-  | typeof COOKIES
-  | typeof PRELOAD_VIDEOS
-  | typeof TAG_SUGGESTIONS_COUNT
-  | typeof RESULTS_LAYOUT
-  | typeof PAGE_SIZE
-
-export interface SimpleMap<V> {
-  [key: string]: V
+/**
+ * Explicity rating as provided by the backend.
+ */
+export enum RatingType {
+  SAFE = 'safe',
+  QUESTIONABLE = 'questionable',
+  EXPLICIT = 'explicit',
 }
 
-export interface SimpleList<V> {
-  [key: number]: V
+/**
+ * All preferences.
+ */
+export enum PreferenceKey {
+  INFINITE = 'infinite',
+  RATED = 'rated',
+  RATEDTRESHOLD = 'ratedTreshold',
+  ORIGINALS = 'originals',
+  COOKIES = 'cookies',
+  PRELOAD_VIDEOS = 'preloadVideos',
+  TAG_SUGGESTIONS_COUNT = 'tagSuggestionsCount',
+  RESULTS_LAYOUT = 'resultsLayout',
+  PAGE_SIZE = 'pageSize',
 }
 
+/**
+ * One-time definition of an empty function. Reusing this improves React's performance as it does not break memoization.
+ */
 export const NO_OP = () => {}

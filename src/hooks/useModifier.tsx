@@ -1,11 +1,10 @@
 import { useCallback, useState } from 'react'
-import { Modifier } from '../../data/types'
+import { Modifier } from '../data/types'
 
 const order = [Modifier.PLUS, Modifier.MINUS, Modifier.OR]
 
 /**
  * Small utility hook to abstract the rotating modifier away
- * @param initialValue
  */
 export default function useModifier(initialValue: Modifier = Modifier.PLUS): [Modifier, () => void] {
   const [modifier, setModifier] = useState(initialValue)

@@ -2,8 +2,7 @@ import React, { MouseEventHandler } from 'react'
 import styled, { css } from 'styled-components'
 import { TagType } from '../../data/types'
 import TypeIcon from '../../icons/TypeIcon'
-import { formatCount } from '../../misc/formatting'
-import { prettifyTagname } from '../tag/tagUtils'
+import { formatCount, formatTagname } from '../../misc/formatting'
 
 interface EntryProps {
   name: string
@@ -43,7 +42,7 @@ export default function DropdownListEntry(props: EntryProps) {
       <Icon>
         <TypeIcon types={types} />
       </Icon>
-      <Name>{prettifyTagname(name)}</Name>
+      <Name>{formatTagname(name)}</Name>
       <Count>{formatCount(posts)} posts</Count>
     </EntryWrapper>
   )

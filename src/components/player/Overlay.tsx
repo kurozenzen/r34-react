@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useCallback, useMemo } from 'react'
 
-import { ExpandIcon, PlayIcon, PauseIcon, ExternalLinkIcon, CloseIcon, ArrowLeft, ArrowRight } from '../../icons/Icons'
+import { ExpandIcon, PlayIcon, PauseIcon, ExternalLinkIcon, CloseIcon } from '../../icons/Icons'
 import styled, { css } from 'styled-components'
 import useToggle from '../../hooks/useToggle'
 import { fadeOut } from '../styled/animations'
@@ -106,13 +106,18 @@ function Overlay(props: OverlayProps) {
   const isReaderOpen = useSelector(selectFullsceenState)
 
   const dispatch = useDispatch()
-  const onExpandClick = useCallback(() => {
-    if (isReaderOpen) {
-      dispatch(exitFullscreen())
-    } else {
-      dispatch(enterFullscreen(postId))
-    }
-  }, [dispatch, isReaderOpen, postId])
+  const onExpandClick: MouseEventHandler = useCallback(
+    (event) => {
+      event.preventDefault()
+      event.stopPropagation()
+      if (isReaderOpen) {
+        dispatch(exitFullscreen())
+      } else {
+        dispatch(enterFullscreen(postId))
+      }
+    },
+    [dispatch, isReaderOpen, postId]
+  )
 
   const selectedIndex = useMemo(() => posts.findIndex((post) => post.id === postId), [postId, posts])
 

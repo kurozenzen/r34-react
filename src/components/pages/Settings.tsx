@@ -94,7 +94,8 @@ export default function Settings() {
           <BlockButton onClick={reset}>Reset Application</BlockButton>
         </SettingsSurface>
         <VersionWrapper>
-          <CodeBranchIcon color={useTheme().colors.subduedText} /> <Faded>Version 2.3.2</Faded>
+          <CodeBranchIcon color={useTheme().colors.subduedText} />
+          <Faded>Version 2.3.3</Faded>
         </VersionWrapper>
       </SettingsColumn>
     </FlexColumn>

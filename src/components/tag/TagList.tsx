@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import TagDataClass from '../../data/Tag'
-import NewTag from './NewTag'
+import Tag from './Tag'
 
 export const TagListWrapper = styled.div(
   ({ theme }) => css`
@@ -24,7 +24,7 @@ export default function TagList(props: TagListProps) {
   return (
     <TagListWrapper className={className}>
       {Object.entries(tags).map(([key, tag]) => (
-        <NewTag key={key} {...tag} loadAliases={loadAliases} />
+        <Tag key={key} {...tag} loadAliases={loadAliases} />
       ))}
     </TagListWrapper>
   )

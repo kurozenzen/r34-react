@@ -41,3 +41,15 @@ export function formatDuration(duration: number) {
 
   return min + ':' + (sec < 10 ? '0' : '') + sec
 }
+
+export function formatTagname(tagname: string) {
+  return tagname.replace(/_/g, ' ')
+}
+
+export function serializeTagname(tagname: string) {
+  return tagname.toLowerCase().replace(/ /g, '_')
+}
+
+export function formatTagnameAndCount(name: string, count?: number | null) {
+  return count ? `${formatTagname(name)} (${formatCount(count)})` : formatTagname(name)
+}

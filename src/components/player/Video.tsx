@@ -1,12 +1,13 @@
 import React, { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
+import { NO_OP } from '../../data/types'
 import { selectPreferences } from '../../redux/selectors'
 import FlexVideo from './FlexVideo'
 import MediaProps from './MediaProps'
 import Overlay from './Overlay'
 
 export default function Video(props: MediaProps) {
-  const { src, onLoad, externalSrc, postId, width, height } = props
+  const { src, onLoad = NO_OP, externalSrc, postId, width, height } = props
 
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null)
 

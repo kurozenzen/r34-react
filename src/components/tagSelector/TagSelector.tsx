@@ -5,13 +5,13 @@ import { prepareTag } from '../../misc/prepare'
 import { AddButton, ModifierButton } from '../common/Buttons'
 import TagInput from './TagInput'
 import DropdownList from './DropdownList'
-import { normalizeTagname } from '../tag/tagUtils'
 import { useDispatch, useSelector } from 'react-redux'
 import { addTag } from '../../redux/actions'
 import { ThemeType } from '../../misc/theme'
 import { selectPreferences } from '../../redux/selectors'
 import useThrottledEffect from '../../hooks/useThrottledEffect'
-import useModifier from './useModifier'
+import useModifier from '../../hooks/useModifier'
+import { serializeTagname } from '../../misc/formatting'
 
 export const TagSelectorWrapper = styled.div(
   (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: ThemeType }) => css`
@@ -71,7 +71,7 @@ export default function TagSelector() {
         return
       }
 
-      api.getTags(normalizeTagname(value), tagSuggestionsCount).then((newSuggestions) => {
+      api.getTags(serializeTagname(value), tagSuggestionsCount).then((newSuggestions) => {
         setSuggestions(newSuggestions)
       })
     },

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { MouseEventHandler, useCallback, useEffect, useState } from 'react'
 import api from '../../misc/api'
 import TypeIcon from '../../icons/TypeIcon'
 import { ArrowDown } from '../../icons/Icons'
 import TagDataClass from '../../data/Tag'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectActiveTags, selectAliasesByTagName } from '../../redux/selectors'
-import { addAliases } from '../../redux/actions'
+import { addAliases, addTag, removeTag } from '../../redux/actions'
 import useToggle from '../../hooks/useToggle'
 import TagWrapper from './TagWrapper'
 import TagName from './TagName'
@@ -24,7 +24,7 @@ interface TagProps extends TagDataClass {
   loadAliases: boolean
 }
 
-export default function NewTag(props: TagProps) {
+export default function Tag(props: TagProps) {
   const { name, count, modifier = Modifier.PLUS, types, loadAliases } = props
 
   const [tagRef, setTagRef] = useState<HTMLDivElement | null>(null)
@@ -35,6 +35,29 @@ export default function NewTag(props: TagProps) {
   const aliases = useSelector(selectAliasesByTagName(name))
 
   const isActive = name in activeTags
+  const hasAliases = aliases?.length > 0
+
+  const handleClick: MouseEventHandler = useCallback(
+    (event) => {
+      event.stopPropagation()
+      const tag = new TagDataClass(name, types, count, modifier)
+
+      if (name in activeTags) {
+        dispatch(removeTag(tag))
+      } else {
+        dispatch(addTag(tag))
+      }
+    },
+    [activeTags, count, dispatch, modifier, name, types]
+  )
+
+  const handleArrowClick: MouseEventHandler = useCallback(
+    (event) => {
+      event.stopPropagation()
+      toggleCollapsed()
+    },
+    [toggleCollapsed]
+  )
 
   useEffect(() => {
     if (loadAliases && activeTags[name])
@@ -48,12 +71,18 @@ export default function NewTag(props: TagProps) {
   }, [loadAliases, name, activeTags, dispatch])
 
   return (
-    <TagWrapper active={isActive} collapsed={collapsed} onMouseLeave={resetCollapsed} ref={setTagRef}>
+    <TagWrapper
+      active={isActive}
+      collapsed={collapsed}
+      onClick={handleClick}
+      onMouseLeave={resetCollapsed}
+      ref={setTagRef}
+    >
       <TypeIcon types={types} />
       <TagName modifier={modifier} name={name} count={count} />
-      {loadAliases && aliases?.length > 0 && (
+      {loadAliases && hasAliases && (
         <>
-          <ArrowDown onClick={toggleCollapsed} />
+          <ArrowDown onClick={handleArrowClick} />
           {!collapsed && tagRef && <AliasesList aliases={aliases} modifier={modifier} parentRef={tagRef} />}
         </>
       )}

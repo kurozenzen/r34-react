@@ -20,8 +20,6 @@ const Bar = styled.div(
     ${layer({ theme })}
     padding: ${theme.dimensions.gutter};
     gap: ${theme.dimensions.hugeSpacing};
-
-    ${theme.shadow.box};
     border-radius: 0 0 ${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius};
   `
 )

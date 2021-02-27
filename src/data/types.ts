@@ -77,6 +77,14 @@ export enum PreferenceKey {
 }
 
 /**
+ *
+ */
+export enum AnalyticsEventId {
+  SEARCH = 'r34_search',
+  ADD_TAG = 'r34_add_tag',
+}
+
+/**
  * One-time definition of an empty function. Reusing this improves React's performance as it does not break memoization.
  */
 export const NO_OP = () => {}

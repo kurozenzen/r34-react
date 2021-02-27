@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import Details from './Details'
 import Player from '../player/Player'
@@ -63,10 +63,6 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
 
   const media_src = useMemo(() => getCorrectSource(originals, big_src, small_src), [big_src, originals, small_src])
 
-  const toggleDetails = useCallback(() => {
-    toggleCollapsed()
-  }, [toggleCollapsed])
-
   // re-measure when collapsed state changes
   useEffect(() => {
     onLoad()
@@ -75,7 +71,7 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
   return (
     <ItemWrapper style={style} ref={virtualRef} className='list-div'>
       <PositonWrapper>
-        <PostWrapper onClick={toggleDetails} role='row'>
+        <PostWrapper onClick={toggleCollapsed} role='row'>
           <Player
             onLoad={onLoad}
             type={media_type}

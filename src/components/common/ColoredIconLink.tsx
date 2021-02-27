@@ -8,6 +8,7 @@ const ColoredIconLink = styled.a(
         `
       : ''};
     display: flex;
+    align-items: center;
     gap: ${theme.dimensions.gutter};
   `
 )

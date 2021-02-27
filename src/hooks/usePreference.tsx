@@ -5,6 +5,9 @@ import { setOption } from '../redux/actions'
 import { PreferencesState } from '../redux/reducers/preferences'
 import { selectPreferences } from '../redux/selectors'
 
+/**
+ * useState for preferences using redux instead of local state.
+ */
 export default function usePreference<T extends PreferenceKey>(
   key: T
 ): [PreferencesState[T], (value: PreferencesState[T]) => void] {

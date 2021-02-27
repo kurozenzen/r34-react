@@ -1,10 +1,24 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
-export default function useThrottledEffect(effect: (...arg: any) => void, timeout: number, deps: any[]) {
+/**
+ * wraps your effect so that it can only be called in a set interval
+ */
+export default function useThrottledEffect(callback: () => void, delay: number, deps: any[] = []) {
+  const lastRun = useRef(Date.now())
+
   useEffect(() => {
-    const handle = setTimeout(effect, timeout)
+    const handler = setTimeout(() => {
+      const now = Date.now()
+      const then = lastRun.current
 
-    return () => clearTimeout(handle)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [timeout, ...deps])
+      if (now - then >= delay) {
+        callback()
+        lastRun.current = now
+      }
+    }, delay)
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [delay, ...deps])
 }

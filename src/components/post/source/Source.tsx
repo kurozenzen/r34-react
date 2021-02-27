@@ -52,10 +52,10 @@ export default function Source({ value }: SourceProps) {
           if (source) {
             const [color, icon, getTitle] = sources[source]
 
-            return <SpecialLinkSource key={value} value={link} color={color} icon={icon} title={getTitle(link)} />
+            return <SpecialLinkSource key={link} value={link} color={color} icon={icon} title={getTitle(link)} />
           }
 
-          return <DefaultLinkSource key={value} value={link} />
+          return <DefaultLinkSource key={link} value={link} />
         })}
       </>
     )

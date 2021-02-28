@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { NO_OP } from '../../data/types'
-import { selectPreferences } from '../../redux/selectors'
+import { selectPreloadVideos } from '../../redux/selectors'
 import FlexVideo from './FlexVideo'
 import MediaProps from './MediaProps'
 import Overlay from './Overlay'
@@ -39,14 +39,14 @@ export default function Video(props: MediaProps) {
     [videoRef, play, pause]
   )
 
-  const { preloadVideos } = useSelector(selectPreferences)
+  const preload = useSelector(selectPreloadVideos) ? 'auto' : 'metadata'
 
   return (
     <>
       <FlexVideo
         controls={false}
         loop
-        preload={preloadVideos ? 'auto' : 'metadata'}
+        preload={preload}
         ref={setVideoRef}
         onLoad={onLoad}
         width={width}

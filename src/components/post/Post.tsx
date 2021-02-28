@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import Details from './Details'
 import Player from '../player/Player'
 import { useSelector } from 'react-redux'
-import { selectPreferences } from '../../redux/selectors'
+import { selectOriginals, selectPreferences } from '../../redux/selectors'
 import PostDataClass from '../../data/Post'
 import LayoutElementProps from '../layout/LayoutElementProps'
 import { NO_OP } from '../../data/types'
@@ -57,9 +57,9 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
     height,
   } = props
 
-  const { originals } = useSelector(selectPreferences)
-
   const [collapsed, toggleCollapsed] = useToggle(true)
+
+  const originals = useSelector(selectOriginals)
 
   const media_src = useMemo(() => getCorrectSource(originals, big_src, small_src), [big_src, originals, small_src])
 

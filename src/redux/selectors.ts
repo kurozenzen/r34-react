@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import PostDataClass from '../data/Post'
 import { PreferencesState } from './reducers/preferences'
 import { ReaderState } from './reducers/reader'
 import { ResultsState } from './reducers/results'
@@ -18,6 +19,8 @@ export const selectPosts = (state: RootState) => state.results.posts
 export const selectCount = (state: RootState) => state.results.count
 export const selectPageNumber = (state: RootState) => state.results.pageNumber
 export const selectPreferences = (state: RootState) => state.preferences
+export const selectResultsLayout = (state: RootState) => state.preferences.resultsLayout
+export const selectPreloadVideos = (state: RootState) => state.preferences.resultsLayout
 export const selectInfinite = (state: RootState) => state.preferences.infinite
 export const selectOriginals = (state: RootState) => state.preferences.originals
 export const selectRated = (state: RootState) => state.preferences.rated
@@ -27,6 +30,7 @@ export const selectFullsceenState = (state: RootState) => state.reader.isEnabled
 export const selectFullsceenPostId = (state: RootState) => state.reader.postId
 export const selectAliases = (state: RootState) => state.tags.aliases
 export const selectPageSize = (state: RootState) => state.preferences.pageSize
+export const selectTagSuggestionCount = (state: RootState) => state.preferences.tagSuggestionsCount
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)
@@ -39,6 +43,14 @@ export const selectLastPage = createSelector(
   selectCount,
   selectPageSize,
   (count, pageSize) => Math.ceil(count / pageSize) - 1
+)
+export const selectFullScreenPost = createSelector(
+  selectPosts,
+  selectFullsceenPostId,
+  (posts, fullScreenPostId) => posts.find((post) => post.id === fullScreenPostId) as PostDataClass
+)
+export const selectFullScreenIndex = createSelector(selectPosts, selectFullScreenPost, (posts, fullScreenPost) =>
+  posts.indexOf(fullScreenPost)
 )
 
 // Parameterized selectors

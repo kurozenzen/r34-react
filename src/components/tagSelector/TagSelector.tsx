@@ -8,7 +8,7 @@ import DropdownList from './DropdownList'
 import { useDispatch, useSelector } from 'react-redux'
 import { addTag } from '../../redux/actions'
 import { ThemeType } from '../../misc/theme'
-import { selectPreferences } from '../../redux/selectors'
+import { selectTagSuggestionCount } from '../../redux/selectors'
 import useThrottledEffect from '../../hooks/useThrottledEffect'
 import useModifier from '../../hooks/useModifier'
 import { serializeTagname } from '../../misc/formatting'
@@ -43,7 +43,7 @@ export default function TagSelector() {
   const [tagSelectorRef, setTagSelectorRef] = useState<HTMLDivElement | null>(null)
   const [modifier, nextModifier] = useModifier()
 
-  const { tagSuggestionsCount } = useSelector(selectPreferences)
+  const tagSuggestionsCount = useSelector(selectTagSuggestionCount)
 
   const activateTag = useCallback(
     ({ name, posts, types }) => {

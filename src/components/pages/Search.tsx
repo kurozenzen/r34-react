@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import InifinteColumn from '../layout/infinite/InfiniteColumn'
 import Post from '../post/Post'
 import { getMoreResults, getResults } from '../../redux/actions'
-import { selectHasMoreResults, selectPageNumber, selectPosts, selectPreferences } from '../../redux/selectors'
+import {
+  selectHasMoreResults,
+  selectPageNumber,
+  selectPageSize,
+  selectPosts,
+  selectResultsLayout,
+} from '../../redux/selectors'
 import LayoutHeader from '../layout/LayoutHeader'
 import LayoutOutOfItems from '../layout/LayoutOutOfItems'
 import LayoutLoadingItem from '../layout/LayoutLoadingItem'
@@ -18,7 +24,8 @@ export default function Search() {
 
   const posts = useSelector(selectPosts)
   const hasMorePosts = useSelector(selectHasMoreResults)
-  const { resultsLayout, pageSize } = useSelector(selectPreferences)
+  const resultsLayout = useSelector(selectResultsLayout)
+  const pageSize = useSelector(selectPageSize)
   const pageNumber = useSelector(selectPageNumber)
 
   const dispatch = useDispatch()

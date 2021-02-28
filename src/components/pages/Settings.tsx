@@ -95,7 +95,7 @@ export default function Settings() {
         </SettingsSurface>
         <VersionWrapper>
           <CodeBranchIcon color={useTheme().colors.subduedText} />
-          <Faded>Version 2.3.3</Faded>
+          <Faded>Version 2.3.4</Faded>
         </VersionWrapper>
       </SettingsColumn>
     </FlexColumn>

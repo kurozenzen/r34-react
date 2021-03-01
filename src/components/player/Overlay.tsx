@@ -1,6 +1,6 @@
-import React, { MouseEventHandler, useCallback, useMemo } from 'react'
+import React, { MouseEventHandler, useCallback } from 'react'
 
-import { ExpandIcon, PlayIcon, PauseIcon, ExternalLinkIcon, CloseIcon } from '../../icons/Icons'
+import { ExpandIcon, PlayIcon, PauseIcon, ExternalLinkIcon, CloseIcon, DownloadIcon } from '../../icons/Icons'
 import styled, { css } from 'styled-components'
 import useToggle from '../../hooks/useToggle'
 import { fadeOut } from '../styled/animations'
@@ -8,8 +8,10 @@ import { InvisButton } from '../common/Buttons'
 import { NO_OP } from '../../data/types'
 import { formatDuration } from '../../misc/formatting'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectFullsceenState, selectPosts } from '../../redux/selectors'
+import { selectFullsceenState, selectFullScreenIndex, selectPostById, selectPosts } from '../../redux/selectors'
 import { enterFullscreen, exitFullscreen, setFullScreenPost } from '../../redux/actions'
+import PostDataClass from '../../data/Post'
+import { download } from '../../data/utils'
 
 const Wrapper = styled.div(
   (props: { isVisible: boolean }) => css`
@@ -49,10 +51,14 @@ const FullScreenButton = styled(OverlayButton)`
   place-self: start start;
 `
 
-const OpenExternalButton = styled(OverlayButton)`
+const LinkList = styled.div`
   grid-area: 3/1/4/1;
-  place-self: end start;
+  place-self: end stretch;
+  display: flex;
+  place-items: start center;
 `
+
+const OpenExternalButton = styled(OverlayButton)``
 
 const PlayButton = styled(OverlayButton)`
   grid-area: 2/2/3/3;
@@ -66,6 +72,8 @@ const PreviousButton = styled.div`
 const NextButton = styled.div`
   grid-area: 2/3/3/4;
 `
+
+const DownloadButton = styled(OverlayButton)``
 
 const LengthDisplay = styled.span(
   (props) => css`
@@ -105,6 +113,18 @@ function Overlay(props: OverlayProps) {
   const [isVisible, toggleVisible] = useToggle()
   const isReaderOpen = useSelector(selectFullsceenState)
 
+  const post = useSelector(selectPostById(postId)) as PostDataClass
+
+  const downloadSrc = post.big_src
+
+  const onDownloadClick: MouseEventHandler = useCallback(
+    (event) => {
+      event.stopPropagation()
+      download(downloadSrc)
+    },
+    [downloadSrc]
+  )
+
   const dispatch = useDispatch()
   const onExpandClick: MouseEventHandler = useCallback(
     (event) => {
@@ -119,7 +139,7 @@ function Overlay(props: OverlayProps) {
     [dispatch, isReaderOpen, postId]
   )
 
-  const selectedIndex = useMemo(() => posts.findIndex((post) => post.id === postId), [postId, posts])
+  const selectedIndex = useSelector(selectFullScreenIndex)
 
   const selectPostAt = useCallback(
     (index: number) => {
@@ -148,11 +168,17 @@ function Overlay(props: OverlayProps) {
         {isReaderOpen ? <CloseIcon color='white' /> : <ExpandIcon color='white' />}
       </FullScreenButton>
 
-      <OpenExternalButton>
-        <a href={externalSrc} target='_blank' rel='noopener noreferrer' aria-label='Open In New Tab'>
-          <ExternalLinkIcon color='white' />
-        </a>
-      </OpenExternalButton>
+      <LinkList>
+        <OpenExternalButton>
+          <a href={externalSrc} target='_blank' rel='noopener noreferrer' aria-label='Open In New Tab'>
+            <ExternalLinkIcon color='white' />
+          </a>
+        </OpenExternalButton>
+
+        <DownloadButton aria-label='Download Image' onClick={onDownloadClick} title={downloadSrc}>
+          <DownloadIcon color='white' />
+        </DownloadButton>
+      </LinkList>
 
       {isPlayable && (
         <>

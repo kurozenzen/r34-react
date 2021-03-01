@@ -45,3 +45,5 @@ export const selectMinRating = createSelector(selectRated, selectRatedThreshold,
 
 // Parameterized selectors
 export const selectAliasesByTagName = (tagName: string) => (state: DefaultRootState) => state.tags.aliases[tagName]
+export const selectPostById = (id: number) => (state: DefaultRootState) =>
+  state.results.posts.find((post) => post.id === id)

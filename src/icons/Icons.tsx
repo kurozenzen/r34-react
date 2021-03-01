@@ -70,14 +70,16 @@ export const CloseIcon = styled(Icon).attrs({
   icon: 'fa-times',
 })``
 
-export const ExpandIcon = memo(
-  styled(Icon).attrs({
-    icon: 'fa-expand',
-  })``
-)
+export const ExpandIcon = styled(Icon).attrs({
+  icon: 'fa-expand',
+})``
 
 export const ExternalLinkIcon = styled(Icon).attrs({
   icon: 'fa-external-link-alt',
+})``
+
+export const DownloadIcon = styled(Icon).attrs({
+  icon: 'fa-download',
 })``
 
 export const SourceIcon = styled(Icon).attrs({

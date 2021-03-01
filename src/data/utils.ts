@@ -38,3 +38,27 @@ export function parseUrl(value: string) {
 export function versionToNumber(majorMinorPatch: string) {
   return Number(majorMinorPatch.split('.').join(''))
 }
+
+/**
+ * Hacky ass way to download images cross origin. Could solve this by hosting both the app and the api on the same domain.
+ */
+export function download(url: string) {
+  const filename = url.split('/').pop() || ''
+
+  fetch(url, {
+    headers: new Headers({
+      Origin: window.location.origin,
+    }),
+    mode: 'cors',
+  })
+    .then((response) => response.blob())
+    .then((blob) => {
+      var a = document.createElement('a')
+      a.download = filename
+      a.href = window.URL.createObjectURL(blob)
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+    })
+    .catch((e) => console.error(e))
+}

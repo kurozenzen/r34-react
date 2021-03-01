@@ -1,12 +1,11 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
-const StyledSvg = styled.svg(
-  ({ theme }) => css`
-    height: ${theme.dimensions.blockHeight};
-    padding: ${theme.dimensions.bigSpacing};
-  `
-)
+// Don't use theme here so the loadingScreen is independent
+const StyledSvg = styled.svg`
+  height: 32px;
+  padding: 8px;
+`
 
 export default function Loading() {
   return (

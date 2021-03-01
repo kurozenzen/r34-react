@@ -1,22 +1,14 @@
-import { AnalyticsEventId, Modifier } from '../data/types'
 import TagDataClass from '../data/Tag'
 import { PreferencesState } from '../redux/reducers/preferences'
+import { tagsToString } from '../data/utils'
 
-interface SearchEvent {
-  id: typeof AnalyticsEventId.SEARCH
-  payload: {
-    tags: string[]
-  }
+export enum AnalyticsEventId {
+  SEARCH = 'r34_search',
 }
 
-interface TagActivateEvent {
-  id: typeof AnalyticsEventId.ADD_TAG
-  payload: {
-    name: string
-    modifier: Modifier | undefined
-  }
-}
-
+/**
+ * Should be called whenever a new search is started.
+ */
 export const searchEvent = (
   activeTags: Record<string, TagDataClass>,
   page_number: number,
@@ -24,20 +16,8 @@ export const searchEvent = (
 ) => ({
   id: AnalyticsEventId.SEARCH,
   payload: {
-    active_tags: Object.values(activeTags)
-      .map((tag) => `${tag.modifier}${tag.name}`)
-      .sort(),
+    active_tags: tagsToString(activeTags),
     page_number,
     preferences,
   },
 })
-
-export const addTagEvent = (tag: TagDataClass) => ({
-  id: AnalyticsEventId.ADD_TAG,
-  payload: {
-    name: tag.name,
-    modifier: tag.modifier,
-  },
-})
-
-export type EventType = SearchEvent | TagActivateEvent

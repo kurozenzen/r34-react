@@ -7,5 +7,7 @@ import { AnyAction } from 'redux'
  */
 export default function useAction<T extends () => AnyAction>(actionCreator: T) {
   const dispatch = useDispatch()
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useCallback(() => dispatch(actionCreator()), [actionCreator, dispatch])
 }

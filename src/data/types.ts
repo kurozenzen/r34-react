@@ -67,21 +67,13 @@ export enum RatingType {
 export enum PreferenceKey {
   INFINITE = 'infinite',
   RATED = 'rated',
-  RATEDTRESHOLD = 'ratedTreshold',
+  RATEDThreshold = 'ratedThreshold',
   ORIGINALS = 'originals',
   COOKIES = 'cookies',
   PRELOAD_VIDEOS = 'preloadVideos',
   TAG_SUGGESTIONS_COUNT = 'tagSuggestionsCount',
   RESULTS_LAYOUT = 'resultsLayout',
   PAGE_SIZE = 'pageSize',
-}
-
-/**
- *
- */
-export enum AnalyticsEventId {
-  SEARCH = 'r34_search',
-  ADD_TAG = 'r34_add_tag',
 }
 
 /**

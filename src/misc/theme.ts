@@ -27,9 +27,6 @@ const theme = {
     transitionTime: '0.2s',
     longTransitionTime: '0.2s',
   },
-  misc: {
-    layer: '#ffffff11; :hover { background: #ffffff16;} transition: background-color 0.2s ease-in-out',
-  },
   fontSizes: {
     content: '15px',
     bigTitle: '24px',

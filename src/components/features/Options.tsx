@@ -34,17 +34,17 @@ const StyledInput = styled.input(
 
 export default function Options() {
   const [rated, setRated] = usePreference(PreferenceKey.RATED)
-  const [ratedTreshold, setRatedThreshold] = usePreference(PreferenceKey.RATEDTRESHOLD)
+  const [ratedThreshold, setRatedThreshold] = usePreference(PreferenceKey.RATEDThreshold)
   const toggleRated = useCallback(() => setRated(!rated), [rated, setRated])
 
-  const [ratedTresholdInternal, setRatedThresholdInternal] = useState(ratedTreshold.toString())
+  const [ratedThresholdInternal, setRatedThresholdInternal] = useState(ratedThreshold ? ratedThreshold.toString() : '1')
 
   const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => setRatedThresholdInternal(event.target.value),
     []
   )
-  const onBlur = useCallback(() => setRatedThreshold(Number(ratedTresholdInternal)), [
-    ratedTresholdInternal,
+  const onBlur = useCallback(() => setRatedThreshold(Number(ratedThresholdInternal)), [
+    ratedThresholdInternal,
     setRatedThreshold,
   ])
 
@@ -54,7 +54,7 @@ export default function Options() {
         {rated ? (
           <div style={{ display: 'flex' }}>
             <span>More than</span>
-            <StyledInput type='text' value={ratedTresholdInternal} onChange={onChange} onBlur={onBlur} />
+            <StyledInput type='text' value={ratedThresholdInternal} onChange={onChange} onBlur={onBlur} />
             <span>likes</span>
           </div>
         ) : (

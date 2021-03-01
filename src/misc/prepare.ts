@@ -2,6 +2,10 @@ import PostDataClass from '../data/Post'
 import TagDataClass from '../data/Tag'
 import { TagType, Modifier, RatingType } from '../data/types'
 
+/**
+ * A tag as received from the backend.
+ * All strings
+ */
 interface DirtyTag {
   name: string
   types: string[]
@@ -9,6 +13,10 @@ interface DirtyTag {
   modifier: string
 }
 
+/**
+ * A post as received from the backend.
+ * All strings
+ */
 interface DirtyPost {
   id: string
   type: string
@@ -33,12 +41,18 @@ interface DirtyPost {
   change: string
 }
 
+/**
+ * Introduce types for nicer use later
+ */
 export function prepareTag(dirtyTag: DirtyTag) {
   const { name, types, count, modifier } = dirtyTag
 
   return new TagDataClass(name, types as TagType[], Number(count), modifier as Modifier)
 }
 
+/**
+ * Introduce types for nicer use later and parse tag names to tag objects.
+ */
 export function preparePost(post: DirtyPost) {
   const {
     id,

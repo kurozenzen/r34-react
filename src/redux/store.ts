@@ -5,9 +5,13 @@ import rootReducer from './reducers'
 import eventLogging from './middleware/eventLogging'
 import apiRequests from './middleware/apiRequests'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import { versionToNumber } from '../data/utils'
+
+console.log('Running version <', process.env.REACT_APP_VERSION, '> of R34 React.')
 
 const persistConfig = {
   key: 'appstate',
+  version: versionToNumber(process.env.REACT_APP_VERSION as string),
   storage,
 }
 

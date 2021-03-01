@@ -1,7 +1,7 @@
-import { ADD_TAG, AppAction, SET_POSTS, ADD_POSTS } from '../actions'
+import { AppAction, SET_POSTS, ADD_POSTS } from '../actions'
 import firebase from 'firebase/app'
 import 'firebase/analytics'
-import { addTagEvent, searchEvent } from '../../analytics/events'
+import { searchEvent } from '../../analytics/events'
 import { selectActiveTags, selectPreferences, selectPageNumber, selectCookies } from '../selectors'
 import { MiddlewareAPI, Dispatch } from 'redux'
 
@@ -20,24 +20,21 @@ let firebaseApp: firebase.app.App
 let analytics: firebase.analytics.Analytics
 
 const eventLogging = (store: MiddlewareAPI<any>) => (next: Dispatch<AppAction>) => (action: AppAction) => {
-  const cookies = selectCookies(store.getState())
+  const state = store.getState()
+  const cookies = selectCookies(state)
 
+  // Only send analytics if the user consented
   if (cookies) {
     if (!firebaseApp) {
       firebaseApp = firebase.initializeApp(config)
       analytics = firebaseApp.analytics()
     }
 
-    if (action.type === ADD_TAG) {
-      const { id, payload } = addTagEvent(action.tag)
-      analytics.logEvent<typeof id>(id, payload)
-    }
-
     if (action.type === ADD_POSTS || action.type === SET_POSTS) {
-      const activeTags = selectActiveTags(store.getState())
-      const pageNumber = selectPageNumber(store.getState())
-      const preferences = selectPreferences(store.getState())
-      const { id, payload } = searchEvent(activeTags, action.type === SET_POSTS ? 0 : pageNumber + 1, preferences)
+      const activeTags = selectActiveTags(state)
+      const pageNumber = selectPageNumber(state)
+      const preferences = selectPreferences(state)
+      const { id, payload } = searchEvent(activeTags, pageNumber, preferences)
       analytics.logEvent<typeof id>(id, payload)
     }
   }

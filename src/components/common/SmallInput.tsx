@@ -50,7 +50,9 @@ export function SmallNumberInput(props: SmallInputProps<number>) {
   const [internalValue, setInternalValue] = useState(value.toString())
 
   useEffect(() => {
-    setInternalValue(value.toString())
+    if (value) {
+      setInternalValue(value.toString())
+    }
   }, [value])
 
   const onChange: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {

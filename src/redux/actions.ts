@@ -2,8 +2,7 @@ import { PreferenceKey } from '../data/types'
 import TagDataClass from '../data/Tag'
 import PostDataClass from '../data/Post'
 
-/////////////////////////////////////////////////////////
-
+// Action Names
 export const ADD_TAG = 'R34_ADD_TAG'
 export const REMOVE_TAG = 'R34_REMOVE_TAG'
 export const ADD_ALIASES = 'R34_ADD_ALIASES'
@@ -17,8 +16,7 @@ export const ENTER_FULLSCREEN = 'R34_ENTER_FULLSCREEN'
 export const EXIT_FULLSCREEN = 'R34_EXIT_FULLSCREEN'
 export const SET_FULLSCREEN_POST = 'R34_SET_FULLSCREEN_POST'
 
-/////////////////////////////////////////////////////////
-
+// Action Types
 interface AddTagAction {
   type: typeof ADD_TAG
   tag: TagDataClass
@@ -81,72 +79,6 @@ interface ExitFullscreenAction {
   type: typeof EXIT_FULLSCREEN
 }
 
-/////////////////////////////////////////////////////////
-
-export const addTag = (tag: TagDataClass) => ({
-  type: ADD_TAG,
-  tag,
-})
-
-export const removeTag = (tag: TagDataClass) => ({
-  type: REMOVE_TAG,
-  tag,
-})
-
-export const addAliases = (aliases: TagDataClass[], forTag: string) => ({
-  type: ADD_ALIASES,
-  aliases,
-  forTag,
-})
-
-export const addPosts = (posts: PostDataClass[]) => ({
-  type: ADD_POSTS,
-  posts,
-})
-
-export const setPosts = (posts: PostDataClass[], count: string, pageNumber: number = 0) => ({
-  type: SET_POSTS,
-  posts,
-  count,
-  pageNumber,
-})
-
-export const setOption = (key: PreferenceKey, value: any) => ({
-  type: SET_OPTION,
-  key,
-  value,
-})
-
-export const getResults = (pageNumber: number = 0) => ({
-  type: GET_RESULTS,
-  pageNumber,
-})
-
-export const getMoreResults = () => ({
-  type: GET_MORE_RESULTS,
-})
-
-export const allowCookiesAction = () => ({
-  type: ALLOW_COOKIES,
-  value: true,
-})
-
-export const enterFullscreen = (postId: number) => ({
-  type: ENTER_FULLSCREEN,
-  postId,
-})
-
-export const exitFullscreen = () => ({
-  type: EXIT_FULLSCREEN,
-})
-
-export const setFullScreenPost = (postId: number) => ({
-  type: SET_FULLSCREEN_POST,
-  postId,
-})
-
-/////////////////////////////////////////////////////////
-
 export type AppAction =
   | AddTagAction
   | RemoveTagAction
@@ -160,3 +92,90 @@ export type AppAction =
   | EnterFullcreenAction
   | ExitFullscreenAction
   | SetFullScreenPostAction
+
+// Action Creators
+export function addTag(tag: TagDataClass): AddTagAction {
+  return {
+    type: ADD_TAG,
+    tag,
+  }
+}
+
+export function removeTag(tag: TagDataClass): RemoveTagAction {
+  return {
+    type: REMOVE_TAG,
+    tag,
+  }
+}
+
+export function addAliases(aliases: TagDataClass[], forTag: string): AddAliasesAction {
+  return {
+    type: ADD_ALIASES,
+    aliases,
+    forTag,
+  }
+}
+
+export function addPosts(posts: PostDataClass[]): AddPostsAction {
+  return {
+    type: ADD_POSTS,
+    posts,
+  }
+}
+
+export function setPosts(posts: PostDataClass[], count: string, pageNumber: number = 0): SetPostsAction {
+  return {
+    type: SET_POSTS,
+    posts,
+    count,
+    pageNumber,
+  }
+}
+
+export function setOption(key: PreferenceKey, value: any): SetOptionAction {
+  return {
+    type: SET_OPTION,
+    key,
+    value,
+  }
+}
+
+export function getResults(pageNumber: number = 0): GetResultsAction {
+  return {
+    type: GET_RESULTS,
+    pageNumber,
+  }
+}
+
+export function getMoreResults(): GetMoreResultsAction {
+  return {
+    type: GET_MORE_RESULTS,
+  }
+}
+
+export function allowCookiesAction(): AllowCookiesAction {
+  return {
+    type: ALLOW_COOKIES,
+    value: true,
+  }
+}
+
+export function enterFullscreen(postId: number): EnterFullcreenAction {
+  return {
+    type: ENTER_FULLSCREEN,
+    postId,
+  }
+}
+
+export function exitFullscreen(): ExitFullscreenAction {
+  return {
+    type: EXIT_FULLSCREEN,
+  }
+}
+
+export function setFullScreenPost(postId: number): SetFullScreenPostAction {
+  return {
+    type: SET_FULLSCREEN_POST,
+    postId,
+  }
+}

@@ -5,7 +5,7 @@ import { AppAction, SET_OPTION, ALLOW_COOKIES } from '../actions'
 export interface PreferencesState {
   infinite: boolean
   rated: boolean
-  ratedTreshold: number
+  ratedThreshold: number
   originals: boolean
   cookies: boolean
   preloadVideos: boolean
@@ -17,7 +17,7 @@ export interface PreferencesState {
 export const initialPreferencesState: PreferencesState = {
   infinite: true,
   rated: false,
-  ratedTreshold: 1,
+  ratedThreshold: 1,
   originals: false,
   cookies: false,
   preloadVideos: false,

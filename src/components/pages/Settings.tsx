@@ -95,7 +95,7 @@ export default function Settings() {
         </SettingsSurface>
         <VersionWrapper>
           <CodeBranchIcon color={useTheme().colors.subduedText} />
-          <Faded>Version 2.3.4</Faded>
+          <Faded>Version {process.env.REACT_APP_VERSION}</Faded>
         </VersionWrapper>
       </SettingsColumn>
     </FlexColumn>

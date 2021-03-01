@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
+import PostDataClass from '../../data/Post'
 import { NO_OP } from '../../data/types'
 import useAction from '../../hooks/useAction'
 import useThrottledEffect from '../../hooks/useThrottledEffect'
@@ -37,7 +38,7 @@ export default function Reader() {
   const posts = useSelector(selectPosts)
   const originals = useSelector(selectOriginals)
   const isReaderOpen = useSelector(selectFullsceenState)
-  const fullScreenPost = useSelector(selectFullScreenPost)
+  const fullScreenPost = useSelector(selectFullScreenPost) as PostDataClass
   const fullScreenIndex = useSelector(selectFullScreenIndex)
 
   const loadMore = useAction(getMoreResults)

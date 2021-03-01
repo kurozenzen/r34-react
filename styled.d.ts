@@ -30,9 +30,6 @@ declare module 'styled-components' {
       transitionTime: string
       longTransitionTime: string
     }
-    misc: {
-      layer: string
-    }
     fontSizes: {
       content: string
       bigTitle: string

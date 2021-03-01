@@ -1,15 +1,9 @@
 import React from 'react'
+import { parseUrl } from '../../../data/utils'
 import FallbackSource from './FallbackSource'
 import DefaultLinkSource from './LinkSource'
 import SourceProps from './SourceProps'
 import SpecialLinkSource from './SpecialLinkSource'
-
-/**
- * Returns true when the value is a hyperlink
- */
-function isLink(value: string) {
-  return value.startsWith('http')
-}
 
 /**
  * Cut away all the unnecessary parts of the link
@@ -41,7 +35,7 @@ const sources: Record<string, SourceMapping> = {
 }
 
 export default function Source({ value }: SourceProps) {
-  if (isLink(value)) {
+  if (parseUrl(value)) {
     // Sources can contain multiple links
     const links = value.split(' ')
     return (

@@ -3,11 +3,12 @@ import styled, { css } from 'styled-components'
 import Details from './Details'
 import Player from '../player/Player'
 import { useSelector } from 'react-redux'
-import { selectOriginals, selectPreferences } from '../../redux/selectors'
+import { selectOriginals } from '../../redux/selectors'
 import PostDataClass from '../../data/Post'
 import LayoutElementProps from '../layout/LayoutElementProps'
 import { NO_OP } from '../../data/types'
 import useToggle from '../../hooks/useToggle'
+import { layer } from '../../styled/mixins'
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
@@ -31,7 +32,7 @@ const PostWrapper = styled.div(
     grid-template-rows: auto auto auto;
     border-radius: ${theme.dimensions.borderRadius};
     overflow: hidden;
-    background: ${theme.misc.layer};
+    ${layer({ theme })}
   `
 )
 

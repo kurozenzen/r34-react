@@ -37,6 +37,10 @@ export default createGlobalStyle(
 
     ::-webkit-scrollbar {
       height: 8px;
+
+      :hover {
+        background: ${theme.colors.layerBg};
+      }
     }
 
     /* Track */
@@ -45,6 +49,12 @@ export default createGlobalStyle(
     }
 
     /* Handle */
+    :hover {
+      ::-webkit-scrollbar {
+        background: ${theme.colors.layerBg};
+      }
+    }
+
     ::-webkit-scrollbar-thumb {
       background: ${theme.colors.layerBg};
       border-radius: 1000px;

@@ -17,7 +17,7 @@ const Search = React.lazy(() => import('./components/pages/Search'))
 export default function App() {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<LoadingScreen />} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <GlobalStyles />
           <HashRouter>

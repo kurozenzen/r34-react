@@ -1,11 +1,11 @@
 {
-  "short_name": "R34 Browser",
+  "short_name": "R34 React",
   "name": "Mobile-First Rule34 Browsing Tool",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "favicon.svg",
+      "sizes": "150x150",
+      "type": "image/svg"
     }
   ],
   "start_url": ".",

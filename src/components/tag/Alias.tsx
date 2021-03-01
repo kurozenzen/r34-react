@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { Modifier } from '../../data/types'
+import { flexRowWithGap } from '../../styled/mixins'
 import TagName from './TagName'
 
 interface AliasProps {
@@ -11,10 +12,8 @@ interface AliasProps {
 
 const AliasWrapper = styled.div(
   ({ theme }) => css`
-    display: flex;
+    ${flexRowWithGap({ theme })}
     padding: 0 ${theme.dimensions.bigSpacing};
-    gap: ${theme.dimensions.gutter};
-    align-items: center;
     height: ${theme.dimensions.blockHeight};
     font-size: ${theme.fontSizes.content};
   `

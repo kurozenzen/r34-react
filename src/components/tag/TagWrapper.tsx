@@ -1,7 +1,8 @@
 import { MouseEventHandler } from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, DefaultTheme } from 'styled-components'
 
 import { ThemeType } from '../../misc/theme'
+import { flexRowWithGap } from '../../styled/mixins'
 
 const dropdownBorderRadius = (collapsed: boolean, theme: ThemeType) =>
   collapsed ? theme.dimensions.borderRadius : `${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0 0`
@@ -32,16 +33,14 @@ const switchingColors = (active: boolean, theme: ThemeType) => {
 }
 
 const TagWrapper = styled.div(
-  (props: { active: boolean; collapsed: boolean; onMouseLeave: MouseEventHandler; theme: ThemeType }) =>
+  (props: { active: boolean; collapsed: boolean; onMouseLeave: MouseEventHandler; theme: DefaultTheme }) =>
     css`
-      display: flex;
+      ${flexRowWithGap({ theme: props.theme })}
+      ${switchingColors(props.active, props.theme)}
       padding: 0 ${props.theme.dimensions.gutter};
-      gap: ${props.theme.dimensions.gutter};
-      align-items: center;
       height: ${props.theme.dimensions.blockHeight};
       border-radius: ${dropdownBorderRadius(props.collapsed, props.theme)};
       font-size: ${props.theme.fontSizes.content};
-      ${switchingColors(props.active, props.theme)}
     `
 )
 

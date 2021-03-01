@@ -3,22 +3,20 @@ import { Link, LinkProps, useLocation } from 'react-router-dom'
 import styled, { css, ThemeProps } from 'styled-components'
 import { RouteName } from '../../data/types'
 import R34Icon from '../../icons/R34Icon'
-import { flexColum } from '../../styled/mixins'
+import { flexColumn, flexColumnGap, flexRowGap, flexRowWithGap } from '../../styled/mixins'
 import { VerticalLine } from '../common/Lines'
 import { BigTitle } from '../common/Text'
 
 const HeaderWrapper = styled.header(
   ({ theme }) => css`
-    ${flexColum()}
-    gap: ${theme.dimensions.bigSpacing};
+    ${flexColumn()}
+    ${flexColumnGap(theme.dimensions.bigSpacing)}
   `
 )
 
 const TitleBar = styled.div(
   ({ theme }) => css`
-    display: flex;
-    gap: ${theme.dimensions.bigSpacing};
-    align-items: center;
+    ${flexRowWithGap({ theme })}
     justify-content: center;
     background: ${theme.colors.layerBgSolid};
     padding: ${theme.dimensions.gutter} 0;
@@ -31,7 +29,7 @@ const MenuBar = styled.nav(
     display: flex;
     justify-content: center;
     padding: ${theme.dimensions.bigSpacing};
-    gap: ${theme.dimensions.hugeSpacing};
+    ${flexRowGap(theme.dimensions.hugeSpacing)}
   `
 )
 

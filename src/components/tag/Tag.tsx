@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useCallback, useEffect, useState } from 'react'
+import React, { KeyboardEventHandler, MouseEventHandler, useCallback, useEffect, useState } from 'react'
 import api from '../../misc/api'
 import TypeIcon from '../../icons/TypeIcon'
 import { ArrowDown } from '../../icons/Icons'
@@ -37,8 +37,8 @@ export default function Tag(props: TagProps) {
   const isActive = name in activeTags
   const hasAliases = aliases?.length > 0
 
-  const handleClick: MouseEventHandler = useCallback(
-    (event) => {
+  const handleClick = useCallback(
+    (event: React.MouseEvent | React.KeyboardEvent) => {
       event.stopPropagation()
       const tag = new TagDataClass(name, types, count, modifier)
 
@@ -59,6 +59,15 @@ export default function Tag(props: TagProps) {
     [toggleCollapsed]
   )
 
+  const handleEnter: KeyboardEventHandler = useCallback(
+    (event) => {
+      if (event.key === 'Enter') {
+        handleClick(event)
+      }
+    },
+    [handleClick]
+  )
+
   useEffect(() => {
     if (loadAliases && activeTags[name])
       api.getAliases(name).then((newAliases: TagLike[]) => {
@@ -75,6 +84,7 @@ export default function Tag(props: TagProps) {
       active={isActive}
       collapsed={collapsed}
       onClick={handleClick}
+      onKeyDown={handleEnter}
       onMouseLeave={resetCollapsed}
       ref={setTagRef}
     >

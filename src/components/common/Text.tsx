@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { flexRowWithGap } from '../../styled/mixins'
 
 export const Title = styled.h2(
   ({ theme }) => css`
@@ -10,12 +11,12 @@ export const Title = styled.h2(
 
 export const BigTitle = styled.h1(
   ({ theme }) => css`
-    display: flex;
+    ${flexRowWithGap({ theme })}
+
     justify-content: center;
     font-size: ${theme.fontSizes.bigTitle};
     font-weight: lighter;
     text-align: center;
-    gap: ${theme.dimensions.gutter};
   `
 )
 

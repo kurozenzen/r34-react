@@ -10,7 +10,7 @@ const ListWrapper = styled.div(
     position: absolute;
     top: ${parentRef.offsetTop + parentRef.clientHeight + 4}px;
     left: ${parentRef.offsetLeft}px;
-    width: ${parentRef.clientWidth + 4}px;
+    width: ${parentRef.clientWidth + 5}px;
 
     display: flex;
     flex-direction: column;

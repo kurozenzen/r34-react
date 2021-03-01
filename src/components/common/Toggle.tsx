@@ -1,5 +1,6 @@
 import React, { MouseEventHandler } from 'react'
 import styled, { css } from 'styled-components'
+import { supportsAspectRatio } from '../../data/browserUtils'
 import { ThemeType } from '../../misc/theme'
 import { defaultBorder } from '../../styled/mixins'
 
@@ -14,12 +15,23 @@ const Track = styled.div(
   `
 )
 
+function circle() {
+  return supportsAspectRatio
+    ? css`
+        height: 100%;
+        aspect-ratio: 1/1;
+      `
+    : css`
+        height: 100%;
+        width: 22px;
+      `
+}
+
 const Thumb = styled.div(
   (props: { value: boolean; theme: ThemeType }) => css`
-    height: 100%;
-    aspect-ratio: 1/1;
+    ${circle()}
     background-color: ${props.value ? props.theme.colors.accentColor : props.theme.colors.backgroundColor2};
-    border-radius: 50%;
+    border-radius: 100px;
     transition: all 0.2s ease-in-out;
     transform: translate(${props.value ? '26px' : '0px'});
   `

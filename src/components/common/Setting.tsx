@@ -1,15 +1,13 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { gridWithGap } from '../../styled/mixins'
 import { SmallTitle, Faded } from './Text'
 
-const Grid = styled.div(
-  ({ theme }) => css`
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    gap: ${theme.dimensions.gutter};
-  `
-)
+const Grid = styled.div`
+  ${gridWithGap}
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+`
 
 const Title = styled(SmallTitle)(
   ({ theme }) => css`

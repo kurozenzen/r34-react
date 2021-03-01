@@ -6,10 +6,10 @@ import { Title } from '../common/Text'
 import Surface from '../common/Surface'
 import SearchButton from './SearchButton'
 import ActiveTags from './ActiveTags'
-import { flexColum, gutter, centeredMaxWidth } from '../../styled/mixins'
+import { flexColumn, gutter, centeredMaxWidth } from '../../styled/mixins'
 
 const ConfigWrapper = styled.section`
-  ${flexColum}
+  ${flexColumn}
   ${gutter}
   ${centeredMaxWidth}
 `

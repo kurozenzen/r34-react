@@ -62,3 +62,14 @@ export function download(url: string) {
     })
     .catch((e) => console.error(e))
 }
+
+/**
+ * Returns the current version of the project
+ */
+export function getVersion() {
+  if (process?.env?.REACT_APP_VERSION) {
+    return process.env.REACT_APP_VERSION
+  }
+
+  return 'unknown'
+}

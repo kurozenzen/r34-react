@@ -115,11 +115,11 @@ export const PauseIcon = memo(
 )
 
 export const ArrowUp = styled(Icon).attrs({
-  icon: 'fa-caret-down',
+  icon: 'fa-caret-up',
 })``
 
 export const ArrowDown = styled(Icon).attrs({
-  icon: 'fa-caret-up',
+  icon: 'fa-caret-down',
 })``
 
 export const ArrowLeft = styled(Icon).attrs({

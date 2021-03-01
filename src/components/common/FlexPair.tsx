@@ -1,17 +1,14 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
+import { flexRowWithGap } from '../../styled/mixins'
 
 interface FlexPairProps {
   children: [JSX.Element, JSX.Element]
 }
 
-const Wrapper = styled.div(
-  ({ theme }) => css`
-    display: flex;
-    align-items: center;
-    gap: ${theme.dimensions.gutter};
-  `
-)
+const Wrapper = styled.div`
+  ${flexRowWithGap}
+`
 
 export default function FlexPair({ children }: FlexPairProps) {
   return <Wrapper>{children}</Wrapper>

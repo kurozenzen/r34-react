@@ -4,13 +4,11 @@ import LabeledToggle from '../common/LabeledToggle'
 import { ThemeType } from '../../misc/theme'
 import { PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
+import { gridWithGap } from '../../styled/mixins'
 
-const OptionsWrapper = styled.div(
-  ({ theme }) => css`
-    display: grid;
-    gap: ${theme.dimensions.gutter};
-  `
-)
+const OptionsWrapper = styled.div`
+  ${gridWithGap}
+`
 
 const StyledInput = styled.input(
   (props: { value: string; theme: ThemeType }) => css`

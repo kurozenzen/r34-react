@@ -10,24 +10,20 @@ import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
 import styled, { css } from 'styled-components'
 import { HorizontalLine } from '../common/Lines'
 import { Modifier, TagType } from '../../data/types'
+import { flexColumnWithGap, flexRowWithGap } from '../../styled/mixins'
 
 const FlexRow = styled.div(
   ({ theme }) => css`
-    display: flex;
-    gap: ${theme.dimensions.bigSpacing};
+    ${flexRowWithGap({ theme })}
     justify-content: center;
     padding: ${theme.dimensions.gutter};
   `
 )
 
-const StyledOl = styled.ol(
-  ({ theme }) => css`
-    padding-left: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: ${theme.dimensions.gutter};
-  `
-)
+const StyledOl = styled.ol`
+  ${flexColumnWithGap}
+  padding-left: 1rem;
+`
 
 export default function Help() {
   return (

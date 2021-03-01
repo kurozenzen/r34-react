@@ -1,4 +1,5 @@
 import { css, DefaultTheme } from 'styled-components'
+import { supportsAspectRatio, supportsFlexGap, supportsGap } from '../data/browserUtils'
 
 interface PropsWithTheme {
   theme: DefaultTheme
@@ -47,11 +48,71 @@ export function primaryHover({ theme }: PropsWithTheme) {
   `
 }
 
-export function flexColum() {
+export function flexColumn() {
   return css`
     display: flex;
     flex-direction: column;
   `
+}
+
+export function flexColumnWithGap({ theme }: PropsWithTheme) {
+  return css`
+    display: flex;
+    flex-direction: column;
+    ${flexColumnGap(theme.dimensions.gutter)};
+  `
+}
+
+export function gridWithGap({ theme }: PropsWithTheme) {
+  return css`
+    display: grid;
+    ${gap(theme.dimensions.gutter)}
+  `
+}
+
+export function flexRowWithGap({ theme }: PropsWithTheme) {
+  return css`
+    display: flex;
+    align-items: center;
+    ${flexRowGap(theme.dimensions.gutter)};
+  `
+}
+
+export function gap(amount: string) {
+  return supportsGap
+    ? css`
+        gap: ${amount};
+      `
+    : css`
+        > :not(:last-child) {
+          margin-right: ${amount};
+          margin-bottom: ${amount};
+        }
+      `
+}
+
+export function flexRowGap(amount: string) {
+  return supportsFlexGap
+    ? css`
+        gap: ${amount};
+      `
+    : css`
+        > :not(:last-child) {
+          margin-right: ${amount};
+        }
+      `
+}
+
+export function flexColumnGap(amount: string) {
+  return supportsFlexGap
+    ? css`
+        gap: ${amount};
+      `
+    : css`
+        > :not(:last-child) {
+          margin-bottom: ${amount};
+        }
+      `
 }
 
 /**
@@ -59,7 +120,7 @@ export function flexColum() {
  */
 export function gutter({ theme }: PropsWithTheme) {
   return css`
-    gap: ${theme.dimensions.gutter};
+    ${gap(theme.dimensions.gutter)};
     padding: ${theme.dimensions.gutter};
   `
 }
@@ -104,9 +165,16 @@ interface Size {
 }
 
 export function preserveAspectRatio({ width, height }: Partial<Size>) {
-  return width && height
+  if (!width || !height) {
+    return ''
+  }
+
+  return supportsAspectRatio
     ? css`
         aspect-ratio: ${width} / ${height};
       `
-    : ''
+    : css`
+        max-width: 100%;
+        height: auto;
+      `
 }

@@ -1,13 +1,15 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import TagDataClass from '../../data/Tag'
+import { flexRowGap, flexColumnGap } from '../../styled/mixins'
 import Tag from './Tag'
 
 export const TagListWrapper = styled.div(
   ({ theme }) => css`
     display: inline-flex;
     flex-wrap: wrap;
-    gap: ${theme.dimensions.gutter};
+    ${flexRowGap(theme.dimensions.gutter)}
+    ${flexColumnGap(theme.dimensions.gutter)}
   `
 )
 

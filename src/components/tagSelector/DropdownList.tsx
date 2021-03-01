@@ -4,6 +4,7 @@ import DropdownListEntry from './DropdownListEntry'
 import TagDataClass from '../../data/Tag'
 import { TagType } from '../../data/types'
 import { ThemeType } from '../../misc/theme'
+import { flexColumn, flexColumnGap } from '../../styled/mixins'
 
 function sizeAndPosition(tagSelector: HTMLDivElement | null) {
   if (tagSelector) {
@@ -24,11 +25,10 @@ function sizeAndPosition(tagSelector: HTMLDivElement | null) {
 
 export const ListWrapper = styled.div(
   (props: { tagSelectorRef: HTMLDivElement | null; theme: ThemeType }) => css`
-    display: flex;
-    flex-direction: column;
+    ${flexColumn()}
+    ${flexColumnGap('1px')}
     ${sizeAndPosition(props.tagSelectorRef)};
     background: lightgrey;
-    gap: 1px;
     box-sizing: border-box;
     border: ${props.theme.dimensions.borderWidth} ${props.theme.colors.accentColor} solid;
     border-top: none;

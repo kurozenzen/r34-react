@@ -1,8 +1,11 @@
 import React, { useCallback } from 'react'
 import styled, { css, useTheme } from 'styled-components'
+import { supportsAspectRatio, supportsFlexGap, supportsGap, supportsObjectFit } from '../../data/browserUtils'
 import { ResultLayout, PreferenceKey } from '../../data/types'
+import { getVersion } from '../../data/utils'
 import usePreference from '../../hooks/usePreference'
 import { CodeBranchIcon } from '../../icons/Icons'
+import { flexRowWithGap, gap, layer } from '../../styled/mixins'
 import { BlockButton } from '../common/Buttons'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
 import { HorizontalLine } from '../common/Lines'
@@ -10,7 +13,7 @@ import Select from '../common/Select'
 import Setting from '../common/Setting'
 import { SmallNumberInput } from '../common/SmallInput'
 import Surface from '../common/Surface'
-import { Faded, Title } from '../common/Text'
+import { Faded, SmallTitle, Title } from '../common/Text'
 import Toggle from '../common/Toggle'
 import Header from '../features/Header'
 
@@ -22,22 +25,41 @@ const layouts = {
 const SettingsSurface = styled(Surface)(
   ({ theme }) => css`
     padding: ${theme.dimensions.hugeSpacing};
-    gap: ${theme.dimensions.hugeSpacing};
+    ${gap(theme.dimensions.hugeSpacing)};
   `
 )
 
 const VersionWrapper = styled.div`
+  ${flexRowWithGap}
   flex-grow: 1;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 8px;
   min-height: 50px;
 `
 
 const SettingsColumn = styled(FlexColumnWithSpacing)`
   flex-grow: 1;
 `
+
+const StyledCode = styled.code(
+  ({ theme }) => css`
+    ${layer({ theme })}
+    ${gap(theme.dimensions.gutter)}
+    padding: ${theme.dimensions.gutter};
+    border-radius: ${theme.dimensions.borderRadius};
+  `
+)
+
+const Yes = styled.span`
+  color: limegreen;
+`
+
+const No = styled.span`
+  color: red;
+`
+
+function yesOrNo(value: boolean) {
+  return value ? <Yes>Yes</Yes> : <No>No</No>
+}
 
 export default function Settings() {
   const [resultsLayout, setResultsLayout] = usePreference(PreferenceKey.RESULTS_LAYOUT)
@@ -55,6 +77,9 @@ export default function Settings() {
     localStorage.clear()
     window.location.reload()
   }, [])
+
+  const version = getVersion()
+  const versionString = version === 'unknown' ? 'Latest Release' : `Version ${version}`
 
   return (
     <FlexColumn>
@@ -91,11 +116,19 @@ export default function Settings() {
           </Setting>
           <Title>Developer</Title>
           <HorizontalLine />
+          <SmallTitle>Debug Info</SmallTitle>
+          <StyledCode>
+            <p>Supports grid-gap: {yesOrNo(supportsGap)}</p>
+            <p>Supports flex-gap: {yesOrNo(supportsFlexGap)}</p>
+            <p>Supports aspect-ratio: {yesOrNo(supportsAspectRatio)}</p>
+            <p>Supports object-fit: {yesOrNo(supportsObjectFit)}</p>
+          </StyledCode>
+
           <BlockButton onClick={reset}>Reset Application</BlockButton>
         </SettingsSurface>
         <VersionWrapper>
           <CodeBranchIcon color={useTheme().colors.subduedText} />
-          <Faded>Version {process.env.REACT_APP_VERSION}</Faded>
+          <Faded>{versionString}</Faded>
         </VersionWrapper>
       </SettingsColumn>
     </FlexColumn>

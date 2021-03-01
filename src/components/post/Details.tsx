@@ -7,7 +7,7 @@ import { listToMap } from '../../data/utils'
 import Rating from './Rating'
 import Score from './Score'
 import Source from './source/Source'
-import { layer } from '../../styled/mixins'
+import { flexRowGap, layer } from '../../styled/mixins'
 
 const Bar = styled.div(
   ({ theme }) => css`
@@ -19,7 +19,7 @@ const Bar = styled.div(
     overflow-x: auto;
     ${layer({ theme })}
     padding: ${theme.dimensions.gutter};
-    gap: ${theme.dimensions.hugeSpacing};
+    ${flexRowGap(theme.dimensions.hugeSpacing)}
     border-radius: 0 0 ${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius};
   `
 )

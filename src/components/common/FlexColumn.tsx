@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { flexColum, gutter, centeredMaxWidth } from '../../styled/mixins'
+import { flexColumn, gutter, centeredMaxWidth } from '../../styled/mixins'
 
 const FlexColumn = styled.div`
-  ${flexColum}
+  ${flexColumn}
   width: 100%;
   min-height: 100%;
 `

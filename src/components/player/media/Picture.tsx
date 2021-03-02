@@ -1,8 +1,8 @@
 import React from 'react'
-import { NO_OP } from '../../data/types'
-import FlexImage from './FlexImage'
+import { NO_OP } from '../../../data/types'
+import FlexImage from '../FlexImage'
 import MediaProps from './MediaProps'
-import Overlay from './Overlay'
+import Overlay from '../Overlay'
 
 export default function Picture(props: MediaProps) {
   const { src, onLoad = NO_OP, externalSrc, postId, width, height } = props

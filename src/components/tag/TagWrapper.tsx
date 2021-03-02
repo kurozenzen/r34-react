@@ -17,6 +17,10 @@ const switchingColors = (active: boolean, theme: ThemeType) => {
     border: ${theme.colors.accentColor} ${theme.dimensions.borderWidth} solid;
     transition: background-color 0.4s ease-in-out;
 
+    svg {
+      color: ${fg};
+    }
+
     cursor: pointer;
 
     :hover,
@@ -26,7 +30,7 @@ const switchingColors = (active: boolean, theme: ThemeType) => {
       color: ${theme.colors.backgroundColor2};
 
       svg {
-        color: ${theme.colors.backgroundColor2} !important;
+        color: ${theme.colors.backgroundColor2};
       }
     }
   `

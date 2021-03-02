@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
-import Video from './Video'
-import Gif from './Gif'
-import Picture from './Picture'
+import Video from './media/Video'
+import Gif from './media/Gif'
+import Picture from './media/Picture'
 
 import { getMediaType, getUrlParameter } from './utils'
 import { MediaType, PostType } from '../../data/types'

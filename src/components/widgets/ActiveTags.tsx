@@ -9,6 +9,7 @@ interface ActiveTagsProps {
 
 export default function ActiveTags(props: ActiveTagsProps) {
   const { onChange } = props
+
   const activeTags = useSelector(selectActiveTags)
   const numberOfActiveTags = useSelector(selectNumberOfActiveTags)
 

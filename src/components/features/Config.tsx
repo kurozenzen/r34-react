@@ -4,8 +4,8 @@ import TagSelector from '../tagSelector/TagSelector'
 import Options from './Options'
 import { Title } from '../common/Text'
 import Surface from '../common/Surface'
-import SearchButton from './SearchButton'
-import ActiveTags from './ActiveTags'
+import SearchButton from '../widgets/SearchButton'
+import ActiveTags from '../widgets/ActiveTags'
 import { flexColumn, gutter, centeredMaxWidth } from '../../styled/mixins'
 
 const ConfigWrapper = styled.section`

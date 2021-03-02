@@ -1,9 +1,5 @@
 import { PostType, MediaType } from '../../data/types'
 
-export const openFullscreen = (elem: HTMLVideoElement) => {
-  elem.requestFullscreen()
-}
-
 export const getMediaType = (type: PostType, src: string) => {
   if (type === PostType.VIDEO) {
     return MediaType.VIDEO

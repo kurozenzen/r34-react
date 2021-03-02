@@ -48,7 +48,7 @@ export default function Video(props: MediaProps) {
         loop
         preload={preload}
         ref={setVideoRef}
-        onLoad={onLoad}
+        onLoadedMetadata={onLoad}
         width={width}
         height={height}
       >

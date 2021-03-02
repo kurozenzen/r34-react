@@ -16,7 +16,6 @@ function sizeAndPosition(tagSelector: HTMLDivElement | null) {
       left: ${offsetLeft}px;
       width: ${clientWidth}px;
       max-height: 50vh;
-      overflow-y: scroll;
     `
   }
 
@@ -34,6 +33,7 @@ export const ListWrapper = styled.div(
     border-top: none;
     border-radius: 0 0 3px 3px;
     color: black;
+    overflow-y: scroll;
     z-index: 3;
   `
 )

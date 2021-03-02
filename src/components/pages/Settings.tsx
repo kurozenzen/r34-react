@@ -6,7 +6,6 @@ import { getVersion } from '../../data/utils'
 import usePreference from '../../hooks/usePreference'
 import { CodeBranchIcon } from '../../icons/Icons'
 import { flexRowWithGap, gap, layer } from '../../styled/mixins'
-import { BlockButton } from '../common/Buttons'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
 import { HorizontalLine } from '../common/Lines'
 import Select from '../common/Select'
@@ -16,6 +15,7 @@ import Surface from '../common/Surface'
 import { Faded, SmallTitle, Title } from '../common/Text'
 import Toggle from '../common/Toggle'
 import Header from '../features/Header'
+import ResetButton from '../widgets/ResetButton'
 
 const layouts = {
   [ResultLayout.INFINITE_COLUMN]: 'Infinite',
@@ -72,11 +72,7 @@ export default function Settings() {
   const toggleOriginals = useCallback(() => setOriginals(!originals), [originals, setOriginals])
 
   const onChangeResultsLayout = useCallback((event) => setResultsLayout(event.target.value), [setResultsLayout])
-
-  const reset = useCallback(() => {
-    localStorage.clear()
-    window.location.reload()
-  }, [])
+  const theme = useTheme()
 
   const version = getVersion()
   const versionString = version === 'unknown' ? 'Latest Release' : `Version ${version}`
@@ -123,11 +119,10 @@ export default function Settings() {
             <p>Supports aspect-ratio: {yesOrNo(supportsAspectRatio)}</p>
             <p>Supports object-fit: {yesOrNo(supportsObjectFit)}</p>
           </StyledCode>
-
-          <BlockButton onClick={reset}>Reset Application</BlockButton>
+          <ResetButton />
         </SettingsSurface>
         <VersionWrapper>
-          <CodeBranchIcon color={useTheme().colors.subduedText} />
+          <CodeBranchIcon color={theme.colors.subduedText} />
           <Faded>{versionString}</Faded>
         </VersionWrapper>
       </SettingsColumn>

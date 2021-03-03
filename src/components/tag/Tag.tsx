@@ -1,31 +1,18 @@
-import React, { KeyboardEventHandler, MouseEventHandler, useCallback, useEffect, useState } from 'react'
-import api from '../../misc/api'
+import React, { KeyboardEventHandler, MouseEventHandler, useCallback, useMemo, useState } from 'react'
 import TypeIcon from '../../icons/TypeIcon'
 import { ArrowDown } from '../../icons/Icons'
 import TagDataClass from '../../data/Tag'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectActiveTags, selectAliasesByTagName } from '../../redux/selectors'
-import { addAliases, addTag, removeTag } from '../../redux/actions'
+import { addTag, removeTag } from '../../redux/actions'
 import useToggle from '../../hooks/useToggle'
 import TagWrapper from './TagWrapper'
 import TagName from './TagName'
 import { Modifier } from '../../data/types'
 import AliasesList from './AliasesList'
 
-/**
- * Same data as a tag but different names
- */
-type TagLike = {
-  name: string
-  posts: number
-}
-
-interface TagProps extends TagDataClass {
-  loadAliases: boolean
-}
-
-export default function Tag(props: TagProps) {
-  const { name, count, modifier = Modifier.PLUS, types, loadAliases } = props
+export default function Tag(props: TagDataClass) {
+  const { name, count, modifier = Modifier.PLUS, types } = props
 
   const [tagRef, setTagRef] = useState<HTMLDivElement | null>(null)
   const [collapsed, toggleCollapsed, resetCollapsed] = useToggle(true)
@@ -34,21 +21,26 @@ export default function Tag(props: TagProps) {
   const activeTags = useSelector(selectActiveTags)
   const aliases = useSelector(selectAliasesByTagName(name))
 
+  const filteredAliases = useMemo(() => (aliases ? aliases.filter((alias) => !(alias.name in activeTags)) : []), [
+    activeTags,
+    aliases,
+  ])
+
   const isActive = name in activeTags
-  const hasAliases = aliases?.length > 0
+  const hasAliases = filteredAliases?.length > 0
 
   const handleClick = useCallback(
     (event: React.MouseEvent | React.KeyboardEvent) => {
       event.stopPropagation()
       const tag = new TagDataClass(name, types, count, modifier)
 
-      if (name in activeTags) {
+      if (isActive) {
         dispatch(removeTag(tag))
       } else {
         dispatch(addTag(tag))
       }
     },
-    [activeTags, count, dispatch, modifier, name, types]
+    [count, dispatch, isActive, modifier, name, types]
   )
 
   const handleArrowClick: MouseEventHandler = useCallback(
@@ -68,17 +60,6 @@ export default function Tag(props: TagProps) {
     [handleClick]
   )
 
-  useEffect(() => {
-    if (loadAliases && activeTags[name])
-      api.getAliases(name).then((newAliases: TagLike[]) => {
-        newAliases.sort((a, b) => b.posts - a.posts)
-        const filtered = newAliases
-          .filter((alias) => !activeTags[alias.name])
-          .map((alias) => new TagDataClass(alias.name, [], alias.posts))
-        dispatch(addAliases(filtered, name))
-      })
-  }, [loadAliases, name, activeTags, dispatch])
-
   return (
     <TagWrapper
       active={isActive}
@@ -90,10 +71,10 @@ export default function Tag(props: TagProps) {
     >
       <TypeIcon types={types} />
       <TagName modifier={modifier} name={name} count={count} />
-      {loadAliases && hasAliases && (
+      {hasAliases && (
         <>
           <ArrowDown onClick={handleArrowClick} />
-          {!collapsed && tagRef && <AliasesList aliases={aliases} modifier={modifier} parentRef={tagRef} />}
+          {!collapsed && tagRef && <AliasesList aliases={filteredAliases} modifier={modifier} parentRef={tagRef} />}
         </>
       )}
     </TagWrapper>

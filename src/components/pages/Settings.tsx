@@ -62,6 +62,8 @@ function yesOrNo(value: boolean) {
 }
 
 export default function Settings() {
+  const theme = useTheme()
+
   const [resultsLayout, setResultsLayout] = usePreference(PreferenceKey.RESULTS_LAYOUT)
   const [pageSize, setPageSize] = usePreference(PreferenceKey.PAGE_SIZE)
   const [originals, setOriginals] = usePreference(PreferenceKey.ORIGINALS)
@@ -72,9 +74,10 @@ export default function Settings() {
   const toggleOriginals = useCallback(() => setOriginals(!originals), [originals, setOriginals])
 
   const onChangeResultsLayout = useCallback((event) => setResultsLayout(event.target.value), [setResultsLayout])
-  const theme = useTheme()
 
   const version = getVersion()
+
+  // Some browsers fail to get environment variables
   const versionString = version === 'unknown' ? 'Latest Release' : `Version ${version}`
 
   return (

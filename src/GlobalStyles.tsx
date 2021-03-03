@@ -35,32 +35,36 @@ export default createGlobalStyle(
       text-decoration: none;
     }
 
-    ::-webkit-scrollbar {
-      height: 8px;
-
-      :hover {
-        background: ${theme.colors.layerBg};
-      }
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    /* Handle */
-    :hover {
+    // Not a touch device
+    // Touch devices have nice scrollbars by default
+    @media (not(pointer: coarse)) {
       ::-webkit-scrollbar {
-        background: ${theme.colors.layerBg};
+        height: 8px;
+
+        :hover {
+          background: ${theme.colors.layerBg};
+        }
       }
-    }
 
-    ::-webkit-scrollbar-thumb {
-      background: ${theme.colors.layerBg};
-      border-radius: 1000px;
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
 
+      /* Handle */
       :hover {
-        background: ${theme.colors.layerBgHighlight};
+        ::-webkit-scrollbar {
+          background: ${theme.colors.layerBg};
+        }
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: ${theme.colors.layerBg};
+        border-radius: 1000px;
+
+        :hover {
+          background: ${theme.colors.layerBgHighlight};
+        }
       }
     }
   `

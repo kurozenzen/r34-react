@@ -8,7 +8,7 @@ const Placeholder = styled.div(
   ({ theme }) => css`
     ${flexColumn()}
     ${flexColumnGap(theme.dimensions.hugeSpacing)}
-      align-items: center;
+    align-items: center;
     max-width: ${theme.dimensions.bodyWidth};
     margin: auto;
 

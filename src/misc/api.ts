@@ -1,5 +1,7 @@
+import PostDataClass from '../data/Post'
 import TagDataClass from '../data/Tag'
-import { Modifier } from '../data/types'
+import { Modifier, TagLike } from '../data/types'
+import { preparePost } from './prepare'
 
 export class API {
   static defaultPageSize = 20
@@ -16,9 +18,11 @@ export class API {
   }
 
   async getTags(searchTerm: string, limit: number = API.defaultPageSize) {
-    const res = await fetch(`${this.activeApi}/tags?limit=${limit}&name=${searchTerm}*&order_by=posts`)
+    const tags: TagLike[] = await (
+      await fetch(`${this.activeApi}/tags?limit=${limit}&name=${searchTerm}*&order_by=posts`)
+    ).json()
 
-    return await res.json()
+    return tags
   }
 
   async getPosts(
@@ -27,15 +31,18 @@ export class API {
     pageNumber = 0,
     minScore = 0
   ) {
-    const res = await fetch(this.buildPostUrl(pageNumber, tags, minScore, limit))
+    const res = await (await fetch(this.buildPostUrl(pageNumber, tags, minScore, limit))).json()
 
-    return await res.json()
+    return {
+      posts: res.posts.map(preparePost) as PostDataClass[],
+      count: Number(res.count),
+    }
   }
 
   async getAliases(tagName: string) {
-    const res = await fetch(`${this.activeApi}/alias/${tagName}`)
+    const aliases: TagLike[] = await (await fetch(`${this.activeApi}/alias/${tagName}`)).json()
 
-    return await res.json()
+    return aliases
   }
 
   buildPostUrl(

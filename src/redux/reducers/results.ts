@@ -20,10 +20,10 @@ const addPosts = (state: ResultsState, posts: PostDataClass[]) =>
     draft.pageNumber = state.pageNumber + 1
   })
 
-const setPosts = (state: ResultsState, posts: PostDataClass[], postCount: string, pageNumber: number = 0) =>
+const setPosts = (state: ResultsState, posts: PostDataClass[], postCount: number, pageNumber: number = 0) =>
   produce(state, (draft) => {
     draft.posts = posts
-    draft.count = Number(postCount)
+    draft.count = postCount
     draft.pageNumber = pageNumber
   })
 

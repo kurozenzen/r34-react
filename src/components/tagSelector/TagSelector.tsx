@@ -12,6 +12,7 @@ import { selectTagSuggestionCount } from '../../redux/selectors'
 import useThrottledEffect from '../../hooks/useThrottledEffect'
 import useModifier from '../../hooks/useModifier'
 import { serializeTagname } from '../../misc/formatting'
+import { TagLike } from '../../data/types'
 
 export const TagSelectorWrapper = styled.div(
   (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: ThemeType }) => css`
@@ -39,7 +40,7 @@ export default function TagSelector() {
   const dispatch = useDispatch()
 
   const [value, setValue] = useState('')
-  const [suggestions, setSuggestions] = useState([])
+  const [suggestions, setSuggestions] = useState<TagLike[]>([])
   const [tagSelectorRef, setTagSelectorRef] = useState<HTMLDivElement | null>(null)
   const [modifier, nextModifier] = useModifier()
 
@@ -65,15 +66,15 @@ export default function TagSelector() {
   )
 
   useThrottledEffect(
-    () => {
+    async () => {
       if (!value) {
         setSuggestions([])
         return
       }
 
-      api.getTags(serializeTagname(value), tagSuggestionsCount).then((newSuggestions) => {
-        setSuggestions(newSuggestions)
-      })
+      const newSuggestions = await api.getTags(serializeTagname(value), tagSuggestionsCount)
+
+      setSuggestions(newSuggestions)
     },
     300,
     [tagSuggestionsCount, value]
@@ -81,24 +82,23 @@ export default function TagSelector() {
 
   const onAddClick = useCallback(() => {
     if (value && value.trim()) {
-      const suggestion = suggestions.find((s: { name: string }) => s.name === value) || {}
+      const sanitizedTagname = serializeTagname(value)
+      const suggestion = suggestions.find((s) => s.name === sanitizedTagname) || {}
       activateTag({ ...suggestion, name: value })
     }
   }, [value, activateTag, suggestions])
-
-  const onSuggestionClick = useCallback((entry) => activateTag(entry), [activateTag])
 
   return (
     <TagSelectorWrapper ref={setTagSelectorRef} closed={suggestions.length === 0}>
       <ModifierButton onClick={nextModifier} aria-label='Tag Modifier'>
         {modifier}
       </ModifierButton>
-      <TagInput value={value} setValue={setValue} />
+      <TagInput value={value} setValue={setValue} onSubmit={onAddClick} />
       <AddButton onClick={onAddClick} aria-label='Add Tag'>
         Add
       </AddButton>
       {suggestions.length > 0 && (
-        <DropdownList tagSelectorRef={tagSelectorRef} entries={suggestions} onClick={onSuggestionClick} />
+        <DropdownList tagSelectorRef={tagSelectorRef} entries={suggestions} onClick={activateTag} />
       )}
     </TagSelectorWrapper>
   )

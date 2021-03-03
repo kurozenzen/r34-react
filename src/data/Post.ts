@@ -33,10 +33,10 @@ export default class PostDataClass {
   constructor(
     id: number,
     score: number,
-    rating: string,
+    rating: RatingType,
     source: string,
     tags: TagDataClass[],
-    media_type: string,
+    media_type: PostType,
     media_src: any,
     file_url: any,
     thumbnail_src: string,
@@ -56,11 +56,11 @@ export default class PostDataClass {
     this.id = id
 
     this.score = score
-    this.rating = rating as RatingType
+    this.rating = rating
     this.source = source
     this.tags = tags
 
-    this.media_type = media_type as PostType
+    this.media_type = media_type
     this.small_src = media_src
     this.big_src = file_url
     this.thumbnail_src = thumbnail_src

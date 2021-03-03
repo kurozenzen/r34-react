@@ -21,12 +21,12 @@ interface TagListProps {
 }
 
 export default function TagList(props: TagListProps) {
-  const { tags, loadAliases = false, className } = props
+  const { tags, className } = props
 
   return (
     <TagListWrapper className={className}>
       {Object.entries(tags).map(([key, tag]) => (
-        <Tag key={key} {...tag} loadAliases={loadAliases} />
+        <Tag key={key} {...tag} />
       ))}
     </TagListWrapper>
   )

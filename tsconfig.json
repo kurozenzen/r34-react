@@ -14,8 +14,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src", "styled.d.ts"]
 }

@@ -12,6 +12,7 @@ import { selectFullsceenState, selectFullScreenIndex, selectPostById, selectPost
 import { enterFullscreen, exitFullscreen, setFullScreenPost } from '../../redux/actions'
 import PostDataClass from '../../data/Post'
 import { download } from '../../data/utils'
+import ProgressBar from './ProgressBar'
 
 const Wrapper = styled.div(
   (props: { isVisible: boolean }) => css`
@@ -30,11 +31,11 @@ const Wrapper = styled.div(
   `
 )
 
-const ProgressBar = styled.div(
+const VideoProgressBar = styled(ProgressBar)(
   (props) => css`
     grid-area: 4/1/4/4;
     height: 5px;
-    background-color: ${props.theme.colors.accentColor};
+    overflow: show;
   `
 )
 
@@ -162,6 +163,15 @@ function Overlay(props: OverlayProps) {
     selectPostAt(selectedIndex - 1)
   }, [selectPostAt, selectedIndex])
 
+  const onSeek = useCallback(
+    (value: number) => {
+      if (mediaRef) {
+        mediaRef.currentTime = value
+      }
+    },
+    [mediaRef]
+  )
+
   return (
     <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible}>
       <FullScreenButton onClick={onExpandClick} aria-label='Open Fullscreen'>
@@ -185,7 +195,9 @@ function Overlay(props: OverlayProps) {
           <PlayButton onClick={togglePlay} aria-label='Play/Pause'>
             {isPaused ? <PlayIcon color='white' size={50} /> : <PauseIcon color='white' size={50} />}
           </PlayButton>
-          {!!duration && !!currentTime && <ProgressBar style={{ width: `${(currentTime / duration) * 100}%` }} />}
+          {!!duration && !!currentTime && (
+            <VideoProgressBar value={currentTime} maxValue={duration} onChange={onSeek} />
+          )}
 
           {mediaRef && !isNaN(mediaRef.duration) && <LengthDisplay>{formatDuration(mediaRef.duration)}</LengthDisplay>}
           {externalSrc.includes('.gif') && <LengthDisplay>gif</LengthDisplay>}

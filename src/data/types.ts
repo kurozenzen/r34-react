@@ -80,3 +80,12 @@ export enum PreferenceKey {
  * One-time definition of an empty function. Reusing this improves React's performance as it does not break memoization.
  */
 export const NO_OP = () => {}
+
+/**
+ * Same data as a tag but different names
+ */
+export type TagLike = {
+  name: string
+  posts: number
+  types: TagType[]
+}

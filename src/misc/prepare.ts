@@ -1,12 +1,12 @@
 import PostDataClass from '../data/Post'
 import TagDataClass from '../data/Tag'
-import { TagType, Modifier, RatingType } from '../data/types'
+import { TagType, Modifier, RatingType, PostType } from '../data/types'
 
 /**
  * A tag as received from the backend.
  * All strings
  */
-interface DirtyTag {
+export interface DirtyTag {
   name: string
   types: string[]
   count: string
@@ -17,7 +17,7 @@ interface DirtyTag {
  * A post as received from the backend.
  * All strings
  */
-interface DirtyPost {
+export interface DirtyPost {
   id: string
   type: string
   score: string
@@ -83,7 +83,7 @@ export function preparePost(post: DirtyPost) {
     rating as RatingType,
     source,
     tags ? tags.map((t) => new TagDataClass(t)) : [],
-    type,
+    type as PostType,
     sample_url,
     file_url,
     preview_url,

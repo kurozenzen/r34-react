@@ -9,6 +9,7 @@ import LayoutElementProps from '../layout/LayoutElementProps'
 import { NO_OP } from '../../data/types'
 import useToggle from '../../hooks/useToggle'
 import { layer } from '../../styled/mixins'
+import { getUrlParameter } from '../player/utils'
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
@@ -62,7 +63,11 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
 
   const originals = useSelector(selectOriginals)
 
-  const media_src = useMemo(() => getCorrectSource(originals, big_src, small_src), [big_src, originals, small_src])
+  const media_src = useMemo(() => getUrlParameter(getCorrectSource(originals, big_src, small_src)), [
+    big_src,
+    originals,
+    small_src,
+  ])
 
   // re-measure when collapsed state changes
   useEffect(() => {

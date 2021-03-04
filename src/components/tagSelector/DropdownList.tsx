@@ -22,7 +22,7 @@ function sizeAndPosition(tagSelector: HTMLDivElement | null) {
   return ''
 }
 
-export const ListWrapper = styled.div(
+const ListWrapper = styled.div(
   (props: { tagSelectorRef: HTMLDivElement | null; theme: ThemeType }) => css`
     ${flexColumn()}
     ${flexColumnGap('1px')}

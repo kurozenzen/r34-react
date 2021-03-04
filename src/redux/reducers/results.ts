@@ -8,7 +8,7 @@ export interface ResultsState {
   count: number
 }
 
-export const initialResultsState: ResultsState = {
+const initialResultsState: ResultsState = {
   posts: [],
   pageNumber: 0,
   count: 0,

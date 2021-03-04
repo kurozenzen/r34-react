@@ -14,7 +14,7 @@ import useModifier from '../../hooks/useModifier'
 import { serializeTagname } from '../../misc/formatting'
 import { TagLike } from '../../data/types'
 
-export const TagSelectorWrapper = styled.div(
+const TagSelectorWrapper = styled.div(
   (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: ThemeType }) => css`
     display: flex;
     background: white;

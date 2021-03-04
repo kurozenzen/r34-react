@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 import { defaultBorder, dropShadow, primaryHover } from '../../styled/mixins'
 
-export const TextButton = styled.button(
+const TextButton = styled.button(
   ({ theme }) => css`
     height: ${theme.dimensions.blockHeight};
     padding: 0 ${theme.dimensions.bigSpacing};

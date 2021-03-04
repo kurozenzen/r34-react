@@ -10,6 +10,7 @@ import { NO_OP } from '../../data/types'
 import useToggle from '../../hooks/useToggle'
 import { layer } from '../../styled/mixins'
 import { getUrlParameter } from '../player/utils'
+import { getCorrectSource } from '../../data/utils'
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
@@ -35,10 +36,6 @@ const PostWrapper = styled.div(
     ${layer({ theme })}
   `
 )
-
-export function getCorrectSource(loadOriginal: boolean, big_src: string, small_src: string) {
-  return loadOriginal ? big_src : small_src
-}
 
 export default function Post(props: PostDataClass & LayoutElementProps) {
   const {

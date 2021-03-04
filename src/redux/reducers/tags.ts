@@ -8,7 +8,7 @@ export interface TagsState {
   aliases: Record<string, TagDataClass[]>
 }
 
-export const initialTagsState: TagsState = {
+const initialTagsState: TagsState = {
   active: {},
   aliases: {},
 }

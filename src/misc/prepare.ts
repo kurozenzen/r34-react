@@ -6,7 +6,7 @@ import { TagType, Modifier, RatingType, PostType } from '../data/types'
  * A tag as received from the backend.
  * All strings
  */
-export interface DirtyTag {
+interface DirtyTag {
   name: string
   types: string[]
   count: string
@@ -17,7 +17,7 @@ export interface DirtyTag {
  * A post as received from the backend.
  * All strings
  */
-export interface DirtyPost {
+interface DirtyPost {
   id: string
   type: string
   score: string

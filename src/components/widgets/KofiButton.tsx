@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { kofiWiggle } from '../../styled/animations'
 
 const Container = styled.div`
   display: inline-block;
@@ -96,7 +97,7 @@ const Image = styled.img`
     height: 15px !important;
     width: 22px !important;
     display: initial;
-    animation: kofi-wiggle 3s infinite;
+    animation: ${kofiWiggle} 3s infinite;
   }
 `
 

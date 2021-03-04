@@ -73,3 +73,10 @@ export function getVersion() {
 
   return 'unknown'
 }
+
+/**
+ * Returns the original or the sample based on loadOriginal
+ */
+export function getCorrectSource(loadOriginal: boolean, big_src: string, small_src: string) {
+  return loadOriginal ? big_src : small_src
+}

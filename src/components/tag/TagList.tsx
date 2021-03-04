@@ -4,7 +4,7 @@ import TagDataClass from '../../data/Tag'
 import { flexRowGap, flexColumnGap } from '../../styled/mixins'
 import Tag from './Tag'
 
-export const TagListWrapper = styled.div(
+const TagListWrapper = styled.div(
   ({ theme }) => css`
     display: inline-flex;
     flex-wrap: wrap;

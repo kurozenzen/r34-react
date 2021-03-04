@@ -3,7 +3,7 @@ import TagDataClass from '../data/Tag'
 import { Modifier, TagLike } from '../data/types'
 import { preparePost } from './prepare'
 
-export class API {
+class API {
   static defaultPageSize = 20
   static apiUrl1 = 'https://r34-json.herokuapp.com'
   static apiUrl2 = 'https://r34-api-clone.herokuapp.com'

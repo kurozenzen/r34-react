@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 import PostDataClass from '../../data/Post'
 import { NO_OP } from '../../data/types'
+import { getCorrectSource } from '../../data/utils'
 import useAction from '../../hooks/useAction'
 import useThrottledEffect from '../../hooks/useThrottledEffect'
 import { getMoreResults } from '../../redux/actions'
@@ -14,7 +15,6 @@ import {
   selectPosts,
 } from '../../redux/selectors'
 import Player from '../player/Player'
-import { getCorrectSource } from '../post/Post'
 
 const FullScreenDiv = styled.div(
   ({ theme }) => css`

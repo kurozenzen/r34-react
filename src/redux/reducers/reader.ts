@@ -6,7 +6,7 @@ export interface ReaderState {
   postId: number
 }
 
-export const initialReaderState: ReaderState = {
+const initialReaderState: ReaderState = {
   isEnabled: false,
   postId: 0,
 }

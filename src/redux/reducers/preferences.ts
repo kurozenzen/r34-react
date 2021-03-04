@@ -14,7 +14,7 @@ export interface PreferencesState {
   pageSize: number
 }
 
-export const initialPreferencesState: PreferencesState = {
+const initialPreferencesState: PreferencesState = {
   infinite: true,
   rated: false,
   ratedThreshold: 1,

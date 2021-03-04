@@ -4,7 +4,7 @@ import { NO_OP } from '../data/types'
 
 import { ThemeType } from '../misc/theme'
 
-export const StyledIcon = styled.i(
+const StyledIcon = styled.i(
   (props: { color: string; size: number; theme: ThemeType }) => css`
     color: ${props.color};
     min-width: ${props.size}px;
@@ -58,14 +58,6 @@ export const CopyrightIcon = styled(Icon).attrs({
   icon: 'fa-copyright',
 })``
 
-export const PlusIcon = styled(Icon).attrs({
-  icon: 'fa-plus-circle',
-})``
-
-export const MinusIcon = styled(Icon).attrs({
-  icon: 'fa-minus-circle',
-})``
-
 export const CloseIcon = styled(Icon).attrs({
   icon: 'fa-times',
 })``
@@ -114,27 +106,15 @@ export const PauseIcon = memo(
   })``
 )
 
-export const ArrowUp = styled(Icon).attrs({
-  icon: 'fa-caret-up',
-})``
-
 export const ArrowDown = styled(Icon).attrs({
   icon: 'fa-caret-down',
-})``
-
-export const ArrowLeft = styled(Icon).attrs({
-  icon: 'fa-caret-left',
-})``
-
-export const ArrowRight = styled(Icon).attrs({
-  icon: 'fa-caret-right',
 })``
 
 export const CodeBranchIcon = styled(Icon).attrs({
   icon: ' fa-code-branch',
 })``
 
-export const PixivIcon = (props: Omit<IconProps, 'icon'>) => {
+const PixivIcon = (props: Omit<IconProps, 'icon'>) => {
   const { color = 'black', size = 14, onClick = NO_OP } = props
 
   return (

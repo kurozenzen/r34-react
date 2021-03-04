@@ -10,7 +10,7 @@ import { NO_OP } from '../../data/types'
 import LayoutElementProps from './LayoutElementProps'
 import { HorizontalLine } from '../common/Lines'
 import styled, { css } from 'styled-components'
-import FlexImage from '../player/FlexImage'
+import FlexImage from '../styled/FlexImage'
 
 const Div = styled.div(
   ({ theme }) => css`
@@ -51,7 +51,7 @@ export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: 
         {aliases.length > 0 && (
           <>
             <p>How about some of these?</p>
-            <TagList tags={aliasesForRendering} padding />
+            <TagList tags={aliasesForRendering} detailed />
           </>
         )}
       </StyledSurface>

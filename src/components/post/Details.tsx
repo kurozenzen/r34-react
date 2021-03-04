@@ -49,7 +49,7 @@ export default function Details(props: DetailsProps) {
         {!!score && <Score value={score} />}
         {!!source && <Source value={source} />}
       </Bar>
-      <DetailsTagList tags={tagsForRendering} loadAliases={false} />
+      <DetailsTagList tags={tagsForRendering} detailed={false} />
     </>
   )
 }

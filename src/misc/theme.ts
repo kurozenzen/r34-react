@@ -20,8 +20,8 @@ const theme = {
     layerBgHighlight: '#ffffff22',
   },
   shadow: {
-    box: 'box-shadow: 0 0 8px #000;',
-    drop: 'drop-shadow(0 0 4px #000)',
+    radius: '4px',
+    color: '#000',
   },
   timings: {
     transitionTime: '0.2s',

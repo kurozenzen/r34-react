@@ -23,8 +23,8 @@ declare module 'styled-components' {
       layerBgHighlight: string
     }
     shadow: {
-      box: string
-      drop: string
+      radius: string
+      color: string
     }
     timings: {
       transitionTime: string

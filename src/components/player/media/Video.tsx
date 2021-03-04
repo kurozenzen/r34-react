@@ -2,12 +2,12 @@ import React, { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { NO_OP } from '../../../data/types'
 import { selectPreloadVideos } from '../../../redux/selectors'
-import FlexVideo from '../FlexVideo'
 import MediaProps from './MediaProps'
 import Overlay from '../Overlay'
+import { PostVideo } from './StyledMedia'
 
 export default function Video(props: MediaProps) {
-  const { src, onLoad = NO_OP, externalSrc, postId, width, height } = props
+  const { src, onLoad = NO_OP, postId, width, height } = props
 
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null)
 
@@ -43,7 +43,7 @@ export default function Video(props: MediaProps) {
 
   return (
     <>
-      <FlexVideo
+      <PostVideo
         controls={false}
         loop
         preload={preload}
@@ -51,9 +51,8 @@ export default function Video(props: MediaProps) {
         onLoadedMetadata={onLoad}
         width={width}
         height={height}
-      >
-        <source src={src} />
-      </FlexVideo>
+        src={src}
+      />
       <Overlay
         mediaRef={videoRef}
         isPaused={videoRef ? videoRef.paused : true}
@@ -61,7 +60,6 @@ export default function Video(props: MediaProps) {
         duration={videoRef?.duration}
         postId={postId}
         togglePlay={togglePlay}
-        externalSrc={externalSrc}
         isPlayable
       />
     </>

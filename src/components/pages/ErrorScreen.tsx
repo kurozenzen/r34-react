@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ResetButton from '../widgets/ResetButton'
 import outOfResultsPicture from '../../icons/OutOfResults.png'
-import FlexImage from '../player/FlexImage'
+import FlexImage from '../styled/FlexImage'
 import theme from '../../misc/theme'
 import GlobalStyles from '../../GlobalStyles'
 

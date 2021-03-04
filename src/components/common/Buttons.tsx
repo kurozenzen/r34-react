@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { defaultBorder, primaryHover } from '../../styled/mixins'
+import { defaultBorder, dropShadow, primaryHover } from '../../styled/mixins'
 
 export const TextButton = styled.button(
   ({ theme }) => css`
@@ -8,7 +8,7 @@ export const TextButton = styled.button(
     font-size: ${theme.fontSizes.content};
     ${defaultBorder({ theme })}
 
-    transition: all ${theme.timings.longTransitionTime} ease-in-out;
+    transition: all ${theme.timings.longTransitionTime} ease-out;
   `
 )
 
@@ -17,13 +17,13 @@ export const InvisButton = styled.button(
     background-color: transparent;
     border: none;
     padding: ${theme.dimensions.gutter};
-    filter: ${theme.shadow.drop};
+    ${dropShadow({ theme })}
 
     svg {
-      transition: all ${theme.timings.transitionTime} ease-in-out;
+      transition: all ${theme.timings.transitionTime} ease-out;
     }
 
-    :hover {
+    :active {
       svg {
         transform: scale(1.1);
       }
@@ -31,17 +31,17 @@ export const InvisButton = styled.button(
   `
 )
 
-export const RedButton = styled(TextButton)(
-  ({ theme }) => css`
-    ${primaryHover({ theme })}
-  `
-)
+export const RedButton = styled(TextButton)`
+  ${primaryHover}
+`
 
-export const BlockButton = styled(RedButton)(
-  ({ theme }) => css`
-    width: 100%;
-  `
-)
+export const BlockButton = styled(RedButton)`
+  width: 100%;
+
+  :active {
+    transform: scaleX(1.03) scaleY(1.1);
+  }
+`
 
 export const AddButton = styled(RedButton)(
   ({ theme }) => css`

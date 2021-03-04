@@ -1,13 +1,11 @@
-import styled, { css } from 'styled-components'
-import { gutter, layer } from '../../styled/mixins'
+import styled from 'styled-components'
+import { borderRadius, boxShadow, gutter, layer } from '../../styled/mixins'
 
-export default styled.div(
-  (props) => css`
-    display: grid;
-    ${gutter(props)}
-    ${layer(props)}
-    ${props.theme.shadow.box};
-    border-radius: ${props.theme.dimensions.borderRadius};
-    width: 100%;
-  `
-)
+export default styled.div`
+  display: grid;
+  ${gutter}
+  ${layer}
+  ${boxShadow}
+  ${borderRadius}
+  width: 100%;
+`

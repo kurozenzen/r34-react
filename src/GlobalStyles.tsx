@@ -13,7 +13,6 @@ export default createGlobalStyle(
 
       :focus {
         outline: none;
-        text-decoration: underline;
       }
     }
 
@@ -65,6 +64,12 @@ export default createGlobalStyle(
         :hover {
           background: ${theme.colors.layerBgHighlight};
         }
+      }
+
+      // Underline stuff that is focused on non-touch devices
+      // makes keyboard navigation clearer
+      :focus {
+        text-decoration: underline;
       }
     }
   `

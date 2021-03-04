@@ -1,23 +1,63 @@
-import React, { MouseEventHandler, useCallback, useState } from 'react'
-import styled from 'styled-components'
+import React, { ChangeEventHandler, MouseEventHandler, useCallback, useEffect, useState } from 'react'
+import styled, { css, DefaultTheme } from 'styled-components'
 
-const Progress = styled.div`
-  display: inline-block;
-  position: relative;
-  top: -9px;
-  background-color: ${(props) => props.theme.colors.accentColor};
-  height: 100%;
-`
+function thumbStyle() {
+  const commonStyle = css`
+    height: 16px;
+    width: 16px;
+    border-radius: 100px;
+    background: #ffffff;
+    cursor: pointer;
+  `
 
-const Handle = styled.div`
-  display: inline-block;
-  position: relative;
-  height: 13px;
-  width: 13px;
-  top: -5.5px;
-  left: -6.5px;
-  border-radius: 6.5px;
-  background-color: white;
+  return css`
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      ${commonStyle}
+    }
+
+    &::-moz-range-thumb {
+      ${commonStyle}
+    }
+
+    &::-ms-thumb {
+      ${commonStyle}
+    }
+  `
+}
+
+function trackStyle() {
+  return css`
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+    border-radius: 100px;
+    height: 6px;
+
+    &::-moz-range-progress {
+      background-color: ${(props) => props.theme.colors.accentColor};
+    }
+
+    &::-ms-fill-lower {
+      background-color: ${(props) => props.theme.colors.accentColor};
+    }
+  `
+}
+
+function dumbChromeProgressStyling({ chromePercentage, theme }: { chromePercentage: number; theme: DefaultTheme }) {
+  return css`
+    background-image: linear-gradient(
+      90deg,
+      ${theme.colors.accentColor} ${chromePercentage}%,
+      transparent ${chromePercentage}%
+    );
+  `
+}
+
+const Slider = styled.input`
+  ${trackStyle}
+  ${thumbStyle}
+    ${dumbChromeProgressStyling}
 `
 
 interface ProgressBarProps {
@@ -30,21 +70,41 @@ interface ProgressBarProps {
 export default function ProgressBar(props: ProgressBarProps) {
   const { value, maxValue, className, onChange } = props
 
-  const [barRef, setBarRef] = useState<HTMLDivElement | null>(null)
+  const [internalValue, setInternalValue] = useState(value)
 
-  const handleClick: MouseEventHandler = useCallback(
+  const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => {
-      event.stopPropagation()
-      if (barRef) {
-        onChange(((event.clientX - barRef.offsetLeft) / barRef.clientWidth) * maxValue)
-      }
+      console.log('update')
+      const newValue = Number(event.target.value)
+      setInternalValue(newValue)
+      onChange(newValue)
     },
-    [barRef, maxValue, onChange]
+    [onChange]
   )
+
+  const handleClick: MouseEventHandler = useCallback((event) => {
+    event.stopPropagation()
+  }, [])
+
+  // This hook ensures the parent component can control the state
+  useEffect(() => {
+    if (value !== internalValue) {
+      setInternalValue(value)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value])
+
   return (
-    <div ref={setBarRef} className={className} onClick={handleClick}>
-      <Progress style={{ width: `${(value / maxValue) * 100}%` }} />
-      <Handle tabIndex={0} />
-    </div>
+    <Slider
+      type='range'
+      step={0.034}
+      min={0}
+      max={maxValue}
+      value={internalValue}
+      onChange={handleChange}
+      className={className}
+      onClick={handleClick}
+      chromePercentage={Math.round((internalValue / maxValue) * 100) + 1}
+    />
   )
 }

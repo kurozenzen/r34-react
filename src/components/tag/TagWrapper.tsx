@@ -15,7 +15,7 @@ const switchingColors = (active: boolean, theme: ThemeType) => {
     color: ${fg};
     background-color: ${bg};
     border: ${theme.colors.accentColor} ${theme.dimensions.borderWidth} solid;
-    transition: background-color 0.4s ease-in-out;
+    transition: all ${theme.timings.transitionTime} ease-out;
 
     svg {
       color: ${fg};
@@ -32,6 +32,10 @@ const switchingColors = (active: boolean, theme: ThemeType) => {
       svg {
         color: ${theme.colors.backgroundColor2};
       }
+    }
+
+    :active {
+      transform: scale(1.05);
     }
   `
 }

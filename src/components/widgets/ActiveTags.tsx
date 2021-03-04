@@ -17,5 +17,5 @@ export default function ActiveTags(props: ActiveTagsProps) {
   // This is used to re-measure the height
   useEffect(() => onChange(), [onChange, activeTags])
 
-  return numberOfActiveTags > 0 ? <TagList tags={activeTags} loadAliases /> : null
+  return numberOfActiveTags > 0 ? <TagList tags={activeTags} detailed={true} /> : null
 }

@@ -89,6 +89,7 @@ export default function Help() {
                 count: 1020,
               },
             }}
+            detailed
           />
           <HorizontalLine />
           <p>

@@ -40,8 +40,8 @@ const Icon = (props: IconProps) => {
   }
 
   return (
-    <div onClick={onClick}>
-      <StyledIcon className={`${prefix} ${icon} ${className}`} color={color} size={size} />
+    <div onClick={onClick} className={className}>
+      <StyledIcon className={`${prefix} ${icon}`} color={color} size={size} />
     </div>
   )
 }

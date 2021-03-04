@@ -12,7 +12,7 @@ export function defaultBorder({ theme }: PropsWithTheme) {
   return css`
     border-color: ${theme.colors.accentColor};
     border-width: ${theme.dimensions.borderWidth};
-    border-radius: ${theme.dimensions.borderRadius};
+    ${borderRadius({ theme })}
     border-style: solid;
   `
 }
@@ -23,7 +23,7 @@ export function defaultBorder({ theme }: PropsWithTheme) {
 export function layer({ theme }: PropsWithTheme) {
   return css`
     background-color: ${theme.colors.layerBg};
-    ${theme.shadow.box}
+    ${boxShadow({ theme })}
   `
 }
 
@@ -177,4 +177,31 @@ export function preserveAspectRatio({ width, height }: Partial<Size>) {
         max-width: 100%;
         height: auto;
       `
+}
+
+export function borderRadius({ theme }: PropsWithTheme) {
+  return css`
+    border-radius: ${theme.dimensions.borderRadius};
+  `
+}
+
+export function boxShadow({ theme }: PropsWithTheme) {
+  return css`
+    box-shadow: 0 0 ${theme.shadow.radius} ${theme.shadow.color};
+  `
+}
+
+export function dropShadow({ theme }: PropsWithTheme) {
+  return css`
+    filter: drop-shadow(0 0 ${theme.shadow.radius} ${theme.shadow.color});
+  `
+}
+
+export function mediaStyle() {
+  return css`
+    ${borderRadius}
+    ${boxShadow}
+    grid-area: 1/1/2/2;
+    z-index: 1;
+  `
 }

@@ -9,7 +9,7 @@ import theme from './misc/theme'
 import { persistor, store } from './redux/store'
 import { RouteName } from './data/types'
 import LoadingScreen from './components/pages/LoadingScreen'
-import AppCrashHandler from './components/features/AppCrashHandler'
+import ErrorBoundary from './components/features/ErrorBoundary'
 import ErrorScreen from './components/pages/ErrorScreen'
 
 const Help = React.lazy(() => import('./components/pages/Help'))
@@ -18,7 +18,7 @@ const Search = React.lazy(() => import('./components/pages/Search'))
 
 export default function App() {
   return (
-    <AppCrashHandler fallback={<ErrorScreen />}>
+    <ErrorBoundary fallback={<ErrorScreen />}>
       <ThemeProvider theme={theme}>
         <Provider store={store}>
           <PersistGate loading={<LoadingScreen />} persistor={persistor}>
@@ -42,6 +42,6 @@ export default function App() {
           </PersistGate>
         </Provider>
       </ThemeProvider>
-    </AppCrashHandler>
+    </ErrorBoundary>
   )
 }

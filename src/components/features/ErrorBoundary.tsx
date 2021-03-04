@@ -1,22 +1,21 @@
 import React from 'react'
 
-interface AppCrashHandlerProps {
+interface ErrorBoundaryProps {
   fallback: JSX.Element
   children: JSX.Element
 }
 
-interface AppCrashHandlerState {
+interface ErrorBoundaryState {
   hasError: boolean
 }
 
-export default class AppCrashHandler extends React.Component<AppCrashHandlerProps, AppCrashHandlerState> {
-  constructor(props: AppCrashHandlerProps) {
+export default class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
     super(props)
     this.state = { hasError: false }
   }
 
   static getDerivedStateFromError(error: Error) {
-    console.log('hi')
     return { hasError: true }
   }
 

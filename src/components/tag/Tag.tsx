@@ -10,9 +10,25 @@ import TagWrapper from './TagWrapper'
 import TagName from './TagName'
 import { Modifier } from '../../data/types'
 import AliasesList from './AliasesList'
+import styled, { css, DefaultTheme } from 'styled-components'
 
-export default function Tag(props: TagDataClass) {
-  const { name, count, modifier = Modifier.PLUS, types } = props
+const DropdownArrow = styled(ArrowDown)(
+  ({ collapsed, theme }: { collapsed: boolean; theme: DefaultTheme }) => css`
+    transition: all ${theme.timings.transitionTime} ease-out;
+    ${collapsed
+      ? css``
+      : css`
+          transform: rotate(180deg);
+        `}
+  `
+)
+
+interface TagProps extends TagDataClass {
+  detailed: boolean
+}
+
+export default function Tag(props: TagProps) {
+  const { name, count, modifier = Modifier.PLUS, types, detailed } = props
 
   const [tagRef, setTagRef] = useState<HTMLDivElement | null>(null)
   const [collapsed, toggleCollapsed, resetCollapsed] = useToggle(true)
@@ -69,11 +85,11 @@ export default function Tag(props: TagDataClass) {
       onMouseLeave={resetCollapsed}
       ref={setTagRef}
     >
-      <TypeIcon types={types} />
+      {detailed && <TypeIcon types={types} />}
       <TagName modifier={modifier} name={name} count={count} />
-      {hasAliases && (
+      {detailed && hasAliases && (
         <>
-          <ArrowDown onClick={handleArrowClick} />
+          <DropdownArrow onClick={handleArrowClick} collapsed={collapsed} />
           {!collapsed && tagRef && <AliasesList aliases={filteredAliases} modifier={modifier} parentRef={tagRef} />}
         </>
       )}

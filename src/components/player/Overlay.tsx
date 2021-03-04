@@ -3,7 +3,7 @@ import React, { MouseEventHandler, useCallback } from 'react'
 import { ExpandIcon, PlayIcon, PauseIcon, ExternalLinkIcon, CloseIcon, DownloadIcon } from '../../icons/Icons'
 import styled, { css } from 'styled-components'
 import useToggle from '../../hooks/useToggle'
-import { fadeOut } from '../styled/animations'
+import { fadeOut } from '../../styled/animations'
 import { InvisButton } from '../common/Buttons'
 import { NO_OP } from '../../data/types'
 import { formatDuration } from '../../misc/formatting'
@@ -14,36 +14,32 @@ import PostDataClass from '../../data/Post'
 import { download } from '../../data/utils'
 import ProgressBar from './ProgressBar'
 
-const Wrapper = styled.div(
-  (props: { isVisible: boolean }) => css`
-    grid-area: 1/1/2/2;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto 1fr auto auto;
-    z-index: 1;
+function overlayVisibility({ isVisible }: { isVisible: boolean }) {
+  return isVisible
+    ? css``
+    : css`
+        opacity: 0;
+        animation: ${fadeOut} 0.4s ease-in;
+      `
+}
 
-    ${!props.isVisible
-      ? css`
-          opacity: 0;
-          animation: ${fadeOut} 0.4s ease-in-out;
-        `
-      : ''};
-  `
-)
+const Wrapper = styled.div`
+  grid-area: 1/1/2/2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 1fr auto auto;
+  z-index: 1;
 
-const VideoProgressBar = styled(ProgressBar)(
-  (props) => css`
-    grid-area: 4/1/4/4;
-    height: 5px;
-    overflow: show;
-  `
-)
+  ${overlayVisibility};
+`
+
+const VideoProgressBar = styled(ProgressBar)`
+  grid-area: 4/1/4/4;
+`
 
 const OverlayButton = styled(InvisButton)(
-  (props) => css`
-    width: max-content;
-    height: max-content;
-    padding: ${props.theme.dimensions.bigSpacing};
+  ({ theme }) => css`
+    padding: ${theme.dimensions.bigSpacing};
   `
 )
 
@@ -60,6 +56,7 @@ const LinkList = styled.div`
 `
 
 const OpenExternalButton = styled(OverlayButton)``
+const DownloadButton = styled(OverlayButton)``
 
 const PlayButton = styled(OverlayButton)`
   grid-area: 2/2/3/3;
@@ -74,22 +71,19 @@ const NextButton = styled.div`
   grid-area: 2/3/3/4;
 `
 
-const DownloadButton = styled(OverlayButton)``
-
 const LengthDisplay = styled.span(
   (props) => css`
     grid-area: 3/3/4/4;
     place-self: end end;
     background: #00000080;
     border-radius: 4px;
-    padding: ${props.theme.dimensions.gutter};
-    margin: ${props.theme.dimensions.gutter};
+    padding: ${props.theme.dimensions.spacing};
+    margin: ${props.theme.dimensions.spacing};
   `
 )
 
 interface OverlayProps {
   postId: number
-  externalSrc: string
   togglePlay?: MouseEventHandler
   isPaused?: boolean
   isPlayable: boolean
@@ -105,7 +99,6 @@ function Overlay(props: OverlayProps) {
     isPlayable = false,
     currentTime = 0,
     duration = null,
-    externalSrc,
     mediaRef,
     postId,
   } = props
@@ -180,7 +173,7 @@ function Overlay(props: OverlayProps) {
 
       <LinkList>
         <OpenExternalButton>
-          <a href={externalSrc} target='_blank' rel='noopener noreferrer' aria-label='Open In New Tab'>
+          <a href={downloadSrc} target='_blank' rel='noopener noreferrer' aria-label='Open In New Tab'>
             <ExternalLinkIcon color='white' />
           </a>
         </OpenExternalButton>
@@ -200,7 +193,7 @@ function Overlay(props: OverlayProps) {
           )}
 
           {mediaRef && !isNaN(mediaRef.duration) && <LengthDisplay>{formatDuration(mediaRef.duration)}</LengthDisplay>}
-          {externalSrc.includes('.gif') && <LengthDisplay>gif</LengthDisplay>}
+          {downloadSrc.includes('.gif') && <LengthDisplay>GIF</LengthDisplay>}
         </>
       )}
 

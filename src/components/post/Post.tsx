@@ -32,7 +32,6 @@ const PostWrapper = styled.div(
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
     border-radius: ${theme.dimensions.borderRadius};
-    overflow: hidden;
     ${layer({ theme })}
   `
 )

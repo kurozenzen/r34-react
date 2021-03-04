@@ -15,18 +15,17 @@ export const TagListWrapper = styled.div(
 
 interface TagListProps {
   tags: Record<string, TagDataClass>
-  loadAliases?: boolean
-  padding?: boolean
   className?: string
+  detailed: boolean
 }
 
 export default function TagList(props: TagListProps) {
-  const { tags, className } = props
+  const { tags, className, detailed } = props
 
   return (
     <TagListWrapper className={className}>
       {Object.entries(tags).map(([key, tag]) => (
-        <Tag key={key} {...tag} />
+        <Tag key={key} detailed={detailed} {...tag} />
       ))}
     </TagListWrapper>
   )

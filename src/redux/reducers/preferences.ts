@@ -12,6 +12,7 @@ export interface PreferencesState {
   tagSuggestionsCount: number
   resultsLayout: ResultLayout
   pageSize: number
+  useCorsProxy: boolean
 }
 
 const initialPreferencesState: PreferencesState = {
@@ -24,6 +25,7 @@ const initialPreferencesState: PreferencesState = {
   tagSuggestionsCount: 20,
   resultsLayout: ResultLayout.INFINITE_COLUMN,
   pageSize: 20,
+  useCorsProxy: false,
 }
 
 function setOption<T extends PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {

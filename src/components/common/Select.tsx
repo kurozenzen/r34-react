@@ -35,6 +35,7 @@ interface SelectProps {
 
 export default function Select(props: SelectProps) {
   const { options, value, onChange } = props
+
   return (
     <Wrapper>
       <StyledSelect value={value} onChange={onChange}>

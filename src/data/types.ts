@@ -50,6 +50,7 @@ export enum RouteName {
   SEARCH = '/',
   HELP = '/help',
   SETTINGS = '/settings',
+  ABOUT = '/about',
 }
 
 /**
@@ -74,6 +75,7 @@ export enum PreferenceKey {
   TAG_SUGGESTIONS_COUNT = 'tagSuggestionsCount',
   RESULTS_LAYOUT = 'resultsLayout',
   PAGE_SIZE = 'pageSize',
+  USE_CORS_PROXY = 'useCorsProxy',
 }
 
 /**

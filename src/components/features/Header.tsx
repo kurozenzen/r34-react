@@ -68,6 +68,10 @@ export default function Header() {
         <LocationStyledLink current={current} to={RouteName.SETTINGS}>
           Settings
         </LocationStyledLink>
+        <VerticalLine />
+        <LocationStyledLink current={current} to={RouteName.ABOUT}>
+          About
+        </LocationStyledLink>
       </MenuBar>
     </HeaderWrapper>
   )

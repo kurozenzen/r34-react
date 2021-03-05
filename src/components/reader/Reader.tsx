@@ -13,6 +13,7 @@ import {
   selectFullScreenPost,
   selectOriginals,
   selectPosts,
+  selectUseCorsProxy,
 } from '../../redux/selectors'
 import Player from '../player/Player'
 
@@ -40,6 +41,7 @@ export default function Reader() {
   const isReaderOpen = useSelector(selectFullsceenState)
   const fullScreenPost = useSelector(selectFullScreenPost) as PostDataClass
   const fullScreenIndex = useSelector(selectFullScreenIndex)
+  const useCorsProxy = useSelector(selectUseCorsProxy)
 
   const loadMore = useAction(getMoreResults)
 
@@ -58,7 +60,7 @@ export default function Reader() {
   }
 
   const { media_type, small_src, big_src, thumbnail_src, id, width, height } = fullScreenPost
-  const media_src = getCorrectSource(originals, big_src, small_src)
+  const media_src = getCorrectSource(originals, useCorsProxy, big_src, small_src)
 
   return (
     <FullScreenDiv>

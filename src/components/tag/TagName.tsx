@@ -20,9 +20,7 @@ const modifierToStyle = {
 }
 
 const TagNameSpan = styled.span(
-  ({ modifier = Modifier.PLUS }: Pick<TagNameProps, 'modifier'>) => css`
-    ${modifierToStyle[modifier]};
-  `
+  ({ modifier = Modifier.PLUS }: Pick<TagNameProps, 'modifier'>) => modifierToStyle[modifier]
 )
 
 export default function TagName(props: TagNameProps) {

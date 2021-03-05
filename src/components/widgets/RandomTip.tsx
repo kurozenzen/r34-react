@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import styled, { css } from 'styled-components'
-import { Faded } from './Text'
+import { Faded } from '../common/Text'
 
 const tips = [
   'Try tapping the little plus in the tag search.',
@@ -16,6 +16,8 @@ const tips = [
   'I hope you are having a nice day!',
   'If a tag is ambiguous, it will have a little arrow on the right. Tapping it shows related tags.',
   'Tapping the icon in the top left of posts brings you into fullscreen mode.',
+  'Searching for nothing returns ALL posts ever made.',
+  'Results are sorted chronologically. Newest first.',
 ]
 
 const Span = styled(Faded)(

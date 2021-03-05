@@ -15,6 +15,7 @@ import ErrorScreen from './components/pages/ErrorScreen'
 const Help = React.lazy(() => import('./components/pages/Help'))
 const Settings = React.lazy(() => import('./components/pages/Settings'))
 const Search = React.lazy(() => import('./components/pages/Search'))
+const About = React.lazy(() => import('./components/pages/About'))
 
 export default function App() {
   return (
@@ -26,14 +27,17 @@ export default function App() {
             <HashRouter>
               <Suspense fallback={<LoadingScreen />}>
                 <Switch>
-                  <Route path={RouteName.HELP}>
+                  <Route exact path={RouteName.HELP}>
                     <Help />
                   </Route>
-                  <Route path={RouteName.SETTINGS}>
+                  <Route exact path={RouteName.SETTINGS}>
                     <Settings />
                   </Route>
-                  <Route path={RouteName.SEARCH}>
+                  <Route exact path={RouteName.SEARCH}>
                     <Search />
+                  </Route>
+                  <Route exact path={RouteName.ABOUT}>
+                    <About />
                   </Route>
                 </Switch>
               </Suspense>

@@ -1,4 +1,22 @@
 import TagDataClass from './Tag'
+import { PostType, MediaType } from './types'
+
+export const getMediaType = (type: PostType, src: string) => {
+  if (type === PostType.VIDEO) {
+    return MediaType.VIDEO
+  }
+
+  // can't use .endsWith because of queryString
+  if (src.includes('.gif')) {
+    return MediaType.GIF
+  }
+
+  return MediaType.PICTURE
+}
+
+export function getUrlParameter(src: string) {
+  return new URL(src).searchParams.get('url') || ''
+}
 
 /**
  * Converts a list of objects into a map.
@@ -67,6 +85,7 @@ export function download(url: string) {
  * Returns the current version of the project
  */
 export function getVersion() {
+  // Some browsers fail to get environment variables. In that case return unknown.
   if (process?.env?.REACT_APP_VERSION) {
     return process.env.REACT_APP_VERSION
   }
@@ -75,8 +94,18 @@ export function getVersion() {
 }
 
 /**
- * Returns the original or the sample based on loadOriginal
+ * Render ready version.
  */
-export function getCorrectSource(loadOriginal: boolean, big_src: string, small_src: string) {
-  return loadOriginal ? big_src : small_src
+export function getVersionString() {
+  const version = getVersion()
+
+  return version === 'unknown' ? 'Latest Release' : `Version ${version}`
+}
+
+/**
+ * Returns the correct source based on preferences
+ */
+export function getCorrectSource(loadOriginal: boolean, useCorsProxy: boolean, big_src: string, small_src: string) {
+  const source = loadOriginal ? big_src : small_src
+  return useCorsProxy ? source : getUrlParameter(source)
 }

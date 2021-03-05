@@ -10,20 +10,23 @@ import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
 import styled, { css } from 'styled-components'
 import { HorizontalLine } from '../common/Lines'
 import { Modifier, TagType } from '../../data/types'
-import { flexColumnWithGap, flexRowWithGap } from '../../styled/mixins'
-
-const FlexRow = styled.div(
-  ({ theme }) => css`
-    ${flexRowWithGap({ theme })}
-    justify-content: center;
-    padding: ${theme.dimensions.gutter};
-  `
-)
+import { defaultBorder, flexColumnWithGap } from '../../styled/mixins'
 
 const StyledOl = styled.ol`
   ${flexColumnWithGap}
   padding-left: 1rem;
 `
+
+const Disclaimer = styled.div(
+  ({ theme }) => css`
+    ${defaultBorder({ theme })}
+    background-color: ${theme.colors.accentColor}40;
+    padding: ${theme.dimensions.gutter};
+    p {
+      line-height: 20px;
+    }
+  `
+)
 
 export default function Help() {
   return (
@@ -31,11 +34,13 @@ export default function Help() {
       <Header />
       <FlexColumnWithSpacing>
         <Title>Help</Title>
-        <FlexRow>
-          <a href='https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md'>Report a bug</a>
-          or
-          <a href='https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md'>Request a feature</a>
-        </FlexRow>
+        <Disclaimer>
+          <p>
+            This is super outdated! But i don't have energy to rewrite it.. If you wanna know anything, just ask me.
+            Either by creating a GitHub issue or contacting me directly (see About)
+          </p>
+        </Disclaimer>
+
         <Surface>
           <Title>Searching for Tags</Title>
           <HorizontalLine />

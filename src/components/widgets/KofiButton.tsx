@@ -5,29 +5,27 @@ import { kofiWiggle } from '../../styled/animations'
 const Container = styled.div`
   display: inline-block;
   white-space: nowrap;
-  min-width: 160px;
 `
 
-const AButton = styled.a(
+export const AButton = styled.a(
   ({ theme }) => css`
     box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
-    line-height: 36px !important;
-    min-width: 150px;
-    display: inline-block !important;
+    line-height: 36px;
+    display: inline-block;
     background-color: ${theme.colors.layerBg};
-    padding: 2px 12px !important;
-    text-align: center !important;
-    border-radius: 3px;
+    padding: 2px 12px;
+    text-align: center;
+    border-radius: ${theme.dimensions.borderRadius};
     color: #fff;
     cursor: pointer;
     overflow-wrap: break-word;
     vertical-align: middle;
-    border: 0 none #fff !important;
+    border: 0 none #fff;
     font-family: 'Quicksand', Helvetica, Century Gothic, sans-serif !important;
     text-decoration: none;
     text-shadow: none;
-    font-weight: 700 !important;
-    font-size: 14px !important;
+    font-weight: 700;
+    font-size: 14px;
 
     :visited {
       color: #fff !important;

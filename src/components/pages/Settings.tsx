@@ -2,12 +2,11 @@ import React, { useCallback } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 import { supportsAspectRatio, supportsFlexGap, supportsGap, supportsObjectFit } from '../../data/browserUtils'
 import { ResultLayout, PreferenceKey } from '../../data/types'
-import { getVersion } from '../../data/utils'
+import { getVersionString } from '../../data/utils'
 import usePreference from '../../hooks/usePreference'
 import { CodeBranchIcon } from '../../icons/Icons'
-import { flexRowWithGap, gap, layer } from '../../styled/mixins'
+import { flexColumnWithGap, flexRowWithGap, gap } from '../../styled/mixins'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
-import { HorizontalLine } from '../common/Lines'
 import Select from '../common/Select'
 import Setting from '../common/Setting'
 import { SmallNumberInput } from '../common/SmallInput'
@@ -40,12 +39,21 @@ const SettingsColumn = styled(FlexColumnWithSpacing)`
   flex-grow: 1;
 `
 
-const StyledCode = styled.code(
+const Entry = styled.div`
+  ${flexColumnWithGap}
+`
+
+const StyledCode = styled.div(
   ({ theme }) => css`
-    ${layer({ theme })}
+    background: #00000040;
     ${gap(theme.dimensions.gutter)}
     padding: ${theme.dimensions.gutter};
     border-radius: ${theme.dimensions.borderRadius};
+
+    p,
+    span {
+      font-family: 'Courier New', Courier, monospace;
+    }
   `
 )
 
@@ -69,24 +77,22 @@ export default function Settings() {
   const [originals, setOriginals] = usePreference(PreferenceKey.ORIGINALS)
   const [preloadVideos, setPreloadVideos] = usePreference(PreferenceKey.PRELOAD_VIDEOS)
   const [tagSuggestionsCount, setTagSuggestionsCount] = usePreference(PreferenceKey.TAG_SUGGESTIONS_COUNT)
+  const [useCorsProxy, setUseCorsProxy] = usePreference(PreferenceKey.USE_CORS_PROXY)
 
   const togglePreloadVideos = useCallback(() => setPreloadVideos(!preloadVideos), [preloadVideos, setPreloadVideos])
   const toggleOriginals = useCallback(() => setOriginals(!originals), [originals, setOriginals])
+  const toggleUseCorsProxy = useCallback(() => setUseCorsProxy(!useCorsProxy), [useCorsProxy, setUseCorsProxy])
 
   const onChangeResultsLayout = useCallback((event) => setResultsLayout(event.target.value), [setResultsLayout])
 
-  const version = getVersion()
-
-  // Some browsers fail to get environment variables
-  const versionString = version === 'unknown' ? 'Latest Release' : `Version ${version}`
+  const versionString = getVersionString()
 
   return (
     <FlexColumn>
       <Header />
       <SettingsColumn>
+        <Title>General</Title>
         <SettingsSurface>
-          <Title>General</Title>
-          <HorizontalLine />
           <Setting title='Results Layout' description='Choose how your results are displayed.'>
             <Select options={layouts} value={resultsLayout} onChange={onChangeResultsLayout} />
           </Setting>
@@ -104,24 +110,37 @@ export default function Settings() {
           >
             <Toggle value={originals} onToggle={toggleOriginals} />
           </Setting>
+
+          <Setting
+            title='Use CORS Proxy'
+            description='Request images via the built in cors proxy. Normally, this should just make loading times worse. But I have seen the opposite.'
+          >
+            <Toggle value={useCorsProxy} onToggle={toggleUseCorsProxy} />
+          </Setting>
+
           <Setting
             title='Number of Tag suggestions'
             description='Controls the number of tags displayed when searching. Increase this when searching for niche tags.'
           >
             <SmallNumberInput value={tagSuggestionsCount} onSubmit={setTagSuggestionsCount} />
           </Setting>
+
           <Setting title='Page size' description='Controls the number of posts loaded at once.'>
             <SmallNumberInput value={pageSize} onSubmit={setPageSize} />
           </Setting>
-          <Title>Developer</Title>
-          <HorizontalLine />
-          <SmallTitle>Debug Info</SmallTitle>
-          <StyledCode>
-            <p>Supports grid-gap: {yesOrNo(supportsGap)}</p>
-            <p>Supports flex-gap: {yesOrNo(supportsFlexGap)}</p>
-            <p>Supports aspect-ratio: {yesOrNo(supportsAspectRatio)}</p>
-            <p>Supports object-fit: {yesOrNo(supportsObjectFit)}</p>
-          </StyledCode>
+        </SettingsSurface>
+        <Title>Developer</Title>
+        <SettingsSurface>
+          <Entry>
+            <SmallTitle>Debug Info</SmallTitle>
+            <StyledCode>
+              <p>Supports grid-gap: {yesOrNo(supportsGap)}</p>
+              <p>Supports flex-gap: {yesOrNo(supportsFlexGap)}</p>
+              <p>Supports aspect-ratio: {yesOrNo(supportsAspectRatio)}</p>
+              <p>Supports object-fit: {yesOrNo(supportsObjectFit)}</p>
+            </StyledCode>
+          </Entry>
+
           <ResetButton />
         </SettingsSurface>
         <VersionWrapper>

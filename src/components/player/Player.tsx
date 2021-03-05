@@ -3,7 +3,7 @@ import Video from './media/Video'
 import Gif from './media/Gif'
 import Picture from './media/Picture'
 
-import { getMediaType } from './utils'
+import { getMediaType } from '../../data/utils'
 import { MediaType, PostType } from '../../data/types'
 
 interface PlayerProps {

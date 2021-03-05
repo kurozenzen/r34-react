@@ -1,10 +1,16 @@
 import { useTheme } from 'styled-components'
 
-export default function R34Icon(props: { size: number }) {
+export default function R34Icon(props: { size: number; className?: string }) {
   const theme = useTheme()
 
   return (
-    <svg xmlns='http://www.w3.org/2000/svg' width={props.size} height={props.size} viewBox='0 0 12.7 12.7'>
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={props.size}
+      height={props.size}
+      viewBox='0 0 12.7 12.7'
+      className={props.className}
+    >
       <g transform='translate(0,-284.3)'>
         <circle
           id='path18'

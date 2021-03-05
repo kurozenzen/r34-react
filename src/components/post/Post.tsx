@@ -3,13 +3,12 @@ import styled, { css } from 'styled-components'
 import Details from './Details'
 import Player from '../player/Player'
 import { useSelector } from 'react-redux'
-import { selectOriginals } from '../../redux/selectors'
+import { selectOriginals, selectUseCorsProxy } from '../../redux/selectors'
 import PostDataClass from '../../data/Post'
 import LayoutElementProps from '../layout/LayoutElementProps'
 import { NO_OP } from '../../data/types'
 import useToggle from '../../hooks/useToggle'
 import { layer } from '../../styled/mixins'
-import { getUrlParameter } from '../player/utils'
 import { getCorrectSource } from '../../data/utils'
 
 const ItemWrapper = styled.div(
@@ -58,12 +57,11 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
   const [collapsed, toggleCollapsed] = useToggle(true)
 
   const originals = useSelector(selectOriginals)
+  const useCorsProxy = useSelector(selectUseCorsProxy)
 
-  const media_src = useMemo(() => getUrlParameter(getCorrectSource(originals, big_src, small_src)), [
-    big_src,
-    originals,
-    small_src,
-  ])
+  const media_src = useMemo(() => {
+    return getCorrectSource(originals, useCorsProxy, big_src, small_src)
+  }, [big_src, originals, small_src, useCorsProxy])
 
   // re-measure when collapsed state changes
   useEffect(() => {

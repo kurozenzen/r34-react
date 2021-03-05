@@ -1,7 +1,7 @@
 import React from 'react'
 import KofiButton from './KofiButton'
 import styled, { css } from 'styled-components'
-import RandomTip from '../common/RandomTip'
+import RandomTip from './RandomTip'
 import { flexColumn, flexColumnGap } from '../../styled/mixins'
 
 const Placeholder = styled.div(

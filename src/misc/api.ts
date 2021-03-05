@@ -40,7 +40,7 @@ class API {
   }
 
   async getAliases(tagName: string) {
-    const aliases: TagLike[] = await (await fetch(`${this.activeApi}/alias/${tagName}`)).json()
+    const aliases: TagLike[] = await (await fetch(`${this.activeApi}/alias/${encodeURIComponent(tagName)}`)).json()
 
     return aliases
   }

@@ -33,11 +33,11 @@ export default function App() {
                   <Route exact path={RouteName.SETTINGS}>
                     <Settings />
                   </Route>
-                  <Route exact path={RouteName.SEARCH}>
-                    <Search />
-                  </Route>
                   <Route exact path={RouteName.ABOUT}>
                     <About />
+                  </Route>
+                  <Route path={RouteName.SEARCH}>
+                    <Search />
                   </Route>
                 </Switch>
               </Suspense>

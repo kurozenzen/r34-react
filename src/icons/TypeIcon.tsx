@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useMemo } from 'react'
-import { NO_OP } from '../data/types'
-import { CharacterIcon, CopyrightIcon, ArtistIcon } from './Icons'
+import { NO_OP, TagType } from '../data/types'
+import { CharacterIcon, CopyrightIcon, ArtistIcon, RatingIcon, SourceIcon } from './Icons'
 
 interface TypeIconProps {
   types?: string[]
@@ -17,12 +17,16 @@ export default function TypeIcon(props: TypeIconProps) {
   const interestingType = useMemo(() => types.find((t) => !t.match(/^[general|ambiguous]$/)), [types])
 
   switch (interestingType) {
-    case 'character':
+    case TagType.CHARACTER:
       return <CharacterIcon className={className} onClick={onClick} />
-    case 'copyright':
+    case TagType.COPYRIGHT:
       return <CopyrightIcon className={className} onClick={onClick} />
-    case 'artist':
+    case TagType.ARTIST:
       return <ArtistIcon className={className} onClick={onClick} />
+    case TagType.RATING:
+      return <RatingIcon className={className} onClick={onClick} />
+    case TagType.SOURCE:
+      return <SourceIcon className={className} onClick={onClick} />
     default:
       return null
   }

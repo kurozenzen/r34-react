@@ -8,7 +8,7 @@ import { SmallNumberInput } from '../../common/SmallInput'
 const PageRow = styled.div(
   ({ theme }) => css`
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 1fr auto 1fr;
     justify-content: center;
     place-items: center;
     gap: ${theme.dimensions.gutter};
@@ -18,10 +18,24 @@ const PageRow = styled.div(
     margin: auto;
   `
 )
+const Left = styled.div`
+  display: flex;
+  place-self: flex-end;
+  gap: 8px;
+`
+const Right = styled.div`
+  display: flex;
+  place-self: flex-start;
+  gap: 8px;
+`
 
-const PageNumber = styled(RedButton)``
+const PageNumber = styled(RedButton)`
+  min-width: 50px;
+`
 
-const CurrentNumber = styled(SmallNumberInput)``
+const CurrentNumber = styled(SmallNumberInput)`
+  min-width: 50px;
+`
 
 interface PageNavigationProps {
   currentPage: number
@@ -49,11 +63,15 @@ export default function PageNavigation(props: PageNavigationProps) {
   // Could achive the same with grid-column (might do that in the future)
   return (
     <PageRow className='page-navigation'>
-      {currentPage > 1 ? <PageNumber onClick={loadFirst}>0</PageNumber> : <div></div>}
-      {currentPage > 0 ? <PageNumber onClick={loadPrevious}>{currentPage - 1}</PageNumber> : <div></div>}
+      <Left>
+        {currentPage > 1 && <PageNumber onClick={loadFirst}>0</PageNumber>}
+        {currentPage > 0 && <PageNumber onClick={loadPrevious}>{currentPage - 1}</PageNumber>}
+      </Left>
       <CurrentNumber value={currentPage} onSubmit={loadSpecificPage} />
-      {currentPage < lastPage ? <PageNumber onClick={loadNext}>{currentPage + 1}</PageNumber> : <div></div>}
-      {currentPage < lastPage - 1 ? <PageNumber onClick={loadLast}>{lastPage}</PageNumber> : <div></div>}
+      <Right>
+        {currentPage < lastPage && <PageNumber onClick={loadNext}>{currentPage + 1}</PageNumber>}
+        {currentPage < lastPage - 1 && <PageNumber onClick={loadLast}>{lastPage}</PageNumber>}
+      </Right>
     </PageRow>
   )
 }

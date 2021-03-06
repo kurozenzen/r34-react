@@ -45,7 +45,6 @@ export const BlockButton = styled(RedButton)`
 
 export const AddButton = styled(RedButton)(
   ({ theme }) => css`
-    border-left-width: 0;
     border-radius: 0 ${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0;
   `
 )

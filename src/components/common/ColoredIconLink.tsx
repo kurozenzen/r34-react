@@ -9,6 +9,7 @@ const ColoredIconLink = styled.a(
           color: ${color} !important;
         `
       : ''};
+    white-space: nowrap;
   `
 )
 

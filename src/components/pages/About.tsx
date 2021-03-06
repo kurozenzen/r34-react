@@ -48,6 +48,7 @@ const FlexRow = styled.div`
   display: flex;
   gap: 10px;
   overflow-x: auto;
+  padding-bottom: 4px;
 `
 
 const Connection = styled(AButton)`

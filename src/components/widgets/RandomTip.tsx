@@ -18,6 +18,8 @@ const tips = [
   'Tapping the icon in the top left of posts brings you into fullscreen mode.',
   'Searching for nothing returns ALL posts ever made.',
   'Results are sorted chronologically. Newest first.',
+  "You can search for safe posts by entering 'rating:safe' in the search field. The same works for questionable and explicit.",
+  "You can search for posts from a specific website by entering 'source:*twitter* for example.",
 ]
 
 const Span = styled(Faded)(

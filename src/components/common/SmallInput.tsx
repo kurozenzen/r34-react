@@ -15,10 +15,11 @@ const StyledInput = styled.input(
 interface SmallInputProps<T> {
   value: T
   onSubmit: (value: T) => void
+  className?: string
 }
 
 export function SmallTextInput(props: SmallInputProps<string>) {
-  const { value, onSubmit } = props
+  const { value, onSubmit, className } = props
   const [internalValue, setInternalValue] = useState(value)
 
   useEffect(() => {
@@ -42,15 +43,24 @@ export function SmallTextInput(props: SmallInputProps<string>) {
     [internalValue, onSubmit]
   )
 
-  return <StyledInput type='text' value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
+  return (
+    <StyledInput
+      type='text'
+      value={internalValue}
+      onChange={onChange}
+      onBlur={onBlur}
+      onKeyDown={onKeyDown}
+      className={className}
+    />
+  )
 }
 
 export function SmallNumberInput(props: SmallInputProps<number>) {
-  const { value, onSubmit } = props
+  const { value, onSubmit, className } = props
   const [internalValue, setInternalValue] = useState(value.toString())
 
   useEffect(() => {
-    if (value) {
+    if (typeof value === 'number') {
       setInternalValue(value.toString())
     }
   }, [value])
@@ -72,5 +82,14 @@ export function SmallNumberInput(props: SmallInputProps<number>) {
     [internalValue, onSubmit]
   )
 
-  return <StyledInput type='number' value={internalValue} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} />
+  return (
+    <StyledInput
+      type='number'
+      value={internalValue}
+      onChange={onChange}
+      onBlur={onBlur}
+      onKeyDown={onKeyDown}
+      className={className}
+    />
+  )
 }

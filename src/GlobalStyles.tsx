@@ -36,7 +36,13 @@ export default createGlobalStyle(
 
     // Not a touch device
     // Touch devices have nice scrollbars by default
-    @media (not(pointer: coarse)) {
+    @media (pointer: fine) {
+      // Underline stuff that is focused on non-touch devices
+      // makes keyboard navigation clearer
+      :focus {
+        text-decoration: underline;
+      }
+
       ::-webkit-scrollbar {
         height: 8px;
 
@@ -64,12 +70,6 @@ export default createGlobalStyle(
         :hover {
           background: ${theme.colors.layerBgHighlight};
         }
-      }
-
-      // Underline stuff that is focused on non-touch devices
-      // makes keyboard navigation clearer
-      :focus {
-        text-decoration: underline;
       }
     }
   `

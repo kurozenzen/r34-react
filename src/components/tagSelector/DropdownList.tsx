@@ -27,13 +27,14 @@ const ListWrapper = styled.div(
     ${flexColumn()}
     ${flexColumnGap('1px')}
     ${sizeAndPosition(props.tagSelectorRef)};
+    padding-right: ${props.theme.dimensions.bigSpacing};
     background: lightgrey;
     box-sizing: border-box;
     border: ${props.theme.dimensions.borderWidth} ${props.theme.colors.accentColor} solid;
     border-top: none;
     border-radius: 0 0 3px 3px;
     color: black;
-    overflow-y: scroll;
+    overflow-y: auto;
     z-index: 3;
   `
 )

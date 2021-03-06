@@ -40,7 +40,10 @@ export function formatDuration(duration: number) {
  * Formats tag names for rendering.
  */
 export function formatTagname(tagname: string) {
-  return tagname.replace(/_/g, ' ')
+  return tagname
+    .replace(/_/g, ' ')
+    .replace(/source:/g, ' ')
+    .replace(/rating:/g, ' ')
 }
 
 /**

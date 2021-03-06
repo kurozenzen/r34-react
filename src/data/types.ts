@@ -7,6 +7,8 @@ export enum TagType {
   AMBIGUOUS = 'ambiguous',
   ARTIST = 'artist',
   COPYRIGHT = 'copyright',
+  RATING = 'rating',
+  SOURCE = 'source',
 }
 
 /**

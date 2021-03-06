@@ -1,7 +1,18 @@
 import PostDataClass from '../data/Post'
 import TagDataClass from '../data/Tag'
-import { Modifier, TagLike } from '../data/types'
+import { Modifier, TagLike, TagType } from '../data/types'
 import { preparePost } from './prepare'
+
+const sourceTags: TagLike[] = [
+  { name: 'source:*patreon*', posts: 12711, types: [TagType.SOURCE] },
+  { name: 'source:*twitter*', posts: 99927, types: [TagType.SOURCE] },
+]
+
+const ratingTags: TagLike[] = [
+  { name: 'rating:safe', posts: 14293, types: [TagType.RATING] },
+  { name: 'rating:questionable', posts: 219552, types: [TagType.RATING] },
+  { name: 'rating:explicit', posts: 3821144, types: [TagType.RATING] },
+]
 
 class API {
   static defaultPageSize = 20
@@ -21,6 +32,17 @@ class API {
     const tags: TagLike[] = await (
       await fetch(`${this.activeApi}/tags?limit=${limit}&name=${searchTerm}*&order_by=posts`)
     ).json()
+
+    // HACKY: Inject suggestions for ratings and some sources
+    if (searchTerm.startsWith('rating:')) {
+      const matchingRating = ratingTags.filter((tag) => tag.name.includes(searchTerm.replace('rating:', '')))
+      return [...tags, ...matchingRating]
+    }
+
+    if (searchTerm.startsWith('source:')) {
+      const matchingSourceTags = sourceTags.filter((tag) => tag.name.includes(searchTerm.replace('source:', '')))
+      return [...tags, ...matchingSourceTags]
+    }
 
     return tags
   }

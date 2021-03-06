@@ -11,6 +11,7 @@ const StyledIcon = styled.i(
     height: ${props.size}px;
 
     svg {
+      transition: all 0.2s ease-out;
       color: ${props.color};
     }
   `

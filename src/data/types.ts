@@ -9,6 +9,7 @@ export enum TagType {
   COPYRIGHT = 'copyright',
   RATING = 'rating',
   SOURCE = 'source',
+  METADATA = 'metadata',
 }
 
 /**

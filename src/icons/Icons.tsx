@@ -59,6 +59,10 @@ export const CopyrightIcon = styled(Icon).attrs({
   icon: 'fa-copyright',
 })``
 
+export const MetaDataIcon = styled(Icon).attrs({
+  icon: 'fa-info-circle',
+})``
+
 export const CloseIcon = styled(Icon).attrs({
   icon: 'fa-times',
 })``

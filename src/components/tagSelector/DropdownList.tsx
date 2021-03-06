@@ -23,19 +23,48 @@ function sizeAndPosition(tagSelector: HTMLDivElement | null) {
 }
 
 const ListWrapper = styled.div(
-  (props: { tagSelectorRef: HTMLDivElement | null; theme: ThemeType }) => css`
+  ({ theme, tagSelectorRef }: { tagSelectorRef: HTMLDivElement | null; theme: ThemeType }) => css`
     ${flexColumn()}
     ${flexColumnGap('1px')}
-    ${sizeAndPosition(props.tagSelectorRef)};
-    padding-right: ${props.theme.dimensions.bigSpacing};
+    ${sizeAndPosition(tagSelectorRef)};
     background: lightgrey;
     box-sizing: border-box;
-    border: ${props.theme.dimensions.borderWidth} ${props.theme.colors.accentColor} solid;
+    border: ${theme.dimensions.borderWidth} ${theme.colors.accentColor} solid;
     border-top: none;
     border-radius: 0 0 3px 3px;
     color: black;
     overflow-y: auto;
     z-index: 3;
+
+    ::-webkit-scrollbar {
+      width: 8px;
+
+      :hover {
+        background: ${theme.colors.layerBg};
+      }
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: ${theme.colors.backgroundColor2};
+      border-left: 1px lightgray solid;
+    }
+
+    /* Handle */
+    :hover {
+      ::-webkit-scrollbar {
+        background: ${theme.colors.backgroundColor}20;
+      }
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: ${theme.colors.backgroundColor}40;
+      border-radius: 1000px;
+
+      :hover {
+        background: ${theme.colors.backgroundColor}30;
+      }
+    }
   `
 )
 

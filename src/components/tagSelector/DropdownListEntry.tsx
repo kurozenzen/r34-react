@@ -26,9 +26,12 @@ const Name = styled.span`
   grid-column: 2/3;
 `
 
-const Count = styled.span`
-  grid-column: 3/4;
-`
+const Count = styled.span(
+  ({ theme }) => css`
+    grid-column: 3/4;
+    padding-right: ${theme.dimensions.bigSpacing};
+  `
+)
 
 const Icon = styled.div`
   grid-column: 1/2;

@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
+import useThrottledEffect from 'use-throttled-effect'
 import PostDataClass from '../../data/Post'
 import { NO_OP } from '../../data/types'
 import { getCorrectSource } from '../../data/utils'
 import useAction from '../../hooks/useAction'
-import useThrottledEffect from '../../hooks/useThrottledEffect'
 import { getMoreResults } from '../../redux/actions'
 import {
   selectFullsceenState,

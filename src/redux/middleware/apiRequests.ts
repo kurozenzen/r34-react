@@ -1,6 +1,6 @@
 import { MiddlewareAPI } from 'redux'
 import { Dispatch } from 'react'
-import { AppAction, GET_RESULTS, GET_MORE_RESULTS, addPosts, setPosts, ADD_TAG, addAliases, addTypes } from '../actions'
+import { AppAction, GET_RESULTS, GET_MORE_RESULTS, addPosts, setPosts, ADD_TAG, addAliases } from '../actions'
 import api from '../../misc/api'
 import { selectActiveTags, selectPageNumber, selectHasMoreResults, selectMinRating, selectPageSize } from '../selectors'
 import TagDataClass from '../../data/Tag'

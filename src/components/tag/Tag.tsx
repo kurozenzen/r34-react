@@ -1,6 +1,6 @@
 import React, { KeyboardEventHandler, MouseEventHandler, useCallback, useMemo, useState } from 'react'
 import TypeIcon from '../../icons/TypeIcon'
-import { ArrowDown } from '../../icons/Icons'
+import { ArrowDown } from '../../icons/FontAwesomeIcons'
 import TagDataClass from '../../data/Tag'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectActiveTags, selectAliasesByTagName } from '../../redux/selectors'
@@ -13,9 +13,13 @@ import AliasesList from './AliasesList'
 import styled, { css, DefaultTheme } from 'styled-components'
 
 const DropdownArrow = styled(ArrowDown)(
-  ({ collapsed, theme }: { collapsed: boolean; theme: DefaultTheme }) => css`
+  ({ $collapsed, theme }: { $collapsed: boolean; theme: DefaultTheme }) => css`
     transition: all ${theme.timings.transitionTime} ease-out;
-    ${collapsed
+    height: 32px;
+    width: 32px !important;
+    padding: 8px;
+    margin: 0 -8px;
+    ${$collapsed
       ? css``
       : css`
           transform: rotate(180deg);
@@ -89,7 +93,7 @@ export default function Tag(props: TagProps) {
       <TagName modifier={modifier} name={name} count={count} />
       {detailed && hasAliases && (
         <>
-          <DropdownArrow onClick={handleArrowClick} collapsed={collapsed} />
+          <DropdownArrow onClick={handleArrowClick} $collapsed={collapsed} />
           {!collapsed && tagRef && <AliasesList aliases={filteredAliases} modifier={modifier} parentRef={tagRef} />}
         </>
       )}

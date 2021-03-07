@@ -4,7 +4,7 @@ import { supportsAspectRatio, supportsFlexGap, supportsGap, supportsObjectFit } 
 import { ResultLayout, PreferenceKey } from '../../data/types'
 import { getVersionString } from '../../data/utils'
 import usePreference from '../../hooks/usePreference'
-import { CodeBranchIcon } from '../../icons/Icons'
+import { CodeBranchIcon } from '../../icons/FontAwesomeIcons'
 import { flexColumnWithGap, flexRowWithGap, gap } from '../../styled/mixins'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
 import Select from '../common/Select'

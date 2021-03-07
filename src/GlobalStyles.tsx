@@ -45,6 +45,7 @@ export default createGlobalStyle(
 
       ::-webkit-scrollbar {
         height: 8px;
+        transition: all ${theme.timings.transitionTime} ease-in-out;
 
         :hover {
           background: ${theme.colors.layerBg};

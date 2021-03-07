@@ -1,10 +1,16 @@
 import React, { MouseEventHandler, useCallback } from 'react'
 
-import { ExpandIcon, PlayIcon, PauseIcon, ExternalLinkIcon, CloseIcon, DownloadIcon } from '../../icons/Icons'
+import {
+  ExpandIcon,
+  PlayIcon,
+  PauseIcon,
+  ExternalLinkIcon,
+  CloseIcon,
+  DownloadIcon,
+} from '../../icons/FontAwesomeIcons'
 import styled, { css } from 'styled-components'
 import useToggle from '../../hooks/useToggle'
 import { fadeOut } from '../../styled/animations'
-import { InvisButton } from '../common/Buttons'
 import { NO_OP } from '../../data/types'
 import { formatDuration } from '../../misc/formatting'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +19,7 @@ import { enterFullscreen, exitFullscreen, setFullScreenPost } from '../../redux/
 import PostDataClass from '../../data/Post'
 import { download } from '../../data/utils'
 import ProgressBar from './ProgressBar'
+import { dropShadow, gutter } from '../../styled/mixins'
 
 function overlayVisibility({ isVisible }: { isVisible: boolean }) {
   return isVisible
@@ -37,30 +44,50 @@ const VideoProgressBar = styled(ProgressBar)`
   grid-area: 4/1/4/4;
 `
 
-const OverlayButton = styled(InvisButton)(
+const ExpandButton = styled(ExpandIcon)(
   ({ theme }) => css`
-    padding: ${theme.dimensions.bigSpacing};
+    grid-area: 1/1/2/2;
+    place-self: start start;
+    ${dropShadow}
+    margin: ${theme.dimensions.gutter};
   `
 )
 
-const FullScreenButton = styled(OverlayButton)`
-  grid-area: 1/1/2/2;
-  place-self: start start;
-`
+const CloseButton = styled(CloseIcon)(
+  ({ theme }) => css`
+    grid-area: 1/1/2/2;
+    place-self: start start;
+    ${dropShadow}
+    margin: ${theme.dimensions.gutter};
+  `
+)
 
 const LinkList = styled.div`
   grid-area: 3/1/4/1;
   place-self: end stretch;
   display: flex;
   place-items: start center;
+  ${gutter}
+
+  > svg {
+    ${dropShadow}
+  }
 `
 
-const OpenExternalButton = styled(OverlayButton)``
-const DownloadButton = styled(OverlayButton)``
-
-const PlayButton = styled(OverlayButton)`
+const PlayButton = styled(PlayIcon)`
+  height: 50px;
+  width: 50px !important;
   grid-area: 2/2/3/3;
   place-self: center center;
+  ${dropShadow}
+`
+
+const PauseButton = styled(PauseIcon)`
+  height: 50px;
+  width: 50px !important;
+  grid-area: 2/2/3/3;
+  place-self: center center;
+  ${dropShadow}
 `
 
 const PreviousButton = styled.div`
@@ -78,7 +105,7 @@ const LengthDisplay = styled.span(
     background: #00000080;
     border-radius: 4px;
     padding: ${props.theme.dimensions.spacing};
-    margin: ${props.theme.dimensions.spacing};
+    margin: ${props.theme.dimensions.gutter};
   `
 )
 
@@ -167,27 +194,33 @@ function Overlay(props: OverlayProps) {
 
   return (
     <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible}>
-      <FullScreenButton onClick={onExpandClick} aria-label='Open Fullscreen'>
-        {isReaderOpen ? <CloseIcon color='white' /> : <ExpandIcon color='white' />}
-      </FullScreenButton>
+      {isReaderOpen ? (
+        <CloseButton color='white' onClick={onExpandClick} aria-label='Open Fullscreen' />
+      ) : (
+        <ExpandButton color='white' onClick={onExpandClick} aria-label='Open Fullscreen' />
+      )}
 
       <LinkList>
-        <OpenExternalButton>
-          <a href={downloadSrc} target='_blank' rel='noopener noreferrer' aria-label='Open In New Tab'>
-            <ExternalLinkIcon color='white' />
-          </a>
-        </OpenExternalButton>
+        <a
+          href={downloadSrc}
+          target='_blank'
+          rel='noopener noreferrer'
+          aria-label='Open In New Tab'
+          title={downloadSrc}
+        >
+          <ExternalLinkIcon color='white' />
+        </a>
 
-        <DownloadButton aria-label='Download Image' onClick={onDownloadClick} title={downloadSrc}>
-          <DownloadIcon color='white' />
-        </DownloadButton>
+        <DownloadIcon color='white' aria-label='Download Image' onClick={onDownloadClick} title={downloadSrc} />
       </LinkList>
 
       {isPlayable && (
         <>
-          <PlayButton onClick={togglePlay} aria-label='Play/Pause'>
-            {isPaused ? <PlayIcon color='white' size={50} /> : <PauseIcon color='white' size={50} />}
-          </PlayButton>
+          {isPaused ? (
+            <PlayButton color='white' onClick={togglePlay} aria-label='Play' />
+          ) : (
+            <PauseButton color='white' onClick={togglePlay} aria-label='Pause' />
+          )}
           {!!duration && !!currentTime && (
             <VideoProgressBar value={currentTime} maxValue={duration} onChange={onSeek} />
           )}

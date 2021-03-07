@@ -1,6 +1,6 @@
 import { RatingType } from '../../data/types'
 import React from 'react'
-import { RatingIcon } from '../../icons/Icons'
+import { RatingIcon } from '../../icons/FontAwesomeIcons'
 import FlexPair from '../common/FlexPair'
 
 export default function Rating(props: { value: RatingType }) {

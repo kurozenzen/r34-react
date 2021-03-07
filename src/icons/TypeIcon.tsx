@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useMemo } from 'react'
 import { NO_OP, TagType } from '../data/types'
-import { CharacterIcon, CopyrightIcon, ArtistIcon, RatingIcon, SourceIcon, MetaDataIcon } from './Icons'
+import { CharacterIcon, CopyrightIcon, ArtistIcon, RatingIcon, SourceIcon, MetaDataIcon } from './FontAwesomeIcons'
 
 interface TypeIconProps {
   types?: string[]

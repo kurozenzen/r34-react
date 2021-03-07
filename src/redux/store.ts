@@ -9,8 +9,6 @@ import { getVersion, versionToNumber } from '../data/utils'
 
 const version = getVersion()
 
-console.log(`Running version ${version} of R34 React.`)
-
 const persistConfig = {
   key: 'appstate',
   version: versionToNumber(version),

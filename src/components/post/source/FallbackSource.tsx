@@ -1,5 +1,5 @@
 import React from 'react'
-import { SourceIcon } from '../../../icons/Icons'
+import { SourceIcon } from '../../../icons/FontAwesomeIcons'
 import FlexPair from '../../common/FlexPair'
 import SourceProps from './SourceProps'
 

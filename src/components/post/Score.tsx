@@ -1,5 +1,5 @@
 import React from 'react'
-import { HeartIcon } from '../../icons/Icons'
+import { HeartIcon } from '../../icons/FontAwesomeIcons'
 import FlexPair from '../common/FlexPair'
 
 export default function Score(props: { value: number }) {

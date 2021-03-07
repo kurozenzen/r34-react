@@ -4,6 +4,10 @@
   "homepage": "https://kurozenzen.github.io/r34-react",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-brands-svg-icons": "^5.15.2",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "firebase": "^8.2.7",
     "gh-pages": "^3.1.0",
     "immer": "^8.0.1",
@@ -20,6 +24,7 @@
     "reselect": "^4.0.0",
     "styled-components": "^5.1.1",
     "typescript": "^4.1.5",
+    "use-throttled-effect": "^0.0.7",
     "whatwg-fetch": "^3.6.2"
   },
   "scripts": {

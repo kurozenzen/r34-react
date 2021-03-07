@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { BrandIcon } from '../../icons/Icons'
+import { DiscordIcon, GithubIcon } from '../../icons/FontAwesomeIcons'
 import R34Icon from '../../icons/R34Icon'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
 import { HorizontalLine } from '../common/Lines'
@@ -55,10 +55,8 @@ const Connection = styled(AButton)`
   display: inline-flex;
   gap: 5px;
   max-height: 40px;
-
-  span {
-    white-space: nowrap;
-  }
+  align-items: center;
+  white-space: nowrap;
 `
 
 const Divider = styled(HorizontalLine)`
@@ -88,20 +86,20 @@ export default function About() {
           <ShortDesc>Here are some links</ShortDesc>
           <FlexRow>
             <Connection href='https://github.com/kurozenzen/r34-react' target='_newtab'>
-              <BrandIcon icon='fa-github' color='white' />
-              <span>Frontend</span>
+              <GithubIcon color='white' />
+              Frontend
             </Connection>
             <Connection href='https://github.com/kurozenzen/r34-json-api'>
-              <BrandIcon icon='fa-github' color='white' />
-              <span>Backend</span>
+              <GithubIcon color='white' />
+              Backend
             </Connection>
             <Connection href='https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md'>
-              <BrandIcon icon='fa-github' color='white' />
-              <span>Bug Report</span>
+              <GithubIcon color='white' />
+              Bug Report
             </Connection>
             <Connection href='https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md'>
-              <BrandIcon icon='fa-github' color='white' />
-              <span>Feature Request</span>
+              <GithubIcon color='white' />
+              Feature Request
             </Connection>
           </FlexRow>
           <Divider />
@@ -123,12 +121,12 @@ export default function About() {
           <ShortDesc>Here are some links</ShortDesc>
           <FlexRow>
             <Connection href='https://github.com/kurozenzen'>
-              <BrandIcon icon='fa-github' color='white' />
-              <span>GitHub</span>
+              <GithubIcon color='white' />
+              GitHub
             </Connection>
             <Connection href=' https://discord.gg/yyJFG5PVBZ'>
-              <BrandIcon icon='fa-discord' color='white' />
-              <span>Discord</span>
+              <DiscordIcon color='white' />
+              Discord
             </Connection>
             <KofiButton id='V7V73PWW9' label='Ko-fi' />
           </FlexRow>

@@ -10,9 +10,7 @@ import {
   faHeart,
   faInfoCircle,
   faLink,
-  faPause,
   faPen,
-  faPlay,
   faRegistered,
   faTimes,
   faUser,
@@ -66,14 +64,6 @@ export const HeartIcon = styled(FontAwesomeIcon).attrs({
 
 export const LinkIcon = styled(FontAwesomeIcon).attrs({
   icon: faLink,
-})``
-
-export const PlayIcon = styled(FontAwesomeIcon).attrs({
-  icon: faPlay,
-})``
-
-export const PauseIcon = styled(FontAwesomeIcon).attrs({
-  icon: faPause,
 })``
 
 export const ArrowDown = styled(FontAwesomeIcon).attrs({

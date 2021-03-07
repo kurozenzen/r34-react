@@ -1,13 +1,6 @@
 import React, { MouseEventHandler, useCallback } from 'react'
 
-import {
-  ExpandIcon,
-  PlayIcon,
-  PauseIcon,
-  ExternalLinkIcon,
-  CloseIcon,
-  DownloadIcon,
-} from '../../icons/FontAwesomeIcons'
+import { ExpandIcon, ExternalLinkIcon, CloseIcon, DownloadIcon } from '../../icons/FontAwesomeIcons'
 import styled, { css } from 'styled-components'
 import useToggle from '../../hooks/useToggle'
 import { fadeOut } from '../../styled/animations'
@@ -20,6 +13,7 @@ import PostDataClass from '../../data/Post'
 import { download } from '../../data/utils'
 import ProgressBar from './ProgressBar'
 import { dropShadow, gutter } from '../../styled/mixins'
+import { PlayPauseIcon } from '../../icons/PlayPauseIcon'
 
 function overlayVisibility({ isVisible }: { isVisible: boolean }) {
   return isVisible
@@ -74,19 +68,12 @@ const LinkList = styled.div`
   }
 `
 
-const PlayButton = styled(PlayIcon)`
+const PlayButton = styled(PlayPauseIcon)`
   height: 50px;
-  width: 50px !important;
+  width: 50px;
   grid-area: 2/2/3/3;
   place-self: center center;
-  ${dropShadow}
-`
-
-const PauseButton = styled(PauseIcon)`
-  height: 50px;
-  width: 50px !important;
-  grid-area: 2/2/3/3;
-  place-self: center center;
+  fill: white;
   ${dropShadow}
 `
 
@@ -216,11 +203,8 @@ function Overlay(props: OverlayProps) {
 
       {isPlayable && (
         <>
-          {isPaused ? (
-            <PlayButton color='white' onClick={togglePlay} aria-label='Play' />
-          ) : (
-            <PauseButton color='white' onClick={togglePlay} aria-label='Pause' />
-          )}
+          <PlayButton color='white' onClick={togglePlay} aria-label='Play/Pause' />
+
           {!!duration && !!currentTime && (
             <VideoProgressBar value={currentTime} maxValue={duration} onChange={onSeek} />
           )}

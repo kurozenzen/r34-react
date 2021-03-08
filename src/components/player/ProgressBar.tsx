@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler, MouseEventHandler, useCallback, useEffect, useState } from 'react'
-import styled, { css, DefaultTheme } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 
 function thumbStyle() {
   const commonStyle = css`
@@ -44,20 +44,9 @@ function trackStyle() {
   `
 }
 
-function dumbChromeProgressStyling({ chromePercentage, theme }: { chromePercentage: number; theme: DefaultTheme }) {
-  return css`
-    background-image: linear-gradient(
-      90deg,
-      ${theme.colors.accentColor} ${chromePercentage}%,
-      transparent ${chromePercentage}%
-    );
-  `
-}
-
 const Slider = styled.input`
   ${trackStyle}
   ${thumbStyle}
-    ${dumbChromeProgressStyling}
 `
 
 interface ProgressBarProps {
@@ -94,6 +83,9 @@ export default function ProgressBar(props: ProgressBarProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value])
 
+  const theme = useTheme()
+  const chromePercentage = Math.round((internalValue / maxValue) * 100)
+
   return (
     <Slider
       type='range'
@@ -104,7 +96,10 @@ export default function ProgressBar(props: ProgressBarProps) {
       onChange={handleChange}
       className={className}
       onClick={handleClick}
-      chromePercentage={Math.round((internalValue / maxValue) * 100) + 1}
+      style={{
+        backgroundImage: `linear-gradient(90deg, ${theme.colors.accentColor} ${chromePercentage}%, transparent ${chromePercentage}%
+      )`,
+      }}
     />
   )
 }

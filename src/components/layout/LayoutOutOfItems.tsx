@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import Surface from '../common/Surface'
-import { Title } from '../common/Text'
+import { SmallTitle } from '../common/Text'
 import TagList from '../tag/TagList'
 import outOfResultsPicture from '../../icons/OutOfResults.png'
 import { useSelector } from 'react-redux'
@@ -46,7 +46,7 @@ export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: 
       <StyledSurface>
         <StyledImage src={outOfResultsPicture} alt='Shironeko does not understand' />
         <HorizontalLine />
-        <Title>You have reached the end!</Title>
+        <SmallTitle>You have reached the end!</SmallTitle>
         <p>Go look for something else!</p>
         {aliases.length > 0 && (
           <>

@@ -52,7 +52,7 @@ const MorphSvg2 = styled.svg`
     }
 
     .right {
-      clip-path: path('M14 0 L19.2 0 L19.2 24 L14 24');
+      clip-path: path('M19.2 0 L14 0 L14 24 L19.2 24');
     }
   }
 `

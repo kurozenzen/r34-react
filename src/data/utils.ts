@@ -1,13 +1,14 @@
+import PostDataClass from './Post'
 import TagDataClass from './Tag'
 import { PostType, MediaType } from './types'
 
-export const getMediaType = (type: PostType, src: string) => {
+export const getMediaType = (type: PostType, post: PostDataClass) => {
   if (type === PostType.VIDEO) {
     return MediaType.VIDEO
   }
 
   // can't use .endsWith because of queryString
-  if (src.includes('.gif')) {
+  if (post.small_src.includes('.gif') || post.big_src.includes('.gif')) {
     return MediaType.GIF
   }
 

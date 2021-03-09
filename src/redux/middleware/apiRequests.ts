@@ -48,6 +48,7 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
 
       if (tag) {
         action.tag.types = tag.types
+        action.tag.count = tag.posts
       }
     }
   }

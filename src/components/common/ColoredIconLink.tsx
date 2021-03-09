@@ -10,6 +10,10 @@ const ColoredIconLink = styled.a(
         `
       : ''};
     white-space: nowrap;
+
+    svg {
+      height: 16px;
+    }
   `
 )
 

@@ -6,6 +6,7 @@ import { preparePost } from './prepare'
 const sourceTags: TagLike[] = [
   { name: 'source:*patreon*', posts: 12711, types: [TagType.SOURCE] },
   { name: 'source:*twitter*', posts: 99927, types: [TagType.SOURCE] },
+  { name: 'source:*pixiv*', posts: 185080, types: [TagType.SOURCE] },
 ]
 
 const ratingTags: TagLike[] = [

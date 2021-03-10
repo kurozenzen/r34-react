@@ -28,7 +28,7 @@ export default class PostDataClass {
   has_comments: boolean
   comments_url: string
   has_notes: boolean
-  created_at: string
+  created_at: number
   change: string
 
   comments?: CommentDataClass[]
@@ -80,7 +80,7 @@ export default class PostDataClass {
     this.has_comments = has_comments
     this.comments_url = comments_url
     this.has_notes = has_notes
-    this.created_at = created_at
+    this.created_at = Date.parse(created_at)
     this.change = change
   }
 }

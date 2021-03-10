@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
-import Details from './Details'
+import Details from './details/Details'
 import Player from '../player/Player'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectOriginals, selectShowComments, selectUseCorsProxy } from '../../redux/selectors'

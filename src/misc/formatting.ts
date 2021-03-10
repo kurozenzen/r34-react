@@ -59,3 +59,46 @@ export function serializeTagname(tagname: string) {
 export function formatTagnameAndCount(name: string, count?: number | null) {
   return count ? `${formatTagname(name)} (${formatCount(count)})` : formatTagname(name)
 }
+
+export function formatDateTime(date: Date) {
+  return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+}
+
+export function formatTime(milliseconds: number) {
+  if (milliseconds >= 315576e5) {
+    return formatUnit(milliseconds, 315576e5, 'year')
+  }
+  if (milliseconds >= 26297568e2) {
+    return formatUnit(milliseconds, 26297568e2, 'month')
+  }
+
+  if (milliseconds >= 6048e5) {
+    return formatUnit(milliseconds, 6048e5, 'week')
+  }
+
+  if (milliseconds >= 854e5) {
+    return formatUnit(milliseconds, 854e5, 'day')
+  }
+
+  if (milliseconds >= 36e5) {
+    return formatUnit(milliseconds, 36e5, 'hour')
+  }
+
+  if (milliseconds >= 6e4) {
+    return formatUnit(milliseconds, 6e4, 'minute')
+  }
+
+  if (milliseconds >= 1e3) {
+    return formatUnit(milliseconds, 1e3, 'second')
+  }
+
+  return `${milliseconds} ms`
+}
+
+function formatUnit(value: number, unitSize: number, unit: string) {
+  const result = (value / unitSize).toFixed(0)
+
+  const unitString = result === '1' ? unit : `${unit}s`
+
+  return `${result} ${unitString}`
+}

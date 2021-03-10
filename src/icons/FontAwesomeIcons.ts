@@ -1,6 +1,8 @@
 import { faDeviantart, faDiscord, faGithub, faPatreon, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import {
+  faCalendarDay,
   faCaretDown,
+  faCheckSquare,
   faCodeBranch,
   faCopyright,
   faDownload,
@@ -8,6 +10,7 @@ import {
   faExternalLinkAlt,
   faHashtag,
   faHeart,
+  faImage,
   faInfoCircle,
   faLink,
   faPen,
@@ -92,4 +95,16 @@ export const DeviantArtIcon = styled(FontAwesomeIcon).attrs({
 
 export const DiscordIcon = styled(FontAwesomeIcon).attrs({
   icon: faDiscord,
+})``
+
+export const CalendarIcon = styled(FontAwesomeIcon).attrs({
+  icon: faCalendarDay,
+})``
+
+export const CheckIcon = styled(FontAwesomeIcon).attrs({
+  icon: faCheckSquare,
+})``
+
+export const ImageIcon = styled(FontAwesomeIcon).attrs({
+  icon: faImage,
 })``

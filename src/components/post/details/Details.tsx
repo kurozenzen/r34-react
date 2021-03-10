@@ -1,16 +1,17 @@
 import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
-import TagList from '../tag/TagList'
-import { listToMap } from '../../data/utils'
+import TagList from '../../tag/TagList'
+import { listToMap } from '../../../data/utils'
 import Rating from './Rating'
 import Score from './Score'
-import Source from './source/Source'
-import { flexColumnWithGap, flexRowGap, flexRowWithGap, gutter, layer } from '../../styled/mixins'
+import Source from '../source/Source'
+import { flexRowGap, flexRowWithGap, gutter, layer } from '../../../styled/mixins'
 import { useSelector } from 'react-redux'
-import { selectPostById, selectShowMetadata, selectShowComments } from '../../redux/selectors'
-import PostDataClass from '../../data/PostDataClass'
-import { Faded } from '../common/Text'
-import { NO_OP } from '../../data/types'
+import { selectPostById, selectShowMetadata, selectShowComments } from '../../../redux/selectors'
+import PostDataClass from '../../../data/PostDataClass'
+import { NO_OP } from '../../../data/types'
+import Comments from './Comments'
+import Metadata from './Metadata'
 
 const Bar = styled.div(
   ({ theme }) => css`
@@ -50,27 +51,6 @@ const DetailsTagList = styled(TagList)(
     padding: ${theme.dimensions.gutter};
   `
 )
-
-const AdditionalDetails = styled.div`
-  ${flexColumnWithGap}
-  ${gutter}
-  
-  flex-wrap: wrap;
-  padding-top: 0;
-  grid-row: 4/5;
-`
-
-const MetaData = styled(Faded)`
-  white-space: nowrap;
-`
-
-const Comment = styled.div`
-  line-height: 20px;
-
-  > :first-child {
-    margin-right: 4px;
-  }
-`
 
 interface DetailsProps {
   postId: number
@@ -139,26 +119,8 @@ export default function Details(props: DetailsProps) {
       {
         {
           tags: <DetailsTagList tags={tagsForRendering} detailed={false} />,
-          comments: (
-            <AdditionalDetails>
-              {comments &&
-                comments.map((comment) => (
-                  <Comment>
-                    <span>{comment.creator}:</span>
-                    <Faded>{comment.body}</Faded>
-                  </Comment>
-                ))}
-            </AdditionalDetails>
-          ),
-          metadata: (
-            <AdditionalDetails>
-              <MetaData>{created_at}</MetaData>
-              <MetaData>{status}</MetaData>
-              <MetaData>
-                {width} x {height}
-              </MetaData>
-            </AdditionalDetails>
-          ),
+          comments: <Comments comments={comments} />,
+          metadata: <Metadata created_at={created_at} status={status} width={width} height={height} />,
         }[activeTab]
       }
     </>

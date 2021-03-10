@@ -1,7 +1,7 @@
 import { css, DefaultTheme } from 'styled-components'
 import { supportsAspectRatio, supportsFlexGap, supportsGap } from '../data/browserUtils'
 
-interface PropsWithTheme {
+export interface PropsWithTheme {
   theme: DefaultTheme
 }
 

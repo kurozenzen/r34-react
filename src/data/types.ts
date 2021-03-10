@@ -82,6 +82,7 @@ export enum PreferenceKey {
   USE_CORS_PROXY = 'useCorsProxy',
   SHOW_METADATA = 'showMetadata',
   SHOW_COMMENTS = 'showComments',
+  SORT = 'sort',
 }
 
 /**

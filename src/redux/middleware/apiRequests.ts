@@ -2,7 +2,14 @@ import { MiddlewareAPI } from 'redux'
 import { Dispatch } from 'react'
 import { AppAction, GET_RESULTS, GET_MORE_RESULTS, addPosts, setPosts, ADD_TAG, addAliases } from '../actions'
 import api from '../../misc/api'
-import { selectActiveTags, selectPageNumber, selectHasMoreResults, selectMinRating, selectPageSize } from '../selectors'
+import {
+  selectActiveTags,
+  selectPageNumber,
+  selectHasMoreResults,
+  selectMinRating,
+  selectPageSize,
+  selectSort,
+} from '../selectors'
 import TagDataClass from '../../data/TagDataClass'
 
 const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => async (action: AppAction) => {
@@ -13,8 +20,9 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     const activeTags = selectActiveTags(state)
     const pageSize = selectPageSize(state)
     const minRating = selectMinRating(state)
+    const sort = selectSort(state)
 
-    const result = await api.getPosts(activeTags, pageSize, action.pageNumber, minRating)
+    const result = await api.getPosts(activeTags, pageSize, action.pageNumber, minRating, sort)
 
     store.dispatch(setPosts(result.posts, result.count, action.pageNumber))
   }
@@ -24,8 +32,9 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     const pageNumber = selectPageNumber(state)
     const pageSize = selectPageSize(state)
     const minRating = selectMinRating(state)
+    const sort = selectSort(state)
 
-    const res = await api.getPosts(activeTags, pageSize, pageNumber + 1, minRating)
+    const res = await api.getPosts(activeTags, pageSize, pageNumber + 1, minRating, sort)
 
     store.dispatch(addPosts(res.posts))
   }

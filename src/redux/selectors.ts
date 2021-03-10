@@ -23,6 +23,7 @@ export const selectTagSuggestionCount = (state: DefaultRootState) => state.prefe
 export const selectUseCorsProxy = (state: DefaultRootState) => state.preferences.useCorsProxy
 export const selectShowMetadata = (state: DefaultRootState) => state.preferences.showMetadata
 export const selectShowComments = (state: DefaultRootState) => state.preferences.showComments
+export const selectSort = (state: DefaultRootState) => state.preferences.sort
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)

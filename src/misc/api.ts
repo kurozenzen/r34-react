@@ -52,9 +52,10 @@ class API {
     tags: Record<string, TagDataClass>,
     limit: number = API.defaultPageSize,
     pageNumber = 0,
-    minScore = 0
+    minScore = 0,
+    sort: 'score' | 'date' = 'date'
   ) {
-    const res = await (await fetch(this.buildPostUrl(pageNumber, tags, minScore, limit))).json()
+    const res = await (await fetch(this.buildPostUrl(pageNumber, tags, minScore, limit, sort))).json()
 
     return {
       posts: res.posts.map(preparePost) as PostDataClass[],
@@ -72,7 +73,8 @@ class API {
     page: number,
     tags: Record<string, TagDataClass>,
     minScore: number,
-    limit: number = API.defaultPageSize
+    limit: number = API.defaultPageSize,
+    sort: 'score' | 'date'
   ) {
     const tagList = Object.values(tags)
 
@@ -89,6 +91,10 @@ class API {
 
     if (minScore > 0) {
       tagParts.push(encodeURIComponent('score:>=' + minScore))
+    }
+
+    if (sort !== 'date') {
+      tagParts.push(encodeURIComponent('sort:' + sort + ':desc'))
     }
 
     if (tagParts.length > 0) {

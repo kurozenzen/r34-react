@@ -4,7 +4,8 @@ import LabeledToggle from '../common/LabeledToggle'
 import { ThemeType } from '../../misc/theme'
 import { PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
-import { gridWithGap } from '../../styled/mixins'
+import { flexRowWithGap, gridWithGap, PropsWithTheme } from '../../styled/mixins'
+import Select from '../common/Select'
 
 const OptionsWrapper = styled.div`
   ${gridWithGap}
@@ -30,9 +31,21 @@ const StyledInput = styled.input(
   `
 )
 
+const SortRow = styled.div`
+  ${flexRowWithGap}
+  height: ${({ theme }: PropsWithTheme) => theme.dimensions.blockHeight};
+`
+
+const sortOptions = {
+  score: 'Score',
+  date: 'Date',
+}
+
 export default function Options() {
   const [rated, setRated] = usePreference(PreferenceKey.RATED)
   const [ratedThreshold, setRatedThreshold] = usePreference(PreferenceKey.RATEDThreshold)
+  const [sort, setSort] = usePreference(PreferenceKey.SORT)
+
   const toggleRated = useCallback(() => setRated(!rated), [rated, setRated])
 
   const [ratedThresholdInternal, setRatedThresholdInternal] = useState(ratedThreshold ? ratedThreshold.toString() : '1')
@@ -45,6 +58,11 @@ export default function Options() {
     ratedThresholdInternal,
     setRatedThreshold,
   ])
+
+  const handleSortChange: ChangeEventHandler<HTMLSelectElement> = useCallback(
+    (event) => setSort(event.target.value as 'score' | 'date'),
+    [setSort]
+  )
 
   return (
     <OptionsWrapper>
@@ -59,6 +77,10 @@ export default function Options() {
           'Only show Rated Posts'
         )}
       </LabeledToggle>
+      <SortRow>
+        <span>Sort by:</span>
+        <Select options={sortOptions} value={sort} onChange={handleSortChange} />
+      </SortRow>
     </OptionsWrapper>
   )
 }

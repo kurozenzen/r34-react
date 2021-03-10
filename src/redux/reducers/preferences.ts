@@ -15,6 +15,7 @@ export interface PreferencesState {
   useCorsProxy: boolean
   showMetadata: boolean
   showComments: boolean
+  sort: 'score' | 'date'
 }
 
 const initialPreferencesState: PreferencesState = {
@@ -30,6 +31,7 @@ const initialPreferencesState: PreferencesState = {
   useCorsProxy: false,
   showMetadata: false,
   showComments: false,
+  sort: 'date',
 }
 
 function setOption<T extends PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {

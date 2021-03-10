@@ -92,6 +92,8 @@ export default function Settings() {
 
   const versionString = getVersionString()
 
+  document.title = 'R34 React - Settings'
+
   return (
     <FlexColumn>
       <Header />

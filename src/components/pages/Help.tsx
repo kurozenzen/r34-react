@@ -29,6 +29,8 @@ const Disclaimer = styled.div(
 )
 
 export default function Help() {
+  document.title = 'R34 React - Help'
+
   return (
     <FlexColumn>
       <Header />

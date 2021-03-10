@@ -75,6 +75,8 @@ const Body = styled.div`
 `
 
 export default function About() {
+  document.title = 'R34 React - About'
+
   return (
     <FlexColumn>
       <Header />

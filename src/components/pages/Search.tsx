@@ -32,6 +32,8 @@ export default function Search() {
   const loadMore = useAction(getMoreResults)
   const loadPage = useCallback((index: number) => dispatch(getResults(index)), [dispatch])
 
+  document.title = 'R34 React'
+
   return (
     <>
       <Reader />

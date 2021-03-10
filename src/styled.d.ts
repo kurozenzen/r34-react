@@ -21,6 +21,7 @@ declare module 'styled-components' {
       layerBg: string
       layerBgSolid: string
       layerBgHighlight: string
+      liked: string
     }
     shadow: {
       radius: string

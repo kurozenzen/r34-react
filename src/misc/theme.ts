@@ -18,6 +18,7 @@ const theme = {
     layerBg: '#ffffff11',
     layerBgSolid: '#222222',
     layerBgHighlight: '#ffffff22',
+    liked: '#ff0d50',
   },
   shadow: {
     radius: '4px',

@@ -95,7 +95,7 @@ export default function Details(props: DetailsProps) {
     <>
       <Bar>
         {!!rating && <Rating value={rating} />}
-        {!!score && <Score value={score} />}
+        {!!score && <Score value={score} postId={postId} />}
         {!!source && <Source value={source} />}
       </Bar>
       {((showComments && commentsLength > 0) || showMetadata) && (

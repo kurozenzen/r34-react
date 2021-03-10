@@ -13,6 +13,8 @@ export interface PreferencesState {
   resultsLayout: ResultLayout
   pageSize: number
   useCorsProxy: boolean
+  showMetadata: boolean
+  showComments: boolean
 }
 
 const initialPreferencesState: PreferencesState = {
@@ -26,6 +28,8 @@ const initialPreferencesState: PreferencesState = {
   resultsLayout: ResultLayout.INFINITE_COLUMN,
   pageSize: 20,
   useCorsProxy: false,
+  showMetadata: false,
+  showComments: false,
 }
 
 function setOption<T extends PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {

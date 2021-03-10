@@ -2,14 +2,16 @@ import React, { useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import Details from './Details'
 import Player from '../player/Player'
-import { useSelector } from 'react-redux'
-import { selectOriginals, selectUseCorsProxy } from '../../redux/selectors'
-import PostDataClass from '../../data/Post'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectOriginals, selectShowComments, selectUseCorsProxy } from '../../redux/selectors'
+import PostDataClass from '../../data/PostDataClass'
 import LayoutElementProps from '../layout/LayoutElementProps'
 import { NO_OP } from '../../data/types'
 import useToggle from '../../hooks/useToggle'
 import { layer } from '../../styled/mixins'
 import { getCorrectSource } from '../../data/utils'
+import { setComments } from '../../redux/actions'
+import CommentDataClass from '../../data/CommentDataClass'
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
@@ -30,7 +32,7 @@ const PostWrapper = styled.div(
   ({ theme }) => css`
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto auto auto;
     border-radius: ${theme.dimensions.borderRadius};
     ${layer({ theme })}
   `
@@ -42,22 +44,24 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
     small_src,
     big_src,
     thumbnail_src,
-    rating,
-    score,
-    source,
-    tags,
     style,
     onLoad = NO_OP,
     virtualRef,
     id,
     width,
     height,
+    comments,
+    has_comments,
+    comments_url,
   } = props
+
+  const dispatch = useDispatch()
 
   const [collapsed, toggleCollapsed] = useToggle(true)
 
   const originals = useSelector(selectOriginals)
   const useCorsProxy = useSelector(selectUseCorsProxy)
+  const showComments = useSelector(selectShowComments)
 
   const media_src = useMemo(() => {
     return getCorrectSource(originals, useCorsProxy, big_src, small_src)
@@ -67,6 +71,18 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
   useEffect(() => {
     onLoad()
   }, [onLoad, collapsed])
+
+  useEffect(() => {
+    if (!collapsed && showComments && has_comments && !comments) {
+      fetch(comments_url)
+        .then((res) => res.json())
+        .then((response) => {
+          const comments = response as CommentDataClass[]
+
+          dispatch(setComments(id, comments))
+        })
+    }
+  }, [collapsed, showComments, has_comments, comments, comments_url, dispatch, id])
 
   return (
     <ItemWrapper style={style} ref={virtualRef} className='list-div'>
@@ -81,7 +97,7 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
             width={width}
             height={height}
           />
-          {!collapsed && <Details rating={rating} score={score} source={source} tags={tags} />}
+          {!collapsed && <Details postId={id} onLoad={onLoad} />}
         </PostWrapper>
       </PositonWrapper>
     </ItemWrapper>

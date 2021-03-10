@@ -1,5 +1,5 @@
-import PostDataClass from '../data/Post'
-import TagDataClass from '../data/Tag'
+import PostDataClass from '../data/PostDataClass'
+import TagDataClass from '../data/TagDataClass'
 import { TagType, Modifier, RatingType, PostType } from '../data/types'
 
 /**

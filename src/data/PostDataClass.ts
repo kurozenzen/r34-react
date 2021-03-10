@@ -1,5 +1,6 @@
 import { RatingType, PostType } from './types'
-import TagDataClass from './Tag'
+import TagDataClass from './TagDataClass'
+import CommentDataClass from './CommentDataClass'
 
 export default class PostDataClass {
   id: number
@@ -29,6 +30,8 @@ export default class PostDataClass {
   has_notes: boolean
   created_at: string
   change: string
+
+  comments?: CommentDataClass[]
 
   constructor(
     id: number,

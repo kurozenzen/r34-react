@@ -6,7 +6,7 @@ import Picture from './media/Picture'
 import { getMediaType } from '../../data/utils'
 import { MediaType, PostType } from '../../data/types'
 import { useSelector } from 'react-redux'
-import PostDataClass from '../../data/Post'
+import PostDataClass from '../../data/PostDataClass'
 import { selectPostById } from '../../redux/selectors'
 
 interface PlayerProps {

@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import styled, { css } from 'styled-components'
-import TagDataClass from '../../data/Tag'
+import TagDataClass from '../../data/TagDataClass'
 import { Modifier } from '../../data/types'
 import { addTag } from '../../redux/actions'
 import { flexRowWithGap } from '../../styled/mixins'

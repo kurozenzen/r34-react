@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import TagDataClass from '../../data/Tag'
+import TagDataClass from '../../data/TagDataClass'
 import { Modifier } from '../../data/types'
 import Alias from './Alias'
 import { ThemeType } from '../../misc/theme'

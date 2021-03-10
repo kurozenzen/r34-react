@@ -1,13 +1,16 @@
-import React, { useMemo } from 'react'
-import styled, { css } from 'styled-components'
+import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
+import styled, { css, DefaultTheme } from 'styled-components'
 import TagList from '../tag/TagList'
-import { RatingType } from '../../data/types'
-import TagDataClass from '../../data/Tag'
 import { listToMap } from '../../data/utils'
 import Rating from './Rating'
 import Score from './Score'
 import Source from './source/Source'
-import { flexRowGap, layer } from '../../styled/mixins'
+import { flexColumnWithGap, flexRowGap, flexRowWithGap, gutter, layer } from '../../styled/mixins'
+import { useSelector } from 'react-redux'
+import { selectPostById, selectShowMetadata, selectShowComments } from '../../redux/selectors'
+import PostDataClass from '../../data/PostDataClass'
+import { Faded } from '../common/Text'
+import { NO_OP } from '../../data/types'
 
 const Bar = styled.div(
   ({ theme }) => css`
@@ -24,23 +27,89 @@ const Bar = styled.div(
   `
 )
 
+const Menu = styled.div`
+  ${flexRowWithGap}
+  ${gutter}
+  justify-content: space-around;
+  margin-top: 8px;
+  grid-row: 3/4;
+`
+
+const MenuEntry = styled.span`
+  ${({ active, theme }: { active: boolean; theme: DefaultTheme }) =>
+    active
+      ? css`
+          color: ${theme.colors.accentColor};
+        `
+      : ''}
+`
+
 const DetailsTagList = styled(TagList)(
   ({ theme }) => css`
-    grid-row: 3/4;
+    grid-row: 4/5;
     padding: ${theme.dimensions.gutter};
   `
 )
 
+const AdditionalDetails = styled.div`
+  ${flexColumnWithGap}
+  ${gutter}
+  
+  flex-wrap: wrap;
+  padding-top: 0;
+  grid-row: 4/5;
+`
+
+const MetaData = styled(Faded)`
+  white-space: nowrap;
+`
+
+const Comment = styled.div`
+  line-height: 20px;
+
+  > :first-child {
+    margin-right: 4px;
+  }
+`
+
 interface DetailsProps {
-  rating: RatingType
-  score: number
-  source: string
-  tags: TagDataClass[]
+  postId: number
+  onLoad?: () => void
 }
 
+type ActiveTab = 'tags' | 'comments' | 'metadata'
+
 export default function Details(props: DetailsProps) {
-  const { rating, score, source, tags } = props
+  const { postId, onLoad = NO_OP } = props
+  const { rating, score, tags, source, created_at, status, height, width, comments } = useSelector(
+    selectPostById(postId)
+  ) as PostDataClass
   const tagsForRendering = useMemo(() => listToMap(tags, 'name'), [tags])
+  const showMetadata = useSelector(selectShowMetadata)
+  const showComments = useSelector(selectShowComments)
+
+  const [activeTab, setActiveTab] = useState<ActiveTab>('tags')
+
+  const setTags: MouseEventHandler = useCallback((event) => {
+    event.stopPropagation()
+    setActiveTab('tags')
+  }, [])
+
+  const setComments: MouseEventHandler = useCallback((event) => {
+    event.stopPropagation()
+    setActiveTab('comments')
+  }, [])
+
+  const setMetadata: MouseEventHandler = useCallback((event) => {
+    event.stopPropagation()
+    setActiveTab('metadata')
+  }, [])
+
+  useEffect(() => {
+    onLoad()
+  }, [onLoad, activeTab])
+
+  const commentsLength = comments?.length || 0
 
   return (
     <>
@@ -49,7 +118,49 @@ export default function Details(props: DetailsProps) {
         {!!score && <Score value={score} />}
         {!!source && <Source value={source} />}
       </Bar>
-      <DetailsTagList tags={tagsForRendering} detailed={false} />
+      {((showComments && commentsLength > 0) || showMetadata) && (
+        <Menu>
+          <MenuEntry active={activeTab === 'tags'} onClick={setTags}>
+            Tags
+          </MenuEntry>
+          {showComments && commentsLength > 0 && (
+            <MenuEntry active={activeTab === 'comments'} onClick={setComments}>
+              Comments
+            </MenuEntry>
+          )}
+          {showMetadata && (
+            <MenuEntry active={activeTab === 'metadata'} onClick={setMetadata}>
+              Metadata
+            </MenuEntry>
+          )}
+        </Menu>
+      )}
+
+      {
+        {
+          tags: <DetailsTagList tags={tagsForRendering} detailed={false} />,
+          comments: (
+            <AdditionalDetails>
+              {comments &&
+                comments.map((comment) => (
+                  <Comment>
+                    <span>{comment.creator}:</span>
+                    <Faded>{comment.body}</Faded>
+                  </Comment>
+                ))}
+            </AdditionalDetails>
+          ),
+          metadata: (
+            <AdditionalDetails>
+              <MetaData>{created_at}</MetaData>
+              <MetaData>{status}</MetaData>
+              <MetaData>
+                {width} x {height}
+              </MetaData>
+            </AdditionalDetails>
+          ),
+        }[activeTab]
+      }
     </>
   )
 }

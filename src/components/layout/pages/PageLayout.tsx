@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import styled, { css } from 'styled-components'
-import PostDataClass from '../../../data/Post'
+import PostDataClass from '../../../data/PostDataClass'
 import BaseFlexColumn from '../../common/FlexColumn'
 import PageNavigation from './PageNavigation'
 

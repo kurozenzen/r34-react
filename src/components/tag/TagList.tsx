@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import TagDataClass from '../../data/Tag'
+import TagDataClass from '../../data/TagDataClass'
 import { flexRowGap, flexColumnGap } from '../../styled/mixins'
 import Tag from './Tag'
 

@@ -1,7 +1,7 @@
 import React, { KeyboardEventHandler, MouseEventHandler, useCallback, useMemo, useState } from 'react'
 import TypeIcon from '../../icons/TypeIcon'
 import { ArrowDown } from '../../icons/FontAwesomeIcons'
-import TagDataClass from '../../data/Tag'
+import TagDataClass from '../../data/TagDataClass'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectActiveTags, selectAliasesByTagName } from '../../redux/selectors'
 import { addTag, removeTag } from '../../redux/actions'

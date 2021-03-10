@@ -1,5 +1,5 @@
 import produce from 'immer'
-import TagDataClass from '../../data/Tag'
+import TagDataClass from '../../data/TagDataClass'
 import { TagType } from '../../data/types'
 import { ADD_TAG, AppAction, REMOVE_TAG, ADD_ALIASES, ADD_TYPES } from '../actions'
 

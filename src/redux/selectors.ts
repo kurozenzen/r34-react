@@ -21,6 +21,8 @@ export const selectAliases = (state: DefaultRootState) => state.tags.aliases
 export const selectPageSize = (state: DefaultRootState) => state.preferences.pageSize
 export const selectTagSuggestionCount = (state: DefaultRootState) => state.preferences.tagSuggestionsCount
 export const selectUseCorsProxy = (state: DefaultRootState) => state.preferences.useCorsProxy
+export const selectShowMetadata = (state: DefaultRootState) => state.preferences.showMetadata
+export const selectShowComments = (state: DefaultRootState) => state.preferences.showComments
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)

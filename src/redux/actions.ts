@@ -1,6 +1,7 @@
 import { PreferenceKey, TagType } from '../data/types'
-import TagDataClass from '../data/Tag'
-import PostDataClass from '../data/Post'
+import TagDataClass from '../data/TagDataClass'
+import PostDataClass from '../data/PostDataClass'
+import CommentDataClass from '../data/CommentDataClass'
 
 // Action Names
 export const ADD_TAG = 'R34_ADD_TAG'
@@ -9,6 +10,7 @@ export const ADD_ALIASES = 'R34_ADD_ALIASES'
 export const ADD_TYPES = 'R34_ADD_TYPES'
 export const ADD_POSTS = 'R34_ADD_POSTS'
 export const SET_POSTS = 'R34_SET_POSTS'
+export const SET_COMMENTS = 'R34_SET_COMMENTS'
 export const SET_OPTION = 'R34_SET_OPTION'
 export const GET_RESULTS = 'R34_GET_RESULTS'
 export const GET_MORE_RESULTS = 'R34_GET_MORE_RESULTS'
@@ -52,6 +54,12 @@ interface SetPostsAction {
   pageNumber?: number
 }
 
+interface SetCommentsAction {
+  type: typeof SET_COMMENTS
+  postId: number
+  comments: CommentDataClass[]
+}
+
 interface SetOptionAction {
   type: typeof SET_OPTION
   key: PreferenceKey
@@ -93,6 +101,7 @@ export type AppAction =
   | AddTypesAction
   | AddPostsAction
   | SetPostsAction
+  | SetCommentsAction
   | SetOptionAction
   | GetResultsAction
   | GetMoreResultsAction
@@ -145,6 +154,14 @@ export function setPosts(posts: PostDataClass[], count: number, pageNumber: numb
     posts,
     count,
     pageNumber,
+  }
+}
+
+export function setComments(postId: number, comments: CommentDataClass[]): SetCommentsAction {
+  return {
+    type: SET_COMMENTS,
+    postId,
+    comments,
   }
 }
 

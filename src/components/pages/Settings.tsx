@@ -7,6 +7,7 @@ import usePreference from '../../hooks/usePreference'
 import { CodeBranchIcon } from '../../icons/FontAwesomeIcons'
 import { flexColumnWithGap, flexRowWithGap, gap } from '../../styled/mixins'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
+import { HorizontalLine } from '../common/Lines'
 import Select from '../common/Select'
 import Setting from '../common/Setting'
 import { SmallNumberInput } from '../common/SmallInput'
@@ -78,10 +79,14 @@ export default function Settings() {
   const [preloadVideos, setPreloadVideos] = usePreference(PreferenceKey.PRELOAD_VIDEOS)
   const [tagSuggestionsCount, setTagSuggestionsCount] = usePreference(PreferenceKey.TAG_SUGGESTIONS_COUNT)
   const [useCorsProxy, setUseCorsProxy] = usePreference(PreferenceKey.USE_CORS_PROXY)
+  const [showMetadata, setShowMetadata] = usePreference(PreferenceKey.SHOW_METADATA)
+  const [showComments, setShowComments] = usePreference(PreferenceKey.SHOW_COMMENTS)
 
   const togglePreloadVideos = useCallback(() => setPreloadVideos(!preloadVideos), [preloadVideos, setPreloadVideos])
   const toggleOriginals = useCallback(() => setOriginals(!originals), [originals, setOriginals])
   const toggleUseCorsProxy = useCallback(() => setUseCorsProxy(!useCorsProxy), [useCorsProxy, setUseCorsProxy])
+  const toggleShowMetadata = useCallback(() => setShowMetadata(!showMetadata), [showMetadata, setShowMetadata])
+  const toggleShowComments = useCallback(() => setShowComments(!showComments), [showComments, setShowComments])
 
   const onChangeResultsLayout = useCallback((event) => setResultsLayout(event.target.value), [setResultsLayout])
 
@@ -129,6 +134,29 @@ export default function Settings() {
             <SmallNumberInput value={pageSize} onSubmit={setPageSize} />
           </Setting>
         </SettingsSurface>
+
+        <Title>Experimental</Title>
+        <SettingsSurface>
+          <Faded>
+            These features that are still under active development. They might change a lot in the future. Expect
+            fuckiness.
+          </Faded>
+          <HorizontalLine />
+          <Setting
+            title='Show post metadata'
+            description="Posts display more data in their details. Mainly for developing purposes but maybe it's useful to someone."
+          >
+            <Toggle value={showMetadata} onToggle={toggleShowMetadata} />
+          </Setting>
+
+          <Setting
+            title='Show comments'
+            description="If there are comments on a post, they will appear in the details. They can be a bit weird though, that's why they are disabled by default."
+          >
+            <Toggle value={showComments} onToggle={toggleShowComments} />
+          </Setting>
+        </SettingsSurface>
+
         <Title>Developer</Title>
         <SettingsSurface>
           <Entry>

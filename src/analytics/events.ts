@@ -1,4 +1,4 @@
-import TagDataClass from '../data/Tag'
+import TagDataClass from '../data/TagDataClass'
 import { PreferencesState } from '../redux/reducers/preferences'
 import { tagsToString } from '../data/utils'
 

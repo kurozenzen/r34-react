@@ -1,5 +1,5 @@
-import PostDataClass from '../data/Post'
-import TagDataClass from '../data/Tag'
+import PostDataClass from '../data/PostDataClass'
+import TagDataClass from '../data/TagDataClass'
 import { Modifier, TagLike, TagType } from '../data/types'
 import { preparePost } from './prepare'
 
@@ -81,20 +81,18 @@ class API {
 
     let url = `${this.activeApi}/posts?pid=${page}&limit=${limit}`
 
-    let tagString = normalTags
-      .map((tag) => `${tag.modifier === '-' ? '-' : ''}${encodeURIComponent(tag.name)}`)
-      .join(' + ')
+    const tagParts = [...normalTags.map((tag) => `${tag.modifier === '-' ? '-' : ''}${encodeURIComponent(tag.name)}`)]
 
     if (orTags.length > 0) {
-      tagString += '+ ( ' + orTags.map((tag) => encodeURIComponent(tag.name)).join(' ~ ') + ' )'
-    }
-
-    if (tagString) {
-      url += `&tags=${tagString}`
+      tagParts.push('( ' + orTags.map((tag) => encodeURIComponent(tag.name)).join(' ~ ') + ' )')
     }
 
     if (minScore > 0) {
-      url += `+${encodeURIComponent('score:>=' + minScore)}`
+      tagParts.push(encodeURIComponent('score:>=' + minScore))
+    }
+
+    if (tagParts.length > 0) {
+      url += `&tags=${tagParts.join(' + ')}`
     }
 
     return url

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import DropdownListEntry from './DropdownListEntry'
-import TagDataClass from '../../data/Tag'
+import TagDataClass from '../../data/TagDataClass'
 import { TagType } from '../../data/types'
 import { ThemeType } from '../../misc/theme'
 import { flexColumn, flexColumnGap } from '../../styled/mixins'

@@ -68,6 +68,7 @@ export enum RatingType {
 /**
  * All preferences.
  */
+
 export enum PreferenceKey {
   INFINITE = 'infinite',
   RATED = 'rated',
@@ -79,6 +80,8 @@ export enum PreferenceKey {
   RESULTS_LAYOUT = 'resultsLayout',
   PAGE_SIZE = 'pageSize',
   USE_CORS_PROXY = 'useCorsProxy',
+  SHOW_METADATA = 'showMetadata',
+  SHOW_COMMENTS = 'showComments',
 }
 
 /**

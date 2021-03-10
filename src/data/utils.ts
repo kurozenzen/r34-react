@@ -1,5 +1,5 @@
-import PostDataClass from './Post'
-import TagDataClass from './Tag'
+import PostDataClass from './PostDataClass'
+import TagDataClass from './TagDataClass'
 import { PostType, MediaType } from './types'
 
 export const getMediaType = (type: PostType, post: PostDataClass) => {

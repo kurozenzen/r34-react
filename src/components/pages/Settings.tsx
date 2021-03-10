@@ -140,8 +140,8 @@ export default function Settings() {
         <Title>Experimental</Title>
         <SettingsSurface>
           <Faded>
-            These features that are still under active development. They might change a lot in the future. Expect
-            fuckiness.
+            These features that are still under active development. They might change a lot in the future. Please report
+            any bugs you find so I can fix them :)
           </Faded>
           <HorizontalLine />
           <Setting

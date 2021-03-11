@@ -20,6 +20,10 @@ const tips = [
   'Results are sorted chronologically. Newest first.',
   "You can search for safe posts by entering 'rating:safe' in the search field. The same works for questionable and explicit.",
   "You can search for posts from a specific website by entering 'source:*twitter* for example.",
+  'You can upvote a post by tapping its score in the details.',
+  'Wanna know more about a post? Enable "Show post metadata" in the options.',
+  'Every time you reload the page, a random tip will be shown here.',
+  'You can enable comments in the settings. Not all post have comments though.',
 ]
 
 const Span = styled(Faded)(

@@ -1,6 +1,6 @@
 import React from 'react'
 import { parseUrl } from '../../../data/utils'
-import { DeviantArtIcon, DiscordIcon, PatreonIcon, TwitterIcon } from '../../../icons/FontAwesomeIcons'
+import { DeviantArtIcon, DiscordIcon, PatreonIcon, TumblrIcon, TwitterIcon } from '../../../icons/FontAwesomeIcons'
 import { PixivIcon } from '../../../icons/PixivIcon'
 import FallbackSource from './FallbackSource'
 import DefaultLinkSource from './LinkSource'
@@ -34,6 +34,7 @@ const sources: Record<string, SourceMapping> = {
   ],
   'deviantart.com/': ['#00e59b', DeviantArtIcon, (value) => extractFirstElement(value.split('deviantart.com/')[1])],
   'discordapp.com/': ['#7289DA', DiscordIcon, () => 'Discord'],
+  'tumblr.com': ['#75869C', TumblrIcon, (value) => new URL(value).hostname.split('.')[0]],
 }
 
 export default function Source({ value }: SourceProps) {

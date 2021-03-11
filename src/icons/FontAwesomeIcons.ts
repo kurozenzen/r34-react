@@ -1,4 +1,4 @@
-import { faDeviantart, faDiscord, faGithub, faPatreon, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faDeviantart, faDiscord, faGithub, faPatreon, faTumblr, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import {
   faCalendarDay,
   faCaretDown,
@@ -95,6 +95,10 @@ export const DeviantArtIcon = styled(FontAwesomeIcon).attrs({
 
 export const DiscordIcon = styled(FontAwesomeIcon).attrs({
   icon: faDiscord,
+})``
+
+export const TumblrIcon = styled(FontAwesomeIcon).attrs({
+  icon: faTumblr,
 })``
 
 export const CalendarIcon = styled(FontAwesomeIcon).attrs({

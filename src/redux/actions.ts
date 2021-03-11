@@ -4,20 +4,21 @@ import PostDataClass from '../data/PostDataClass'
 import CommentDataClass from '../data/CommentDataClass'
 
 // Action Names
-export const ADD_TAG = 'R34_ADD_TAG'
-export const REMOVE_TAG = 'R34_REMOVE_TAG'
-export const ADD_ALIASES = 'R34_ADD_ALIASES'
-export const ADD_TYPES = 'R34_ADD_TYPES'
-export const ADD_POSTS = 'R34_ADD_POSTS'
-export const SET_POSTS = 'R34_SET_POSTS'
-export const SET_COMMENTS = 'R34_SET_COMMENTS'
-export const SET_OPTION = 'R34_SET_OPTION'
-export const GET_RESULTS = 'R34_GET_RESULTS'
-export const GET_MORE_RESULTS = 'R34_GET_MORE_RESULTS'
-export const ALLOW_COOKIES = 'R34_ALLOW_COOKIES'
-export const ENTER_FULLSCREEN = 'R34_ENTER_FULLSCREEN'
-export const EXIT_FULLSCREEN = 'R34_EXIT_FULLSCREEN'
-export const SET_FULLSCREEN_POST = 'R34_SET_FULLSCREEN_POST'
+export const ADD_TAG = `R34_ADD_TAG`
+export const REMOVE_TAG = `R34_REMOVE_TAG`
+export const ADD_ALIASES = `R34_ADD_ALIASES`
+export const ADD_TYPES = `R34_ADD_TYPES`
+export const ADD_POSTS = `R34_ADD_POSTS`
+export const SET_POSTS = `R34_SET_POSTS`
+export const SET_COMMENTS = `R34_SET_COMMENTS`
+export const SET_OPTION = `R34_SET_OPTION`
+export const GET_RESULTS = `R34_GET_RESULTS`
+export const GET_MORE_RESULTS = `R34_GET_MORE_RESULTS`
+export const ALLOW_COOKIES = `R34_ALLOW_COOKIES`
+export const ENTER_FULLSCREEN = `R34_ENTER_FULLSCREEN`
+export const EXIT_FULLSCREEN = 'EXIT_FULLSCREEN'
+export const SET_FULLSCREEN_POST = `R34_SET_FULLSCREEN_POST`
+export const LIKE_POST = `R34_LIKE_POST`
 
 // Action Types
 interface AddTagAction {
@@ -94,6 +95,11 @@ interface ExitFullscreenAction {
   type: typeof EXIT_FULLSCREEN
 }
 
+interface LikePostAction {
+  type: typeof LIKE_POST
+  postId: number
+}
+
 export type AppAction =
   | AddTagAction
   | RemoveTagAction
@@ -109,6 +115,7 @@ export type AppAction =
   | EnterFullcreenAction
   | ExitFullscreenAction
   | SetFullScreenPostAction
+  | LikePostAction
 
 // Action Creators
 export function addTag(tag: TagDataClass): AddTagAction {
@@ -209,6 +216,13 @@ export function exitFullscreen(): ExitFullscreenAction {
 export function setFullScreenPost(postId: number): SetFullScreenPostAction {
   return {
     type: SET_FULLSCREEN_POST,
+    postId,
+  }
+}
+
+export function likePost(postId: number): LikePostAction {
+  return {
+    type: LIKE_POST,
     postId,
   }
 }

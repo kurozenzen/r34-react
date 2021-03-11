@@ -1,6 +1,15 @@
 import { MiddlewareAPI } from 'redux'
 import { Dispatch } from 'react'
-import { AppAction, GET_RESULTS, GET_MORE_RESULTS, addPosts, setPosts, ADD_TAG, addAliases } from '../actions'
+import {
+  AppAction,
+  GET_RESULTS,
+  GET_MORE_RESULTS,
+  addPosts,
+  setPosts,
+  ADD_TAG,
+  addAliases,
+  LIKE_POST,
+} from '../actions'
 import api from '../../misc/api'
 import {
   selectActiveTags,
@@ -60,6 +69,16 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
         action.tag.count = tag.posts
       }
     }
+  }
+
+  if (action.type === LIKE_POST) {
+    fetch(`https://rule34.xxx/index.php?page=post&s=vote&id=${action.postId}&type=up`, { mode: 'no-cors' })
+      .then(() => {
+        // nothing to do, I update the state in advance
+      })
+      .catch((err) => {
+        console.warn('Upvote rejected', err)
+      })
   }
 
   next(action)

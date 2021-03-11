@@ -110,3 +110,7 @@ export function getCorrectSource(loadOriginal: boolean, useCorsProxy: boolean, b
   const source = loadOriginal ? big_src : small_src
   return useCorsProxy ? source : getUrlParameter(source)
 }
+
+export function boolToNumber(value: boolean) {
+  return value ? 1 : 0
+}

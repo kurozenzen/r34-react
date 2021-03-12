@@ -1,12 +1,11 @@
 import React, { MouseEventHandler, useCallback } from 'react'
-import { DefaultTheme } from 'styled-components'
-import { HeartIcon } from '../../../icons/FontAwesomeIcons'
-import FlexPair from '../../common/FlexPair'
-import styled, { css } from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
+import styled, { css, DefaultTheme } from 'styled-components'
+import { boolToNumber } from '../../../data/utils'
+import { HeartIcon } from '../../../icons/FontAwesomeIcons'
 import { likePost } from '../../../redux/actions'
 import { selectLikedByPostId } from '../../../redux/selectors'
-import { boolToNumber } from '../../../data/utils'
+import FlexPair from '../../common/FlexPair'
 
 const ScorePair = styled(FlexPair)(
   ({ $liked, theme }: { $liked: boolean; theme: DefaultTheme }) => css`

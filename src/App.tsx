@@ -3,14 +3,14 @@ import { Provider } from 'react-redux'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components'
+import ErrorBoundary from './components/features/ErrorBoundary'
+import ErrorScreen from './components/pages/ErrorScreen'
+import LoadingScreen from './components/pages/LoadingScreen'
 import CookieConfirmation from './components/widgets/CookieConfirmation'
+import { RouteName } from './data/types'
 import GlobalStyles from './GlobalStyles'
 import theme from './misc/theme'
 import { persistor, store } from './redux/store'
-import { RouteName } from './data/types'
-import LoadingScreen from './components/pages/LoadingScreen'
-import ErrorBoundary from './components/features/ErrorBoundary'
-import ErrorScreen from './components/pages/ErrorScreen'
 
 const Help = React.lazy(() => import('./components/pages/Help'))
 const Settings = React.lazy(() => import('./components/pages/Settings'))

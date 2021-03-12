@@ -1,6 +1,6 @@
 import TagDataClass from '../data/TagDataClass'
-import { PreferencesState } from '../redux/reducers/preferences'
 import { tagsToString } from '../data/utils'
+import { PreferencesState } from '../redux/reducers/preferences'
 
 enum AnalyticsEventId {
   SEARCH = 'r34_search',

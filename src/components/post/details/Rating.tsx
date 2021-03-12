@@ -1,5 +1,5 @@
-import { RatingType } from '../../../data/types'
 import React from 'react'
+import { RatingType } from '../../../data/types'
 import { RatingIcon } from '../../../icons/FontAwesomeIcons'
 import FlexPair from '../../common/FlexPair'
 

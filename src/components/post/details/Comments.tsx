@@ -1,9 +1,9 @@
-import styled from 'styled-components'
-import { Faded } from '../../common/Text'
-import CommentDataClass from '../../../data/CommentDataClass'
 import React from 'react'
-import { AdditionalDetails } from './AdditonalDetails'
+import styled from 'styled-components'
+import CommentDataClass from '../../../data/CommentDataClass'
 import { flexColumnGap } from '../../../styled/mixins'
+import { Faded } from '../../common/Text'
+import { AdditionalDetails } from './AdditonalDetails'
 
 const Comment = styled.div`
   display: flex;

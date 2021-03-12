@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { MouseEventHandler, useCallback, useEffect, useMemo } from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
 import TagList from '../../tag/TagList'
 import { listToMap } from '../../../data/utils'
@@ -9,7 +9,7 @@ import { flexRowGap, flexRowWithGap, gutter, layer } from '../../../styled/mixin
 import { useSelector } from 'react-redux'
 import { selectPostById, selectShowMetadata, selectShowComments } from '../../../redux/selectors'
 import PostDataClass from '../../../data/PostDataClass'
-import { NO_OP } from '../../../data/types'
+import { ActiveTab, NO_OP } from '../../../data/types'
 import Comments from './Comments'
 import Metadata from './Metadata'
 
@@ -55,12 +55,12 @@ const DetailsTagList = styled(TagList)(
 interface DetailsProps {
   postId: number
   onLoad?: () => void
+  activeTab: ActiveTab
+  setActiveTab: React.Dispatch<React.SetStateAction<ActiveTab>>
 }
 
-type ActiveTab = 'tags' | 'comments' | 'metadata'
-
 export default function Details(props: DetailsProps) {
-  const { postId, onLoad = NO_OP } = props
+  const { postId, onLoad = NO_OP, activeTab, setActiveTab } = props
   const { rating, score, tags, source, created_at, status, height, width, comments } = useSelector(
     selectPostById(postId)
   ) as PostDataClass
@@ -68,28 +68,35 @@ export default function Details(props: DetailsProps) {
   const showMetadata = useSelector(selectShowMetadata)
   const showComments = useSelector(selectShowComments)
 
-  const [activeTab, setActiveTab] = useState<ActiveTab>('tags')
+  const commentsLength = comments?.length || 0
 
-  const setTags: MouseEventHandler = useCallback((event) => {
-    event.stopPropagation()
-    setActiveTab('tags')
-  }, [])
+  const setTags: MouseEventHandler = useCallback(
+    (event) => {
+      event.stopPropagation()
+      setActiveTab('tags')
+    },
+    [setActiveTab]
+  )
 
-  const setComments: MouseEventHandler = useCallback((event) => {
-    event.stopPropagation()
-    setActiveTab('comments')
-  }, [])
+  const setComments: MouseEventHandler = useCallback(
+    (event) => {
+      event.stopPropagation()
+      setActiveTab('comments')
+    },
+    [setActiveTab]
+  )
 
-  const setMetadata: MouseEventHandler = useCallback((event) => {
-    event.stopPropagation()
-    setActiveTab('metadata')
-  }, [])
+  const setMetadata: MouseEventHandler = useCallback(
+    (event) => {
+      event.stopPropagation()
+      setActiveTab('metadata')
+    },
+    [setActiveTab]
+  )
 
   useEffect(() => {
     onLoad()
   }, [onLoad, activeTab])
-
-  const commentsLength = comments?.length || 0
 
   return (
     <>

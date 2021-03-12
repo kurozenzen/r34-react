@@ -9,6 +9,10 @@ import {
   ADD_TAG,
   addAliases,
   LIKE_POST,
+  FETCH_SUGGESTIONS,
+  setSuggestions,
+  FETCH_COMMENTS,
+  setComments,
 } from '../actions'
 import api from '../../misc/api'
 import {
@@ -18,8 +22,12 @@ import {
   selectMinRating,
   selectPageSize,
   selectSort,
+  selectTagSuggestionCount,
+  selectPostById,
 } from '../selectors'
 import TagDataClass from '../../data/TagDataClass'
+import { serializeTagname } from '../../misc/formatting'
+import { parseComment } from '../../data/CommentDataClass'
 
 const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => async (action: AppAction) => {
   const state = store.getState()
@@ -79,6 +87,24 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
       .catch((err) => {
         console.warn('Upvote rejected', err)
       })
+  }
+
+  if (action.type === FETCH_SUGGESTIONS) {
+    const limit = selectTagSuggestionCount(state)
+    const suggestions = await api.getTags(serializeTagname(action.value), limit)
+
+    store.dispatch(setSuggestions(suggestions))
+  }
+
+  if (action.type === FETCH_COMMENTS) {
+    const post = selectPostById(action.postId)(state)
+
+    if (post) {
+      const rawComments = (await (await fetch(post.comments_url)).json()) as any[]
+      const comments = rawComments.map(parseComment)
+
+      store.dispatch(setComments(action.postId, comments))
+    }
   }
 
   next(action)

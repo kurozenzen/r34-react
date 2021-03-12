@@ -1,7 +1,6 @@
 import produce from 'immer'
 import TagDataClass from '../../data/TagDataClass'
-import { TagType } from '../../data/types'
-import { ADD_TAG, AppAction, REMOVE_TAG, ADD_ALIASES, ADD_TYPES } from '../actions'
+import { ADD_TAG, AppAction, REMOVE_TAG, ADD_ALIASES } from '../actions'
 
 export interface TagsState {
   active: Record<string, TagDataClass>
@@ -23,12 +22,6 @@ const addAliases = (state: TagsState, aliases: TagDataClass[], forTag: string) =
     draft.aliases[forTag] = aliases
   })
 
-const addTypes = (state: TagsState, types: TagType[], forTag: string) =>
-  produce(state, (draft) => {
-    debugger
-    draft.active[forTag].types = types
-  })
-
 const removeTag = (state: TagsState, tagToRemove: TagDataClass) =>
   produce(state, (draft) => {
     delete draft.active[tagToRemove.name]
@@ -43,8 +36,6 @@ const tags = (state: TagsState = initialTagsState, action: AppAction): TagsState
       return removeTag(state, action.tag)
     case ADD_ALIASES:
       return addAliases(state, action.aliases, action.forTag)
-    case ADD_TYPES:
-      return addTypes(state, action.types, action.forTag)
     default:
       return state
   }

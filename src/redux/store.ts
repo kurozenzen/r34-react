@@ -1,11 +1,9 @@
-import { createStore, applyMiddleware } from 'redux'
-import { persistStore, persistReducer } from 'redux-persist'
+import { createStore } from 'redux'
+import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import rootReducer from './reducers'
-import eventLogging from './middleware/eventLogging'
-import apiRequests from './middleware/apiRequests'
-import { composeWithDevTools } from 'redux-devtools-extension'
 import { getVersion, versionToNumber } from '../data/utils'
+import middleware from './middleware'
+import rootReducer from './reducers'
 
 const version = getVersion()
 
@@ -17,6 +15,6 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(eventLogging, apiRequests)))
+export const store = createStore(persistedReducer, middleware)
 
 export const persistor = persistStore(store)

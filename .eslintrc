@@ -1,0 +1,3 @@
+{
+  "rules": { "sort-imports": "warn", "sort-keys": "warn", "sort-vars": "warn" }
+}

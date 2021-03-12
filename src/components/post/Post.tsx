@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import styled, { css } from 'styled-components'
 import Details from './details/Details'
 import Player from '../player/Player'
@@ -6,12 +6,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectOriginals, selectShowComments, selectUseCorsProxy } from '../../redux/selectors'
 import PostDataClass from '../../data/PostDataClass'
 import LayoutElementProps from '../layout/LayoutElementProps'
-import { NO_OP } from '../../data/types'
+import { ActiveTab, NO_OP } from '../../data/types'
 import useToggle from '../../hooks/useToggle'
 import { layer } from '../../styled/mixins'
 import { getCorrectSource } from '../../data/utils'
-import { setComments } from '../../redux/actions'
-import CommentDataClass from '../../data/CommentDataClass'
+import { fetchComments } from '../../redux/actions'
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
@@ -52,7 +51,6 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
     height,
     comments,
     has_comments,
-    comments_url,
   } = props
 
   const dispatch = useDispatch()
@@ -72,17 +70,14 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
     onLoad()
   }, [onLoad, collapsed])
 
+  // Loads comments if conditions are met
   useEffect(() => {
     if (!collapsed && showComments && has_comments && !comments) {
-      fetch(comments_url)
-        .then((res) => res.json())
-        .then((response) => {
-          const comments = response as CommentDataClass[]
-
-          dispatch(setComments(id, comments))
-        })
+      dispatch(fetchComments(id))
     }
-  }, [collapsed, showComments, has_comments, comments, comments_url, dispatch, id])
+  }, [collapsed, showComments, has_comments, comments, dispatch, id])
+
+  const [activeTab, setActiveTab] = useState<ActiveTab>('tags')
 
   return (
     <ItemWrapper style={style} ref={virtualRef} className='list-div'>
@@ -97,7 +92,7 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
             width={width}
             height={height}
           />
-          {!collapsed && <Details postId={id} onLoad={onLoad} />}
+          {!collapsed && <Details postId={id} onLoad={onLoad} activeTab={activeTab} setActiveTab={setActiveTab} />}
         </PostWrapper>
       </PositonWrapper>
     </ItemWrapper>

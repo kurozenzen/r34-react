@@ -5,7 +5,7 @@ import FlexPair from '../../common/FlexPair'
 import styled, { css } from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
 import { likePost } from '../../../redux/actions'
-import { selectLiked } from '../../../redux/selectors'
+import { selectLikedByPostId } from '../../../redux/selectors'
 import { boolToNumber } from '../../../data/utils'
 
 const ScorePair = styled(FlexPair)(
@@ -33,7 +33,7 @@ export default function Score(props: { value: number; postId: number }) {
 
   const dispatch = useDispatch()
 
-  const liked = useSelector(selectLiked(postId))
+  const liked = useSelector(selectLikedByPostId(postId))
   const handleClick: MouseEventHandler = useCallback(
     (event) => {
       event.stopPropagation()

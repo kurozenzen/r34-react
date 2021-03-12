@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect'
+import { createSelector, defaultMemoize } from 'reselect'
 import { DefaultRootState } from '../react-redux'
 
 // Simple selectors
@@ -24,6 +24,7 @@ export const selectUseCorsProxy = (state: DefaultRootState) => state.preferences
 export const selectShowMetadata = (state: DefaultRootState) => state.preferences.showMetadata
 export const selectShowComments = (state: DefaultRootState) => state.preferences.showComments
 export const selectSort = (state: DefaultRootState) => state.preferences.sort
+export const selectSuggestions = (state: DefaultRootState) => state.suggestions.entries
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)
@@ -48,7 +49,16 @@ export const selectMinRating = createSelector(selectRated, selectRatedThreshold,
 )
 
 // Parameterized selectors
-export const selectAliasesByTagName = (tagName: string) => (state: DefaultRootState) => state.tags.aliases[tagName]
-export const selectPostById = (id: number) => (state: DefaultRootState) =>
-  state.results.posts.find((post) => post.id === id)
-export const selectLiked = (id: number) => (state: DefaultRootState) => id in state.likes
+export const selectPostById = defaultMemoize((id: number) => {
+  return createSelector(selectPosts, (posts) => {
+    return posts.find((post) => post.id === id)
+  })
+})
+
+export const selectAliasesByTagName = defaultMemoize((tagName: string) => {
+  return createSelector(selectAliases, (aliases) => {
+    return aliases[tagName]
+  })
+})
+
+export const selectLikedByPostId = defaultMemoize((id: number) => (state: DefaultRootState) => id in state.likes)

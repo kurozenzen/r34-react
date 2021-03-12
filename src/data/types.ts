@@ -98,3 +98,5 @@ export type TagLike = {
   posts: number
   types: TagType[]
 }
+
+export type ActiveTab = 'tags' | 'comments' | 'metadata'

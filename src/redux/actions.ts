@@ -1,24 +1,25 @@
-import { PreferenceKey, TagType } from '../data/types'
+import { PreferenceKey, TagLike } from '../data/types'
 import TagDataClass from '../data/TagDataClass'
 import PostDataClass from '../data/PostDataClass'
 import CommentDataClass from '../data/CommentDataClass'
 
 // Action Names
-export const ADD_TAG = `R34_ADD_TAG`
-export const REMOVE_TAG = `R34_REMOVE_TAG`
-export const ADD_ALIASES = `R34_ADD_ALIASES`
-export const ADD_TYPES = `R34_ADD_TYPES`
-export const ADD_POSTS = `R34_ADD_POSTS`
-export const SET_POSTS = `R34_SET_POSTS`
-export const SET_COMMENTS = `R34_SET_COMMENTS`
-export const SET_OPTION = `R34_SET_OPTION`
-export const GET_RESULTS = `R34_GET_RESULTS`
-export const GET_MORE_RESULTS = `R34_GET_MORE_RESULTS`
-export const ALLOW_COOKIES = `R34_ALLOW_COOKIES`
-export const ENTER_FULLSCREEN = `R34_ENTER_FULLSCREEN`
-export const EXIT_FULLSCREEN = 'EXIT_FULLSCREEN'
-export const SET_FULLSCREEN_POST = `R34_SET_FULLSCREEN_POST`
-export const LIKE_POST = `R34_LIKE_POST`
+export const ADD_ALIASES = `r34-react/ADD_ALIASES`
+export const ADD_POSTS = `r34-react/ADD_POSTS`
+export const ADD_TAG = `r34-react/ADD_TAG`
+export const ENTER_FULLSCREEN = `r34-react/ENTER_FULLSCREEN`
+export const EXIT_FULLSCREEN = 'r34-react/EXIT_FULLSCREEN'
+export const FETCH_COMMENTS = `r34-react/FETCH_COMMENTS`
+export const FETCH_SUGGESTIONS = `r34-react/FETCH_SUGGESTIONS`
+export const GET_MORE_RESULTS = `r34-react/GET_MORE_RESULTS`
+export const GET_RESULTS = `r34-react/GET_RESULTS`
+export const LIKE_POST = `r34-react/LIKE_POST`
+export const REMOVE_TAG = `r34-react/REMOVE_TAG`
+export const SET_COMMENTS = `r34-react/SET_COMMENTS`
+export const SET_FULLSCREEN_POST = `r34-react/SET_FULLSCREEN_POST`
+export const SET_POSTS = `r34-react/SET_POSTS`
+export const SET_PREFERENCE = `r34-react/SET_PREFERENCE`
+export const SET_SUGGESTIONS = `r34-react/SET_SUGGESTIONS`
 
 // Action Types
 interface AddTagAction {
@@ -34,12 +35,6 @@ interface RemoveTagAction {
 interface AddAliasesAction {
   type: typeof ADD_ALIASES
   aliases: TagDataClass[]
-  forTag: string
-}
-
-interface AddTypesAction {
-  type: typeof ADD_TYPES
-  types: TagType[]
   forTag: string
 }
 
@@ -61,8 +56,13 @@ interface SetCommentsAction {
   comments: CommentDataClass[]
 }
 
-interface SetOptionAction {
-  type: typeof SET_OPTION
+interface FetchCommentsAction {
+  type: typeof FETCH_COMMENTS
+  postId: number
+}
+
+interface SetPreferenceAction {
+  type: typeof SET_PREFERENCE
   key: PreferenceKey
   value: any
 }
@@ -74,11 +74,6 @@ interface GetResultsAction {
 
 interface GetMoreResultsAction {
   type: typeof GET_MORE_RESULTS
-}
-
-interface AllowCookiesAction {
-  type: typeof ALLOW_COOKIES
-  value: boolean
 }
 
 interface EnterFullcreenAction {
@@ -100,22 +95,33 @@ interface LikePostAction {
   postId: number
 }
 
+interface SetSuggestionsAction {
+  type: typeof SET_SUGGESTIONS
+  suggestions: TagLike[]
+}
+
+interface FetchSuggestionsAction {
+  type: typeof FETCH_SUGGESTIONS
+  value: string
+}
+
 export type AppAction =
   | AddTagAction
   | RemoveTagAction
   | AddAliasesAction
-  | AddTypesAction
   | AddPostsAction
   | SetPostsAction
   | SetCommentsAction
-  | SetOptionAction
+  | FetchCommentsAction
+  | SetPreferenceAction
   | GetResultsAction
   | GetMoreResultsAction
-  | AllowCookiesAction
   | EnterFullcreenAction
   | ExitFullscreenAction
   | SetFullScreenPostAction
   | LikePostAction
+  | SetSuggestionsAction
+  | FetchSuggestionsAction
 
 // Action Creators
 export function addTag(tag: TagDataClass): AddTagAction {
@@ -136,14 +142,6 @@ export function addAliases(aliases: TagDataClass[], forTag: string): AddAliasesA
   return {
     type: ADD_ALIASES,
     aliases,
-    forTag,
-  }
-}
-
-export function addTypes(types: TagType[], forTag: string): AddTypesAction {
-  return {
-    type: ADD_TYPES,
-    types,
     forTag,
   }
 }
@@ -172,9 +170,16 @@ export function setComments(postId: number, comments: CommentDataClass[]): SetCo
   }
 }
 
-export function setOption(key: PreferenceKey, value: any): SetOptionAction {
+export function fetchComments(postId: number): FetchCommentsAction {
   return {
-    type: SET_OPTION,
+    type: FETCH_COMMENTS,
+    postId,
+  }
+}
+
+export function setPreference(key: PreferenceKey, value: any): SetPreferenceAction {
+  return {
+    type: SET_PREFERENCE,
     key,
     value,
   }
@@ -190,13 +195,6 @@ export function getResults(pageNumber: number = 0): GetResultsAction {
 export function getMoreResults(): GetMoreResultsAction {
   return {
     type: GET_MORE_RESULTS,
-  }
-}
-
-export function allowCookiesAction(): AllowCookiesAction {
-  return {
-    type: ALLOW_COOKIES,
-    value: true,
   }
 }
 
@@ -224,5 +222,19 @@ export function likePost(postId: number): LikePostAction {
   return {
     type: LIKE_POST,
     postId,
+  }
+}
+
+export function setSuggestions(suggestions: TagLike[]): SetSuggestionsAction {
+  return {
+    type: SET_SUGGESTIONS,
+    suggestions,
+  }
+}
+
+export function fetchSuggestions(value: string): FetchSuggestionsAction {
+  return {
+    type: FETCH_SUGGESTIONS,
+    value,
   }
 }

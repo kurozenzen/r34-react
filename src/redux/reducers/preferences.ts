@@ -1,6 +1,6 @@
 import produce from 'immer'
 import { PreferenceKey, ResultLayout } from '../../data/types'
-import { AppAction, SET_OPTION, ALLOW_COOKIES } from '../actions'
+import { AppAction, SET_PREFERENCE } from '../actions'
 
 export interface PreferencesState {
   infinite: boolean
@@ -34,7 +34,7 @@ const initialPreferencesState: PreferencesState = {
   sort: 'date',
 }
 
-function setOption<T extends PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {
+function setPreference<T extends PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {
   return produce(state, (draft) => {
     draft[key] = value
   })
@@ -42,10 +42,8 @@ function setOption<T extends PreferenceKey>(state: PreferencesState, key: T, val
 
 const preferences = (state: PreferencesState = initialPreferencesState, action: AppAction): PreferencesState => {
   switch (action.type) {
-    case SET_OPTION:
-      return setOption(state, action.key, action.value)
-    case ALLOW_COOKIES:
-      return setOption(state, PreferenceKey.COOKIES, action.value)
+    case SET_PREFERENCE:
+      return setPreference(state, action.key, action.value)
     default:
       return state
   }

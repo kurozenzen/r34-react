@@ -1,8 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import DropdownListEntry from './DropdownListEntry'
-import TagDataClass from '../../data/TagDataClass'
-import { TagType } from '../../data/types'
+import { TagLike } from '../../data/types'
 import { ThemeType } from '../../misc/theme'
 import { flexColumn, flexColumnGap } from '../../styled/mixins'
 
@@ -70,12 +69,8 @@ const ListWrapper = styled.div(
 
 interface DropdownListProps {
   tagSelectorRef: HTMLDivElement | null
-  entries: {
-    name: string
-    posts: number
-    types: TagType[]
-  }[]
-  onClick: (entry: TagDataClass) => void
+  entries: TagLike[]
+  onClick: (entry: TagLike) => void
 }
 
 export default function DropdownList(props: DropdownListProps) {

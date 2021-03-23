@@ -108,6 +108,13 @@ export function getVersionString() {
  */
 export function getCorrectSource(loadOriginal: boolean, useCorsProxy: boolean, big_src: string, small_src: string) {
   const source = loadOriginal ? big_src : small_src
+  return getCorrectSourceOrigin(useCorsProxy, source)
+}
+
+/**
+ * Returns the proxy source or direct depending on prefererence
+ */
+export function getCorrectSourceOrigin(useCorsProxy: boolean, source: string) {
   return useCorsProxy ? source : getUrlParameter(source)
 }
 

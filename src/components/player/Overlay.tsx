@@ -1,16 +1,23 @@
 import React, { MouseEventHandler, useCallback } from 'react'
 
-import { ExpandIcon, ExternalLinkIcon, CloseIcon, DownloadIcon } from '../../icons/FontAwesomeIcons'
+import { ExpandIcon, ExternalLinkIcon, CloseIcon, DownloadIcon, ArrowDown } from '../../icons/FontAwesomeIcons'
 import styled, { css } from 'styled-components'
 import useToggle from '../../hooks/useToggle'
 import { fadeOut } from '../../styled/animations'
 import { NO_OP } from '../../data/types'
 import { formatDuration } from '../../misc/formatting'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectFullsceenState, selectFullScreenIndex, selectPostById, selectPosts } from '../../redux/selectors'
+import {
+  selectFullsceenState,
+  selectNextIndex,
+  selectPreviousIndex,
+  selectPostById,
+  selectPosts,
+  selectUseCorsProxy,
+} from '../../redux/selectors'
 import { enterFullscreen, exitFullscreen, setFullScreenPost } from '../../redux/actions'
 import PostDataClass from '../../data/PostDataClass'
-import { download } from '../../data/utils'
+import { download, getCorrectSourceOrigin } from '../../data/utils'
 import ProgressBar from './ProgressBar'
 import { dropShadow, gutter } from '../../styled/mixins'
 import { PlayPauseIcon } from '../../icons/PlayPauseIcon'
@@ -57,7 +64,7 @@ const CloseButton = styled(CloseIcon)(
 )
 
 const LinkList = styled.div`
-  grid-area: 3/1/4/1;
+  grid-area: 3/1/4/2;
   place-self: end stretch;
   display: flex;
   place-items: start center;
@@ -66,6 +73,13 @@ const LinkList = styled.div`
   > svg {
     ${dropShadow}
   }
+`
+
+const ScrollHint = styled(ArrowDown)`
+  grid-area: 3/2/4/3;
+  place-self: end center;
+  height: 32px;
+  width: 32px;
 `
 
 const PlayButton = styled(PlayPauseIcon)`
@@ -98,7 +112,7 @@ const LengthDisplay = styled.span(
 
 interface OverlayProps {
   postId: number
-  togglePlay?: MouseEventHandler
+  togglePlay?: () => void
   isPaused?: boolean
   isPlayable: boolean
   currentTime?: number
@@ -117,15 +131,21 @@ function Overlay(props: OverlayProps) {
     postId,
   } = props
 
-  const posts = useSelector(selectPosts)
+  const dispatch = useDispatch()
+
   const [isVisible, toggleVisible] = useToggle()
-  const isReaderOpen = useSelector(selectFullsceenState)
 
   const post = useSelector(selectPostById(postId)) as PostDataClass
+  const posts = useSelector(selectPosts)
+  const isReaderOpen = useSelector(selectFullsceenState)
+  const useCorsProxy = useSelector(selectUseCorsProxy)
 
-  const downloadSrc = post.big_src
+  const nextIndex = useSelector(selectNextIndex)
+  const previousIndex = useSelector(selectPreviousIndex)
 
-  const onDownloadClick: MouseEventHandler = useCallback(
+  const downloadSrc = getCorrectSourceOrigin(useCorsProxy, post.big_src)
+
+  const onDownloadClick = useCallback<MouseEventHandler>(
     (event) => {
       event.stopPropagation()
       download(downloadSrc)
@@ -133,21 +153,27 @@ function Overlay(props: OverlayProps) {
     [downloadSrc]
   )
 
-  const dispatch = useDispatch()
-  const onExpandClick: MouseEventHandler = useCallback(
+  const onExpandClick = useCallback<MouseEventHandler>(
     (event) => {
-      event.preventDefault()
       event.stopPropagation()
+
       if (isReaderOpen) {
         dispatch(exitFullscreen())
       } else {
+        mediaRef && mediaRef.pause()
         dispatch(enterFullscreen(postId))
       }
     },
-    [dispatch, isReaderOpen, postId]
+    [dispatch, isReaderOpen, mediaRef, postId]
   )
 
-  const selectedIndex = useSelector(selectFullScreenIndex)
+  const handlePlayPressed: MouseEventHandler = useCallback(
+    (event) => {
+      event.stopPropagation()
+      togglePlay()
+    },
+    [togglePlay]
+  )
 
   const selectPostAt = useCallback(
     (index: number) => {
@@ -160,15 +186,17 @@ function Overlay(props: OverlayProps) {
     [dispatch, posts]
   )
 
-  const hasNext = selectedIndex + 1 < posts.length
   const selectNext = useCallback(() => {
-    selectPostAt(selectedIndex + 1)
-  }, [selectPostAt, selectedIndex])
+    if (nextIndex !== undefined) {
+      selectPostAt(nextIndex)
+    }
+  }, [selectPostAt, nextIndex])
 
-  const hasPrevious = selectedIndex > 0
   const selectPrevious = useCallback(() => {
-    selectPostAt(selectedIndex - 1)
-  }, [selectPostAt, selectedIndex])
+    if (previousIndex !== undefined) {
+      selectPostAt(previousIndex)
+    }
+  }, [selectPostAt, previousIndex])
 
   const onSeek = useCallback(
     (value: number) => {
@@ -203,7 +231,7 @@ function Overlay(props: OverlayProps) {
 
       {isPlayable && (
         <>
-          <PlayButton color='white' onClick={togglePlay} aria-label='Play/Pause' />
+          <PlayButton color='white' onClick={handlePlayPressed} aria-label='Play/Pause' />
 
           {!!duration && !!currentTime && (
             <VideoProgressBar value={currentTime} maxValue={duration} onChange={onSeek} />
@@ -214,8 +242,9 @@ function Overlay(props: OverlayProps) {
         </>
       )}
 
-      {isReaderOpen && hasPrevious && <PreviousButton onClick={selectPrevious}></PreviousButton>}
-      {isReaderOpen && hasNext && <NextButton onClick={selectNext}></NextButton>}
+      {isReaderOpen && <PreviousButton onClick={selectPrevious}></PreviousButton>}
+      {isReaderOpen && <NextButton onClick={selectNext}></NextButton>}
+      {isReaderOpen && <ScrollHint />}
     </Wrapper>
   )
 }

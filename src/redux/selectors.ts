@@ -47,6 +47,12 @@ export const selectFullScreenIndex = createSelector(selectPosts, selectFullScree
 export const selectMinRating = createSelector(selectRated, selectRatedThreshold, (rated, ratedThreshold) =>
   rated ? ratedThreshold : 0
 )
+export const selectNextIndex = createSelector(selectPosts, selectFullScreenIndex, (posts, selectedIndex) =>
+  selectedIndex + 1 < posts.length ? selectedIndex + 1 : undefined
+)
+export const selectPreviousIndex = createSelector(selectFullScreenIndex, (selectedIndex) =>
+  selectedIndex > 0 ? selectedIndex - 1 : undefined
+)
 
 // Parameterized selectors
 export const selectPostById = defaultMemoize((id: number) => {

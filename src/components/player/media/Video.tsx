@@ -31,13 +31,9 @@ export default function Video(props: MediaProps) {
     setIntervalId(null)
   }, [videoRef, intervalId])
 
-  const togglePlay = useCallback(
-    (event) => {
-      event.stopPropagation()
-      videoRef && (videoRef.paused ? play() : pause())
-    },
-    [videoRef, play, pause]
-  )
+  const togglePlay = useCallback(() => {
+    videoRef && (videoRef.paused ? play() : pause())
+  }, [videoRef, play, pause])
 
   const preload = useSelector(selectPreloadVideos) ? 'auto' : 'metadata'
 

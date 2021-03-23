@@ -1,6 +1,12 @@
 import React, { useCallback } from 'react'
 import styled, { css, useTheme } from 'styled-components'
-import { supportsAspectRatio, supportsFlexGap, supportsGap, supportsObjectFit } from '../../data/browserUtils'
+import {
+  supportsAspectRatio,
+  supportsFlexGap,
+  supportsFullscreen,
+  supportsGap,
+  supportsObjectFit,
+} from '../../data/browserUtils'
 import { ResultLayout, PreferenceKey } from '../../data/types'
 import { getVersionString } from '../../data/utils'
 import usePreference from '../../hooks/usePreference'
@@ -168,6 +174,7 @@ export default function Settings() {
               <p>Supports flex-gap: {yesOrNo(supportsFlexGap)}</p>
               <p>Supports aspect-ratio: {yesOrNo(supportsAspectRatio)}</p>
               <p>Supports object-fit: {yesOrNo(supportsObjectFit)}</p>
+              <p>Supports fullscreen: {yesOrNo(supportsFullscreen)}</p>
             </StyledCode>
           </Entry>
 

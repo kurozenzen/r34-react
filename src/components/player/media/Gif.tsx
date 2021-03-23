@@ -16,8 +16,7 @@ export default function Gif(props: MediaProps) {
       <Overlay
         isPlayable
         isPaused={isPaused}
-        togglePlay={(event) => {
-          event.stopPropagation()
+        togglePlay={() => {
           setPaused(!isPaused)
         }}
         postId={postId}

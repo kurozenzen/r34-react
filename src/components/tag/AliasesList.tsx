@@ -1,12 +1,11 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, DefaultTheme } from 'styled-components'
 import TagDataClass from '../../data/TagDataClass'
 import { Modifier } from '../../data/types'
 import Alias from './Alias'
-import { ThemeType } from '../../misc/theme'
 
 const ListWrapper = styled.div(
-  ({ theme, parentRef }: { theme: ThemeType; parentRef: HTMLDivElement }) => css`
+  ({ theme, parentRef }: { theme: DefaultTheme; parentRef: HTMLDivElement }) => css`
     position: absolute;
     top: ${parentRef.offsetTop + parentRef.clientHeight + 4}px;
     left: ${parentRef.offsetLeft}px;

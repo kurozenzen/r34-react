@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import ResetButton from '../widgets/ResetButton'
 import outOfResultsPicture from '../../icons/OutOfResults.png'
 import FlexImage from '../styled/FlexImage'
-import theme from '../../misc/theme'
+import themes, { defaultThemeId } from '../../styled/themes'
 import GlobalStyles from '../../GlobalStyles'
 
 const FullScreenCentered = styled.div`
@@ -21,6 +21,7 @@ const FullScreenCentered = styled.div`
 `
 
 export default function ErrorScreen() {
+  const theme = themes[defaultThemeId]
   return (
     <FullScreenCentered theme={theme}>
       <GlobalStyles theme={theme} />

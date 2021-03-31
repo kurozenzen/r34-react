@@ -39,7 +39,7 @@ type LocationStyledLinkProps = LinkProps<unknown> &
 
 const LocationStyledLink = styled(Link)(
   ({ to, current, theme }: LocationStyledLinkProps) => css`
-    color: ${to === current ? theme.colors.accentColor : theme.colors.backgroundColor2};
+    color: ${to === current ? theme.colors.accentColor : theme.colors.text};
   `
 )
 

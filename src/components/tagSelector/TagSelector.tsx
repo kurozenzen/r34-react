@@ -1,12 +1,11 @@
 import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled, { css } from 'styled-components'
+import styled, { css, DefaultTheme } from 'styled-components'
 import useThrottledEffect from 'use-throttled-effect'
 import { TagLike } from '../../data/types'
 import useModifier from '../../hooks/useModifier'
 import { serializeTagname } from '../../misc/formatting'
 import { prepareTag } from '../../misc/prepare'
-import { ThemeType } from '../../misc/theme'
 import { addTag, fetchSuggestions, setSuggestions } from '../../redux/actions'
 import { selectSuggestions } from '../../redux/selectors'
 import { AddButton, ModifierButton } from '../common/Buttons'
@@ -14,7 +13,7 @@ import DropdownList from './DropdownList'
 import TagInput from './TagInput'
 
 const TagSelectorWrapper = styled.div(
-  (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: ThemeType }) => css`
+  (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: DefaultTheme }) => css`
     display: flex;
     background: white;
     ${props.closed

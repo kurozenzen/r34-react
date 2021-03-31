@@ -1,13 +1,11 @@
 import { MouseEventHandler } from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
-
-import { ThemeType } from '../../misc/theme'
 import { flexRowWithGap } from '../../styled/mixins'
 
-const dropdownBorderRadius = (collapsed: boolean, theme: ThemeType) =>
+const dropdownBorderRadius = (collapsed: boolean, theme: DefaultTheme) =>
   collapsed ? theme.dimensions.borderRadius : `${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0 0`
 
-const switchingColors = (active: boolean, theme: ThemeType) => {
+const switchingColors = (active: boolean, theme: DefaultTheme) => {
   const fg = active ? theme.colors.backgroundColor : theme.colors.accentColor
   const bg = active ? theme.colors.accentColor : theme.colors.backgroundColor
 

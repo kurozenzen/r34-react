@@ -13,9 +13,10 @@ const CookieWrapper = styled.div(
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: ${theme.colors.backgroundColor2};
+    color: ${theme.colors.text};
     background: ${theme.colors.layerBgSolid};
     padding: ${theme.dimensions.gutter};
+    z-index: 100;
   `
 )
 

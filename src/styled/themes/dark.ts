@@ -1,4 +1,4 @@
-const theme = {
+const dark = {
   dimensions: {
     borderRadius: '3px',
     borderWidth: '2px',
@@ -10,6 +10,7 @@ const theme = {
     bodyWidth: '1000px',
   },
   colors: {
+    text: '#fff',
     accentColor: '#ee3344',
     hoverAccent: '#ee3344',
     backgroundColor: '#121212',
@@ -34,6 +35,4 @@ const theme = {
   },
 }
 
-export default theme
-
-export type ThemeType = typeof theme
+export default dark

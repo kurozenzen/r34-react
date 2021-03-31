@@ -1,5 +1,5 @@
 import produce from 'immer'
-import { PreferenceKey, ResultLayout } from '../../data/types'
+import { PreferenceKey, ResultLayout, ThemeId } from '../../data/types'
 import { AppAction, SET_PREFERENCE } from '../actions'
 
 export interface PreferencesState {
@@ -16,6 +16,7 @@ export interface PreferencesState {
   showMetadata: boolean
   showComments: boolean
   sort: 'score' | 'date'
+  themeId: ThemeId
 }
 
 const initialPreferencesState: PreferencesState = {
@@ -32,6 +33,7 @@ const initialPreferencesState: PreferencesState = {
   showMetadata: false,
   showComments: false,
   sort: 'date',
+  themeId: ThemeId.DARK,
 }
 
 function setPreference<T extends PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {

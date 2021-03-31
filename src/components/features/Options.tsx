@@ -1,7 +1,6 @@
 import React, { ChangeEventHandler, useCallback, useState } from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, DefaultTheme } from 'styled-components'
 import LabeledToggle from '../common/LabeledToggle'
-import { ThemeType } from '../../misc/theme'
 import { PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
 import { flexRowWithGap, gridWithGap, PropsWithTheme } from '../../styled/mixins'
@@ -12,7 +11,7 @@ const OptionsWrapper = styled.div`
 `
 
 const StyledInput = styled.input(
-  (props: { value: string; theme: ThemeType }) => css`
+  (props: { value: string; theme: DefaultTheme }) => css`
     background: none;
     border: none;
     outline: none;

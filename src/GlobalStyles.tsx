@@ -25,8 +25,9 @@ export default createGlobalStyle(
 
     body {
       font-size: ${theme.fontSizes.content};
-      color: ${theme.colors.backgroundColor2};
+      color: ${theme.colors.text};
       background-color: ${theme.colors.backgroundColor};
+      transition: color 0.4s, background-color 0.4s;
     }
 
     a {

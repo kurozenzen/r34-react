@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { DiscordIcon, GithubIcon } from '../../icons/FontAwesomeIcons'
 import R34Icon from '../../icons/R34Icon'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
@@ -77,6 +77,8 @@ const Body = styled.div`
 export default function About() {
   document.title = 'R34 React - About'
 
+  const iconColor = useTheme().colors.text
+
   return (
     <FlexColumn>
       <Header />
@@ -88,19 +90,19 @@ export default function About() {
           <ShortDesc>Here are some links</ShortDesc>
           <FlexRow>
             <Connection href='https://github.com/kurozenzen/r34-react' target='_newtab'>
-              <GithubIcon color='white' />
+              <GithubIcon color={iconColor} />
               Frontend
             </Connection>
             <Connection href='https://github.com/kurozenzen/r34-json-api'>
-              <GithubIcon color='white' />
+              <GithubIcon color={iconColor} />
               Backend
             </Connection>
             <Connection href='https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md'>
-              <GithubIcon color='white' />
+              <GithubIcon color={iconColor} />
               Bug Report
             </Connection>
             <Connection href='https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md'>
-              <GithubIcon color='white' />
+              <GithubIcon color={iconColor} />
               Feature Request
             </Connection>
           </FlexRow>
@@ -123,11 +125,11 @@ export default function About() {
           <ShortDesc>Here are some links</ShortDesc>
           <FlexRow>
             <Connection href='https://github.com/kurozenzen'>
-              <GithubIcon color='white' />
+              <GithubIcon color={iconColor} />
               GitHub
             </Connection>
             <Connection href=' https://discord.gg/yyJFG5PVBZ'>
-              <DiscordIcon color='white' />
+              <DiscordIcon color={iconColor} />
               Discord
             </Connection>
             <KofiButton id='V7V73PWW9' label='Ko-fi' />

@@ -47,6 +47,16 @@ export enum ResultLayout {
 }
 
 /**
+ * The possible themes.
+ */
+export enum ThemeId {
+  DARK = 'dark',
+  LIGHT = 'light',
+  COFFEE = 'coffee',
+  ELECTRIC = 'electric',
+}
+
+/**
  * All routes of the app.
  */
 export enum RouteName {
@@ -83,6 +93,7 @@ export enum PreferenceKey {
   SHOW_METADATA = 'showMetadata',
   SHOW_COMMENTS = 'showComments',
   SORT = 'sort',
+  THEME_ID = 'themeId',
 }
 
 /**

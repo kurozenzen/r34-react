@@ -1,8 +1,7 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, DefaultTheme } from 'styled-components'
 import DropdownListEntry from './DropdownListEntry'
 import { TagLike } from '../../data/types'
-import { ThemeType } from '../../misc/theme'
 import { flexColumn, flexColumnGap } from '../../styled/mixins'
 
 function sizeAndPosition(tagSelector: HTMLDivElement | null) {
@@ -22,7 +21,7 @@ function sizeAndPosition(tagSelector: HTMLDivElement | null) {
 }
 
 const ListWrapper = styled.div(
-  ({ theme, tagSelectorRef }: { tagSelectorRef: HTMLDivElement | null; theme: ThemeType }) => css`
+  ({ theme, tagSelectorRef }: { tagSelectorRef: HTMLDivElement | null; theme: DefaultTheme }) => css`
     ${flexColumn()}
     ${flexColumnGap('1px')}
     ${sizeAndPosition(tagSelectorRef)};

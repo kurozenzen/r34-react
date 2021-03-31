@@ -16,7 +16,7 @@ export const AButton = styled.a(
     padding: 2px 12px;
     text-align: center;
     border-radius: ${theme.dimensions.borderRadius};
-    color: #fff;
+    color: ${theme.colors.text};
     cursor: pointer;
     overflow-wrap: break-word;
     vertical-align: middle;
@@ -28,25 +28,23 @@ export const AButton = styled.a(
     font-size: 14px;
 
     :visited {
-      color: #fff !important;
+      color: ${theme.colors.text} !important;
       text-decoration: none !important;
     }
 
     :hover {
-      opacity: 0.85;
-      color: #f5f5f5 !important;
+      opacity: 0.8;
       text-decoration: none !important;
     }
 
     :active {
-      color: #f5f5f5 !important;
+      opacity: 0.6;
       text-decoration: none !important;
     }
   `
 )
 
 const Text = styled.span`
-  color: #fff !important;
   letter-spacing: -0.15px !important;
   vertical-align: middle;
   line-height: 33px !important;
@@ -56,12 +54,10 @@ const Text = styled.span`
   text-shadow: 0 1px 1px rgba(34, 34, 34, 0.05);
 
   a {
-    color: #fff !important;
     text-decoration: none !important;
   }
 
   a:hover {
-    color: #fff !important;
     text-decoration: none;
   }
 `

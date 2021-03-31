@@ -13,6 +13,7 @@ declare module 'styled-components' {
       bodyWidth: string
     }
     colors: {
+      text: string
       accentColor: string
       hoverAccent: string
       backgroundColor: string

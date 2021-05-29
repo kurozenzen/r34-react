@@ -1,6 +1,6 @@
 import produce from 'immer'
 import { PreferenceKey, ResultLayout, ThemeId } from '../../data/types'
-import { AppAction, SET_PREFERENCE } from '../actions'
+import { AppAction, SET_PREFERENCE, SET_PREFERENCES } from '../actions'
 
 export interface PreferencesState {
   infinite: boolean
@@ -42,10 +42,18 @@ function setPreference<T extends PreferenceKey>(state: PreferencesState, key: T,
   })
 }
 
+function setPreferences(state: PreferencesState, preferences: Partial<Record<PreferenceKey, any>>) {
+  return produce(state, (draft) => {
+    Object.assign(draft, preferences)
+  })
+}
+
 const preferences = (state: PreferencesState = initialPreferencesState, action: AppAction): PreferencesState => {
   switch (action.type) {
     case SET_PREFERENCE:
       return setPreference(state, action.key, action.value)
+    case SET_PREFERENCES:
+      return setPreferences(state, action.preferences)
     default:
       return state
   }

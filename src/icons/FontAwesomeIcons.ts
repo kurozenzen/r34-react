@@ -1,4 +1,12 @@
-import { faDeviantart, faDiscord, faGithub, faPatreon, faTumblr, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import {
+  faDeviantart,
+  faDiscord,
+  faGithub,
+  faGoogle,
+  faPatreon,
+  faTumblr,
+  faTwitter,
+} from '@fortawesome/free-brands-svg-icons'
 import {
   faCalendarDay,
   faCaretDown,
@@ -111,4 +119,8 @@ export const CheckIcon = styled(FontAwesomeIcon).attrs({
 
 export const ImageIcon = styled(FontAwesomeIcon).attrs({
   icon: faImage,
+})``
+
+export const GoogleIcon = styled(FontAwesomeIcon).attrs({
+  icon: faGoogle,
 })``

@@ -22,6 +22,7 @@ import { Faded, SmallTitle, Title } from '../common/Text'
 import Toggle from '../common/Toggle'
 import Header from '../features/Header'
 import ResetButton from '../widgets/ResetButton'
+import SignIn from '../widgets/SignIn'
 
 const layouts = {
   [ResultLayout.INFINITE_COLUMN]: 'Infinite',
@@ -178,6 +179,10 @@ export default function Settings() {
 
           <Setting title='Theme' description='Choose how the app looks.'>
             <Select options={themes} value={themeId} onChange={onChangeThemeId} />
+          </Setting>
+
+          <Setting title='Account' description='Sign in to save your settings across devices.'>
+            <SignIn />
           </Setting>
         </SettingsSurface>
 

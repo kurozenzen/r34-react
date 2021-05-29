@@ -10,15 +10,18 @@ export const ADD_TAG = `r34-react/ADD_TAG`
 export const ENTER_FULLSCREEN = `r34-react/ENTER_FULLSCREEN`
 export const EXIT_FULLSCREEN = 'r34-react/EXIT_FULLSCREEN'
 export const FETCH_COMMENTS = `r34-react/FETCH_COMMENTS`
+export const FETCH_PREFERENCES = `r34-react/FETCH_PREFERENCES`
 export const FETCH_SUGGESTIONS = `r34-react/FETCH_SUGGESTIONS`
 export const GET_MORE_RESULTS = `r34-react/GET_MORE_RESULTS`
 export const GET_RESULTS = `r34-react/GET_RESULTS`
 export const LIKE_POST = `r34-react/LIKE_POST`
 export const REMOVE_TAG = `r34-react/REMOVE_TAG`
+export const SAVE_PREFERENCES = 'r34-react/SAVE_PREFERENCES'
 export const SET_COMMENTS = `r34-react/SET_COMMENTS`
 export const SET_FULLSCREEN_POST = `r34-react/SET_FULLSCREEN_POST`
 export const SET_POSTS = `r34-react/SET_POSTS`
 export const SET_PREFERENCE = `r34-react/SET_PREFERENCE`
+export const SET_PREFERENCES = `r34-react/SET_PREFERENCES`
 export const SET_SUGGESTIONS = `r34-react/SET_SUGGESTIONS`
 
 // Action Types
@@ -67,6 +70,11 @@ interface SetPreferenceAction {
   value: any
 }
 
+interface SetPreferencesAction {
+  type: typeof SET_PREFERENCES
+  preferences: Partial<Record<PreferenceKey, any>>
+}
+
 interface GetResultsAction {
   type: typeof GET_RESULTS
   pageNumber: number
@@ -105,23 +113,34 @@ interface FetchSuggestionsAction {
   value: string
 }
 
+interface FetchPreferencesAction {
+  type: typeof FETCH_PREFERENCES
+}
+
+interface SavePreferencesAction {
+  type: typeof SAVE_PREFERENCES
+}
+
 export type AppAction =
-  | AddTagAction
-  | RemoveTagAction
   | AddAliasesAction
   | AddPostsAction
-  | SetPostsAction
-  | SetCommentsAction
-  | FetchCommentsAction
-  | SetPreferenceAction
-  | GetResultsAction
-  | GetMoreResultsAction
+  | AddTagAction
   | EnterFullcreenAction
   | ExitFullscreenAction
-  | SetFullScreenPostAction
-  | LikePostAction
-  | SetSuggestionsAction
+  | FetchCommentsAction
+  | FetchPreferencesAction
   | FetchSuggestionsAction
+  | GetMoreResultsAction
+  | GetResultsAction
+  | LikePostAction
+  | RemoveTagAction
+  | SavePreferencesAction
+  | SetCommentsAction
+  | SetFullScreenPostAction
+  | SetPostsAction
+  | SetPreferenceAction
+  | SetPreferencesAction
+  | SetSuggestionsAction
 
 // Action Creators
 export function addTag(tag: TagDataClass): AddTagAction {
@@ -185,6 +204,13 @@ export function setPreference(key: PreferenceKey, value: any): SetPreferenceActi
   }
 }
 
+export function setPreferences(preferences: Partial<Record<PreferenceKey, any>>): SetPreferencesAction {
+  return {
+    type: SET_PREFERENCES,
+    preferences,
+  }
+}
+
 export function getResults(pageNumber: number = 0): GetResultsAction {
   return {
     type: GET_RESULTS,
@@ -236,5 +262,17 @@ export function fetchSuggestions(value: string): FetchSuggestionsAction {
   return {
     type: FETCH_SUGGESTIONS,
     value,
+  }
+}
+
+export function fetchPreferences(): FetchPreferencesAction {
+  return {
+    type: FETCH_PREFERENCES,
+  }
+}
+
+export function savePreferences(): SavePreferencesAction {
+  return {
+    type: SAVE_PREFERENCES,
   }
 }

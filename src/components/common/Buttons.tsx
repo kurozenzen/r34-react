@@ -7,6 +7,10 @@ const TextButton = styled.button(
     padding: 0 ${theme.dimensions.bigSpacing};
     font-size: ${theme.fontSizes.content};
     ${defaultBorder({ theme })}
+    display: inline-flex;
+    gap: ${theme.dimensions.gutter};
+    align-items: center;
+    place-content: center;
 
     transition: all ${theme.timings.longTransitionTime} ease-out;
   `

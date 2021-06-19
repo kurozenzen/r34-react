@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { Provider, useSelector } from 'react-redux'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -18,6 +18,7 @@ const Help = React.lazy(() => import('./components/pages/Help'))
 const Settings = React.lazy(() => import('./components/pages/Settings'))
 const Search = React.lazy(() => import('./components/pages/Search'))
 const About = React.lazy(() => import('./components/pages/About'))
+const Privacy = React.lazy(() => import('./components/pages/Privacy'))
 
 export default function App() {
   useEffect(() => {
@@ -63,6 +64,9 @@ function ThemedApp() {
             </Route>
             <Route exact path={RouteName.ABOUT}>
               <About />
+            </Route>
+            <Route exact path={RouteName.PRIVACY}>
+              <Privacy />
             </Route>
             <Route path={RouteName.SEARCH}>
               <Search />

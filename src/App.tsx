@@ -13,6 +13,7 @@ import themes, { defaultThemeId } from './styled/themes'
 import { selectActiveThemeId } from './redux/selectors'
 import { persistor, store } from './redux/store'
 import { fetchPreferences } from './redux/actions'
+import Terms from './components/pages/Terms'
 
 const Help = React.lazy(() => import('./components/pages/Help'))
 const Settings = React.lazy(() => import('./components/pages/Settings'))
@@ -67,6 +68,9 @@ function ThemedApp() {
             </Route>
             <Route exact path={RouteName.PRIVACY}>
               <Privacy />
+            </Route>
+            <Route exact path={RouteName.TERMS}>
+              <Terms />
             </Route>
             <Route path={RouteName.SEARCH}>
               <Search />

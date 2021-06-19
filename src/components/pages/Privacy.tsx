@@ -18,6 +18,8 @@ const Section = styled(FlexColumnWithSpacing)`
 `
 
 export default function Privacy() {
+  document.title = 'R34 React - Privacy Policy'
+
   return (
     <FlexColumn>
       <Header />

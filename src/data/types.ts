@@ -65,6 +65,7 @@ export enum RouteName {
   SETTINGS = '/settings',
   ABOUT = '/about',
   PRIVACY = '/privacy',
+  TERMS = '/terms',
 }
 
 /**

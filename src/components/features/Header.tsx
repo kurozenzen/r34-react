@@ -56,7 +56,7 @@ export default function Header() {
         </BigTitle>
       </TitleBar>
 
-      <MenuBar role='cell'>
+      <MenuBar>
         <LocationStyledLink current={current} to={RouteName.SEARCH}>
           Search
         </LocationStyledLink>

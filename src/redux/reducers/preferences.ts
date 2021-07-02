@@ -17,6 +17,7 @@ export interface PreferencesState {
   showComments: boolean
   sort: 'score' | 'date'
   themeId: ThemeId
+  autoPlay: boolean
 }
 
 const initialPreferencesState: PreferencesState = {
@@ -34,6 +35,7 @@ const initialPreferencesState: PreferencesState = {
   showComments: false,
   sort: 'date',
   themeId: ThemeId.DARK,
+  autoPlay: false,
 }
 
 function setPreference<T extends PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {

@@ -26,6 +26,7 @@ export const selectShowComments = (state: DefaultRootState) => state.preferences
 export const selectSort = (state: DefaultRootState) => state.preferences.sort
 export const selectSuggestions = (state: DefaultRootState) => state.suggestions.entries
 export const selectActiveThemeId = (state: DefaultRootState) => state.preferences.themeId
+export const selectAutoPlay = (state: DefaultRootState) => state.preferences.autoPlay
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)

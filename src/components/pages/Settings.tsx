@@ -97,6 +97,7 @@ export default function Settings() {
   const [useCorsProxy, setUseCorsProxy] = usePreference(PreferenceKey.USE_CORS_PROXY)
   const [showMetadata, setShowMetadata] = usePreference(PreferenceKey.SHOW_METADATA)
   const [showComments, setShowComments] = usePreference(PreferenceKey.SHOW_COMMENTS)
+  const [autoPlay, setAutoPlay] = usePreference(PreferenceKey.AUTO_PLAY)
   const [themeId, setThemeId] = usePreference(PreferenceKey.THEME_ID)
 
   const togglePreloadVideos = useCallback(() => setPreloadVideos(!preloadVideos), [preloadVideos, setPreloadVideos])
@@ -104,6 +105,7 @@ export default function Settings() {
   const toggleUseCorsProxy = useCallback(() => setUseCorsProxy(!useCorsProxy), [useCorsProxy, setUseCorsProxy])
   const toggleShowMetadata = useCallback(() => setShowMetadata(!showMetadata), [showMetadata, setShowMetadata])
   const toggleShowComments = useCallback(() => setShowComments(!showComments), [showComments, setShowComments])
+  const toggleAutoPlay = useCallback(() => setAutoPlay(!autoPlay), [autoPlay, setAutoPlay])
 
   const onChangeResultsLayout = useCallback((event) => setResultsLayout(event.target.value), [setResultsLayout])
   const onChangeThemeId = useCallback((event) => setThemeId(event.target.value), [setThemeId])
@@ -179,6 +181,13 @@ export default function Settings() {
 
           <Setting title='Theme' description='Choose how the app looks.'>
             <Select options={themes} value={themeId} onChange={onChangeThemeId} />
+          </Setting>
+
+          <Setting
+            title='Auto-play'
+            description='Start videos automatically once they become visible. This will use more data.'
+          >
+            <Toggle value={autoPlay} onToggle={toggleAutoPlay} />
           </Setting>
 
           <Setting title='Account' description='Sign in to save your settings across devices.'>

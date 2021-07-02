@@ -1,13 +1,16 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { NO_OP } from '../../../data/types'
-import { selectPreloadVideos } from '../../../redux/selectors'
+import { selectAutoPlay, selectPreloadVideos } from '../../../redux/selectors'
 import MediaProps from './MediaProps'
 import Overlay from '../Overlay'
 import { PostVideo } from './StyledMedia'
+import useIsOnScreen from '../../../hooks/useIsOnScreen'
 
 export default function Video(props: MediaProps) {
   const { src, onLoad = NO_OP, postId, width, height } = props
+
+  const autoPlay = useSelector(selectAutoPlay)
 
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null)
 
@@ -36,6 +39,22 @@ export default function Video(props: MediaProps) {
   }, [videoRef, play, pause])
 
   const preload = useSelector(selectPreloadVideos) ? 'auto' : 'metadata'
+
+  const [isOnScreen] = useIsOnScreen(videoRef)
+
+  useEffect(() => {
+    if (videoRef && autoPlay) {
+      if (videoRef.paused && isOnScreen) {
+        play()
+      }
+    }
+  }, [autoPlay, isOnScreen, play, videoRef])
+
+  useEffect(() => {
+    if (videoRef && !videoRef.paused && !isOnScreen) {
+      pause()
+    }
+  }, [isOnScreen, pause, videoRef])
 
   return (
     <>

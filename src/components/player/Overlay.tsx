@@ -231,7 +231,7 @@ function Overlay(props: OverlayProps) {
 
       {isPlayable && (
         <>
-          <PlayButton color='white' onClick={handlePlayPressed} aria-label='Play/Pause' />
+          <PlayButton isPaused={isPaused} onClick={handlePlayPressed} aria-label='Play/Pause' />
 
           {!!duration && !!currentTime && (
             <VideoProgressBar value={currentTime} maxValue={duration} onChange={onSeek} />

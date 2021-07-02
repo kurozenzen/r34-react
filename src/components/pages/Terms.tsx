@@ -1,4 +1,4 @@
-import styled, { css, useTheme } from 'styled-components'
+import styled, { css } from 'styled-components'
 import { gap } from '../../styled/mixins'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
 import Surface from '../common/Surface'

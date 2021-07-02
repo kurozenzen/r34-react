@@ -96,6 +96,7 @@ export enum PreferenceKey {
   SHOW_COMMENTS = 'showComments',
   SORT = 'sort',
   THEME_ID = 'themeId',
+  AUTO_PLAY = 'autoPlay',
 }
 
 /**

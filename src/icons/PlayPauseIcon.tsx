@@ -1,7 +1,12 @@
-import React, { SVGProps, useCallback, MouseEventHandler } from 'react'
+import React, { MouseEventHandler } from 'react'
 import styled from 'styled-components'
 import { NO_OP } from '../data/types'
-import useToggle from '../hooks/useToggle'
+
+interface PlayPauseIconProps {
+  className?: string
+  isPaused: boolean
+  onClick: MouseEventHandler<SVGElement>
+}
 
 const MorphSvg = styled.svg`
   > rect {
@@ -29,25 +34,20 @@ const MorphSvg = styled.svg`
   }
 `
 
-export function PlayPauseIcon(props: SVGProps<SVGElement>) {
-  const { onClick = NO_OP, className } = props
-
-  const [state, toggleState] = useToggle(true)
-
-  const internalOnClick: MouseEventHandler<SVGElement> = useCallback(
-    (event) => {
-      onClick(event)
-      toggleState()
-    },
-    [onClick, toggleState]
-  )
+/**
+ * A button that fluidly transforms between a Play and a Pause icon based on isPaused.
+ * Use onClick to update isPaused.
+ * Additionally, this component takes a classname
+ */
+export function PlayPauseIcon(props: PlayPauseIconProps) {
+  const { onClick = NO_OP, className = '', isPaused } = props
 
   return (
     <MorphSvg
       viewBox='0 0 24 24'
       xmlns='http://www.w3.org/2000/svg'
-      onClick={internalOnClick}
-      className={`${className} ${state ? 'play' : 'pause'}`}
+      onClick={onClick}
+      className={`${className} ${isPaused ? 'play' : 'pause'}`}
     >
       <rect className='left' color='currentColor' x='0' y='0' width='24' height=' 24' />
       <rect className='right' color='currentColor' x='0' y='0' width='24' height=' 24' />

@@ -41,12 +41,12 @@ interface AddAliasesAction {
   forTag: string
 }
 
-interface AddPostsAction {
+export interface AddPostsAction {
   type: typeof ADD_POSTS
   posts: PostDataClass[]
 }
 
-interface SetPostsAction {
+export interface SetPostsAction {
   type: typeof SET_POSTS
   posts: PostDataClass[]
   count: number

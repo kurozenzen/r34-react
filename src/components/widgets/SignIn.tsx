@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useGoogleLogin, useGoogleLogout } from 'react-google-login'
-import { useDispatch } from 'react-redux'
+import { useCallback } from 'react'
 import styled, { css } from 'styled-components'
+import { signIn, signOut } from '../../data/firebaseFunctions'
+import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { GoogleIcon } from '../../icons/FontAwesomeIcons'
-import { fetchPreferences } from '../../redux/actions'
 import { flexRowWithGap } from '../../styled/mixins'
 import { RedButton } from '../common/Buttons'
+import FlexColumn from '../common/FlexColumn'
 
 const FlexRow = styled.div`
   ${flexRowWithGap}
@@ -20,58 +20,28 @@ const ProfilePicture = styled.img(
 )
 
 export default function SignIn() {
-  const dispatch = useDispatch()
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [isSignedIn, user] = useFirebaseAuthState()
+  const handleSignIn = useCallback(signIn, [])
+  const handleSignOut = useCallback(signOut, [])
 
-  const handleLoginSuccess = useCallback((response: any) => {
-    setLoggedIn(true)
-  }, [])
-  const handleLoginError = useCallback((response: any) => {
-    setLoggedIn(false)
-  }, [])
-  const handleLogout = useCallback(() => {
-    setLoggedIn(false)
-  }, [])
+  if (isSignedIn) {
+    const name = user?.displayName || user?.email || ''
+    const picture = user?.photoURL || ''
 
-  const { signIn } = useGoogleLogin({
-    clientId: '305691674169-siad1mgnmg2lhrctg2jaqusuv2kj1nd1.apps.googleusercontent.com',
-    onSuccess: handleLoginSuccess,
-    onFailure: handleLoginError,
-    cookiePolicy: 'single_host_origin',
-    isSignedIn: true,
-  })
-
-  const { signOut } = useGoogleLogout({
-    clientId: '305691674169-siad1mgnmg2lhrctg2jaqusuv2kj1nd1.apps.googleusercontent.com',
-    onLogoutSuccess: handleLogout,
-    cookiePolicy: 'single_host_origin',
-  })
-
-  const authInstance = gapi.auth2.getAuthInstance()
-
-  const isSignedIn = authInstance?.isSignedIn.get()
-  const user = authInstance?.currentUser.get().getBasicProfile()
-
-  useEffect(() => {
-    if (isSignedIn) {
-      dispatch(fetchPreferences())
-    }
-  })
-
-  if (isSignedIn && user) {
     return (
-      <FlexRow>
-        <ProfilePicture src={user.getImageUrl()} alt={user.getName()} />
-        <RedButton onClick={signOut}>
-          <span>Sign Out</span>
-        </RedButton>
-      </FlexRow>
+      <FlexColumn>
+        <FlexRow>
+          <ProfilePicture src={picture} alt={name} title={name} />
+          <RedButton onClick={handleSignOut}>
+            <span>Sign Out</span>
+          </RedButton>
+        </FlexRow>
+      </FlexColumn>
     )
   }
 
   return (
-    <RedButton onClick={signIn}>
+    <RedButton onClick={handleSignIn}>
       <GoogleIcon />
       <span>Sign In</span>
     </RedButton>

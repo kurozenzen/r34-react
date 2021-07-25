@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react'
-import { Provider, useSelector } from 'react-redux'
+import { Provider, useDispatch, useSelector } from 'react-redux'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components'
@@ -12,8 +12,9 @@ import GlobalStyles from './GlobalStyles'
 import themes, { defaultThemeId } from './styled/themes'
 import { selectActiveThemeId } from './redux/selectors'
 import { persistor, store } from './redux/store'
-import { fetchPreferences } from './redux/actions'
 import Terms from './components/pages/Terms'
+import useFirebaseAuthState from './hooks/useFirebaseAuthState'
+import { fetchPreferences } from './redux/actions'
 
 const Help = React.lazy(() => import('./components/pages/Help'))
 const Settings = React.lazy(() => import('./components/pages/Settings'))
@@ -22,21 +23,6 @@ const About = React.lazy(() => import('./components/pages/About'))
 const Privacy = React.lazy(() => import('./components/pages/Privacy'))
 
 export default function App() {
-  useEffect(() => {
-    gapi.load('auth2', function () {
-      gapi.auth2
-        .init({
-          client_id: '305691674169-siad1mgnmg2lhrctg2jaqusuv2kj1nd1.apps.googleusercontent.com',
-          scope: 'https://www.googleapis.com/auth/drive.appdata',
-        })
-        .then(() => {
-          if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-            store.dispatch(fetchPreferences())
-          }
-        })
-    })
-  }, [])
-
   return (
     <ErrorBoundary fallback={<ErrorScreen />}>
       <Provider store={store}>
@@ -49,7 +35,15 @@ export default function App() {
 }
 
 function ThemedApp() {
+  const dispatch = useDispatch()
   const themeId = useSelector(selectActiveThemeId)
+  const [isSignedIn] = useFirebaseAuthState()
+
+  useEffect(() => {
+    if (isSignedIn) {
+      dispatch(fetchPreferences())
+    }
+  }, [dispatch, isSignedIn])
 
   return (
     <ThemeProvider theme={themes[themeId] || defaultThemeId}>

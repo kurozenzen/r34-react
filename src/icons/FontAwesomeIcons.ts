@@ -23,8 +23,10 @@ import {
   faLink,
   faPen,
   faRegistered,
+  faSearch,
   faTimes,
   faUser,
+  faWrench,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
@@ -123,4 +125,12 @@ export const ImageIcon = styled(FontAwesomeIcon).attrs({
 
 export const GoogleIcon = styled(FontAwesomeIcon).attrs({
   icon: faGoogle,
+})``
+
+export const WrenchIcon = styled(FontAwesomeIcon).attrs({
+  icon: faWrench,
+})``
+
+export const SearchIcon = styled(FontAwesomeIcon).attrs({
+  icon: faSearch,
 })``

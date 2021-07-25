@@ -24,6 +24,7 @@ import {
   selectSort,
   selectTagSuggestionCount,
   selectPostById,
+  selectHideSeen,
 } from '../selectors'
 import TagDataClass from '../../data/TagDataClass'
 import { serializeTagname } from '../../misc/formatting'
@@ -38,8 +39,9 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     const pageSize = selectPageSize(state)
     const minRating = selectMinRating(state)
     const sort = selectSort(state)
+    const hideSeen = selectHideSeen(state)
 
-    const result = await api.getPosts(activeTags, pageSize, action.pageNumber, minRating, sort)
+    const result = await api.getPosts(activeTags, pageSize, action.pageNumber, minRating, sort, hideSeen)
 
     store.dispatch(setPosts(result.posts, result.count, action.pageNumber))
   }
@@ -50,8 +52,10 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     const pageSize = selectPageSize(state)
     const minRating = selectMinRating(state)
     const sort = selectSort(state)
+    const hideSeen = selectHideSeen(state)
+    console.log('hide seen', hideSeen)
 
-    const res = await api.getPosts(activeTags, pageSize, pageNumber + 1, minRating, sort)
+    const res = await api.getPosts(activeTags, pageSize, pageNumber + 1, minRating, sort, hideSeen)
 
     store.dispatch(addPosts(res.posts))
   }

@@ -24,13 +24,15 @@ const tips = [
   'Wanna know more about a post? Enable "Show post metadata" in the options.',
   'Every time you reload the page, a random tip will be shown here.',
   'You can enable comments in the settings. Not all post have comments though.',
+  'You can save and share your settings across devices if you log in with your Google account.',
+  'Tapping the number of results displays the exact number instead of an approximation.',
 ]
 
 const Span = styled(Faded)(
   ({ theme }) => css`
     text-align: center;
     font-size: 16px;
-    padding: ${theme.dimensions.hugeSpacing};
+    padding: ${theme.dimensions.hugeSpacing} 10%;
     max-width: ${theme.dimensions.bodyWidth};
   `
 )

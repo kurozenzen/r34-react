@@ -82,9 +82,8 @@ export enum RatingType {
  */
 
 export enum PreferenceKey {
-  INFINITE = 'infinite',
   RATED = 'rated',
-  RATEDThreshold = 'ratedThreshold',
+  RATED_THRESHOLD = 'ratedThreshold',
   ORIGINALS = 'originals',
   COOKIES = 'cookies',
   PRELOAD_VIDEOS = 'preloadVideos',
@@ -97,6 +96,15 @@ export enum PreferenceKey {
   SORT = 'sort',
   THEME_ID = 'themeId',
   AUTO_PLAY = 'autoPlay',
+  HIDE_SEEN = 'hideSeen',
+}
+
+/**
+ * All available sort types.
+ */
+export enum SortType {
+  DATE = 'date',
+  SCORE = 'score',
 }
 
 /**

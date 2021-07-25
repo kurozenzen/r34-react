@@ -4,11 +4,11 @@ import { defaultBorder, defaultBlock } from '../../styled/mixins'
 
 const StyledInput = styled.input(
   ({ theme }) => css`
-    width: 50px;
+    width: 70px;
     ${defaultBorder({ theme })}
     background-color: ${theme.colors.backgroundColor2};
     ${defaultBlock({ theme })}
-    text-align: center;
+    text-align: left;
   `
 )
 

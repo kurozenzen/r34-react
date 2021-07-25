@@ -10,7 +10,6 @@ export const selectPageNumber = (state: DefaultRootState) => state.results.pageN
 export const selectPreferences = (state: DefaultRootState) => state.preferences
 export const selectResultsLayout = (state: DefaultRootState) => state.preferences.resultsLayout
 export const selectPreloadVideos = (state: DefaultRootState) => state.preferences.resultsLayout
-export const selectInfinite = (state: DefaultRootState) => state.preferences.infinite
 export const selectOriginals = (state: DefaultRootState) => state.preferences.originals
 export const selectRated = (state: DefaultRootState) => state.preferences.rated
 export const selectRatedThreshold = (state: DefaultRootState) => state.preferences.ratedThreshold
@@ -27,6 +26,7 @@ export const selectSort = (state: DefaultRootState) => state.preferences.sort
 export const selectSuggestions = (state: DefaultRootState) => state.suggestions.entries
 export const selectActiveThemeId = (state: DefaultRootState) => state.preferences.themeId
 export const selectAutoPlay = (state: DefaultRootState) => state.preferences.autoPlay
+export const selectHideSeen = (state: DefaultRootState) => state.preferences.hideSeen
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)

@@ -22,6 +22,7 @@ import { Faded, SmallTitle, Title } from '../common/Text'
 import Toggle from '../common/Toggle'
 import Header from '../features/Header'
 import ResetButton from '../widgets/ResetButton'
+import ResetSeenPostsButton from '../widgets/ResetSeenPostsButton'
 import SignIn from '../widgets/SignIn'
 
 const layouts = {
@@ -98,6 +99,7 @@ export default function Settings() {
   const [showMetadata, setShowMetadata] = usePreference(PreferenceKey.SHOW_METADATA)
   const [showComments, setShowComments] = usePreference(PreferenceKey.SHOW_COMMENTS)
   const [autoPlay, setAutoPlay] = usePreference(PreferenceKey.AUTO_PLAY)
+  const [hideSeen, setHideSeen] = usePreference(PreferenceKey.HIDE_SEEN)
   const [themeId, setThemeId] = usePreference(PreferenceKey.THEME_ID)
 
   const togglePreloadVideos = useCallback(() => setPreloadVideos(!preloadVideos), [preloadVideos, setPreloadVideos])
@@ -106,6 +108,7 @@ export default function Settings() {
   const toggleShowMetadata = useCallback(() => setShowMetadata(!showMetadata), [showMetadata, setShowMetadata])
   const toggleShowComments = useCallback(() => setShowComments(!showComments), [showComments, setShowComments])
   const toggleAutoPlay = useCallback(() => setAutoPlay(!autoPlay), [autoPlay, setAutoPlay])
+  const toggleHideSeen = useCallback(() => setHideSeen(!hideSeen), [hideSeen, setHideSeen])
 
   const onChangeResultsLayout = useCallback((event) => setResultsLayout(event.target.value), [setResultsLayout])
   const onChangeThemeId = useCallback((event) => setThemeId(event.target.value), [setThemeId])
@@ -190,6 +193,13 @@ export default function Settings() {
             <Toggle value={autoPlay} onToggle={toggleAutoPlay} />
           </Setting>
 
+          <Setting
+            title='Hide seen posts [NOT WORKING]'
+            description='Enabling this option will hide all posts you have seen before. Perfect if you are frequently browsing the same tags or sorting by score.'
+          >
+            <Toggle value={hideSeen} onToggle={toggleHideSeen} />
+          </Setting>
+
           <Setting title='Account' description='Sign in to save your settings across devices.'>
             <SignIn />
           </Setting>
@@ -208,6 +218,7 @@ export default function Settings() {
             </StyledCode>
           </Entry>
 
+          <ResetSeenPostsButton />
           <ResetButton />
         </SettingsSurface>
         <VersionWrapper>

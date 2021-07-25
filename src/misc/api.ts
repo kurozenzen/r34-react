@@ -1,7 +1,7 @@
 import PostDataClass from '../data/PostDataClass'
 import TagDataClass from '../data/TagDataClass'
-import { Modifier, TagLike, TagType } from '../data/types'
-import { preparePost } from './prepare'
+import { Modifier, SortType, TagLike, TagType } from '../data/types'
+import { DirtyPost, preparePost } from './prepare'
 
 const sourceTags: TagLike[] = [
   { name: 'source:*patreon*', posts: 12711, types: [TagType.SOURCE] },
@@ -53,13 +53,18 @@ class API {
     limit: number = API.defaultPageSize,
     pageNumber = 0,
     minScore = 0,
-    sort: 'score' | 'date' = 'date'
+    sort: SortType = SortType.DATE,
+    hideSeen = false
   ) {
     const res = await (await fetch(this.buildPostUrl(pageNumber, tags, minScore, limit, sort))).json()
+    const count = Number(res.count)
+    const posts = res.posts.map((rawPost: DirtyPost) => {
+      return preparePost(rawPost)
+    }) as PostDataClass[]
 
     return {
-      posts: res.posts.map(preparePost) as PostDataClass[],
-      count: Number(res.count),
+      posts,
+      count,
     }
   }
 
@@ -74,10 +79,9 @@ class API {
     tags: Record<string, TagDataClass>,
     minScore: number,
     limit: number = API.defaultPageSize,
-    sort: 'score' | 'date'
+    sort: SortType
   ) {
     const tagList = Object.values(tags)
-
     const normalTags = tagList.filter((tag) => tag.modifier !== Modifier.OR)
     const orTags = tagList.filter((tag) => tag.modifier === Modifier.OR)
 
@@ -93,7 +97,7 @@ class API {
       tagParts.push(encodeURIComponent('score:>=' + minScore))
     }
 
-    if (sort !== 'date') {
+    if (sort !== SortType.DATE) {
       tagParts.push(encodeURIComponent('sort:' + sort + ':desc'))
     }
 

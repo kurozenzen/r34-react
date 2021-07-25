@@ -16,7 +16,7 @@ const config = {
   measurementId: 'G-27J3QXZ8YR',
 }
 
-let firebaseApp: firebase.app.App
+let firebaseApp = firebase.initializeApp(config)
 let analytics: firebase.analytics.Analytics
 
 const eventLogging = (store: MiddlewareAPI<any>) => (next: Dispatch<AppAction>) => (action: AppAction) => {
@@ -25,8 +25,7 @@ const eventLogging = (store: MiddlewareAPI<any>) => (next: Dispatch<AppAction>) 
 
   // Only send analytics if the user consented
   if (cookies) {
-    if (!firebaseApp) {
-      firebaseApp = firebase.initializeApp(config)
+    if (!analytics) {
       analytics = firebaseApp.analytics()
     }
 

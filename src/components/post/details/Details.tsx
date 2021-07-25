@@ -127,7 +127,7 @@ export default function Details(props: DetailsProps) {
         {
           tags: <DetailsTagList tags={tagsForRendering} detailed={false} />,
           comments: <Comments comments={comments} />,
-          metadata: <Metadata created_at={created_at} status={status} width={width} height={height} />,
+          metadata: <Metadata created_at={created_at} status={status} width={width} height={height} id={postId} />,
         }[activeTab]
       }
     </>

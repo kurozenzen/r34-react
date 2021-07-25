@@ -3,6 +3,7 @@ import KofiButton from './KofiButton'
 import styled, { css } from 'styled-components'
 import RandomTip from './RandomTip'
 import { flexColumn, flexColumnGap } from '../../styled/mixins'
+import UpdateHighlight from './UpdateHighlight'
 
 const Placeholder = styled.div(
   ({ theme }) => css`
@@ -13,13 +14,14 @@ const Placeholder = styled.div(
     margin: auto;
 
     height: calc(100vh - 400px);
-    padding: 0 10%;
+    padding: 0 ${theme.dimensions.gutter};
   `
 )
 
 export default function SearchPlaceholder() {
   return (
     <Placeholder>
+      <UpdateHighlight />
       <RandomTip />
       <KofiButton id='V7V73PWW9' label='Support Me on Ko-fi' />
     </Placeholder>

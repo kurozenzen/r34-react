@@ -1,14 +1,25 @@
 import { MiddlewareAPI } from 'redux'
 import { Dispatch } from 'react'
 import {
+  AddPostsAction,
+  ADD_POSTS,
   AppAction,
   FETCH_PREFERENCES,
   savePreferences,
   SAVE_PREFERENCES,
+  SetPostsAction,
   setPreferences,
+  SET_POSTS,
   SET_PREFERENCE,
 } from '../actions'
 import { PreferenceKey } from '../../data/types'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import { sha256 } from '../../data/encryption'
+
+const db = firebase.firestore()
+const preferencesCollection = db.collection('preferences')
+const seenPostsCollection = db.collection('seenPosts')
 
 let saveTimeout: NodeJS.Timeout
 
@@ -20,68 +31,65 @@ const persistence = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
 
     saveTimeout = setTimeout(() => {
       store.dispatch(savePreferences())
-    }, 1000)
+    }, 10000)
   }
 
   if (action.type === FETCH_PREFERENCES) {
-    const auth = gapi?.auth2?.getAuthInstance()
-    if (auth) {
-      if (auth.isSignedIn) {
-        gapi.load('client', async () => {
-          await gapi.client.init({})
-          await gapi.client.load('drive', 'v3')
+    const { currentUser } = firebase.auth()
+    const email = currentUser?.email
 
-          const appDataResponse = await gapi.client.drive.files.list({ spaces: 'appDataFolder' })
-          const fileId = appDataResponse.result?.files?.[0].id
+    if (email) {
+      const key = await sha256(email)
+      const userRef = preferencesCollection.doc(key)
+      const preferences = await userRef.get()
 
-          if (fileId) {
-            const preferenceFile = await gapi.client.drive.files.get({ fileId, alt: 'media' })
-
-            store.dispatch(setPreferences(preferenceFile.result as Record<PreferenceKey, any>))
-          }
-        })
+      if (preferences.exists) {
+        store.dispatch(setPreferences(preferences.data() as Record<PreferenceKey, any>))
       }
     }
   }
 
   if (action.type === SAVE_PREFERENCES) {
-    console.log('Saving')
-    const auth = gapi?.auth2?.getAuthInstance()
-    if (auth) {
-      if (auth.isSignedIn) {
-        gapi.load('client', async () => {
-          await gapi.client.init({})
-          await gapi.client.load('drive', 'v3')
+    const { currentUser } = firebase.auth()
+    const email = currentUser?.email
 
-          const preferences = store.getState().preferences
+    if (email) {
+      const key = await sha256(email)
+      const { preferences } = store.getState()
 
-          const appDataResponse = await gapi.client.drive.files.list({ spaces: 'appDataFolder' })
-
-          const fileId: string | undefined = await new Promise(async (resolve) => {
-            if (appDataResponse.result.files?.length === 0) {
-              const res = await gapi.client.drive.files.create({
-                fields: 'id',
-                resource: {
-                  name: 'r34-mobile-preferences.json',
-                  parents: ['appDataFolder'],
-                  mimeType: 'application/json',
-                },
-              })
-
-              resolve(res.result.id)
-            } else {
-              resolve(appDataResponse.result?.files?.[0].id)
-            }
-          })
-
-          if (fileId) {
-            await fetch(`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`, {
-              method: 'PATCH',
-              headers: new Headers({ Authorization: `Bearer ${gapi.auth.getToken().access_token}` }),
-              body: JSON.stringify(preferences),
-            })
-          }
+      preferencesCollection
+        .doc(key)
+        .set(preferences)
+        .catch((error) => {
+          console.error('Error saving preferences: ', error)
         })
+    }
+  }
+
+  if ([ADD_POSTS, SET_POSTS].includes(action.type)) {
+    const { preferences } = store.getState()
+    const hideSeen = preferences.hideSeen
+
+    if (hideSeen) {
+      const { currentUser } = firebase.auth()
+      const email = currentUser?.email
+
+      if (email) {
+        const key = await sha256(email)
+
+        const userRef = seenPostsCollection.doc(key)
+        const seenPosts = await userRef.get()
+
+        if (!seenPosts.exists) {
+          await seenPostsCollection.doc(key).set({})
+        }
+
+        const ids = (action as AddPostsAction | SetPostsAction).posts.reduce(
+          (result, current) => ({ ...result, [current.id]: {} }),
+          {}
+        )
+
+        seenPostsCollection.doc(key).update(ids)
       }
     }
   }

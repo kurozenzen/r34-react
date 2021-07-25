@@ -17,7 +17,7 @@ interface DirtyTag {
  * A post as received from the backend.
  * All strings
  */
-interface DirtyPost {
+export interface DirtyPost {
   id: string
   type: string
   score: string

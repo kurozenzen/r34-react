@@ -1,5 +1,6 @@
 import React from 'react'
 import useAction from '../../hooks/useAction'
+import { SearchIcon } from '../../icons/FontAwesomeIcons'
 import { getResults } from '../../redux/actions'
 import { BlockButton } from '../common/Buttons'
 
@@ -8,6 +9,7 @@ export default function SearchButton() {
 
   return (
     <BlockButton onClick={search} aria-label='Search'>
+      <SearchIcon />
       Search
     </BlockButton>
   )

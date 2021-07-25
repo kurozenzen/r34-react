@@ -1,9 +1,8 @@
 import produce from 'immer'
-import { PreferenceKey, ResultLayout, ThemeId } from '../../data/types'
+import { PreferenceKey, ResultLayout, SortType, ThemeId } from '../../data/types'
 import { AppAction, SET_PREFERENCE, SET_PREFERENCES } from '../actions'
 
 export interface PreferencesState {
-  infinite: boolean
   rated: boolean
   ratedThreshold: number
   originals: boolean
@@ -15,13 +14,13 @@ export interface PreferencesState {
   useCorsProxy: boolean
   showMetadata: boolean
   showComments: boolean
-  sort: 'score' | 'date'
+  sort: SortType
   themeId: ThemeId
   autoPlay: boolean
+  hideSeen: boolean
 }
 
 const initialPreferencesState: PreferencesState = {
-  infinite: true,
   rated: false,
   ratedThreshold: 1,
   originals: false,
@@ -33,9 +32,10 @@ const initialPreferencesState: PreferencesState = {
   useCorsProxy: false,
   showMetadata: false,
   showComments: false,
-  sort: 'date',
+  sort: SortType.DATE,
   themeId: ThemeId.DARK,
   autoPlay: false,
+  hideSeen: false,
 }
 
 function setPreference<T extends PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {

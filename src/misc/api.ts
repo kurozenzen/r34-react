@@ -22,7 +22,7 @@ class API {
   static apiLocal = 'http://localhost:8080'
   static apiUrl1 = 'https://r34-json.herokuapp.com'
   static apiUrl2 = 'https://r34-api-clone.herokuapp.com'
-  static apiVersion = 'v2'
+  static apiVersion = 'v1'
 
   activeApi: string
 

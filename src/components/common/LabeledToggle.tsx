@@ -3,7 +3,7 @@ import FlexPair from './FlexPair'
 import Toggle from './Toggle'
 
 interface LabeledToggleProps {
-  children: JSX.Element | string
+  children: React.ReactNode
   value: boolean
   onToggle: MouseEventHandler
 }

@@ -1,3 +1,5 @@
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import PostDataClass from '../data/PostDataClass'
 import TagDataClass from '../data/TagDataClass'
 import { Modifier, SortType, TagLike, TagType } from '../data/types'
@@ -17,16 +19,18 @@ const ratingTags: TagLike[] = [
 
 class API {
   static defaultPageSize = 20
+  static apiLocal = 'http://localhost:8080'
   static apiUrl1 = 'https://r34-json.herokuapp.com'
   static apiUrl2 = 'https://r34-api-clone.herokuapp.com'
+  static apiVersion = 'v2'
 
-  activeApi = API.apiUrl2
+  activeApi: string
 
   constructor() {
-    this.activeApi = API.apiUrl1
+    this.activeApi = `${API.apiUrl1}/${API.apiVersion}`
 
     // Failover to apiUrl2
-    fetch(this.activeApi).catch(() => (this.activeApi = API.apiUrl2))
+    fetch(this.activeApi).catch(() => (this.activeApi = `${API.apiUrl2}/${API.apiVersion}`))
   }
 
   async getTags(searchTerm: string, limit: number = API.defaultPageSize) {
@@ -56,7 +60,14 @@ class API {
     sort: SortType = SortType.DATE,
     hideSeen = false
   ) {
-    const res = await (await fetch(this.buildPostUrl(pageNumber, tags, minScore, limit, sort))).json()
+    const idToken = await firebase.auth().currentUser?.getIdToken()
+    const res = await (
+      await fetch(this.buildPostUrl(pageNumber, tags, minScore, limit, sort, hideSeen), {
+        headers: {
+          Authorization: 'Bearer ' + idToken,
+        },
+      })
+    ).json()
     const count = Number(res.count)
     const posts = res.posts.map((rawPost: DirtyPost) => {
       return preparePost(rawPost)
@@ -79,13 +90,18 @@ class API {
     tags: Record<string, TagDataClass>,
     minScore: number,
     limit: number = API.defaultPageSize,
-    sort: SortType
+    sort: SortType,
+    hideSeen: boolean
   ) {
     const tagList = Object.values(tags)
     const normalTags = tagList.filter((tag) => tag.modifier !== Modifier.OR)
     const orTags = tagList.filter((tag) => tag.modifier === Modifier.OR)
 
     let url = `${this.activeApi}/posts?pid=${page}&limit=${limit}`
+
+    if (hideSeen) {
+      url += '&hideSeen=true'
+    }
 
     const tagParts = [...normalTags.map((tag) => `${tag.modifier === '-' ? '-' : ''}${encodeURIComponent(tag.name)}`)]
 

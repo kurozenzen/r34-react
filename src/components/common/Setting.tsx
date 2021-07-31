@@ -33,7 +33,7 @@ const Control = styled.div(
 interface SettingProps {
   title: string
   description: string
-  children: JSX.Element
+  children: React.ReactNode
 }
 
 export default function Setting({ title, description, children }: SettingProps) {

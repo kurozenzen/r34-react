@@ -187,13 +187,13 @@ export function borderRadius({ theme }: PropsWithTheme) {
 
 export function boxShadow({ theme }: PropsWithTheme) {
   return css`
-    box-shadow: 0 0 ${theme.shadow.radius} ${theme.shadow.color};
+    box-shadow: 0 1px ${theme.shadow.radius} ${theme.shadow.color};
   `
 }
 
 export function dropShadow({ theme }: PropsWithTheme) {
   return css`
-    filter: drop-shadow(0 0 ${theme.shadow.radius} ${theme.shadow.color});
+    filter: drop-shadow(0 1px ${theme.shadow.radius} ${theme.shadow.color});
   `
 }
 

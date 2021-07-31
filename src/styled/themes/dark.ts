@@ -23,7 +23,7 @@ const dark = {
   },
   shadow: {
     radius: '4px',
-    color: '#000',
+    color: '#00000060',
   },
   timings: {
     transitionTime: '0.2s',

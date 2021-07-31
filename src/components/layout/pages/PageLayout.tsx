@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { ReactNode, useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import PostDataClass from '../../../data/PostDataClass'
 import BaseFlexColumn from '../../common/FlexColumn'
@@ -11,8 +11,8 @@ const FlexColumn = styled(BaseFlexColumn)(
 )
 
 interface PageLayoutProps<T> {
-  header?: JSX.Element
-  outOfItems?: JSX.Element
+  header?: ReactNode
+  outOfItems?: ReactNode
   items?: T[]
   pageSize: number
   currentPage: number

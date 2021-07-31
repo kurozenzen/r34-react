@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 interface ErrorBoundaryProps {
-  fallback: JSX.Element
-  children: JSX.Element
+  fallback: ReactNode
+  children: ReactNode
 }
 
 interface ErrorBoundaryState {

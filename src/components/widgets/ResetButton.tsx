@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { signOut } from '../../data/firebaseFunctions'
+import { signOut } from '../../firebase'
 import { BlockButton } from '../common/Buttons'
 
 export default function ResetButton(props: any) {

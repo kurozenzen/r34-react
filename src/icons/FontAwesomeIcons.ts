@@ -24,6 +24,7 @@ import {
   faPen,
   faRegistered,
   faSearch,
+  faTags,
   faTimes,
   faUser,
   faWrench,
@@ -133,4 +134,8 @@ export const WrenchIcon = styled(FontAwesomeIcon).attrs({
 
 export const SearchIcon = styled(FontAwesomeIcon).attrs({
   icon: faSearch,
+})``
+
+export const SupertagIcon = styled(FontAwesomeIcon).attrs({
+  icon: faTags,
 })``

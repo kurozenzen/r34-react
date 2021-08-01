@@ -2,7 +2,8 @@ import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled, { css, DefaultTheme } from 'styled-components'
 import useThrottledEffect from 'use-throttled-effect'
-import { TagLike } from '../../data/types'
+import { getSupertags } from '../../firebase'
+import { TagLike, TagType, Modifier } from '../../data/types'
 import useModifier from '../../hooks/useModifier'
 import { serializeTagname } from '../../misc/formatting'
 import { prepareTag } from '../../misc/prepare'
@@ -44,15 +45,32 @@ export default function TagSelector() {
   const suggestions = useSelector(selectSuggestions)
 
   const activateTag = useCallback(
-    ({ name, posts, types }: TagLike) => {
-      const tag = prepareTag({
-        name,
-        types,
-        modifier,
-        count: posts.toString(),
-      })
+    ({ name, posts, count, types }: TagLike) => {
+      if (types?.includes(TagType.SUPERTAG)) {
+        getSupertags().then((supertags) => {
+          if (supertags) {
+            Object.entries(supertags[name].tags).forEach(([name, modifier]) => {
+              const tag = prepareTag({
+                name,
+                types: [],
+                count: '0',
+                modifier: modifier as Modifier,
+              })
 
-      dispatch(addTag(tag))
+              dispatch(addTag(tag))
+            })
+          }
+        })
+      } else {
+        const tag = prepareTag({
+          name,
+          types,
+          modifier,
+          count: (count || posts || 0).toString(),
+        })
+
+        dispatch(addTag(tag))
+      }
 
       setValue('')
       dispatch(setSuggestions([]))

@@ -10,6 +10,7 @@ export enum TagType {
   RATING = 'rating',
   SOURCE = 'source',
   METADATA = 'metadata',
+  SUPERTAG = 'supertag',
 }
 
 /**
@@ -117,7 +118,8 @@ export const NO_OP = () => {}
  */
 export type TagLike = {
   name: string
-  posts: number
+  posts?: number
+  count?: number
   types: TagType[]
 }
 

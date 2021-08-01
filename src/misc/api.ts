@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import { getSupertags } from '../firebase'
 import PostDataClass from '../data/PostDataClass'
 import TagDataClass from '../data/TagDataClass'
 import { Modifier, SortType, TagLike, TagType } from '../data/types'
@@ -22,26 +23,45 @@ class API {
   static apiLocal = 'http://localhost:8080'
   static apiUrl1 = 'https://r34-json.herokuapp.com'
   static apiUrl2 = 'https://r34-api-clone.herokuapp.com'
-  static apiVersion = 'v1'
 
-  activeApi: string
+  activeApi!: string
 
   constructor() {
-    this.activeApi = `${API.apiUrl1}/${API.apiVersion}`
+    this.setApi('live', 'v2')
+  }
 
-    // Failover to apiUrl2
-    fetch(this.activeApi).catch(() => (this.activeApi = `${API.apiUrl2}/${API.apiVersion}`))
+  setApi(target: 'local' | 'live', version: 'v1' | 'v2') {
+    if (target === 'local') {
+      this.activeApi = `${API.apiLocal}/${version}`
+    } else {
+      this.activeApi = `${API.apiUrl1}/${version}`
+
+      // Failover to apiUrl2
+      fetch(this.activeApi).catch(() => (this.activeApi = `${API.apiUrl2}/${version}`))
+    }
   }
 
   async getTags(searchTerm: string, limit: number = API.defaultPageSize) {
-    const tags: TagLike[] = await (
+    let tags: TagLike[] = await (
       await fetch(`${this.activeApi}/tags?limit=${limit}&name=${searchTerm}*&order_by=posts`)
     ).json()
+
+    try {
+      const supertags = await getSupertags()
+      if (supertags) {
+        const matchingSupertags = Object.entries(supertags)
+          .filter(([name, details]) => name.toLowerCase().includes(searchTerm.toLowerCase()))
+          .map(([name, details]) => ({ name, count: Object.keys(details.tags).length, types: ['supertag'] } as TagLike))
+        tags = [...matchingSupertags, ...tags]
+      }
+    } catch {
+      // do nothing as supertags are optional
+    }
 
     // HACKY: Inject suggestions for ratings and some sources
     if (searchTerm.startsWith('rating:')) {
       const matchingRating = ratingTags.filter((tag) => tag.name.includes(searchTerm.replace('rating:', '')))
-      return [...tags, ...matchingRating]
+      return [...matchingRating, ...tags]
     }
 
     if (searchTerm.startsWith('source:')) {

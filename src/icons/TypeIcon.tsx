@@ -1,6 +1,14 @@
 import React, { MouseEventHandler, useMemo } from 'react'
 import { NO_OP, TagType } from '../data/types'
-import { CharacterIcon, CopyrightIcon, ArtistIcon, RatingIcon, SourceIcon, MetaDataIcon } from './FontAwesomeIcons'
+import {
+  CharacterIcon,
+  CopyrightIcon,
+  ArtistIcon,
+  RatingIcon,
+  SourceIcon,
+  MetaDataIcon,
+  SupertagIcon,
+} from './FontAwesomeIcons'
 
 interface TypeIconProps {
   types?: string[]
@@ -29,6 +37,8 @@ export default function TypeIcon(props: TypeIconProps) {
       return <SourceIcon className={className} onClick={onClick} />
     case TagType.METADATA:
       return <MetaDataIcon className={className} onClick={onClick} />
+    case TagType.SUPERTAG:
+      return <SupertagIcon className={className} onClick={onClick} />
     default:
       return null
   }

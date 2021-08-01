@@ -24,7 +24,7 @@ export default function Config(props: { onLoad: () => void }) {
       </Title>
       <Surface>
         <TagSelector />
-        <ActiveTags onChange={onLoad} />
+        <ActiveTags onChange={onLoad} offerSupertags />
         <Options />
         <SearchButton />
       </Surface>

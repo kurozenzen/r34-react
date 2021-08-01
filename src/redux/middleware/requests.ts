@@ -65,7 +65,7 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     const aliases = await api.getAliases(action.tag.name)
 
     const sanitizedAliases = aliases
-      .sort((a, b) => b.posts - a.posts)
+      .sort((a, b) => (b.posts || b.count || 0) - (a.posts || a.count || 0))
       .filter((alias) => !(alias.name in activeTags))
       .map((alias) => new TagDataClass(alias.name, [], alias.posts))
 
@@ -74,7 +74,7 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     // Request types for newly added tag
     if (action.tag.types?.length === 0) {
       const tags = await api.getTags(action.tag.name)
-      const tag = tags.find((tag) => (tag.name = action.tag.name))
+      const tag = tags.find((tag) => tag.name === action.tag.name)
 
       if (tag) {
         action.tag.types = tag.types

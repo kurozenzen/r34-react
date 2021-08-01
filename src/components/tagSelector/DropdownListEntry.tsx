@@ -19,6 +19,7 @@ const EntryWrapper = styled.div(
     height: ${theme.dimensions.blockHeight};
     background: white;
     align-items: center;
+    cursor: pointer;
   `
 )
 
@@ -41,13 +42,17 @@ const Icon = styled.div`
 export default function DropdownListEntry(props: EntryProps) {
   const { name, posts, types, onClick } = props
 
+  const unit = types.includes(TagType.SUPERTAG) ? 'tags' : 'posts'
+
   return (
     <EntryWrapper onClick={onClick}>
       <Icon>
         <TypeIcon types={types} />
       </Icon>
       <Name>{formatTagname(name)}</Name>
-      <Count>{formatCount(posts)} posts</Count>
+      <Count>
+        {formatCount(posts)} {unit}
+      </Count>
     </EntryWrapper>
   )
 }

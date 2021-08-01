@@ -9,6 +9,7 @@ import {
 } from '../../data/browserUtils'
 import { ResultLayout, PreferenceKey, ThemeId } from '../../data/types'
 import { getVersionString } from '../../data/utils'
+import { useSupertags } from '../../firebase'
 import usePreference from '../../hooks/usePreference'
 import { CodeBranchIcon } from '../../icons/FontAwesomeIcons'
 import { flexColumnWithGap, flexRowWithGap, gap } from '../../styled/mixins'
@@ -17,6 +18,7 @@ import { HorizontalLine } from '../common/Lines'
 import Select from '../common/Select'
 import Setting from '../common/Setting'
 import { SmallNumberInput } from '../common/SmallInput'
+import SuperTagEntry from '../common/SuperTagEntry'
 import Surface from '../common/Surface'
 import { Faded, SmallTitle, Title } from '../common/Text'
 import Toggle from '../common/Toggle'
@@ -114,6 +116,7 @@ export default function Settings() {
   const onChangeThemeId = useCallback((event) => setThemeId(event.target.value), [setThemeId])
 
   const versionString = getVersionString()
+  const supertags = useSupertags()
 
   document.title = 'R34 React - Settings'
 
@@ -174,6 +177,37 @@ export default function Settings() {
           </Setting>
         </SettingsSurface>
 
+        <Title>Account</Title>
+        <SettingsSurface>
+          <Setting title='Account' description='Sign in to save your settings across devices.'>
+            <SignIn />
+          </Setting>
+
+          <Setting title='Theme' description='Choose how the app looks.'>
+            <Select options={themes} value={themeId} onChange={onChangeThemeId} />
+          </Setting>
+
+          <Setting
+            title='Personal Tag Lists'
+            description='Here you can create custom tag lists. Adding them to your search will add all the tags inside instead.'
+          >
+            {null}
+          </Setting>
+
+          <div>
+            {Object.entries(supertags).map(([name, details]) => (
+              <SuperTagEntry key={name} name={name} {...details}></SuperTagEntry>
+            ))}
+          </div>
+
+          <Setting
+            title='Hide seen posts [NOT WORKING]'
+            description='Enabling this option will hide all posts you have seen before. Perfect if you are frequently browsing the same tags or sorting by score.'
+          >
+            <Toggle value={hideSeen} onToggle={toggleHideSeen} />
+          </Setting>
+        </SettingsSurface>
+
         <Title>Experimental</Title>
         <SettingsSurface>
           <Faded>
@@ -182,26 +216,11 @@ export default function Settings() {
           </Faded>
           <HorizontalLine />
 
-          <Setting title='Theme' description='Choose how the app looks.'>
-            <Select options={themes} value={themeId} onChange={onChangeThemeId} />
-          </Setting>
-
           <Setting
             title='Auto-play'
             description='Start videos automatically once they become visible. This will use more data.'
           >
             <Toggle value={autoPlay} onToggle={toggleAutoPlay} />
-          </Setting>
-
-          <Setting
-            title='Hide seen posts [NOT WORKING]'
-            description='Enabling this option will hide all posts you have seen before. Perfect if you are frequently browsing the same tags or sorting by score.'
-          >
-            <Toggle value={hideSeen} onToggle={toggleHideSeen} />
-          </Setting>
-
-          <Setting title='Account' description='Sign in to save your settings across devices.'>
-            <SignIn />
           </Setting>
         </SettingsSurface>
 

@@ -17,16 +17,18 @@ interface TagListProps {
   tags: Record<string, TagDataClass>
   className?: string
   detailed: boolean
+  children?: React.ReactNode
 }
 
 export default function TagList(props: TagListProps) {
-  const { tags, className, detailed } = props
+  const { tags, className, detailed, children = null } = props
 
   return (
     <TagListWrapper className={className}>
       {Object.entries(tags).map(([key, tag]) => (
         <Tag key={key} detailed={detailed} {...tag} />
       ))}
+      {children}
     </TagListWrapper>
   )
 }

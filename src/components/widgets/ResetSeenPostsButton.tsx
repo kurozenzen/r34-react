@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { resetSeenPosts } from '../../data/firebaseFunctions'
+import { resetSeenPosts } from '../../firebase'
 import { BlockButton } from '../common/Buttons'
 
 export default function ResetSeenPostsButton() {

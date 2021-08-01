@@ -78,7 +78,13 @@ export default function DropdownList(props: DropdownListProps) {
   return entries && entries.length > 0 ? (
     <ListWrapper tagSelectorRef={tagSelectorRef}>
       {entries.map((entry) => (
-        <DropdownListEntry key={entry.name} onClick={() => onClick(entry)} {...entry} />
+        <DropdownListEntry
+          key={entry.name}
+          onClick={() => onClick(entry)}
+          name={entry.name}
+          types={entry.types}
+          posts={entry.count || entry.posts || 0}
+        />
       ))}
     </ListWrapper>
   ) : null

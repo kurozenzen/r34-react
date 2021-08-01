@@ -24,20 +24,32 @@ class API {
   static apiUrl1 = 'https://r34-json.herokuapp.com'
   static apiUrl2 = 'https://r34-api-clone.herokuapp.com'
 
-  activeApi!: string
+  private target: 'local' | 'live' = 'live'
+  private version: 'v1' | 'v2' = 'v2'
+  private activeApi!: string
 
   constructor() {
-    this.setApi('live', 'v2')
+    this.setActiveApi()
   }
 
-  setApi(target: 'local' | 'live', version: 'v1' | 'v2') {
-    if (target === 'local') {
-      this.activeApi = `${API.apiLocal}/${version}`
+  setTarget(target: 'live' | 'local') {
+    this.target = target
+    this.setActiveApi()
+  }
+
+  setVersion(version: 'v1' | 'v2') {
+    this.version = version
+    this.setActiveApi()
+  }
+
+  setActiveApi() {
+    if (this.target === 'local') {
+      this.activeApi = `${API.apiLocal}/${this.version}`
     } else {
-      this.activeApi = `${API.apiUrl1}/${version}`
+      this.activeApi = `${API.apiUrl1}/${this.version}`
 
       // Failover to apiUrl2
-      fetch(this.activeApi).catch(() => (this.activeApi = `${API.apiUrl2}/${version}`))
+      fetch(this.activeApi).catch(() => (this.activeApi = `${API.apiUrl2}/${this.version}`))
     }
   }
 

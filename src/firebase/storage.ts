@@ -7,6 +7,7 @@ import { PreferencesState } from '../redux/reducers/preferences'
 import { GenericConverter } from './genericConverter'
 import { Modifier } from '../data/types'
 import { useEffect, useState } from 'react'
+import useFirebaseAuthState from '../hooks/useFirebaseAuthState'
 
 const userConverter = new GenericConverter<User>()
 
@@ -116,12 +117,12 @@ export function useSupertags() {
   const [supertags, setSupertags] = useState<Record<string, SupertagDetails>>({})
   const [collection, setCollection] = useState<firebase.firestore.CollectionReference>()
 
-  useEffect(() => {
-    const { currentUser } = firebase.auth()
-    const email = currentUser?.email
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, userInfo] = useFirebaseAuthState()
 
-    if (email) {
-      sha256(email)
+  useEffect(() => {
+    if (userInfo?.email) {
+      sha256(userInfo.email)
         .then((hash) => {
           const col = firebase.firestore().collection(`users/${hash}/supertags`)
           setCollection(col)
@@ -136,7 +137,7 @@ export function useSupertags() {
           setSupertags(result)
         })
     }
-  }, [])
+  }, [userInfo?.email])
 
   useEffect(() => {
     if (collection) {

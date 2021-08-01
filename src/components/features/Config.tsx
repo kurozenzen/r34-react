@@ -7,6 +7,7 @@ import Surface from '../common/Surface'
 import SearchButton from '../widgets/SearchButton'
 import ActiveTags from '../widgets/ActiveTags'
 import { flexColumn, gutter, centeredMaxWidth } from '../../styled/mixins'
+import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 
 const ConfigWrapper = styled.section`
   ${flexColumn}
@@ -17,6 +18,8 @@ const ConfigWrapper = styled.section`
 export default function Config(props: { onLoad: () => void }) {
   const { onLoad } = props
 
+  const [isSignedIn] = useFirebaseAuthState()
+
   return (
     <ConfigWrapper>
       <Title>
@@ -24,7 +27,7 @@ export default function Config(props: { onLoad: () => void }) {
       </Title>
       <Surface>
         <TagSelector />
-        <ActiveTags onChange={onLoad} offerSupertags />
+        <ActiveTags onChange={onLoad} offerSupertags={isSignedIn} />
         <Options />
         <SearchButton />
       </Surface>

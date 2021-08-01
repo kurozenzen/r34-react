@@ -179,7 +179,10 @@ export default function Settings() {
 
         <Title>Account</Title>
         <SettingsSurface>
-          <Setting title='Account' description='Sign in to save your settings across devices.'>
+          <Setting
+            title='Account'
+            description='Sign in to save your settings across devices. All Settings in this section require you to be signed in.'
+          >
             <SignIn />
           </Setting>
 
@@ -188,8 +191,8 @@ export default function Settings() {
           </Setting>
 
           <Setting
-            title='Personal Tag Lists'
-            description='Here you can create custom tag lists. Adding them to your search will add all the tags inside instead.'
+            title='Supertags'
+            description='You can manage your supertags here. To create on sign in and try adding two or more tags to your search. Adding supertag to your search will add all the tags inside instead.'
           >
             {null}
           </Setting>

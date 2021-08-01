@@ -62,7 +62,6 @@ export enum ThemeId {
  */
 export enum RouteName {
   SEARCH = '/',
-  HELP = '/help',
   SETTINGS = '/settings',
   ABOUT = '/about',
   PRIVACY = '/privacy',

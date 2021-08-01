@@ -26,6 +26,9 @@ const tips = [
   'You can enable comments in the settings. Not all post have comments though.',
   'You can save and share your settings across devices if you log in with your Google account.',
   'Tapping the number of results displays the exact number instead of an approximation.',
+  'You can create supertags once you have two or more active tags.',
+  'Supertags are collections of tags that you can add together.',
+  'Supertags retain the modifiers of the tags they contain.',
 ]
 
 const Span = styled(Faded)(

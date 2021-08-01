@@ -61,10 +61,6 @@ export default function Header() {
           Search
         </LocationStyledLink>
         <VerticalLine />
-        <LocationStyledLink current={current} to={RouteName.HELP}>
-          Help
-        </LocationStyledLink>
-        <VerticalLine />
         <LocationStyledLink current={current} to={RouteName.SETTINGS}>
           Settings
         </LocationStyledLink>

@@ -16,7 +16,9 @@ import Terms from './components/pages/Terms'
 import useFirebaseAuthState from './hooks/useFirebaseAuthState'
 import { fetchPreferences } from './redux/actions'
 
-const Help = React.lazy(() => import('./components/pages/Help'))
+// init firebase immediately
+import './firebase'
+
 const Settings = React.lazy(() => import('./components/pages/Settings'))
 const Search = React.lazy(() => import('./components/pages/Search'))
 const About = React.lazy(() => import('./components/pages/About'))
@@ -51,9 +53,6 @@ function ThemedApp() {
       <HashRouter>
         <Suspense fallback={<LoadingScreen />}>
           <Switch>
-            <Route exact path={RouteName.HELP}>
-              <Help />
-            </Route>
             <Route exact path={RouteName.SETTINGS}>
               <Settings />
             </Route>

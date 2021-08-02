@@ -1,5 +1,13 @@
 import React, { useCallback } from 'react'
-import { AutoSizer, CellMeasurer, CellMeasurerCache, IndexRange, InfiniteLoader, List } from 'react-virtualized'
+import {
+  AutoSizer,
+  CellMeasurer,
+  CellMeasurerCache,
+  IndexRange,
+  InfiniteLoader,
+  List,
+  WindowScroller,
+} from 'react-virtualized'
 import LayoutElementProps from '../LayoutElementProps'
 
 const cache = new CellMeasurerCache({
@@ -106,20 +114,30 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
     <InfiniteLoader isRowLoaded={isRowLoaded} loadMoreRows={loadMoreRows} rowCount={rowCount}>
       {({ onRowsRendered, registerChild }) => {
         return (
-          <AutoSizer onResize={handleResize}>
-            {({ height, width }) => {
+          <AutoSizer onResize={handleResize} disableHeight>
+            {({ width }) => {
               return (
-                <List
-                  ref={registerChild}
-                  onRowsRendered={onRowsRendered}
-                  rowRenderer={rowRenderer}
-                  deferredMeasurementCache={cache}
-                  overscanRowCount={10}
-                  rowCount={items.length + prependedRows + loadingRows}
-                  rowHeight={cache.rowHeight}
-                  width={width}
-                  height={height}
-                />
+                <WindowScroller>
+                  {({ height, isScrolling, onChildScroll, scrollTop }) => {
+                    return (
+                      <List
+                        autoHeight
+                        height={height}
+                        isScrolling={isScrolling}
+                        onScroll={onChildScroll}
+                        scrollTop={scrollTop}
+                        ref={registerChild}
+                        onRowsRendered={onRowsRendered}
+                        rowRenderer={rowRenderer}
+                        deferredMeasurementCache={cache}
+                        overscanRowCount={10}
+                        rowCount={items.length + prependedRows + loadingRows}
+                        rowHeight={cache.rowHeight}
+                        width={width}
+                      />
+                    )
+                  }}
+                </WindowScroller>
               )
             }}
           </AutoSizer>

@@ -1,11 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { NO_OP } from '../../data/types'
+import React, { useCallback, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ModalIds, NO_OP } from '../../data/types'
+import useToggleTag from '../../hooks/useToggleTag'
 import { SupertagIcon } from '../../icons/FontAwesomeIcons'
+import { openModal } from '../../redux/actions'
 import { selectActiveTags, selectNumberOfActiveTags } from '../../redux/selectors'
 import { RedButton } from '../common/Buttons'
 import TagList from '../tag/TagList'
-import SupertagModal from './SupertagModal'
 
 interface ActiveTagsProps {
   onChange?: () => void
@@ -15,31 +16,25 @@ interface ActiveTagsProps {
 export default function ActiveTags(props: ActiveTagsProps) {
   const { onChange = NO_OP, offerSupertags = false } = props
 
-  const [isModalOpen, setModalOpen] = useState(false)
+  const dispatch = useDispatch()
 
   const activeTags = useSelector(selectActiveTags)
   const numberOfActiveTags = useSelector(selectNumberOfActiveTags)
+  const openSupertagModal = useCallback(() => dispatch(openModal(ModalIds.CREATE_SUPERTAG)), [dispatch])
 
-  const openModal = useCallback(() => {
-    setModalOpen(true)
-  }, [])
-
-  const closeModal = useCallback(() => {
-    setModalOpen(false)
-  }, [])
+  const toggleTag = useToggleTag()
 
   // Fire change event when tags change
   // This is used to re-measure the height
   useEffect(() => onChange(), [onChange, activeTags])
 
   return numberOfActiveTags > 0 ? (
-    <TagList tags={activeTags} detailed={true}>
+    <TagList tags={activeTags} detailed={true} onTagClick={toggleTag}>
       {offerSupertags && Object.keys(activeTags).length > 1 && (
-        <RedButton onClick={openModal} title='Create a supertag'>
+        <RedButton onClick={openSupertagModal} title='Create a supertag'>
           <SupertagIcon />
         </RedButton>
       )}
-      {isModalOpen && <SupertagModal onClose={closeModal} />}
     </TagList>
   ) : null
 }

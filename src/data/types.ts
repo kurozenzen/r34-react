@@ -123,3 +123,7 @@ export type TagLike = {
 }
 
 export type ActiveTab = 'tags' | 'comments' | 'metadata'
+
+export enum ModalIds {
+  CREATE_SUPERTAG,
+}

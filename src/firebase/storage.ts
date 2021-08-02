@@ -113,6 +113,14 @@ export async function removeSupertag(name: string) {
   }
 }
 
+export async function setTagsOfSupertag(name: string, tags: Record<string, Modifier>) {
+  const userDoc = await getUserDoc()
+
+  if (userDoc) {
+    userDoc.collection('supertags').doc(name).update({ tags })
+  }
+}
+
 export function useSupertags() {
   const [supertags, setSupertags] = useState<Record<string, SupertagDetails>>({})
   const [collection, setCollection] = useState<firebase.firestore.CollectionReference>()

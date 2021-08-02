@@ -10,7 +10,8 @@ import { NO_OP } from '../../data/types'
 import LayoutElementProps from './LayoutElementProps'
 import { HorizontalLine } from '../common/Lines'
 import styled, { css } from 'styled-components'
-import FlexImage from '../styled/FlexImage'
+import FlexImage from '../common/FlexImage'
+import useToggleTag from '../../hooks/useToggleTag'
 
 const Div = styled.div(
   ({ theme }) => css`
@@ -40,6 +41,7 @@ export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: 
       }, {}),
     [aliases]
   )
+  const toggleTag = useToggleTag()
 
   return (
     <Div style={style} ref={virtualRef} onLoad={onLoad} role='row'>
@@ -51,7 +53,7 @@ export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: 
         {aliases.length > 0 && (
           <>
             <p>How about some of these?</p>
-            <TagList tags={aliasesForRendering} detailed />
+            <TagList tags={aliasesForRendering} onTagClick={toggleTag} detailed />
           </>
         )}
       </StyledSurface>

@@ -12,6 +12,8 @@ import { selectSuggestions } from '../../redux/selectors'
 import { AddButton, ModifierButton } from '../common/Buttons'
 import DropdownList from './DropdownList'
 import TagInput from './TagInput'
+import TagDataClass from '../../data/TagDataClass'
+import { PlusIcon } from '../../icons/FontAwesomeIcons'
 
 const TagSelectorWrapper = styled.div(
   (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: DefaultTheme }) => css`
@@ -35,7 +37,13 @@ const TagSelectorWrapper = styled.div(
   `
 )
 
-export default function TagSelector() {
+interface TagSelectorProps {
+  onSubmit?: (tag: TagDataClass) => void
+}
+
+export default function TagSelector(props: TagSelectorProps) {
+  const { onSubmit } = props
+
   const dispatch = useDispatch()
 
   const [value, setValue] = useState('')
@@ -57,7 +65,11 @@ export default function TagSelector() {
                 modifier: modifier as Modifier,
               })
 
-              dispatch(addTag(tag))
+              if (onSubmit) {
+                onSubmit(tag)
+              } else {
+                dispatch(addTag(tag))
+              }
             })
           }
         })
@@ -69,13 +81,17 @@ export default function TagSelector() {
           count: (count || posts || 0).toString(),
         })
 
-        dispatch(addTag(tag))
+        if (onSubmit) {
+          onSubmit(tag)
+        } else {
+          dispatch(addTag(tag))
+        }
       }
 
       setValue('')
       dispatch(setSuggestions([]))
     },
-    [dispatch, modifier]
+    [dispatch, modifier, onSubmit]
   )
 
   // This effect fetches suggestions for the input value if the value
@@ -114,9 +130,9 @@ export default function TagSelector() {
       </ModifierButton>
       <TagInput value={value} setValue={setValue} onSubmit={handleAddClick} />
       <AddButton onClick={handleAddClick} aria-label='Add Tag'>
-        Add
+        <PlusIcon />
       </AddButton>
-      {suggestions.length > 0 && (
+      {suggestions.length > 0 && value.length > 0 && (
         <DropdownList tagSelectorRef={tagSelectorRef} entries={suggestions} onClick={activateTag} />
       )}
     </TagSelectorWrapper>

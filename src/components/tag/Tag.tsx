@@ -2,9 +2,8 @@ import React, { KeyboardEventHandler, MouseEventHandler, useCallback, useMemo, u
 import TypeIcon from '../../icons/TypeIcon'
 import { ArrowDown } from '../../icons/FontAwesomeIcons'
 import TagDataClass from '../../data/TagDataClass'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { selectActiveTags, selectAliasesByTagName } from '../../redux/selectors'
-import { addTag, removeTag } from '../../redux/actions'
 import useToggle from '../../hooks/useToggle'
 import TagWrapper from './TagWrapper'
 import TagName from './TagName'
@@ -29,22 +28,22 @@ const DropdownArrow = styled(ArrowDown)(
 
 interface TagProps extends TagDataClass {
   detailed: boolean
+  onClick: (tag: TagDataClass) => void
 }
 
 export default function Tag(props: TagProps) {
-  const { name, count, modifier = Modifier.PLUS, types, detailed } = props
+  const { name, count, modifier = Modifier.PLUS, types, detailed, onClick } = props
 
   const [tagRef, setTagRef] = useState<HTMLDivElement | null>(null)
   const [collapsed, toggleCollapsed, resetCollapsed] = useToggle(true)
 
-  const dispatch = useDispatch()
   const activeTags = useSelector(selectActiveTags)
   const aliases = useSelector(selectAliasesByTagName(name))
 
-  const filteredAliases = useMemo(() => (aliases ? aliases.filter((alias) => !(alias.name in activeTags)) : []), [
-    activeTags,
-    aliases,
-  ])
+  const filteredAliases = useMemo(
+    () => (aliases ? aliases.filter((alias) => !(alias.name in activeTags)) : []),
+    [activeTags, aliases]
+  )
 
   const isActive = name in activeTags
   const hasAliases = filteredAliases?.length > 0
@@ -54,13 +53,9 @@ export default function Tag(props: TagProps) {
       event.stopPropagation()
       const tag = new TagDataClass(name, types, count, modifier)
 
-      if (isActive) {
-        dispatch(removeTag(tag))
-      } else {
-        dispatch(addTag(tag))
-      }
+      onClick(tag)
     },
-    [count, dispatch, isActive, modifier, name, types]
+    [count, modifier, name, onClick, types]
   )
 
   const handleArrowClick: MouseEventHandler = useCallback(

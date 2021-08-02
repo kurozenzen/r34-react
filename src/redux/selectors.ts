@@ -1,4 +1,5 @@
 import { createSelector, defaultMemoize } from 'reselect'
+import { ModalIds } from '../data/types'
 import { DefaultRootState } from '../react-redux'
 
 // Simple selectors
@@ -27,11 +28,11 @@ export const selectSuggestions = (state: DefaultRootState) => state.suggestions.
 export const selectActiveThemeId = (state: DefaultRootState) => state.preferences.themeId
 export const selectAutoPlay = (state: DefaultRootState) => state.preferences.autoPlay
 export const selectHideSeen = (state: DefaultRootState) => state.preferences.hideSeen
+export const selectOpenModalId = (state: DefaultRootState) => state.modals.openModal
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)
 export const selectAliasesAsList = createSelector(selectAliases, (aliases) => Object.values(aliases).flat())
-
 export const selectHasResults = createSelector(selectPosts, (posts) => posts.length !== 0)
 export const selectOutOfResults = createSelector(selectPosts, selectCount, (posts, count) => posts.length === count)
 export const selectHasMoreResults = createSelector(selectOutOfResults, (outOfResults) => !outOfResults)
@@ -54,6 +55,10 @@ export const selectNextIndex = createSelector(selectPosts, selectFullScreenIndex
 )
 export const selectPreviousIndex = createSelector(selectFullScreenIndex, (selectedIndex) =>
   selectedIndex > 0 ? selectedIndex - 1 : undefined
+)
+export const selectSupertagModalOpen = createSelector(
+  selectOpenModalId,
+  (modalId) => modalId === ModalIds.CREATE_SUPERTAG
 )
 
 // Parameterized selectors

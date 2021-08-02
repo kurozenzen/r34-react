@@ -4,6 +4,7 @@ import results from './results'
 import tags from './tags'
 import reader from './reader'
 import likes from './likes'
+import modals from './modals'
 import suggestions from './suggestions'
 
-export default combineReducers({ tags, results, preferences, reader, likes, suggestions })
+export default combineReducers({ tags, results, preferences, reader, likes, suggestions, modals })

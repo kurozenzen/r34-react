@@ -1,43 +1,30 @@
-import React, { useCallback } from 'react'
 import styled, { css, useTheme } from 'styled-components'
-import {
-  supportsAspectRatio,
-  supportsFlexGap,
-  supportsFullscreen,
-  supportsGap,
-  supportsObjectFit,
-} from '../../data/browserUtils'
-import { ResultLayout, PreferenceKey, ThemeId } from '../../data/types'
+
 import { getVersionString } from '../../data/utils'
-import { useSupertags } from '../../firebase'
-import usePreference from '../../hooks/usePreference'
+import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { CodeBranchIcon } from '../../icons/FontAwesomeIcons'
-import { flexColumnWithGap, flexRowWithGap, gap } from '../../styled/mixins'
+import { flexRowWithGap, gap } from '../../styled/mixins'
 import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
 import { HorizontalLine } from '../common/Lines'
-import Select from '../common/Select'
-import Setting from '../common/Setting'
-import { SmallNumberInput } from '../common/SmallInput'
-import SuperTagEntry from '../common/SuperTagEntry'
 import Surface from '../common/Surface'
-import { Faded, SmallTitle, Title } from '../common/Text'
-import Toggle from '../common/Toggle'
+import { Faded, Title } from '../common/Text'
 import Header from '../features/Header'
+import PrefAccount from '../preferences/PrefAccount'
+import PrefAutoPlay from '../preferences/PrefAutoPlay'
+import PrefCorsProxy from '../preferences/PrefCorsProxy'
+import PrefHideSeenPosts from '../preferences/PrefHideSeenPosts'
+import PrefLoadOriginals from '../preferences/PrefLoadOriginals'
+import PrefMetadata from '../preferences/PrefMetadata'
+import PrefPageSize from '../preferences/PrefPageSize'
+import PrefPreloadVideos from '../preferences/PrefPreloadVideos'
+import PrefResultsLayout from '../preferences/PrefResultsLayout'
+import PrefShowComments from '../preferences/PrefShowComments'
+import PrefSupertags from '../preferences/PrefSupertags'
+import PrefTagSuggestions from '../preferences/PrefTagSuggestions'
+import PrefTheme from '../preferences/PrefTheme'
+import FeatureDetection from '../widgets/FeatureDetection'
 import ResetButton from '../widgets/ResetButton'
 import ResetSeenPostsButton from '../widgets/ResetSeenPostsButton'
-import SignIn from '../widgets/SignIn'
-
-const layouts = {
-  [ResultLayout.INFINITE_COLUMN]: 'Infinite',
-  [ResultLayout.PAGES]: 'Pages',
-}
-
-const themes = {
-  [ThemeId.DARK]: 'Dark',
-  [ThemeId.LIGHT]: 'Light',
-  [ThemeId.COFFEE]: 'Coffee',
-  [ThemeId.ELECTRIC]: 'Electric',
-}
 
 const SettingsSurface = styled(Surface)(
   ({ theme }) => css`
@@ -57,68 +44,12 @@ const SettingsColumn = styled(FlexColumnWithSpacing)`
   flex-grow: 1;
 `
 
-const Entry = styled.div`
-  ${flexColumnWithGap}
-`
-
-const StyledCode = styled.div(
-  ({ theme }) => css`
-    background: #00000040;
-    ${gap(theme.dimensions.gutter)}
-    padding: ${theme.dimensions.gutter};
-    border-radius: ${theme.dimensions.borderRadius};
-
-    p,
-    span {
-      font-family: 'Courier New', Courier, monospace;
-    }
-  `
-)
-
-const Yes = styled.span`
-  color: limegreen;
-  font-weight: bold;
-`
-
-const No = styled.span`
-  color: red;
-  font-weight: bold;
-`
-
-function yesOrNo(value: boolean) {
-  return value ? <Yes>Yes</Yes> : <No>No</No>
-}
-
 export default function Settings() {
-  const theme = useTheme()
-
-  const [resultsLayout, setResultsLayout] = usePreference(PreferenceKey.RESULTS_LAYOUT)
-  const [pageSize, setPageSize] = usePreference(PreferenceKey.PAGE_SIZE)
-  const [originals, setOriginals] = usePreference(PreferenceKey.ORIGINALS)
-  const [preloadVideos, setPreloadVideos] = usePreference(PreferenceKey.PRELOAD_VIDEOS)
-  const [tagSuggestionsCount, setTagSuggestionsCount] = usePreference(PreferenceKey.TAG_SUGGESTIONS_COUNT)
-  const [useCorsProxy, setUseCorsProxy] = usePreference(PreferenceKey.USE_CORS_PROXY)
-  const [showMetadata, setShowMetadata] = usePreference(PreferenceKey.SHOW_METADATA)
-  const [showComments, setShowComments] = usePreference(PreferenceKey.SHOW_COMMENTS)
-  const [autoPlay, setAutoPlay] = usePreference(PreferenceKey.AUTO_PLAY)
-  const [hideSeen, setHideSeen] = usePreference(PreferenceKey.HIDE_SEEN)
-  const [themeId, setThemeId] = usePreference(PreferenceKey.THEME_ID)
-
-  const togglePreloadVideos = useCallback(() => setPreloadVideos(!preloadVideos), [preloadVideos, setPreloadVideos])
-  const toggleOriginals = useCallback(() => setOriginals(!originals), [originals, setOriginals])
-  const toggleUseCorsProxy = useCallback(() => setUseCorsProxy(!useCorsProxy), [useCorsProxy, setUseCorsProxy])
-  const toggleShowMetadata = useCallback(() => setShowMetadata(!showMetadata), [showMetadata, setShowMetadata])
-  const toggleShowComments = useCallback(() => setShowComments(!showComments), [showComments, setShowComments])
-  const toggleAutoPlay = useCallback(() => setAutoPlay(!autoPlay), [autoPlay, setAutoPlay])
-  const toggleHideSeen = useCallback(() => setHideSeen(!hideSeen), [hideSeen, setHideSeen])
-
-  const onChangeResultsLayout = useCallback((event) => setResultsLayout(event.target.value), [setResultsLayout])
-  const onChangeThemeId = useCallback((event) => setThemeId(event.target.value), [setThemeId])
-
-  const versionString = getVersionString()
-  const supertags = useSupertags()
-
   document.title = 'R34 React - Settings'
+
+  const theme = useTheme()
+  const versionString = getVersionString()
+  const [isSignedIn] = useFirebaseAuthState()
 
   return (
     <FlexColumn>
@@ -126,89 +57,24 @@ export default function Settings() {
       <SettingsColumn>
         <Title>General</Title>
         <SettingsSurface>
-          <Setting title='Results Layout' description='Choose how your results are displayed.'>
-            <Select options={layouts} value={resultsLayout} onChange={onChangeResultsLayout} />
-          </Setting>
-
-          <Setting
-            title='Preload Videos'
-            description='Start loading videos immediately instead of just-in-time. This can improve the viewing experience but will consume a LOT of data. Only use with WIFI.'
-          >
-            <Toggle value={preloadVideos} onToggle={togglePreloadVideos} />
-          </Setting>
-
-          <Setting
-            title='Load original sizes'
-            description='Display images and videos at their original resolution. This will consume more data but provides a nicer experience.'
-          >
-            <Toggle value={originals} onToggle={toggleOriginals} />
-          </Setting>
-
-          <Setting
-            title='Use CORS Proxy'
-            description='Request images via the built in cors proxy. Normally, this should just make loading times worse. But I have seen the opposite.'
-          >
-            <Toggle value={useCorsProxy} onToggle={toggleUseCorsProxy} />
-          </Setting>
-
-          <Setting
-            title='Number of Tag suggestions'
-            description='Controls the number of tags displayed when searching. Increase this when searching for niche tags.'
-          >
-            <SmallNumberInput value={tagSuggestionsCount} onSubmit={setTagSuggestionsCount} />
-          </Setting>
-
-          <Setting title='Page size' description='Controls the number of posts loaded at once.'>
-            <SmallNumberInput value={pageSize} onSubmit={setPageSize} />
-          </Setting>
-
-          <Setting
-            title='Show post metadata'
-            description="Posts display more data in their details. Mainly for developing purposes but maybe it's useful to someone."
-          >
-            <Toggle value={showMetadata} onToggle={toggleShowMetadata} />
-          </Setting>
-
-          <Setting
-            title='Show comments'
-            description="If there are comments on a post, they will appear in the details. They can be a bit weird though, that's why they are disabled by default."
-          >
-            <Toggle value={showComments} onToggle={toggleShowComments} />
-          </Setting>
+          <PrefResultsLayout />
+          <PrefPreloadVideos />
+          <PrefLoadOriginals />
+          <PrefTagSuggestions />
+          <PrefPageSize />
+          <PrefShowComments />
         </SettingsSurface>
 
         <Title>Account</Title>
         <SettingsSurface>
-          <Setting
-            title='Account'
-            description='Sign in to save your settings across devices. All Settings in this section require you to be signed in.'
-          >
-            <SignIn />
-          </Setting>
-
-          <Setting title='Theme' description='Choose how the app looks.'>
-            <Select options={themes} value={themeId} onChange={onChangeThemeId} />
-          </Setting>
-
-          <Setting
-            title='Supertags'
-            description='You can manage your supertags here. To create on sign in and try adding two or more tags to your search. Adding supertag to your search will add all the tags inside instead.'
-          >
-            {null}
-          </Setting>
-
-          <div>
-            {Object.entries(supertags).map(([name, details]) => (
-              <SuperTagEntry key={name} name={name} {...details}></SuperTagEntry>
-            ))}
-          </div>
-
-          <Setting
-            title='Hide seen posts [NOT WORKING]'
-            description='Enabling this option will hide all posts you have seen before. Perfect if you are frequently browsing the same tags or sorting by score.'
-          >
-            <Toggle value={hideSeen} onToggle={toggleHideSeen} />
-          </Setting>
+          <PrefAccount />
+          <PrefTheme />
+          {isSignedIn && (
+            <>
+              <PrefSupertags />
+              <PrefHideSeenPosts />
+            </>
+          )}
         </SettingsSurface>
 
         <Title>Experimental</Title>
@@ -218,31 +84,18 @@ export default function Settings() {
             any bugs you find so I can fix them :)
           </Faded>
           <HorizontalLine />
-
-          <Setting
-            title='Auto-play'
-            description='Start videos automatically once they become visible. This will use more data.'
-          >
-            <Toggle value={autoPlay} onToggle={toggleAutoPlay} />
-          </Setting>
+          <PrefAutoPlay />
         </SettingsSurface>
 
         <Title>Developer</Title>
         <SettingsSurface>
-          <Entry>
-            <SmallTitle>Debug Info</SmallTitle>
-            <StyledCode>
-              <p>Supports grid-gap: {yesOrNo(supportsGap)}</p>
-              <p>Supports flex-gap: {yesOrNo(supportsFlexGap)}</p>
-              <p>Supports aspect-ratio: {yesOrNo(supportsAspectRatio)}</p>
-              <p>Supports object-fit: {yesOrNo(supportsObjectFit)}</p>
-              <p>Supports fullscreen: {yesOrNo(supportsFullscreen)}</p>
-            </StyledCode>
-          </Entry>
-
+          <PrefCorsProxy />
+          <PrefMetadata />
+          <FeatureDetection />
           <ResetSeenPostsButton />
           <ResetButton />
         </SettingsSurface>
+
         <VersionWrapper>
           <CodeBranchIcon color={theme.colors.subduedText} />
           <Faded>{versionString}</Faded>

@@ -10,16 +10,23 @@ const dark = {
     bodyWidth: '1000px',
   },
   colors: {
+    //basic
     text: '#fff',
-    accentColor: '#ee3344',
-    hoverAccent: '#ee3344',
     backgroundColor: '#121212',
     backgroundColor2: '#fff',
     subduedText: '#ffffff80',
     layerBg: '#ffffff11',
     layerBgSolid: '#222222',
     layerBgHighlight: '#ffffff22',
+
+    // theme
+    accentColor: '#ee3344',
+    hoverAccent: '#ee3344',
+
+    // semantic
     liked: '#ff0d50',
+    positive: '#40ee40',
+    negative: '#dd1010',
   },
   shadow: {
     radius: '4px',

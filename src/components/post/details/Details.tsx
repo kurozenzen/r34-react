@@ -4,6 +4,7 @@ import styled, { css, DefaultTheme } from 'styled-components'
 import PostDataClass from '../../../data/PostDataClass'
 import { ActiveTab, NO_OP } from '../../../data/types'
 import { listToMap } from '../../../data/utils'
+import useToggleTag from '../../../hooks/useToggleTag'
 import { selectPostById, selectShowComments, selectShowMetadata } from '../../../redux/selectors'
 import { flexRowGap, flexRowWithGap, gutter, layer } from '../../../styled/mixins'
 import TagList from '../../tag/TagList'
@@ -70,6 +71,7 @@ export default function Details(props: DetailsProps) {
 
   const commentsLength = comments?.length || 0
 
+  const toggleTag = useToggleTag()
   const setTags: MouseEventHandler = useCallback(
     (event) => {
       event.stopPropagation()
@@ -125,7 +127,7 @@ export default function Details(props: DetailsProps) {
 
       {
         {
-          tags: <DetailsTagList tags={tagsForRendering} detailed={false} />,
+          tags: <DetailsTagList tags={tagsForRendering} detailed={false} onTagClick={toggleTag} />,
           comments: <Comments comments={comments} />,
           metadata: <Metadata created_at={created_at} status={status} width={width} height={height} id={postId} />,
         }[activeTab]

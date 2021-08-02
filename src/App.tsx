@@ -10,14 +10,16 @@ import CookieConfirmation from './components/widgets/CookieConfirmation'
 import { RouteName } from './data/types'
 import GlobalStyles from './GlobalStyles'
 import themes, { defaultThemeId } from './styled/themes'
-import { selectActiveThemeId } from './redux/selectors'
+import { selectActiveThemeId, selectSupertagModalOpen } from './redux/selectors'
 import { persistor, store } from './redux/store'
 import Terms from './components/pages/Terms'
 import useFirebaseAuthState from './hooks/useFirebaseAuthState'
-import { fetchPreferences } from './redux/actions'
+import { closeModal, fetchPreferences } from './redux/actions'
+import SupertagModal from './components/widgets/SupertagModal'
 
 // init firebase immediately
 import './firebase'
+import useAction from './hooks/useAction'
 
 const Settings = React.lazy(() => import('./components/pages/Settings'))
 const Search = React.lazy(() => import('./components/pages/Search'))
@@ -39,7 +41,9 @@ export default function App() {
 function ThemedApp() {
   const dispatch = useDispatch()
   const themeId = useSelector(selectActiveThemeId)
+  const isSupertagModalOpen = useSelector(selectSupertagModalOpen)
   const [isSignedIn] = useFirebaseAuthState()
+  const onCloseModals = useAction(closeModal)
 
   useEffect(() => {
     if (isSignedIn) {
@@ -70,6 +74,8 @@ function ThemedApp() {
             </Route>
           </Switch>
         </Suspense>
+
+        {isSupertagModalOpen && <SupertagModal onClose={onCloseModals} />}
         <CookieConfirmation />
       </HashRouter>
     </ThemeProvider>

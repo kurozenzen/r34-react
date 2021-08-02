@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import { signOut } from '../../firebase'
+import { UndoIcon } from '../../icons/FontAwesomeIcons'
 import { BlockButton } from '../common/Buttons'
 
 export default function ResetButton(props: any) {
@@ -12,7 +13,7 @@ export default function ResetButton(props: any) {
 
   return (
     <BlockButton onClick={reset} {...props}>
-      Reset Application
+      <UndoIcon /> Reset Application
     </BlockButton>
   )
 }

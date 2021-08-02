@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import { signIn, signOut } from '../../firebase'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
-import { GoogleIcon } from '../../icons/FontAwesomeIcons'
+import { GoogleIcon, SignOutIcon } from '../../icons/FontAwesomeIcons'
 import { flexRowWithGap } from '../../styled/mixins'
 import { RedButton } from '../common/Buttons'
 import FlexColumn from '../common/FlexColumn'
@@ -33,6 +33,7 @@ export default function SignIn() {
         <FlexRow>
           <ProfilePicture src={picture} alt={name} title={name} />
           <RedButton onClick={handleSignOut}>
+            <SignOutIcon />
             <span>Sign Out</span>
           </RedButton>
         </FlexRow>

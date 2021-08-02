@@ -10,6 +10,7 @@ import {
 import {
   faCalendarDay,
   faCaretDown,
+  faCheckCircle,
   faCheckSquare,
   faCodeBranch,
   faCopyright,
@@ -22,10 +23,14 @@ import {
   faInfoCircle,
   faLink,
   faPen,
+  faPlus,
   faRegistered,
   faSearch,
+  faSignOutAlt,
   faTags,
   faTimes,
+  faTimesCircle,
+  faUndoAlt,
   faUser,
   faWrench,
 } from '@fortawesome/free-solid-svg-icons'
@@ -138,4 +143,24 @@ export const SearchIcon = styled(FontAwesomeIcon).attrs({
 
 export const SupertagIcon = styled(FontAwesomeIcon).attrs({
   icon: faTags,
+})``
+
+export const FailedIcon = styled(FontAwesomeIcon).attrs({
+  icon: faTimesCircle,
+})``
+
+export const SuccessIcon = styled(FontAwesomeIcon).attrs({
+  icon: faCheckCircle,
+})``
+
+export const PlusIcon = styled(FontAwesomeIcon).attrs({
+  icon: faPlus,
+})``
+
+export const SignOutIcon = styled(FontAwesomeIcon).attrs({
+  icon: faSignOutAlt,
+})``
+
+export const UndoIcon = styled(FontAwesomeIcon).attrs({
+  icon: faUndoAlt,
 })``

@@ -1,4 +1,4 @@
-import { PreferenceKey, TagLike } from '../data/types'
+import { ModalIds, PreferenceKey, TagLike } from '../data/types'
 import TagDataClass from '../data/TagDataClass'
 import PostDataClass from '../data/PostDataClass'
 import CommentDataClass from '../data/CommentDataClass'
@@ -7,6 +7,7 @@ import CommentDataClass from '../data/CommentDataClass'
 export const ADD_ALIASES = `r34-react/ADD_ALIASES`
 export const ADD_POSTS = `r34-react/ADD_POSTS`
 export const ADD_TAG = `r34-react/ADD_TAG`
+export const CLOSE_MODAL = `r34-react/CLOSE_MODAL`
 export const ENTER_FULLSCREEN = `r34-react/ENTER_FULLSCREEN`
 export const EXIT_FULLSCREEN = 'r34-react/EXIT_FULLSCREEN'
 export const FETCH_COMMENTS = `r34-react/FETCH_COMMENTS`
@@ -15,6 +16,7 @@ export const FETCH_SUGGESTIONS = `r34-react/FETCH_SUGGESTIONS`
 export const GET_MORE_RESULTS = `r34-react/GET_MORE_RESULTS`
 export const GET_RESULTS = `r34-react/GET_RESULTS`
 export const LIKE_POST = `r34-react/LIKE_POST`
+export const OPEN_MODAL = `r34-react/OPEN_MODAL`
 export const REMOVE_TAG = `r34-react/REMOVE_TAG`
 export const SAVE_PREFERENCES = 'r34-react/SAVE_PREFERENCES'
 export const SET_COMMENTS = `r34-react/SET_COMMENTS`
@@ -103,6 +105,15 @@ interface LikePostAction {
   postId: number
 }
 
+interface OpenModalAction {
+  type: typeof OPEN_MODAL
+  modalId: ModalIds
+}
+
+interface CloseModalAction {
+  type: typeof CLOSE_MODAL
+}
+
 interface SetSuggestionsAction {
   type: typeof SET_SUGGESTIONS
   suggestions: TagLike[]
@@ -125,6 +136,7 @@ export type AppAction =
   | AddAliasesAction
   | AddPostsAction
   | AddTagAction
+  | CloseModalAction
   | EnterFullcreenAction
   | ExitFullscreenAction
   | FetchCommentsAction
@@ -133,6 +145,7 @@ export type AppAction =
   | GetMoreResultsAction
   | GetResultsAction
   | LikePostAction
+  | OpenModalAction
   | RemoveTagAction
   | SavePreferencesAction
   | SetCommentsAction
@@ -248,6 +261,19 @@ export function likePost(postId: number): LikePostAction {
   return {
     type: LIKE_POST,
     postId,
+  }
+}
+
+export function openModal(modalId: ModalIds): OpenModalAction {
+  return {
+    type: OPEN_MODAL,
+    modalId,
+  }
+}
+
+export function closeModal(): CloseModalAction {
+  return {
+    type: CLOSE_MODAL,
   }
 }
 

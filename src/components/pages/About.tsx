@@ -136,17 +136,14 @@ export default function About() {
           </FlexRow>
           <Divider />
           <Body>
+            <p>Hi my name is Zen. I made this website. I hope you like it.</p>
             <p>
               Feel free to ping me on discord or write me an email if you wanna get in touch. I am usually quite
               friendly.
             </p>
             <p>
-              I can take quite a while to respond to emails though, so if you need anything or just wanna talk discord
-              is the way to go.
-            </p>
-            <p>
-              Also if you have already sent me an email and I am not responding contact me on discord. I am not ignoring
-              you I have probably just missed the email.
+              Also, if you have already sent me an email and I am not responding contact me on discord. I am not
+              ignoring you I have probably just missed the email.
             </p>
             <p>That's all. Have a nice day.</p>
           </Body>

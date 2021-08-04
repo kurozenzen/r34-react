@@ -1,7 +1,7 @@
 import React, { ChangeEventHandler, useCallback, useState } from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
 import LabeledToggle from '../common/LabeledToggle'
-import { PreferenceKey, SortType } from '../../data/types'
+import { PostsSort } from 'r34-types'
 import usePreference from '../../hooks/usePreference'
 import { borderRadius, flexRowWithGap, gridWithGap, PropsWithTheme } from '../../styled/mixins'
 import Select from '../common/Select'
@@ -40,15 +40,15 @@ const SortRow = styled.div`
   height: ${({ theme }: PropsWithTheme) => theme.dimensions.blockHeight};
 `
 
-const sortOptions = {
-  [SortType.SCORE]: 'Score',
-  [SortType.DATE]: 'Date',
+const sortOptions: Record<PostsSort, string> = {
+  score: 'Score',
+  date: 'Date',
 }
 
 export default function Options() {
-  const [rated, setRated] = usePreference(PreferenceKey.RATED)
-  const [ratedThreshold, setRatedThreshold] = usePreference(PreferenceKey.RATED_THRESHOLD)
-  const [sort, setSort] = usePreference(PreferenceKey.SORT)
+  const [rated, setRated] = usePreference('rated')
+  const [ratedThreshold, setRatedThreshold] = usePreference('ratedThreshold')
+  const [sort, setSort] = usePreference('sort')
 
   const toggleRated = useCallback(() => setRated(!rated), [rated, setRated])
 
@@ -64,7 +64,7 @@ export default function Options() {
   )
 
   const handleSortChange: ChangeEventHandler<HTMLSelectElement> = useCallback(
-    (event) => setSort(event.target.value as SortType),
+    (event) => setSort(event.target.value as PostsSort),
     [setSort]
   )
 

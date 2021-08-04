@@ -1,15 +1,13 @@
 import React, { useCallback, useMemo } from 'react'
 import styled from 'styled-components'
-import TagDataClass from '../../data/TagDataClass'
-import { Modifier } from '../../data/types'
 import { removeSupertag, setTagsOfSupertag } from '../../firebase'
-import { SupertagDetails } from '../../firebase/types'
 import useToggle from '../../hooks/useToggle'
 import { CloseIcon, SupertagIcon } from '../../icons/FontAwesomeIcons'
 import { flexColumnWithGap, gridWithGap } from '../../styled/mixins'
 import TagList from '../tag/TagList'
 import TagSelector from '../tagSelector/TagSelector'
 import { Faded } from './Text'
+import * as r34 from 'r34-types'
 
 const Wrapper = styled.div`
   ${flexColumnWithGap}
@@ -50,7 +48,7 @@ const Row = styled.div`
   }
 `
 
-interface SuperTagEntryProps extends SupertagDetails {
+interface SuperTagEntryProps extends r34.SupertagData {
   name: string
 }
 
@@ -60,14 +58,17 @@ export default function SuperTagEntry(props: SuperTagEntryProps) {
   const [isOpen, toggleOpen] = useToggle()
   const remove = useCallback(() => removeSupertag(name), [name])
   const addTag = useCallback(
-    (tag: TagDataClass) => {
-      const newTags = { ...tags, [tag.name]: tag.modifier as Modifier }
+    (newTag: r34.AnyBiasedTag) => {
+      // Safe becasue the TagSelector has showSupertags = false and therefore no supertags can enter this function
+      const tag = newTag as r34.BiasedTag
+
+      const newTags = { ...tags, [tag.name]: tag.modifier }
       setTagsOfSupertag(name, newTags)
     },
     [name, tags]
   )
   const removeTag = useCallback(
-    (tag: TagDataClass) => {
+    (tag: r34.AnyTag) => {
       const newTags = { ...tags }
       delete newTags[tag.name]
       setTagsOfSupertag(name, newTags)
@@ -77,9 +78,9 @@ export default function SuperTagEntry(props: SuperTagEntryProps) {
   const tagObjects = useMemo(
     () =>
       Object.entries(tags).reduce((result, [name, modifier]) => {
-        result[name] = new TagDataClass(name, [], 0, modifier)
+        result[name] = { name, modifier, types: [] }
         return result
-      }, {} as Record<string, TagDataClass>),
+      }, {} as Record<string, Omit<r34.BiasedTag, 'count'>>),
     [tags]
   )
 
@@ -95,7 +96,7 @@ export default function SuperTagEntry(props: SuperTagEntryProps) {
 
       {isOpen && (
         <>
-          <TagSelector onSubmit={addTag} />
+          <TagSelector onSubmit={addTag} showSupertags={false} />
           <TagList tags={tagObjects} detailed={false} onTagClick={removeTag}></TagList>
         </>
       )}

@@ -1,9 +1,9 @@
 import React from 'react'
-import { RatingType } from '../../../data/types'
+import { PostRating } from 'r34-types'
 import { RatingIcon } from '../../../icons/FontAwesomeIcons'
 import FlexPair from '../../common/FlexPair'
 
-export default function Rating(props: { value: RatingType }) {
+export default function Rating(props: { value: PostRating }) {
   return (
     <FlexPair>
       <RatingIcon color='white' />

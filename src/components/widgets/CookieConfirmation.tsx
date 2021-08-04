@@ -2,7 +2,6 @@ import React, { useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import { RedButton } from '../common/Buttons'
 import usePreference from '../../hooks/usePreference'
-import { PreferenceKey } from '../../data/types'
 
 const CookieWrapper = styled.div(
   ({ theme }) => css`
@@ -25,7 +24,7 @@ const StyledSpan = styled.span`
 `
 
 export default function CookieConfirmation() {
-  const [cookies, setCookies] = usePreference(PreferenceKey.COOKIES)
+  const [cookies, setCookies] = usePreference('cookies')
 
   const handleAccept = useCallback(() => setCookies(true), [setCookies])
 

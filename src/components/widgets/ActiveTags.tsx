@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ModalIds, NO_OP } from '../../data/types'
+import { ModalId, NO_OP } from '../../data/types'
+import { useCheckIsActive } from '../../hooks/useCheckIsActive'
 import useToggleTag from '../../hooks/useToggleTag'
 import { SupertagIcon } from '../../icons/FontAwesomeIcons'
 import { openModal } from '../../redux/actions'
@@ -20,16 +21,17 @@ export default function ActiveTags(props: ActiveTagsProps) {
 
   const activeTags = useSelector(selectActiveTags)
   const numberOfActiveTags = useSelector(selectNumberOfActiveTags)
-  const openSupertagModal = useCallback(() => dispatch(openModal(ModalIds.CREATE_SUPERTAG)), [dispatch])
+  const openSupertagModal = useCallback(() => dispatch(openModal(ModalId.CREATE_SUPERTAG)), [dispatch])
 
   const toggleTag = useToggleTag()
+  const checkIsActive = useCheckIsActive()
 
   // Fire change event when tags change
   // This is used to re-measure the height
   useEffect(() => onChange(), [onChange, activeTags])
 
   return numberOfActiveTags > 0 ? (
-    <TagList tags={activeTags} detailed={true} onTagClick={toggleTag}>
+    <TagList tags={activeTags} detailed={true} onTagClick={toggleTag} getIsActive={checkIsActive}>
       {offerSupertags && Object.keys(activeTags).length > 1 && (
         <RedButton onClick={openSupertagModal} title='Create a supertag'>
           <SupertagIcon />

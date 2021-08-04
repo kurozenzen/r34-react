@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
-import { Modifier } from '../../data/types'
 import { addSupertag } from '../../firebase'
 import { selectActiveTags } from '../../redux/selectors'
 import { defaultBlock, defaultBorder } from '../../styled/mixins'
@@ -11,6 +10,9 @@ import Surface from '../common/Surface'
 import { Title } from '../common/Text'
 import TagSelector from '../tagSelector/TagSelector'
 import ActiveTags from './ActiveTags'
+import * as r34 from 'r34-types'
+import { isSupertag } from '../../data/utils'
+import { useActivateTag } from '../../hooks/useActivateTag'
 
 const Wrapper = styled.div`
   position: fixed;
@@ -52,15 +54,16 @@ export default function SupertagModal(props: SupertagModalProps) {
   const [desc, setDesc] = useState('')
   const activeTags = useSelector(selectActiveTags)
 
-  const tags: Record<string, Modifier> = Object.entries(activeTags).reduce(
-    (result, [name, tag]) => ({ ...result, [name]: tag.modifier }),
-    {}
-  )
+  const tags: Record<string, r34.TagModifier> = Object.values(activeTags)
+    .filter((tag): tag is r34.BiasedTag => !isSupertag(tag))
+    .reduce((result, tag) => ({ ...result, [tag.name]: tag.modifier }), {})
 
   const handleCreateTagList = useCallback(() => {
     addSupertag(name, desc, tags)
     onClose()
   }, [desc, name, onClose, tags])
+
+  const activateTag = useActivateTag()
 
   return (
     <Wrapper onClick={onClose}>
@@ -69,7 +72,7 @@ export default function SupertagModal(props: SupertagModalProps) {
         <HorizontalLine />
         <StyledInput type='text' placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
         <StyledInput type='text' placeholder='Description' value={desc} onChange={(e) => setDesc(e.target.value)} />
-        <TagSelector />
+        <TagSelector showSupertags={false} onSubmit={activateTag} />
         <ActiveTags />
         <BlockButton onClick={handleCreateTagList}>Create</BlockButton>
       </ModalSurface>

@@ -1,6 +1,6 @@
 {
   "name": "r34-browser",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "homepage": "https://kurozenzen.github.io/r34-react",
   "private": true,
   "dependencies": {
@@ -56,6 +56,7 @@
     "@types/react-router-dom": "^5.1.8",
     "@types/react-virtualized": "^9.21.12",
     "@types/styled-components": "^5.1.11",
-    "babel-polyfill": "^6.26.0"
+    "babel-polyfill": "^6.26.0",
+    "r34-types": "^1.1.0"
   }
 }

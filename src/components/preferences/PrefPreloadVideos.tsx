@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react'
-import { PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
 import Setting from '../common/Setting'
 import Toggle from '../common/Toggle'
 
 export default function PrefPreloadVideos() {
-  const [preloadVideos, setPreloadVideos] = usePreference(PreferenceKey.PRELOAD_VIDEOS)
+  const [preloadVideos, setPreloadVideos] = usePreference('preloadVideos')
   const togglePreloadVideos = useCallback(() => setPreloadVideos(!preloadVideos), [preloadVideos, setPreloadVideos])
 
   return (

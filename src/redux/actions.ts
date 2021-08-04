@@ -1,7 +1,5 @@
-import { ModalIds, PreferenceKey, TagLike } from '../data/types'
-import TagDataClass from '../data/TagDataClass'
-import PostDataClass from '../data/PostDataClass'
-import CommentDataClass from '../data/CommentDataClass'
+import { ModalId } from '../data/types'
+import * as r34 from 'r34-types'
 
 // Action Names
 export const ADD_ALIASES = `r34-react/ADD_ALIASES`
@@ -29,28 +27,28 @@ export const SET_SUGGESTIONS = `r34-react/SET_SUGGESTIONS`
 // Action Types
 interface AddTagAction {
   type: typeof ADD_TAG
-  tag: TagDataClass
+  tag: r34.AnyBiasedTag
 }
 
 interface RemoveTagAction {
   type: typeof REMOVE_TAG
-  tag: TagDataClass
+  tagName: string
 }
 
 interface AddAliasesAction {
   type: typeof ADD_ALIASES
-  aliases: TagDataClass[]
+  aliases: r34.AliasTag[]
   forTag: string
 }
 
 export interface AddPostsAction {
   type: typeof ADD_POSTS
-  posts: PostDataClass[]
+  posts: r34.Post[]
 }
 
 export interface SetPostsAction {
   type: typeof SET_POSTS
-  posts: PostDataClass[]
+  posts: r34.Post[]
   count: number
   pageNumber?: number
 }
@@ -58,7 +56,7 @@ export interface SetPostsAction {
 interface SetCommentsAction {
   type: typeof SET_COMMENTS
   postId: number
-  comments: CommentDataClass[]
+  comments: r34.Comment[]
 }
 
 interface FetchCommentsAction {
@@ -68,13 +66,13 @@ interface FetchCommentsAction {
 
 interface SetPreferenceAction {
   type: typeof SET_PREFERENCE
-  key: PreferenceKey
+  key: r34.PreferenceKey
   value: any
 }
 
 interface SetPreferencesAction {
   type: typeof SET_PREFERENCES
-  preferences: Partial<Record<PreferenceKey, any>>
+  preferences: Partial<Record<r34.PreferenceKey, any>>
 }
 
 interface GetResultsAction {
@@ -107,7 +105,7 @@ interface LikePostAction {
 
 interface OpenModalAction {
   type: typeof OPEN_MODAL
-  modalId: ModalIds
+  modalId: ModalId
 }
 
 interface CloseModalAction {
@@ -116,12 +114,13 @@ interface CloseModalAction {
 
 interface SetSuggestionsAction {
   type: typeof SET_SUGGESTIONS
-  suggestions: TagLike[]
+  suggestions: r34.Tag[]
 }
 
 interface FetchSuggestionsAction {
   type: typeof FETCH_SUGGESTIONS
   value: string
+  includeSupertags: boolean
 }
 
 interface FetchPreferencesAction {
@@ -156,21 +155,21 @@ export type AppAction =
   | SetSuggestionsAction
 
 // Action Creators
-export function addTag(tag: TagDataClass): AddTagAction {
+export function addTag(tag: r34.AnyBiasedTag): AddTagAction {
   return {
     type: ADD_TAG,
     tag,
   }
 }
 
-export function removeTag(tag: TagDataClass): RemoveTagAction {
+export function removeTag(tagName: string): RemoveTagAction {
   return {
     type: REMOVE_TAG,
-    tag,
+    tagName,
   }
 }
 
-export function addAliases(aliases: TagDataClass[], forTag: string): AddAliasesAction {
+export function addAliases(aliases: r34.AliasTag[], forTag: string): AddAliasesAction {
   return {
     type: ADD_ALIASES,
     aliases,
@@ -178,14 +177,14 @@ export function addAliases(aliases: TagDataClass[], forTag: string): AddAliasesA
   }
 }
 
-export function addPosts(posts: PostDataClass[]): AddPostsAction {
+export function addPosts(posts: r34.Post[]): AddPostsAction {
   return {
     type: ADD_POSTS,
     posts,
   }
 }
 
-export function setPosts(posts: PostDataClass[], count: number, pageNumber: number = 0): SetPostsAction {
+export function setPosts(posts: r34.Post[], count: number, pageNumber: number = 0): SetPostsAction {
   return {
     type: SET_POSTS,
     posts,
@@ -194,7 +193,7 @@ export function setPosts(posts: PostDataClass[], count: number, pageNumber: numb
   }
 }
 
-export function setComments(postId: number, comments: CommentDataClass[]): SetCommentsAction {
+export function setComments(postId: number, comments: r34.Comment[]): SetCommentsAction {
   return {
     type: SET_COMMENTS,
     postId,
@@ -209,7 +208,7 @@ export function fetchComments(postId: number): FetchCommentsAction {
   }
 }
 
-export function setPreference(key: PreferenceKey, value: any): SetPreferenceAction {
+export function setPreference(key: r34.PreferenceKey, value: any): SetPreferenceAction {
   return {
     type: SET_PREFERENCE,
     key,
@@ -217,7 +216,7 @@ export function setPreference(key: PreferenceKey, value: any): SetPreferenceActi
   }
 }
 
-export function setPreferences(preferences: Partial<Record<PreferenceKey, any>>): SetPreferencesAction {
+export function setPreferences(preferences: Partial<Record<r34.PreferenceKey, any>>): SetPreferencesAction {
   return {
     type: SET_PREFERENCES,
     preferences,
@@ -264,7 +263,7 @@ export function likePost(postId: number): LikePostAction {
   }
 }
 
-export function openModal(modalId: ModalIds): OpenModalAction {
+export function openModal(modalId: ModalId): OpenModalAction {
   return {
     type: OPEN_MODAL,
     modalId,
@@ -277,17 +276,18 @@ export function closeModal(): CloseModalAction {
   }
 }
 
-export function setSuggestions(suggestions: TagLike[]): SetSuggestionsAction {
+export function setSuggestions(suggestions: r34.Tag[]): SetSuggestionsAction {
   return {
     type: SET_SUGGESTIONS,
     suggestions,
   }
 }
 
-export function fetchSuggestions(value: string): FetchSuggestionsAction {
+export function fetchSuggestions(value: string, includeSupertags: boolean): FetchSuggestionsAction {
   return {
     type: FETCH_SUGGESTIONS,
     value,
+    includeSupertags,
   }
 }
 

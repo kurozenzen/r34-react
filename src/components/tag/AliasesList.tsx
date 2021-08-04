@@ -1,8 +1,7 @@
 import React from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
-import TagDataClass from '../../data/TagDataClass'
-import { Modifier } from '../../data/types'
 import Alias from './Alias'
+import * as r34 from 'r34-types'
 
 const ListWrapper = styled.div(
   ({ theme, parentRef }: { theme: DefaultTheme; parentRef: HTMLDivElement }) => css`
@@ -30,8 +29,8 @@ const ListWrapper = styled.div(
 )
 
 interface AliasesListProps {
-  aliases: TagDataClass[]
-  modifier: Modifier
+  aliases: r34.AliasTag[]
+  modifier: r34.TagModifier
   parentRef: HTMLDivElement
 }
 
@@ -41,7 +40,7 @@ export default function AliasesList(props: AliasesListProps) {
   return (
     <ListWrapper parentRef={parentRef}>
       {aliases.map(({ name, count }) => (
-        <Alias key={'a_' + name} modifier={modifier} name={name} count={count} />
+        <Alias key={'a_' + name} name={name} count={count} modifier={modifier} />
       ))}
     </ListWrapper>
   )

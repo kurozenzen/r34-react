@@ -1,9 +1,9 @@
-import { Modifier } from '../data/types'
+import { TagModifier } from 'r34-types'
 import { PreferencesState } from '../redux/reducers/preferences'
 
 export type SupertagDetails = {
   description: string
-  tags: Record<string, Modifier>
+  tags: Record<string, TagModifier>
 }
 
 export type User = {

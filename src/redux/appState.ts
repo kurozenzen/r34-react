@@ -6,7 +6,7 @@ import { LikesState } from './reducers/likes'
 import { SuggestionsState } from './reducers/suggestions'
 import { ModalsState } from './reducers/modals'
 
-export default interface State {
+export interface AppState {
   tags: TagsState
   results: ResultsState
   preferences: PreferencesState

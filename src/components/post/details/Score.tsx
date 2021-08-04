@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled, { css, DefaultTheme } from 'styled-components'
 import { boolToNumber } from '../../../data/utils'
 import { HeartIcon } from '../../../icons/FontAwesomeIcons'
+import { formatCount } from '../../../misc/formatting'
 import { likePost } from '../../../redux/actions'
 import { selectLikedByPostId } from '../../../redux/selectors'
 import FlexPair from '../../common/FlexPair'
@@ -47,7 +48,7 @@ export default function Score(props: { value: number; postId: number }) {
   return (
     <ScorePair onClick={handleClick} $liked={liked}>
       <HeartIcon color='white' />
-      <span>{value + boolToNumber(liked)}</span>
+      <span>{formatCount(value + boolToNumber(liked))}</span>
     </ScorePair>
   )
 }

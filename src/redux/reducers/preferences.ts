@@ -1,5 +1,5 @@
 import produce from 'immer'
-import { PreferenceKey, ResultLayout, SortType, ThemeId } from '../../data/types'
+import * as r34 from 'r34-types'
 import { AppAction, SET_PREFERENCE, SET_PREFERENCES } from '../actions'
 
 export interface PreferencesState {
@@ -9,13 +9,12 @@ export interface PreferencesState {
   cookies: boolean
   preloadVideos: boolean
   tagSuggestionsCount: number
-  resultsLayout: ResultLayout
+  resultsLayout: r34.ResultsLayout
   pageSize: number
-  useCorsProxy: boolean
   showMetadata: boolean
   showComments: boolean
-  sort: SortType
-  themeId: ThemeId
+  sort: r34.PostsSort
+  themeId: r34.Theme
   autoPlay: boolean
   hideSeen: boolean
 }
@@ -27,24 +26,23 @@ const initialPreferencesState: PreferencesState = {
   cookies: false,
   preloadVideos: false,
   tagSuggestionsCount: 20,
-  resultsLayout: ResultLayout.INFINITE_COLUMN,
+  resultsLayout: 'infinite_column',
   pageSize: 20,
-  useCorsProxy: false,
   showMetadata: false,
   showComments: false,
-  sort: SortType.DATE,
-  themeId: ThemeId.DARK,
+  sort: 'date',
+  themeId: 'dark',
   autoPlay: false,
   hideSeen: false,
 }
 
-function setPreference<T extends PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {
+function setPreference<T extends r34.PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {
   return produce(state, (draft) => {
     draft[key] = value
   })
 }
 
-function setPreferences(state: PreferencesState, preferences: Partial<Record<PreferenceKey, any>>) {
+function setPreferences(state: PreferencesState, preferences: Partial<PreferencesState>) {
   return produce(state, (draft) => {
     Object.assign(draft, preferences)
   })

@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react'
-import { PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
 import Setting from '../common/Setting'
 import Toggle from '../common/Toggle'
 
 export default function PrefMetadata() {
-  const [showMetadata, setShowMetadata] = usePreference(PreferenceKey.SHOW_METADATA)
+  const [showMetadata, setShowMetadata] = usePreference('showMetadata')
   const toggleShowMetadata = useCallback(() => setShowMetadata(!showMetadata), [showMetadata, setShowMetadata])
 
   return (

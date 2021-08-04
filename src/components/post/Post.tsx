@@ -3,14 +3,14 @@ import styled, { css } from 'styled-components'
 import Details from './details/Details'
 import Player from '../player/Player'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectOriginals, selectShowComments, selectUseCorsProxy } from '../../redux/selectors'
-import PostDataClass from '../../data/PostDataClass'
+import { selectOriginals, selectShowComments } from '../../redux/selectors'
 import LayoutElementProps from '../layout/LayoutElementProps'
 import { ActiveTab, NO_OP } from '../../data/types'
 import useToggle from '../../hooks/useToggle'
 import { layer } from '../../styled/mixins'
 import { getCorrectSource } from '../../data/utils'
 import { fetchComments } from '../../redux/actions'
+import * as r34 from 'r34-types'
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
@@ -37,12 +37,12 @@ const PostWrapper = styled.div(
   `
 )
 
-export default function Post(props: PostDataClass & LayoutElementProps) {
+export default function Post(props: r34.Post & LayoutElementProps) {
   const {
-    media_type,
-    small_src,
-    big_src,
-    thumbnail_src,
+    type,
+    sample_url,
+    file_url,
+    preview_url,
     style,
     onLoad = NO_OP,
     virtualRef,
@@ -58,12 +58,11 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
   const [collapsed, toggleCollapsed] = useToggle(true)
 
   const originals = useSelector(selectOriginals)
-  const useCorsProxy = useSelector(selectUseCorsProxy)
   const showComments = useSelector(selectShowComments)
 
   const media_src = useMemo(() => {
-    return getCorrectSource(originals, useCorsProxy, big_src, small_src)
-  }, [big_src, originals, small_src, useCorsProxy])
+    return getCorrectSource(originals, file_url, sample_url)
+  }, [file_url, originals, sample_url])
 
   // re-measure when collapsed state changes
   useEffect(() => {
@@ -85,9 +84,9 @@ export default function Post(props: PostDataClass & LayoutElementProps) {
         <PostWrapper onClick={toggleCollapsed} role='row'>
           <Player
             onLoad={onLoad}
-            type={media_type}
+            type={type}
             src={media_src}
-            thumbnail_src={thumbnail_src}
+            thumbnail_src={preview_url}
             postId={id}
             width={width}
             height={height}

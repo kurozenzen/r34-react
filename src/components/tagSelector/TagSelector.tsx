@@ -2,18 +2,18 @@ import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled, { css, DefaultTheme } from 'styled-components'
 import useThrottledEffect from 'use-throttled-effect'
-import { getSupertags } from '../../firebase'
-import { TagLike, TagType, Modifier } from '../../data/types'
 import useModifier from '../../hooks/useModifier'
 import { serializeTagname } from '../../misc/formatting'
-import { prepareTag } from '../../misc/prepare'
-import { addTag, fetchSuggestions, setSuggestions } from '../../redux/actions'
+
+import { fetchSuggestions, setSuggestions } from '../../redux/actions'
 import { selectSuggestions } from '../../redux/selectors'
 import { AddButton, ModifierButton } from '../common/Buttons'
 import DropdownList from './DropdownList'
 import TagInput from './TagInput'
-import TagDataClass from '../../data/TagDataClass'
+
 import { PlusIcon } from '../../icons/FontAwesomeIcons'
+import { Supertag, Tag, AnyBiasedTag } from 'r34-types'
+import { bias, isSupertag } from '../../data/utils'
 
 const TagSelectorWrapper = styled.div(
   (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: DefaultTheme }) => css`
@@ -37,12 +37,13 @@ const TagSelectorWrapper = styled.div(
   `
 )
 
-interface TagSelectorProps {
-  onSubmit?: (tag: TagDataClass) => void
+type TagSelectorProps = {
+  showSupertags: boolean
+  onSubmit: (tag: AnyBiasedTag) => void
 }
 
 export default function TagSelector(props: TagSelectorProps) {
-  const { onSubmit } = props
+  const { onSubmit, showSupertags } = props
 
   const dispatch = useDispatch()
 
@@ -53,59 +54,24 @@ export default function TagSelector(props: TagSelectorProps) {
   const suggestions = useSelector(selectSuggestions)
 
   const activateTag = useCallback(
-    ({ name, posts, count, types }: TagLike) => {
-      if (types?.includes(TagType.SUPERTAG)) {
-        getSupertags().then((supertags) => {
-          if (supertags) {
-            Object.entries(supertags[name].tags).forEach(([name, modifier]) => {
-              const tag = prepareTag({
-                name,
-                types: [],
-                count: '0',
-                modifier: modifier as Modifier,
-              })
-
-              if (onSubmit) {
-                onSubmit(tag)
-              } else {
-                dispatch(addTag(tag))
-              }
-            })
-          }
-        })
-      } else {
-        const tag = prepareTag({
-          name,
-          types,
-          modifier,
-          count: (count || posts || 0).toString(),
-        })
-
-        if (onSubmit) {
-          onSubmit(tag)
-        } else {
-          dispatch(addTag(tag))
-        }
-      }
-
+    (tag: Tag | Supertag) => {
+      const biasedTag = isSupertag(tag) ? tag : bias(tag, modifier)
+      onSubmit(biasedTag)
       setValue('')
-      dispatch(setSuggestions([]))
     },
-    [dispatch, modifier, onSubmit]
+    [modifier, onSubmit]
   )
 
   // This effect fetches suggestions for the input value if the value
-  //is empty, it ensures the suggestions are as well
+  // is empty, it ensures the suggestions are as well
   useThrottledEffect(
     () => {
       if (value === '') {
         if (suggestions.length > 0) {
-          // Reset Suggestions
           dispatch(setSuggestions([]))
         }
       } else {
-        // Fetch Suggestions
-        dispatch(fetchSuggestions(value))
+        dispatch(fetchSuggestions(value, showSupertags))
       }
     },
     300,
@@ -113,18 +79,18 @@ export default function TagSelector(props: TagSelectorProps) {
   )
 
   const handleAddClick = useCallback(() => {
-    if (value && value.trim()) {
+    if (value.trim()) {
       const sanitizedTagname = serializeTagname(value)
-      const suggestion: TagLike | undefined = suggestions.find((s) => s.name === sanitizedTagname)
+      const suggestion: Tag | undefined = suggestions.find((s) => s.name === sanitizedTagname)
 
-      if (suggestion) {
-        activateTag(suggestion)
-      }
+      if (suggestion) activateTag(suggestion)
     }
   }, [value, activateTag, suggestions])
 
+  const hasSuggestions = suggestions.length > 0
+
   return (
-    <TagSelectorWrapper ref={setTagSelectorRef} closed={suggestions.length === 0}>
+    <TagSelectorWrapper ref={setTagSelectorRef} closed={!hasSuggestions}>
       <ModifierButton onClick={nextModifier} aria-label='Tag Modifier'>
         {modifier}
       </ModifierButton>
@@ -132,7 +98,7 @@ export default function TagSelector(props: TagSelectorProps) {
       <AddButton onClick={handleAddClick} aria-label='Add Tag'>
         <PlusIcon />
       </AddButton>
-      {suggestions.length > 0 && value.length > 0 && (
+      {hasSuggestions && value.length > 0 && (
         <DropdownList tagSelectorRef={tagSelectorRef} entries={suggestions} onClick={activateTag} />
       )}
     </TagSelectorWrapper>

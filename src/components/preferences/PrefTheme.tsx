@@ -1,18 +1,18 @@
 import React, { useCallback } from 'react'
-import { ThemeId, PreferenceKey } from '../../data/types'
+import { Theme } from 'r34-types'
 import usePreference from '../../hooks/usePreference'
 import Select from '../common/Select'
 import Setting from '../common/Setting'
 
-const themes = {
-  [ThemeId.DARK]: 'Dark',
-  [ThemeId.LIGHT]: 'Light',
-  [ThemeId.COFFEE]: 'Coffee',
-  [ThemeId.ELECTRIC]: 'Electric',
+const themes: Record<Theme, string> = {
+  dark: 'Dark',
+  light: 'Light',
+  coffee: 'Coffee',
+  electric: 'Electric',
 }
 
 export default function PrefTheme() {
-  const [themeId, setThemeId] = usePreference(PreferenceKey.THEME_ID)
+  const [themeId, setThemeId] = usePreference('themeId')
   const changeTheme = useCallback((event) => setThemeId(event.target.value), [setThemeId])
 
   return (

@@ -38,7 +38,7 @@ const switchingColors = (active: boolean, theme: DefaultTheme) => {
   `
 }
 
-const TagWrapper = styled.div(
+export const ChipWrapper = styled.div(
   (props: { active: boolean; collapsed: boolean; onMouseLeave: MouseEventHandler; theme: DefaultTheme }) =>
     css`
       ${flexRowWithGap({ theme: props.theme })}
@@ -49,5 +49,3 @@ const TagWrapper = styled.div(
       font-size: ${props.theme.fontSizes.content};
     `
 )
-
-export default TagWrapper

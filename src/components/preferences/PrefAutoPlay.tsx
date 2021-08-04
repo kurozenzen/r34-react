@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react'
-import { PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
 import Setting from '../common/Setting'
 import Toggle from '../common/Toggle'
 
 export default function PrefAutoPlay() {
-  const [autoPlay, setAutoPlay] = usePreference(PreferenceKey.AUTO_PLAY)
+  const [autoPlay, setAutoPlay] = usePreference('autoPlay')
   const toggleAutoPlay = useCallback(() => setAutoPlay(!autoPlay), [autoPlay, setAutoPlay])
 
   return (

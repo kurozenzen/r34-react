@@ -1,19 +1,19 @@
 import produce from 'immer'
-import { TagLike } from '../../data/types'
+import * as r34 from 'r34-types'
 import { AppAction, SET_SUGGESTIONS } from '../actions'
 
 /**
  * Key is postId, Value is time of like
  */
 export interface SuggestionsState {
-  entries: TagLike[]
+  entries: r34.Tag[]
 }
 
 const initialReaderState: SuggestionsState = {
   entries: [],
 }
 
-const setSuggestions = (state: SuggestionsState, suggestions: TagLike[]) =>
+const setSuggestions = (state: SuggestionsState, suggestions: r34.Tag[]) =>
   produce(state, (draft) => {
     draft.entries = suggestions
   })

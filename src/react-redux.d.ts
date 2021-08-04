@@ -1,4 +1,4 @@
 import { PersistState } from 'redux-persist'
-import State from './redux/state'
+import AppState from './redux/appState'
 
-declare type DefaultRootState = State & { _persist: PersistState }
+declare type DefaultRootState = AppState & { _persist: PersistState }

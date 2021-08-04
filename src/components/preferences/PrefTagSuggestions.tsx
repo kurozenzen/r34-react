@@ -1,11 +1,10 @@
 import React from 'react'
-import { PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
 import Setting from '../common/Setting'
 import { SmallNumberInput } from '../common/SmallInput'
 
 export default function PrefTagSuggestions() {
-  const [tagSuggestionsCount, setTagSuggestionsCount] = usePreference(PreferenceKey.TAG_SUGGESTIONS_COUNT)
+  const [tagSuggestionsCount, setTagSuggestionsCount] = usePreference('tagSuggestionsCount')
 
   return (
     <Setting

@@ -14,7 +14,6 @@ import LayoutHeader from '../layout/LayoutHeader'
 import LayoutOutOfItems from '../layout/LayoutOutOfItems'
 import LayoutLoadingItem from '../layout/LayoutLoadingItem'
 import useAction from '../../hooks/useAction'
-import { ResultLayout } from '../../data/types'
 import PageLayout from '../layout/pages/PageLayout'
 
 import Reader from '../reader/Reader'
@@ -37,7 +36,7 @@ export default function Search() {
   return (
     <>
       <Reader />
-      {resultsLayout === ResultLayout.INFINITE_COLUMN ? (
+      {resultsLayout === 'infinite_column' ? (
         <InifinteColumn
           Header={LayoutHeader}
           OutOfItems={LayoutOutOfItems}

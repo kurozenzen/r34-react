@@ -1,6 +1,6 @@
 import React, { ReactNode, useCallback } from 'react'
 import styled, { css } from 'styled-components'
-import PostDataClass from '../../../data/PostDataClass'
+import { Post } from 'r34-types'
 import BaseFlexColumn from '../../common/FlexColumn'
 import PageNavigation from './PageNavigation'
 
@@ -23,7 +23,7 @@ interface PageLayoutProps<T> {
   setLoading: (value: boolean) => void
 }
 
-export default function PageLayout(props: PageLayoutProps<PostDataClass>) {
+export default function PageLayout(props: PageLayoutProps<Post>) {
   const { header, items, ItemComponent, currentPage, loadPage } = props
 
   const scrollAndLoadPage = useCallback(

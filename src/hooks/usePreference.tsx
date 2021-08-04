@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
+import { PreferenceKey } from 'r34-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { PreferenceKey } from '../data/types'
 import { setPreference } from '../redux/actions'
 import { PreferencesState } from '../redux/reducers/preferences'
 import { selectPreferences } from '../redux/selectors'

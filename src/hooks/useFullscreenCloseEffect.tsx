@@ -2,8 +2,7 @@ import { useEffect } from 'react'
 
 export default function useFullScreenCloseEffect(effect: () => void) {
   useEffect(() => {
-    const handler = (data: any) => {
-      console.log(document.fullscreenElement)
+    const handler = () => {
       if (!document.fullscreenElement) {
         effect()
       }

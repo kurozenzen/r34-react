@@ -1,15 +1,8 @@
 import React, { MouseEventHandler } from 'react'
 import styled, { css } from 'styled-components'
-import { TagType } from '../../data/types'
+import { TagType } from 'r34-types'
 import TypeIcon from '../../icons/TypeIcon'
 import { formatCount, formatTagname } from '../../misc/formatting'
-
-interface EntryProps {
-  name: string
-  posts: number
-  types: TagType[]
-  onClick: MouseEventHandler
-}
 
 const EntryWrapper = styled.div(
   ({ theme }) => css`
@@ -17,7 +10,7 @@ const EntryWrapper = styled.div(
     grid-template-columns: 48px 1fr auto;
     min-height: ${theme.dimensions.blockHeight}; // COMPAT: Kiwi Browser
     height: ${theme.dimensions.blockHeight};
-    background: white;
+    background: ${theme.colors.backgroundColor2};
     align-items: center;
     cursor: pointer;
   `
@@ -39,19 +32,28 @@ const Icon = styled.div`
   text-align: center;
 `
 
-export default function DropdownListEntry(props: EntryProps) {
-  const { name, posts, types, onClick } = props
+type Unit = 'tags' | 'posts'
 
-  const unit = types.includes(TagType.SUPERTAG) ? 'tags' : 'posts'
+interface EntryProps {
+  name: string
+  count: number
+  type?: TagType
+  onClick: MouseEventHandler
+}
+
+export default function DropdownListEntry(props: EntryProps) {
+  const { name, count, type, onClick } = props
+
+  const unit: Unit = type === 'supertag' ? 'tags' : 'posts'
 
   return (
     <EntryWrapper onClick={onClick}>
       <Icon>
-        <TypeIcon types={types} />
+        <TypeIcon type={type} />
       </Icon>
       <Name>{formatTagname(name)}</Name>
       <Count>
-        {formatCount(posts)} {unit}
+        {count && formatCount(count)} {unit}
       </Count>
     </EntryWrapper>
   )

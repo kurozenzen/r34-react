@@ -1,21 +1,19 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getSupertags } from '../firebase'
-import PostDataClass from '../data/PostDataClass'
-import TagDataClass from '../data/TagDataClass'
-import { Modifier, SortType, TagLike, TagType } from '../data/types'
-import { DirtyPost, preparePost } from './prepare'
+import * as r34 from 'r34-types'
+import { isSupertag } from '../data/utils'
 
-const sourceTags: TagLike[] = [
-  { name: 'source:*patreon*', posts: 12711, types: [TagType.SOURCE] },
-  { name: 'source:*twitter*', posts: 99927, types: [TagType.SOURCE] },
-  { name: 'source:*pixiv*', posts: 185080, types: [TagType.SOURCE] },
+const sourceTags: r34.Tag[] = [
+  { name: 'source:*patreon*', count: 12711, types: ['source'] },
+  { name: 'source:*twitter*', count: 99927, types: ['source'] },
+  { name: 'source:*pixiv*', count: 185080, types: ['source'] },
 ]
 
-const ratingTags: TagLike[] = [
-  { name: 'rating:safe', posts: 14293, types: [TagType.RATING] },
-  { name: 'rating:questionable', posts: 219552, types: [TagType.RATING] },
-  { name: 'rating:explicit', posts: 3821144, types: [TagType.RATING] },
+const ratingTags: r34.Tag[] = [
+  { name: 'rating:safe', count: 14293, types: ['rating'] },
+  { name: 'rating:questionable', count: 219552, types: ['rating'] },
+  { name: 'rating:explicit', count: 3821144, types: ['rating'] },
 ]
 
 class API {
@@ -53,81 +51,93 @@ class API {
     }
   }
 
-  async getTags(searchTerm: string, limit: number = API.defaultPageSize) {
-    let tags: TagLike[] = await (
+  async getTags(searchTerm: string, limit: number = API.defaultPageSize, includeSupertags = false) {
+    let tags: r34.Tag[] = await (
       await fetch(`${this.activeApi}/tags?limit=${limit}&name=${searchTerm}*&order_by=posts`)
     ).json()
 
-    try {
-      const supertags = await getSupertags()
-      if (supertags) {
-        const matchingSupertags = Object.entries(supertags)
-          .filter(([name, details]) => name.toLowerCase().includes(searchTerm.toLowerCase()))
-          .map(([name, details]) => ({ name, count: Object.keys(details.tags).length, types: ['supertag'] } as TagLike))
-        tags = [...matchingSupertags, ...tags]
+    if (includeSupertags) {
+      try {
+        const supertags = await getSupertags()
+        if (supertags) {
+          const matchingSupertags = Object.entries(supertags)
+            .filter(([name, details]) => name.toLowerCase().includes(searchTerm.toLowerCase()))
+            .map(([name, details]) => ({
+              name,
+              count: Object.keys(details.tags).length,
+              types: ['supertag' as r34.TagType],
+            }))
+          tags = [...matchingSupertags, ...tags]
+        }
+      } catch {
+        // do nothing as supertags are optional
       }
-    } catch {
-      // do nothing as supertags are optional
     }
 
     // HACKY: Inject suggestions for ratings and some sources
-    if (searchTerm.startsWith('rating:')) {
-      const matchingRating = ratingTags.filter((tag) => tag.name.includes(searchTerm.replace('rating:', '')))
-      return [...matchingRating, ...tags]
-    }
+    const matchingRating = ratingTags.filter((tag) => tag.name.includes(searchTerm.replace('rating:', '')))
+    tags = [...matchingRating, ...tags]
 
-    if (searchTerm.startsWith('source:')) {
-      const matchingSourceTags = sourceTags.filter((tag) => tag.name.includes(searchTerm.replace('source:', '')))
-      return [...tags, ...matchingSourceTags]
-    }
+    const matchingSourceTags = sourceTags.filter((tag) => tag.name.includes(searchTerm.replace('source:', '')))
+    tags = [...matchingSourceTags, ...tags]
 
     return tags
   }
 
+  /**
+   * This function can be used to retrieve a number of posts from the backend.
+   */
   async getPosts(
-    tags: Record<string, TagDataClass>,
+    tags: Record<string, r34.AnyBiasedTag>,
     limit: number = API.defaultPageSize,
     pageNumber = 0,
     minScore = 0,
-    sort: SortType = SortType.DATE,
+    sort: r34.PostsSort = 'date',
     hideSeen = false
   ) {
     const idToken = await firebase.auth().currentUser?.getIdToken()
-    const res = await (
-      await fetch(this.buildPostUrl(pageNumber, tags, minScore, limit, sort, hideSeen), {
-        headers: {
-          Authorization: 'Bearer ' + idToken,
-        },
-      })
-    ).json()
-    const count = Number(res.count)
-    const posts = res.posts.map((rawPost: DirtyPost) => {
-      return preparePost(rawPost)
-    }) as PostDataClass[]
+    const url = this.buildPostUrl(pageNumber, tags, minScore, limit, sort, hideSeen)
+    const apiResponse = await fetch(url, {
+      headers: {
+        Authorization: 'Bearer ' + idToken,
+      },
+    })
+    const data: r34.PostsResponse = await apiResponse.json()
 
-    return {
-      posts,
-      count,
-    }
+    return data
   }
 
   async getAliases(tagName: string) {
-    const aliases: TagLike[] = await (await fetch(`${this.activeApi}/alias/${encodeURIComponent(tagName)}`)).json()
+    const aliases: r34.AliasTag[] = await (await fetch(`${this.activeApi}/alias/${encodeURIComponent(tagName)}`)).json()
 
     return aliases
   }
 
+  async getComments(post: r34.Post) {
+    const comments: r34.Comment[] = await (await fetch(post.comments_url)).json()
+
+    return comments
+  }
+
   buildPostUrl(
     page: number,
-    tags: Record<string, TagDataClass>,
+    tags: Record<string, r34.AnyBiasedTag>,
     minScore: number,
     limit: number = API.defaultPageSize,
-    sort: SortType,
+    sort: r34.PostsSort,
     hideSeen: boolean
   ) {
+    // resolve supertags
     const tagList = Object.values(tags)
-    const normalTags = tagList.filter((tag) => tag.modifier !== Modifier.OR)
-    const orTags = tagList.filter((tag) => tag.modifier === Modifier.OR)
+    const resolvedSupertags = tagList
+      .filter(isSupertag)
+      .flatMap((tag) => Object.entries(tag.tags).map(([name, modifier]) => ({ name, modifier, types: [] })))
+    const singleTags = tagList.filter((tag): tag is r34.BiasedTag => !isSupertag(tag))
+
+    const allTags = [...resolvedSupertags, ...singleTags]
+
+    const normalTags = allTags.filter((tag) => tag.modifier !== '~')
+    const orTags = allTags.filter((tag) => tag.modifier === '~')
 
     let url = `${this.activeApi}/posts?pid=${page}&limit=${limit}`
 
@@ -145,7 +155,7 @@ class API {
       tagParts.push(encodeURIComponent('score:>=' + minScore))
     }
 
-    if (sort !== SortType.DATE) {
+    if (sort !== 'date') {
       tagParts.push(encodeURIComponent('sort:' + sort + ':desc'))
     }
 

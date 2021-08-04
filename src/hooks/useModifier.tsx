@@ -1,21 +1,14 @@
 import { useCallback, useState } from 'react'
-import { Modifier } from '../data/types'
+import { TagModifier } from 'r34-types'
 
-const order = [Modifier.PLUS, Modifier.MINUS, Modifier.OR]
+const order: TagModifier[] = ['+', '-', '~']
 
 /**
  * Small utility hook to abstract the rotating modifier away
  */
-export default function useModifier(initialValue: Modifier = Modifier.PLUS): [Modifier, () => void] {
-  const [modifier, setModifier] = useState(initialValue)
+export default function useModifier(initialValue: TagModifier = '+') {
+  const [index, setIndex] = useState(order.indexOf(initialValue))
+  const nextModifier = useCallback(() => setIndex((index + 1) % order.length), [index])
 
-  const nextModifier = useCallback(() => {
-    const currentIndex = order.indexOf(modifier)
-    const nextIndex = currentIndex + 1
-
-    // make the value rotate
-    setModifier(order[nextIndex % order.length])
-  }, [modifier])
-
-  return [modifier, nextModifier]
+  return [order[index], nextModifier] as const
 }

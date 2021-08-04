@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, useCallback, useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import styled, { css, DefaultTheme } from 'styled-components'
-import PostDataClass from '../../../data/PostDataClass'
+import { Post } from 'r34-types'
 import { ActiveTab, NO_OP } from '../../../data/types'
 import { listToMap } from '../../../data/utils'
 import useToggleTag from '../../../hooks/useToggleTag'
@@ -13,6 +13,7 @@ import Comments from './Comments'
 import Metadata from './Metadata'
 import Rating from './Rating'
 import Score from './Score'
+import { useCheckIsActive } from '../../../hooks/useCheckIsActive'
 
 const Bar = styled.div(
   ({ theme }) => css`
@@ -38,6 +39,8 @@ const Menu = styled.div`
 `
 
 const MenuEntry = styled.span`
+  cursor: pointer;
+
   ${({ active, theme }: { active: boolean; theme: DefaultTheme }) =>
     active
       ? css`
@@ -64,10 +67,19 @@ export default function Details(props: DetailsProps) {
   const { postId, onLoad = NO_OP, activeTab, setActiveTab } = props
   const { rating, score, tags, source, created_at, status, height, width, comments } = useSelector(
     selectPostById(postId)
-  ) as PostDataClass
-  const tagsForRendering = useMemo(() => listToMap(tags, 'name'), [tags])
+  ) as Post
+  const tagsForRendering = useMemo(
+    () =>
+      listToMap(
+        tags.map((tag) => ({ name: tag, types: [] })),
+        'name'
+      ),
+    [tags]
+  )
   const showMetadata = useSelector(selectShowMetadata)
   const showComments = useSelector(selectShowComments)
+
+  const checkIsActive = useCheckIsActive()
 
   const commentsLength = comments?.length || 0
 
@@ -127,7 +139,14 @@ export default function Details(props: DetailsProps) {
 
       {
         {
-          tags: <DetailsTagList tags={tagsForRendering} detailed={false} onTagClick={toggleTag} />,
+          tags: (
+            <DetailsTagList
+              tags={tagsForRendering}
+              detailed={false}
+              onTagClick={toggleTag}
+              getIsActive={checkIsActive}
+            />
+          ),
           comments: <Comments comments={comments} />,
           metadata: <Metadata created_at={created_at} status={status} width={width} height={height} id={postId} />,
         }[activeTab]

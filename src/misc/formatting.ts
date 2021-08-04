@@ -56,7 +56,7 @@ export function serializeTagname(tagname: string) {
 /**
  * Formats tags with their count if possible
  */
-export function formatTagnameAndCount(name: string, count?: number | null) {
+export function formatTagnameAndCount(name: string, count?: number) {
   return count ? `${formatTagname(name)} (${formatCount(count)})` : formatTagname(name)
 }
 

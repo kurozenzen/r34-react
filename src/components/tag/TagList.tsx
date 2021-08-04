@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import TagDataClass from '../../data/TagDataClass'
+import { AnyBiasedTag, AnyTag } from 'r34-types'
 import { flexRowGap, flexColumnGap } from '../../styled/mixins'
 import Tag from './Tag'
 
@@ -17,7 +17,7 @@ interface TagListProps {
   /**
    * The entries of the list. Must be a map to avoid duplicates
    */
-  tags: Record<string, TagDataClass>
+  tags: Record<string, AnyTag>
   /**
    * Passthrough classname for styling from outside
    */
@@ -31,7 +31,8 @@ interface TagListProps {
    */
   children?: React.ReactNode
 
-  onTagClick: (tag: TagDataClass) => void
+  onTagClick: (tag: AnyBiasedTag) => void
+  getIsActive?: (tag: AnyTag) => boolean
 }
 
 /**
@@ -39,12 +40,12 @@ interface TagListProps {
  *
  */
 export default function TagList(props: TagListProps) {
-  const { tags, className, detailed, children = null, onTagClick } = props
+  const { tags, className, detailed, children = null, onTagClick, getIsActive } = props
 
   return (
     <TagListWrapper className={className}>
       {Object.entries(tags).map(([key, tag]) => (
-        <Tag key={key} detailed={detailed} {...tag} onClick={onTagClick} />
+        <Tag key={key} detailed={detailed} tag={tag} onClick={onTagClick} isActive={getIsActive?.(tag) || false} />
       ))}
       {children}
     </TagListWrapper>

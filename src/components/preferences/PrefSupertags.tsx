@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
-import { ModalIds } from '../../data/types'
+import { ModalId } from '../../data/types'
 import { useSupertags } from '../../firebase'
 import { PlusIcon } from '../../icons/FontAwesomeIcons'
 import { openModal } from '../../redux/actions'
@@ -12,7 +12,7 @@ export default function PrefSupertags() {
   const supertags = useSupertags()
 
   const dispatch = useDispatch()
-  const openSupertagModal = useCallback(() => dispatch(openModal(ModalIds.CREATE_SUPERTAG)), [dispatch])
+  const openSupertagModal = useCallback(() => dispatch(openModal(ModalId.CREATE_SUPERTAG)), [dispatch])
 
   return (
     <>

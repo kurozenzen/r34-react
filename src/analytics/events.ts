@@ -1,4 +1,4 @@
-import TagDataClass from '../data/TagDataClass'
+import { AnyBiasedTag } from '../../../r34-types'
 import { tagsToString } from '../data/utils'
 import { PreferencesState } from '../redux/reducers/preferences'
 
@@ -19,7 +19,7 @@ export type SearchEvent = {
  * Should be called whenever a new search is started.
  */
 export const searchEvent = (
-  activeTags: Record<string, TagDataClass>,
+  activeTags: Record<string, AnyBiasedTag>,
   page_number: number,
   preferences: PreferencesState
 ): SearchEvent => ({

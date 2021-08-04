@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react'
-import { PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
 import Setting from '../common/Setting'
 import Toggle from '../common/Toggle'
 
 export default function PrefLoadOriginals() {
-  const [originals, setOriginals] = usePreference(PreferenceKey.ORIGINALS)
+  const [originals, setOriginals] = usePreference('originals')
   const toggleOriginals = useCallback(() => setOriginals(!originals), [originals, setOriginals])
   return (
     <Setting

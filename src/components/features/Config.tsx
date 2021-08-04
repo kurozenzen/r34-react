@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import TagSelector from '../tagSelector/TagSelector'
 import Options from './Options'
@@ -8,6 +7,7 @@ import SearchButton from '../widgets/SearchButton'
 import ActiveTags from '../widgets/ActiveTags'
 import { flexColumn, gutter, centeredMaxWidth } from '../../styled/mixins'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
+import { useActivateTag } from '../../hooks/useActivateTag'
 
 const ConfigWrapper = styled.section`
   ${flexColumn}
@@ -19,6 +19,7 @@ export default function Config(props: { onLoad: () => void }) {
   const { onLoad } = props
 
   const [isSignedIn] = useFirebaseAuthState()
+  const activateTag = useActivateTag()
 
   return (
     <ConfigWrapper>
@@ -26,7 +27,7 @@ export default function Config(props: { onLoad: () => void }) {
         <label htmlFor='tag-input'>Search</label>
       </Title>
       <Surface>
-        <TagSelector />
+        <TagSelector onSubmit={activateTag} showSupertags />
         <ActiveTags onChange={onLoad} offerSupertags={isSignedIn} />
         <Options />
         <SearchButton />

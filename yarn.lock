@@ -9636,6 +9636,11 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
+r34-types@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/r34-types/-/r34-types-1.0.4.tgz#3138088932b0f7f7b65e2f8e5040e742b174ffb0"
+  integrity sha512-xsEFQcLcza0SubDA2Sd6FCLNV+TLLLIY9mjykpAk+9zEuS5bwMPBwbS2tnjJfGnyH1wko+KMYK+JJJq5GRSF9g==
+
 raf@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"

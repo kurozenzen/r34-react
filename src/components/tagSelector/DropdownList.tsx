@@ -1,8 +1,9 @@
 import React from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
 import DropdownListEntry from './DropdownListEntry'
-import { TagLike } from '../../data/types'
 import { flexColumn, flexColumnGap } from '../../styled/mixins'
+import * as r34 from 'r34-types'
+import { getInterestingType } from '../../data/utils'
 
 function sizeAndPosition(tagSelector: HTMLDivElement | null) {
   if (tagSelector) {
@@ -15,9 +16,11 @@ function sizeAndPosition(tagSelector: HTMLDivElement | null) {
       width: ${clientWidth}px;
       max-height: 50vh;
     `
+  } else {
+    return css`
+      display: none;
+    `
   }
-
-  return ''
 }
 
 const ListWrapper = styled.div(
@@ -68,22 +71,22 @@ const ListWrapper = styled.div(
 
 interface DropdownListProps {
   tagSelectorRef: HTMLDivElement | null
-  entries: TagLike[]
-  onClick: (entry: TagLike) => void
+  entries: r34.Tag[]
+  onClick: (entry: r34.Tag) => void
 }
 
 export default function DropdownList(props: DropdownListProps) {
   const { tagSelectorRef, entries, onClick } = props
 
-  return entries && entries.length > 0 ? (
+  return entries.length > 0 ? (
     <ListWrapper tagSelectorRef={tagSelectorRef}>
       {entries.map((entry) => (
         <DropdownListEntry
           key={entry.name}
           onClick={() => onClick(entry)}
           name={entry.name}
-          types={entry.types}
-          posts={entry.count || entry.posts || 0}
+          type={getInterestingType(entry.types)}
+          count={entry.count as number}
         />
       ))}
     </ListWrapper>

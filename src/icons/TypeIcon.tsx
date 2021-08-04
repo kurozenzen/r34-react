@@ -1,17 +1,10 @@
-import React, { MouseEventHandler, useMemo } from 'react'
-import { NO_OP, TagType } from '../data/types'
-import {
-  CharacterIcon,
-  CopyrightIcon,
-  ArtistIcon,
-  RatingIcon,
-  SourceIcon,
-  MetaDataIcon,
-  SupertagIcon,
-} from './FontAwesomeIcons'
+import { TagType } from 'r34-types'
+import React, { MouseEventHandler } from 'react'
+import { NO_OP } from '../data/types'
+import { CharacterIcon, CopyrightIcon, ArtistIcon, RatingIcon, SourceIcon, MetaDataIcon } from './FontAwesomeIcons'
 
 interface TypeIconProps {
-  types?: string[]
+  type?: TagType
   className?: string
   color?: string
   size?: number
@@ -21,24 +14,21 @@ interface TypeIconProps {
 }
 
 export default function TypeIcon(props: TypeIconProps) {
-  const { types = [], className = '', onClick = NO_OP } = props
-  const interestingType = useMemo(() => types.find((t) => !t.match(/^[general|ambiguous]$/)), [types])
+  const { type, className = '', onClick = NO_OP } = props
 
-  switch (interestingType) {
-    case TagType.CHARACTER:
+  switch (type) {
+    case 'character':
       return <CharacterIcon className={className} onClick={onClick} />
-    case TagType.COPYRIGHT:
+    case 'copyright':
       return <CopyrightIcon className={className} onClick={onClick} />
-    case TagType.ARTIST:
+    case 'artist':
       return <ArtistIcon className={className} onClick={onClick} />
-    case TagType.RATING:
+    case 'rating':
       return <RatingIcon className={className} onClick={onClick} />
-    case TagType.SOURCE:
+    case 'source':
       return <SourceIcon className={className} onClick={onClick} />
-    case TagType.METADATA:
+    case 'metadata':
       return <MetaDataIcon className={className} onClick={onClick} />
-    case TagType.SUPERTAG:
-      return <SupertagIcon className={className} onClick={onClick} />
     default:
       return null
   }

@@ -1,16 +1,15 @@
 import React, { MouseEventHandler, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import styled, { css } from 'styled-components'
-import TagDataClass from '../../data/TagDataClass'
-import { Modifier } from '../../data/types'
+import { TagModifier } from 'r34-types'
 import { addTag } from '../../redux/actions'
 import { flexRowWithGap } from '../../styled/mixins'
 import TagName from './TagName'
 
 interface AliasProps {
-  modifier: Modifier
+  modifier: TagModifier
   name: string
-  count?: number | null
+  count: number
 }
 
 const AliasWrapper = styled.div(
@@ -23,16 +22,14 @@ const AliasWrapper = styled.div(
 )
 
 export default function Alias(props: AliasProps) {
-  const { modifier, name, count } = props
+  const { name, count, modifier } = props
 
   const dispatch = useDispatch()
 
   const handleClick: MouseEventHandler = useCallback(
     (event) => {
       event.stopPropagation()
-      const tag = new TagDataClass(name, [], count, modifier)
-
-      dispatch(addTag(tag))
+      dispatch(addTag({ name, types: [], count, modifier }))
     },
     [count, dispatch, modifier, name]
   )

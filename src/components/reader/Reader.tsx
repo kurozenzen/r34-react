@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 import useThrottledEffect from 'use-throttled-effect'
 import { openFullscreen } from '../../data/browserUtils'
-import PostDataClass from '../../data/PostDataClass'
 import { ActiveTab, NO_OP } from '../../data/types'
 import { getCorrectSource } from '../../data/utils'
 import useAction from '../../hooks/useAction'
@@ -15,10 +14,10 @@ import {
   selectFullScreenPost,
   selectOriginals,
   selectPosts,
-  selectUseCorsProxy,
 } from '../../redux/selectors'
 import Player from '../player/Player'
 import Details from '../post/details/Details'
+import * as r34 from 'r34-types'
 
 const FullScreenDiv = styled.div(
   ({ theme }) => css`
@@ -50,9 +49,8 @@ export default function Reader() {
   const posts = useSelector(selectPosts)
   const originals = useSelector(selectOriginals)
   const isReaderOpen = useSelector(selectFullsceenState)
-  const fullScreenPost = useSelector(selectFullScreenPost) as PostDataClass
+  const fullScreenPost = useSelector(selectFullScreenPost) as r34.Post
   const fullScreenIndex = useSelector(selectFullScreenIndex)
-  const useCorsProxy = useSelector(selectUseCorsProxy)
 
   const loadMore = useAction(getMoreResults)
 
@@ -84,16 +82,16 @@ export default function Reader() {
     return null
   }
 
-  const { media_type, small_src, big_src, thumbnail_src, id, width, height } = fullScreenPost
-  const media_src = getCorrectSource(originals, useCorsProxy, big_src, small_src)
+  const { type, sample_url, file_url, preview_url, id, width, height } = fullScreenPost
+  const media_src = getCorrectSource(originals, file_url, sample_url)
 
   return (
     <FullScreenDiv ref={setReaderRef}>
       <Player
         onLoad={NO_OP}
-        type={media_type}
+        type={type}
         src={media_src}
-        thumbnail_src={thumbnail_src}
+        thumbnail_src={preview_url}
         postId={id}
         width={width}
         height={height}

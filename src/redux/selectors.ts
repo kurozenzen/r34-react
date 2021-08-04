@@ -1,34 +1,34 @@
 import { createSelector, defaultMemoize } from 'reselect'
-import { ModalIds } from '../data/types'
-import { DefaultRootState } from '../react-redux'
+import { ModalId } from '../data/types'
+import { AppState } from './appState'
+import * as r34 from 'r34-types'
 
 // Simple selectors
-export const selectActiveTags = (state: DefaultRootState) => state.tags.active
-export const selectResults = (state: DefaultRootState) => state.results
-export const selectPosts = (state: DefaultRootState) => state.results.posts
-export const selectCount = (state: DefaultRootState) => state.results.count
-export const selectPageNumber = (state: DefaultRootState) => state.results.pageNumber
-export const selectPreferences = (state: DefaultRootState) => state.preferences
-export const selectResultsLayout = (state: DefaultRootState) => state.preferences.resultsLayout
-export const selectPreloadVideos = (state: DefaultRootState) => state.preferences.resultsLayout
-export const selectOriginals = (state: DefaultRootState) => state.preferences.originals
-export const selectRated = (state: DefaultRootState) => state.preferences.rated
-export const selectRatedThreshold = (state: DefaultRootState) => state.preferences.ratedThreshold
-export const selectCookies = (state: DefaultRootState) => state.preferences.cookies
-export const selectFullsceenState = (state: DefaultRootState) => state.reader.isEnabled
-export const selectFullsceenPostId = (state: DefaultRootState) => state.reader.postId
-export const selectAliases = (state: DefaultRootState) => state.tags.aliases
-export const selectPageSize = (state: DefaultRootState) => state.preferences.pageSize
-export const selectTagSuggestionCount = (state: DefaultRootState) => state.preferences.tagSuggestionsCount
-export const selectUseCorsProxy = (state: DefaultRootState) => state.preferences.useCorsProxy
-export const selectShowMetadata = (state: DefaultRootState) => state.preferences.showMetadata
-export const selectShowComments = (state: DefaultRootState) => state.preferences.showComments
-export const selectSort = (state: DefaultRootState) => state.preferences.sort
-export const selectSuggestions = (state: DefaultRootState) => state.suggestions.entries
-export const selectActiveThemeId = (state: DefaultRootState) => state.preferences.themeId
-export const selectAutoPlay = (state: DefaultRootState) => state.preferences.autoPlay
-export const selectHideSeen = (state: DefaultRootState) => state.preferences.hideSeen
-export const selectOpenModalId = (state: DefaultRootState) => state.modals.openModal
+export const selectActiveTags = (state: AppState) => state.tags.active
+export const selectResults = (state: AppState) => state.results
+export const selectPosts = (state: AppState) => state.results.posts
+export const selectCount = (state: AppState) => state.results.count
+export const selectPageNumber = (state: AppState) => state.results.pageNumber
+export const selectPreferences = (state: AppState) => state.preferences
+export const selectResultsLayout = (state: AppState) => state.preferences.resultsLayout
+export const selectPreloadVideos = (state: AppState) => state.preferences.resultsLayout
+export const selectOriginals = (state: AppState) => state.preferences.originals
+export const selectRated = (state: AppState) => state.preferences.rated
+export const selectRatedThreshold = (state: AppState) => state.preferences.ratedThreshold
+export const selectCookies = (state: AppState) => state.preferences.cookies
+export const selectFullsceenState = (state: AppState) => state.reader.isEnabled
+export const selectFullsceenPostId = (state: AppState) => state.reader.postId
+export const selectAliases = (state: AppState) => state.tags.aliases
+export const selectPageSize = (state: AppState) => state.preferences.pageSize
+export const selectTagSuggestionCount = (state: AppState) => state.preferences.tagSuggestionsCount
+export const selectShowMetadata = (state: AppState) => state.preferences.showMetadata
+export const selectShowComments = (state: AppState) => state.preferences.showComments
+export const selectSort = (state: AppState) => state.preferences.sort
+export const selectSuggestions = (state: AppState) => state.suggestions.entries
+export const selectActiveThemeId = (state: AppState) => state.preferences.themeId
+export const selectAutoPlay = (state: AppState) => state.preferences.autoPlay
+export const selectHideSeen = (state: AppState) => state.preferences.hideSeen
+export const selectOpenModalId = (state: AppState) => state.modals.openModal
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)
@@ -58,13 +58,13 @@ export const selectPreviousIndex = createSelector(selectFullScreenIndex, (select
 )
 export const selectSupertagModalOpen = createSelector(
   selectOpenModalId,
-  (modalId) => modalId === ModalIds.CREATE_SUPERTAG
+  (modalId) => modalId === ModalId.CREATE_SUPERTAG
 )
 
 // Parameterized selectors
 export const selectPostById = defaultMemoize((id: number) => {
   return createSelector(selectPosts, (posts) => {
-    return posts.find((post) => post.id === id)
+    return posts.find((post) => post.id === id) as r34.Post
   })
 })
 
@@ -74,4 +74,4 @@ export const selectAliasesByTagName = defaultMemoize((tagName: string) => {
   })
 })
 
-export const selectLikedByPostId = defaultMemoize((id: number) => (state: DefaultRootState) => id in state.likes)
+export const selectLikedByPostId = defaultMemoize((id: number) => (state: AppState) => id in state.likes)

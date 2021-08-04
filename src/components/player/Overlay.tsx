@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useCallback } from 'react'
+import { MouseEventHandler, useCallback } from 'react'
 
 import { ExpandIcon, ExternalLinkIcon, CloseIcon, DownloadIcon, ArrowDown } from '../../icons/FontAwesomeIcons'
 import styled, { css } from 'styled-components'
@@ -13,11 +13,9 @@ import {
   selectPreviousIndex,
   selectPostById,
   selectPosts,
-  selectUseCorsProxy,
 } from '../../redux/selectors'
 import { enterFullscreen, exitFullscreen, setFullScreenPost } from '../../redux/actions'
-import PostDataClass from '../../data/PostDataClass'
-import { download, getCorrectSourceOrigin } from '../../data/utils'
+import { download } from '../../data/utils'
 import ProgressBar from './ProgressBar'
 import { dropShadow, gutter } from '../../styled/mixins'
 import { PlayPauseIcon } from '../../icons/PlayPauseIcon'
@@ -135,22 +133,19 @@ function Overlay(props: OverlayProps) {
 
   const [isVisible, toggleVisible] = useToggle()
 
-  const post = useSelector(selectPostById(postId)) as PostDataClass
+  const post = useSelector(selectPostById(postId))
   const posts = useSelector(selectPosts)
   const isReaderOpen = useSelector(selectFullsceenState)
-  const useCorsProxy = useSelector(selectUseCorsProxy)
 
   const nextIndex = useSelector(selectNextIndex)
   const previousIndex = useSelector(selectPreviousIndex)
 
-  const downloadSrc = getCorrectSourceOrigin(useCorsProxy, post.big_src)
-
   const onDownloadClick = useCallback<MouseEventHandler>(
     (event) => {
       event.stopPropagation()
-      download(downloadSrc)
+      download(post.file_url)
     },
-    [downloadSrc]
+    [post.file_url]
   )
 
   const onExpandClick = useCallback<MouseEventHandler>(
@@ -217,16 +212,16 @@ function Overlay(props: OverlayProps) {
 
       <LinkList>
         <a
-          href={downloadSrc}
+          href={post.file_url}
           target='_blank'
           rel='noopener noreferrer'
           aria-label='Open In New Tab'
-          title={downloadSrc}
+          title={post.file_url}
         >
           <ExternalLinkIcon color='white' />
         </a>
 
-        <DownloadIcon color='white' aria-label='Download Image' onClick={onDownloadClick} title={downloadSrc} />
+        <DownloadIcon color='white' aria-label='Download Image' onClick={onDownloadClick} title={post.file_url} />
       </LinkList>
 
       {isPlayable && (
@@ -238,7 +233,7 @@ function Overlay(props: OverlayProps) {
           )}
 
           {mediaRef && !isNaN(mediaRef.duration) && <LengthDisplay>{formatDuration(mediaRef.duration)}</LengthDisplay>}
-          {downloadSrc.includes('.gif') && <LengthDisplay>GIF</LengthDisplay>}
+          {post.type === 'gif' && <LengthDisplay>GIF</LengthDisplay>}
         </>
       )}
 

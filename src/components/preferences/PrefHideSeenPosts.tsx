@@ -1,11 +1,10 @@
 import React, { useCallback } from 'react'
-import { PreferenceKey } from '../../data/types'
 import usePreference from '../../hooks/usePreference'
 import Setting from '../common/Setting'
 import Toggle from '../common/Toggle'
 
 export default function PrefHideSeenPosts() {
-  const [hideSeen, setHideSeen] = usePreference(PreferenceKey.HIDE_SEEN)
+  const [hideSeen, setHideSeen] = usePreference('hideSeen')
   const toggleHideSeen = useCallback(() => setHideSeen(!hideSeen), [hideSeen, setHideSeen])
 
   return (

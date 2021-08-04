@@ -11,7 +11,7 @@ import { Faded, Title } from '../common/Text'
 import Header from '../features/Header'
 import PrefAccount from '../preferences/PrefAccount'
 import PrefAutoPlay from '../preferences/PrefAutoPlay'
-import PrefCorsProxy from '../preferences/PrefCorsProxy'
+
 import PrefHideSeenPosts from '../preferences/PrefHideSeenPosts'
 import PrefLoadOriginals from '../preferences/PrefLoadOriginals'
 import PrefMetadata from '../preferences/PrefMetadata'
@@ -89,7 +89,6 @@ export default function Settings() {
 
         <Title>Developer</Title>
         <SettingsSurface>
-          <PrefCorsProxy />
           <PrefMetadata />
           <FeatureDetection />
           <ResetSeenPostsButton />

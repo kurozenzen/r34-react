@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import CommentDataClass from '../../../data/CommentDataClass'
 import { flexColumnGap } from '../../../styled/mixins'
 import { Faded } from '../../common/Text'
 import { AdditionalDetails } from './AdditonalDetails'
+import * as r34 from 'r34-types'
 
 const Comment = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ const Message = styled(Faded)`
 `
 
 interface CommentsProps {
-  comments?: CommentDataClass[]
+  comments?: r34.Comment[]
 }
 
 export default function Comments(props: CommentsProps) {

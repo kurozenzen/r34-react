@@ -1,13 +1,12 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import { useEffect, useState } from 'react'
+import { SupertagData, TagModifier, User } from 'r34-types'
 import { sha256 } from '../data/encryption'
-import { User, SupertagDetails } from './types'
+import useFirebaseAuthState from '../hooks/useFirebaseAuthState'
 import { PreferencesState } from '../redux/reducers/preferences'
 import { GenericConverter } from './genericConverter'
-import { Modifier } from '../data/types'
-import { useEffect, useState } from 'react'
-import useFirebaseAuthState from '../hooks/useFirebaseAuthState'
 
 const userConverter = new GenericConverter<User>()
 
@@ -39,9 +38,8 @@ async function getUserData() {
 
 export async function getPreferences() {
   const userData = await getUserData()
-  if (userData) {
-    return userData.preferences
-  }
+
+  if (userData) return userData.preferences
 
   return undefined
 }
@@ -49,35 +47,11 @@ export async function getPreferences() {
 export async function setPreferences(preferences: PreferencesState) {
   const userDoc = await getUserDoc()
 
-  if (userDoc) {
-    await userDoc.set({ preferences: preferences })
-  }
-}
-
-export async function getSeenPosts() {
-  const userDoc = await getUserDoc()
-
-  if (userDoc) {
-    const snap = await userDoc.collection('seenposts').get()
-    const result: Record<string, {}> = {}
-
-    snap.forEach((doc) => {
-      const posstId = doc.id as string
-      result[posstId] = doc.data() as SupertagDetails
-    })
-
-    return result
-  }
-
-  return undefined
+  await userDoc?.set({ preferences: preferences })
 }
 
 export async function resetSeenPosts() {
-  const userDoc = await getUserDoc()
-
-  if (userDoc) {
-    console.log('broken')
-  }
+  console.log('broken')
 }
 
 export async function getSupertags() {
@@ -85,10 +59,10 @@ export async function getSupertags() {
 
   if (userDoc) {
     const snap = await userDoc.collection('supertags').get()
-    const result: Record<string, SupertagDetails> = {}
+    const result: Record<string, SupertagData> = {}
 
     snap.forEach((doc) => {
-      result[doc.id] = doc.data() as SupertagDetails
+      result[doc.id] = doc.data() as SupertagData
     })
 
     return result
@@ -97,32 +71,26 @@ export async function getSupertags() {
   return undefined
 }
 
-export async function addSupertag(name: string, description: string, tags: Record<string, Modifier>) {
+export async function addSupertag(name: string, description: string, tags: Record<string, TagModifier>) {
   const userDoc = await getUserDoc()
 
-  if (userDoc) {
-    userDoc.collection('supertags').doc(name).set({ description, tags })
-  }
+  userDoc?.collection('supertags').doc(name).set({ description, tags })
 }
 
 export async function removeSupertag(name: string) {
   const userDoc = await getUserDoc()
 
-  if (userDoc) {
-    userDoc.collection('supertags').doc(name).delete()
-  }
+  userDoc?.collection('supertags').doc(name).delete()
 }
 
-export async function setTagsOfSupertag(name: string, tags: Record<string, Modifier>) {
+export async function setTagsOfSupertag(name: string, tags: Record<string, TagModifier>) {
   const userDoc = await getUserDoc()
 
-  if (userDoc) {
-    userDoc.collection('supertags').doc(name).update({ tags })
-  }
+  userDoc?.collection('supertags').doc(name).update({ tags })
 }
 
 export function useSupertags() {
-  const [supertags, setSupertags] = useState<Record<string, SupertagDetails>>({})
+  const [supertags, setSupertags] = useState<Record<string, SupertagData>>({})
   const [collection, setCollection] = useState<firebase.firestore.CollectionReference>()
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -138,9 +106,9 @@ export function useSupertags() {
         })
         .then((snapshot) => {
           const result = snapshot.docs.reduce((result, doc) => {
-            result[doc.id] = doc.data() as SupertagDetails
+            result[doc.id] = doc.data() as SupertagData
             return result
-          }, {} as Record<string, SupertagDetails>)
+          }, {} as Record<string, SupertagData>)
 
           setSupertags(result)
         })
@@ -152,9 +120,9 @@ export function useSupertags() {
       const unsubscribe = collection.onSnapshot((snapshot) => {
         const result = snapshot.docs.reduce((result, doc) => {
           const userSupertags = doc
-          result[userSupertags.id] = doc.data() as SupertagDetails
+          result[userSupertags.id] = doc.data() as SupertagData
           return result
-        }, {} as Record<string, SupertagDetails>)
+        }, {} as Record<string, SupertagData>)
 
         setSupertags(result)
       })

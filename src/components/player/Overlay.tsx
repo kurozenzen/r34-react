@@ -49,6 +49,7 @@ const ExpandButton = styled(ExpandIcon)(
     place-self: start start;
     ${dropShadow}
     margin: ${theme.dimensions.gutter};
+    cursor: pointer;
   `
 )
 
@@ -58,6 +59,7 @@ const CloseButton = styled(CloseIcon)(
     place-self: start start;
     ${dropShadow}
     margin: ${theme.dimensions.gutter};
+    cursor: pointer;
   `
 )
 
@@ -85,6 +87,7 @@ const PlayButton = styled(PlayPauseIcon)`
   width: 50px;
   grid-area: 2/2/3/3;
   place-self: center center;
+  cursor: pointer;
   fill: white;
   ${dropShadow}
 `
@@ -102,11 +105,16 @@ const LengthDisplay = styled.span(
     grid-area: 3/3/4/4;
     place-self: end end;
     background: #00000080;
+    color: white;
     border-radius: 4px;
     padding: ${props.theme.dimensions.spacing};
     margin: ${props.theme.dimensions.gutter};
   `
 )
+
+const DownloadButton = styled(DownloadIcon)`
+  cursor: pointer;
+`
 
 interface OverlayProps {
   postId: number
@@ -218,10 +226,10 @@ function Overlay(props: OverlayProps) {
           aria-label='Open In New Tab'
           title={post.file_url}
         >
-          <ExternalLinkIcon color='white' />
+          <ExternalLinkIcon color='white' title='Open image in new tab' />
         </a>
 
-        <DownloadIcon color='white' aria-label='Download Image' onClick={onDownloadClick} title={post.file_url} />
+        <DownloadButton color='white' aria-label='Download Image' onClick={onDownloadClick} title={post.file_url} />
       </LinkList>
 
       {isPlayable && (

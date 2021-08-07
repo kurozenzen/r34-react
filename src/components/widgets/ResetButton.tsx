@@ -14,7 +14,7 @@ export default function ResetButton(props: any) {
 
   return (
     <BlockButton onClick={reset} {...props}>
-      <UndoIcon /> Reset Application
+      <UndoIcon /> Reset Results
     </BlockButton>
   )
 }

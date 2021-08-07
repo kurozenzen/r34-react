@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { Faded } from '../common/Text'
 
@@ -6,9 +6,7 @@ const tips = [
   'Try tapping the little plus in the tag search.',
   "You can exclude tags with the '-' modifier.",
   "Each result will have at least one of your '~' tags.",
-  'Check out the settings. There are lots of uesful options there.',
-  'Starting a tag search with a * gives more results.',
-  'When filtering rated posts, you can configure the minimum score by taping the red number.',
+  'Check out the settings. There are lots of useful options there.',
   'You can get more info about a post be tapping it once.',
   'Tapping on a tag below a post adds it to your active tags.',
   "Large gifs and videos can take a while to load in the app. Try clicking the 'Open in new tab' icon in the bottom left corner for faster loading times.",
@@ -22,13 +20,14 @@ const tips = [
   "You can search for posts from a specific website by entering 'source:*twitter* for example.",
   'You can upvote a post by tapping its score in the details.',
   'Wanna know more about a post? Enable "Show post metadata" in the options.',
-  'Every time you reload the page, a random tip will be shown here.',
+  'Every time you load this page, a random tip will be shown here.',
   'You can enable comments in the settings. Not all post have comments though.',
   'You can save and share your settings across devices if you log in with your Google account.',
   'Tapping the number of results displays the exact number instead of an approximation.',
   'You can create supertags once you have two or more active tags.',
   'Supertags are collections of tags that you can add together.',
   'Supertags retain the modifiers of the tags they contain.',
+  'You can tap this tip to get another one.',
 ]
 
 const Span = styled(Faded)(
@@ -40,8 +39,15 @@ const Span = styled(Faded)(
   `
 )
 
-export default function RandomTip() {
-  const tip = useMemo(() => tips[Math.floor(Math.random() * tips.length)], [])
+function getRandomTip() {
+  return tips[Math.floor(Math.random() * tips.length)]
+}
 
-  return <Span>{tip}</Span>
+export default function RandomTip() {
+  const [tip, setTip] = useState(getRandomTip())
+  const nextTip = useCallback(() => {
+    setTip(getRandomTip())
+  }, [])
+
+  return <Span onClick={nextTip}>{tip}</Span>
 }

@@ -24,6 +24,7 @@ import PrefTagSuggestions from '../preferences/PrefTagSuggestions'
 import PrefTheme from '../preferences/PrefTheme'
 import FeatureDetection from '../widgets/FeatureDetection'
 import ResetButton from '../widgets/ResetButton'
+import ResetResultsButton from '../widgets/ResetResultsButton'
 import ResetSeenPostsButton from '../widgets/ResetSeenPostsButton'
 
 const SettingsSurface = styled(Surface)(
@@ -91,6 +92,7 @@ export default function Settings() {
         <SettingsSurface>
           <PrefMetadata />
           <FeatureDetection />
+          <ResetResultsButton />
           <ResetSeenPostsButton />
           <ResetButton />
         </SettingsSurface>

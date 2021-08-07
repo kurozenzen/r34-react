@@ -20,24 +20,24 @@ export default function Metadata(props: MetadataProps) {
 
   return (
     <AdditionalDetails>
-      <FlexPair>
+      <FlexPair title='Id'>
         <SourceIcon />
         <Entry data-testid='id'>{id}</Entry>
       </FlexPair>
 
-      <FlexPair>
+      <FlexPair title='Upload Date'>
         <CalendarIcon />
         <Entry data-testid='date'>
           {formatDatetime(createdAt)} ({formatTime(Date.now() - createdAt.getTime())} ago)
         </Entry>
       </FlexPair>
 
-      <FlexPair>
+      <FlexPair title='Status'>
         <CheckIcon />
         <Entry data-testid='status'>{status}</Entry>
       </FlexPair>
 
-      <FlexPair>
+      <FlexPair title='Measurements'>
         <ImageIcon />
         <Entry data-testid='size'>
           {width} x {height}

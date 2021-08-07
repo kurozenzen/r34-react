@@ -9,7 +9,7 @@ const Track = styled.div(
     width: 50px;
     ${defaultBorder(props)}
     border-radius: 30px;
-    background-color: ${props.theme.colors.backgroundColor};
+    background-color: transparent;
     transition: transform ${props.theme.timings.longTransitionTime} ease-in-out;
   `
 )

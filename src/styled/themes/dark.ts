@@ -1,4 +1,6 @@
-const dark = {
+import { DefaultTheme } from 'styled-components'
+
+const dark: DefaultTheme = {
   dimensions: {
     borderRadius: '3px',
     borderWidth: '2px',
@@ -21,7 +23,7 @@ const dark = {
 
     // theme
     accentColor: '#ee3344',
-    hoverAccent: '#ee3344',
+    hoverAccent: '#ff4455',
 
     // semantic
     liked: '#ff0d50',
@@ -30,7 +32,7 @@ const dark = {
   },
   shadow: {
     radius: '4px',
-    color: '#00000060',
+    color: 'transparent',
   },
   timings: {
     transitionTime: '0.2s',

@@ -9,6 +9,7 @@ const themes: Record<Theme, string> = {
   light: 'Light',
   coffee: 'Coffee',
   electric: 'Electric',
+  deepsea: 'Deep Sea',
 }
 
 export default function PrefTheme() {

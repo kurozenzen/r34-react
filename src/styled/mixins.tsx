@@ -32,11 +32,11 @@ export function layer({ theme }: PropsWithTheme) {
  */
 export function primaryHover({ theme }: PropsWithTheme) {
   return css`
-    color: ${theme.colors.accentColor};
-    background: ${theme.colors.backgroundColor};
+    color: ${theme.colors.backgroundColor};
+    background: ${theme.colors.accentColor};
 
     :hover {
-      background-color: ${theme.colors.accentColor};
+      background-color: ${theme.colors.hoverAccent};
       color: ${theme.colors.backgroundColor};
     }
 

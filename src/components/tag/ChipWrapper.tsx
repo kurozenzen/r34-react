@@ -7,7 +7,7 @@ const dropdownBorderRadius = (collapsed: boolean, theme: DefaultTheme) =>
 
 const switchingColors = (active: boolean, theme: DefaultTheme) => {
   const fg = active ? theme.colors.backgroundColor : theme.colors.accentColor
-  const bg = active ? theme.colors.accentColor : theme.colors.backgroundColor
+  const bg = active ? theme.colors.accentColor : 'transparent'
 
   return css`
     color: ${fg};

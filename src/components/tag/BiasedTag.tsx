@@ -1,6 +1,6 @@
 import * as r34 from 'r34-types'
 import TagChip from './TagChip'
-import { getInterestingType } from '../../data/utils'
+import { getInterestingType } from '../../data/tagUtils'
 
 interface TagProps {
   tag: r34.BiasedTag

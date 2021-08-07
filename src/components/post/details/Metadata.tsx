@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Post } from 'r34-types'
 import { CalendarIcon, CheckIcon, ImageIcon, SourceIcon } from '../../../icons/FontAwesomeIcons'
-import { formatDateTime, formatTime } from '../../../misc/formatting'
+import { formatDatetime, formatTime } from '../../../misc/formatting'
 import FlexPair from '../../common/FlexPair'
 import { Faded } from '../../common/Text'
 import { AdditionalDetails } from './AdditonalDetails'
@@ -18,30 +18,28 @@ export default function Metadata(props: MetadataProps) {
 
   const createdAt = new Date(created_at)
 
-  debugger
-
   return (
     <AdditionalDetails>
       <FlexPair>
         <SourceIcon />
-        <Entry>{id}</Entry>
+        <Entry data-testid='id'>{id}</Entry>
       </FlexPair>
 
       <FlexPair>
         <CalendarIcon />
-        <Entry>
-          {formatDateTime(createdAt)} ({formatTime(Date.now() - createdAt.getTime())} ago)
+        <Entry data-testid='date'>
+          {formatDatetime(createdAt)} ({formatTime(Date.now() - createdAt.getTime())} ago)
         </Entry>
       </FlexPair>
 
       <FlexPair>
         <CheckIcon />
-        <Entry>{status}</Entry>
+        <Entry data-testid='status'>{status}</Entry>
       </FlexPair>
 
       <FlexPair>
         <ImageIcon />
-        <Entry>
+        <Entry data-testid='size'>
           {width} x {height}
         </Entry>
       </FlexPair>

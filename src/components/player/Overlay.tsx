@@ -203,7 +203,7 @@ function Overlay(props: OverlayProps) {
   )
 
   return (
-    <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible}>
+    <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible} data-testid='overlay-wrapper'>
       {isReaderOpen ? (
         <CloseButton color='white' onClick={onExpandClick} aria-label='Open Fullscreen' />
       ) : (

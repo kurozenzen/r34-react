@@ -1,6 +1,6 @@
 import React, { MouseEventHandler, useCallback } from 'react'
 import * as r34 from 'r34-types'
-import { bias, isBiased, isSupertag } from '../../data/utils'
+import { bias, isBiased, isSupertag } from '../../data/tagUtils'
 import Supertag from './Supertag'
 import { BiasedTag } from './BiasedTag'
 

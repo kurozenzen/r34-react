@@ -6,6 +6,7 @@ import { PostImage } from './StyledMedia'
 import useIsOnScreen from '../../../hooks/useIsOnScreen'
 import { useSelector } from 'react-redux'
 import { selectAutoPlay } from '../../../redux/selectors'
+import { useIsScrolling } from '../../../hooks/useIsScrolling'
 
 export default function Gif(props: MediaProps) {
   const { src, thumbnail_src, onLoad = NO_OP, postId, width, height } = props
@@ -16,14 +17,15 @@ export default function Gif(props: MediaProps) {
   const [gifRef, setGifRef] = useState<HTMLImageElement | null>(null)
 
   const [isOnScreen] = useIsOnScreen(gifRef)
+  const isScrolling = useIsScrolling()
 
   const usedSource = isPaused ? thumbnail_src : src
 
   useEffect(() => {
-    if (autoPlay && isOnScreen) {
+    if (autoPlay && isOnScreen && !isScrolling) {
       setPaused(false)
     }
-  }, [autoPlay, isOnScreen])
+  }, [autoPlay, isOnScreen, isScrolling])
 
   useEffect(() => {
     if (!isOnScreen) {
@@ -34,6 +36,7 @@ export default function Gif(props: MediaProps) {
   return (
     <>
       <PostImage
+        data-testid='gif'
         ref={setGifRef}
         src={usedSource}
         alt={usedSource}

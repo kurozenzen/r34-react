@@ -6,7 +6,7 @@ import { PlusIcon } from '../../icons/FontAwesomeIcons'
 import { openModal } from '../../redux/actions'
 import { RedButton } from '../common/Buttons'
 import Setting from '../common/Setting'
-import SuperTagEntry from '../common/SuperTagEntry'
+import SupertagEntry from '../common/SupertagEntry'
 
 export default function PrefSupertags() {
   const supertags = useSupertags()
@@ -27,7 +27,7 @@ export default function PrefSupertags() {
 
       <div>
         {Object.entries(supertags).map(([name, details]) => (
-          <SuperTagEntry key={name} name={name} {...details}></SuperTagEntry>
+          <SupertagEntry key={name} supertag={{ name, ...details }}></SupertagEntry>
         ))}
       </div>
     </>

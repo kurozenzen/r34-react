@@ -9,7 +9,7 @@ export default function Picture(props: MediaProps) {
 
   return (
     <>
-      <PostImage src={src} alt={src} onLoad={onLoad} loading='lazy' width={width} height={height} />
+      <PostImage data-testid='image' src={src} alt={src} onLoad={onLoad} loading='lazy' width={width} height={height} />
       <Overlay isPlayable={false} postId={postId} />
     </>
   )

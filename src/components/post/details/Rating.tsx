@@ -5,9 +5,9 @@ import FlexPair from '../../common/FlexPair'
 
 export default function Rating(props: { value: PostRating }) {
   return (
-    <FlexPair>
+    <FlexPair data-testid='rating'>
       <RatingIcon color='white' />
-      <span>{props.value[0].toUpperCase()}</span>
+      <span>{props.value.toUpperCase()}</span>
     </FlexPair>
   )
 }

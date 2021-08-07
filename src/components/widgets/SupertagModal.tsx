@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 import { addSupertag } from '../../firebase'
 import { selectActiveTags } from '../../redux/selectors'
@@ -11,8 +11,9 @@ import { Title } from '../common/Text'
 import TagSelector from '../tagSelector/TagSelector'
 import ActiveTags from './ActiveTags'
 import * as r34 from 'r34-types'
-import { isSupertag } from '../../data/utils'
+import { isSupertag } from '../../data/tagUtils'
 import { useActivateTag } from '../../hooks/useActivateTag'
+import { removeTag } from '../../redux/actions'
 
 const Wrapper = styled.div`
   position: fixed;
@@ -51,19 +52,24 @@ interface SupertagModalProps {
 export default function SupertagModal(props: SupertagModalProps) {
   const { onClose } = props
   const [name, setName] = useState('')
-  const [desc, setDesc] = useState('')
+  const [description, setDescription] = useState('')
   const activeTags = useSelector(selectActiveTags)
+  const dispatch = useDispatch()
+  const activateTag = useActivateTag()
 
   const tags: Record<string, r34.TagModifier> = Object.values(activeTags)
     .filter((tag): tag is r34.BiasedTag => !isSupertag(tag))
     .reduce((result, tag) => ({ ...result, [tag.name]: tag.modifier }), {})
 
-  const handleCreateTagList = useCallback(() => {
-    addSupertag(name, desc, tags)
+  const handleCreate = useCallback(() => {
+    addSupertag(name, description, tags)
+      .then(() => {
+        Object.keys(tags).forEach((tagname) => dispatch(removeTag(tagname)))
+        activateTag({ name, description, tags })
+      })
+      .catch(() => console.log('Failed to create supertag'))
     onClose()
-  }, [desc, name, onClose, tags])
-
-  const activateTag = useActivateTag()
+  }, [activateTag, description, dispatch, name, onClose, tags])
 
   return (
     <Wrapper onClick={onClose}>
@@ -71,10 +77,15 @@ export default function SupertagModal(props: SupertagModalProps) {
         <Title>Create Supertag</Title>
         <HorizontalLine />
         <StyledInput type='text' placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
-        <StyledInput type='text' placeholder='Description' value={desc} onChange={(e) => setDesc(e.target.value)} />
+        <StyledInput
+          type='text'
+          placeholder='Description'
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
         <TagSelector showSupertags={false} onSubmit={activateTag} />
         <ActiveTags />
-        <BlockButton onClick={handleCreateTagList}>Create</BlockButton>
+        <BlockButton onClick={handleCreate}>Create</BlockButton>
       </ModalSurface>
     </Wrapper>
   )

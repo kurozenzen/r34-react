@@ -1,7 +1,7 @@
 interface MediaProps {
   src: string
   thumbnail_src: string
-  onLoad: () => void
+  onLoad?: () => void
   postId: number
   width: number
   height: number

@@ -3,7 +3,7 @@ import styled, { css, DefaultTheme } from 'styled-components'
 import DropdownListEntry from './DropdownListEntry'
 import { flexColumn, flexColumnGap } from '../../styled/mixins'
 import * as r34 from 'r34-types'
-import { getInterestingType } from '../../data/utils'
+import { getInterestingType, isSupertag } from '../../data/tagUtils'
 
 function sizeAndPosition(tagSelector: HTMLDivElement | null) {
   if (tagSelector) {
@@ -71,8 +71,8 @@ const ListWrapper = styled.div(
 
 interface DropdownListProps {
   tagSelectorRef: HTMLDivElement | null
-  entries: r34.Tag[]
-  onClick: (entry: r34.Tag) => void
+  entries: r34.AnyTag[]
+  onClick: (entry: r34.AnyTag) => void
 }
 
 export default function DropdownList(props: DropdownListProps) {
@@ -80,15 +80,20 @@ export default function DropdownList(props: DropdownListProps) {
 
   return entries.length > 0 ? (
     <ListWrapper tagSelectorRef={tagSelectorRef}>
-      {entries.map((entry) => (
-        <DropdownListEntry
-          key={entry.name}
-          onClick={() => onClick(entry)}
-          name={entry.name}
-          type={getInterestingType(entry.types)}
-          count={entry.count as number}
-        />
-      ))}
+      {entries.map((entry) => {
+        const type = isSupertag(entry) ? 'supertag' : getInterestingType(entry.types)
+        const count = isSupertag(entry) ? Object.keys(entry.tags).length : (entry.count as number)
+
+        return (
+          <DropdownListEntry
+            key={entry.name}
+            onClick={() => onClick(entry)}
+            name={entry.name}
+            type={type}
+            count={count}
+          />
+        )
+      })}
     </ListWrapper>
   ) : null
 }

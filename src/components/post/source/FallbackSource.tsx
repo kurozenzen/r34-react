@@ -5,7 +5,7 @@ import SourceProps from './SourceProps'
 
 export default function FallbackSource({ value }: SourceProps) {
   return (
-    <FlexPair>
+    <FlexPair data-testid='text-source'>
       <SourceIcon color='white' />
       <span>{value}</span>
     </FlexPair>

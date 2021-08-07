@@ -25,3 +25,9 @@ export enum ModalId {
  * One-time definition of an empty function. Reusing this improves React's performance as it does not break memoization.
  */
 export const NO_OP = () => {}
+
+export type InViewHookResponse<T extends Element> = {
+  ref: (node?: T | null) => void
+  inView: boolean
+  entry?: IntersectionObserverEntry
+}

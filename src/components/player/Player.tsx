@@ -11,7 +11,7 @@ interface PlayerProps {
   type: PostType
   src: string
   thumbnail_src: string
-  onLoad: () => void
+  onLoad?: () => void
   width: number
   height: number
 }
@@ -36,7 +36,8 @@ export default function Player(props: PlayerProps) {
 
   const [usedThumbnail, usedSrc] = useMemo(() => {
     if (type === 'gif') {
-      return [post.sample_url, post.file_url]
+      // Choose the bigger image that is not a gif as preview
+      return post.sample_url.includes('.gif') ? [thumbnail_src, post.sample_url] : [post.sample_url, src]
     }
 
     return [thumbnail_src, src]

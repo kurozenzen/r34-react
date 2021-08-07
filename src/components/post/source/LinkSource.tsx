@@ -10,7 +10,14 @@ export default function DefaultLinkSource({ value }: SourceProps) {
   const title = formatSource(value)
 
   return (
-    <ColoredIconLink color={color} href={value} target='_blank' rel='noopener noreferrer' className='source'>
+    <ColoredIconLink
+      data-testid='link-source'
+      color={color}
+      href={value}
+      target='_blank'
+      rel='noopener noreferrer'
+      className='source'
+    >
       <LinkIcon color={color} />
       {title}
     </ColoredIconLink>

@@ -11,7 +11,14 @@ interface SpecialLinkSourceProps {
 export default function SpecialLinkSource(props: SpecialLinkSourceProps) {
   const { value, color, Icon, title } = props
   return (
-    <ColoredIconLink href={value} target='_blank' rel='noopener noreferrer' className='source' color={color}>
+    <ColoredIconLink
+      data-testid='known-source'
+      href={value}
+      target='_blank'
+      rel='noopener noreferrer'
+      className='source'
+      color={color}
+    >
       <Icon />
       {title}
     </ColoredIconLink>

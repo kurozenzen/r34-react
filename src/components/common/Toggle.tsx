@@ -14,6 +14,9 @@ const Track = styled.div(
   `
 )
 
+/**
+ * CSS helper that falls back to less fancy styling on older browsers
+ */
 function circle() {
   return supportsAspectRatio
     ? css`
@@ -45,7 +48,7 @@ export default function Toggle(props: ToggleProps) {
   const { value, onToggle } = props
 
   return (
-    <Track onClick={onToggle}>
+    <Track onClick={onToggle} role='checkbox'>
       <Thumb value={value} />
     </Track>
   )

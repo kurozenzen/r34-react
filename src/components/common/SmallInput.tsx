@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, KeyboardEventHandler, useCallback, useEffect, useState } from 'react'
+import React, { ChangeEventHandler, useCallback, useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 import { defaultBorder, defaultBlock } from '../../styled/mixins'
 
@@ -34,14 +34,11 @@ export function SmallTextInput(props: SmallInputProps<string>) {
     onSubmit(internalValue)
   }, [internalValue, onSubmit])
 
-  const onKeyDown: KeyboardEventHandler = useCallback(
-    (event) => {
-      if (event.key === 'Enter') {
-        onSubmit(internalValue)
-      }
-    },
-    [internalValue, onSubmit]
-  )
+  const blurOnEnter = useCallback((event) => {
+    if (event.key === 'Enter') {
+      event.target.blur()
+    }
+  }, [])
 
   return (
     <StyledInput
@@ -49,7 +46,7 @@ export function SmallTextInput(props: SmallInputProps<string>) {
       value={internalValue}
       onChange={onChange}
       onBlur={onBlur}
-      onKeyDown={onKeyDown}
+      onKeyDown={blurOnEnter}
       className={className}
     />
   )
@@ -60,9 +57,7 @@ export function SmallNumberInput(props: SmallInputProps<number>) {
   const [internalValue, setInternalValue] = useState(value.toString())
 
   useEffect(() => {
-    if (typeof value === 'number') {
-      setInternalValue(value.toString())
-    }
+    setInternalValue(value.toString())
   }, [value])
 
   const onChange: ChangeEventHandler<HTMLInputElement> = useCallback((event) => {
@@ -73,14 +68,11 @@ export function SmallNumberInput(props: SmallInputProps<number>) {
     onSubmit(Number(internalValue))
   }, [internalValue, onSubmit])
 
-  const onKeyDown: KeyboardEventHandler = useCallback(
-    (event) => {
-      if (event.key === 'Enter') {
-        onSubmit(Number(internalValue))
-      }
-    },
-    [internalValue, onSubmit]
-  )
+  const blurOnEnter = useCallback((event) => {
+    if (event.key === 'Enter') {
+      event.target.blur()
+    }
+  }, [])
 
   return (
     <StyledInput
@@ -88,7 +80,7 @@ export function SmallNumberInput(props: SmallInputProps<number>) {
       value={internalValue}
       onChange={onChange}
       onBlur={onBlur}
-      onKeyDown={onKeyDown}
+      onKeyDown={blurOnEnter}
       className={className}
     />
   )

@@ -14,7 +14,7 @@ import {
   FETCH_COMMENTS,
   setComments,
 } from '../actions'
-import api from '../../misc/api'
+import { api } from '../../misc/api'
 import {
   selectActiveTags,
   selectPageNumber,
@@ -26,8 +26,7 @@ import {
   selectPostById,
   selectHideSeen,
 } from '../selectors'
-import { serializeTagname } from '../../misc/formatting'
-import { isSupertag } from '../../data/utils'
+import { isSupertag, serializeTagname } from '../../data/tagUtils'
 
 const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => async (action: AppAction) => {
   const state = store.getState()
@@ -72,10 +71,10 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
 
     // Request types for newly added tag
     if (!isSupertag(action.tag) && action.tag.types.length === 0) {
-      const tags = await api.getTags(action.tag.name)
+      const tags = await api.getTags(action.tag.name, 1)
       const tag = tags.find((tag) => tag.name === action.tag.name)
 
-      if (tag) {
+      if (tag && !isSupertag(tag)) {
         action.tag.types = tag.types
         action.tag.count = tag.count
       }

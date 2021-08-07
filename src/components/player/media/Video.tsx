@@ -6,6 +6,7 @@ import MediaProps from './MediaProps'
 import Overlay from '../Overlay'
 import { PostVideo } from './StyledMedia'
 import useIsOnScreen from '../../../hooks/useIsOnScreen'
+import { useIsScrolling } from '../../../hooks/useIsScrolling'
 
 export default function Video(props: MediaProps) {
   const { src, onLoad = NO_OP, postId, width, height } = props
@@ -41,14 +42,13 @@ export default function Video(props: MediaProps) {
   const preload = useSelector(selectPreloadVideos) ? 'auto' : 'metadata'
 
   const [isOnScreen] = useIsOnScreen(videoRef)
+  const isScrolling = useIsScrolling()
 
   useEffect(() => {
-    if (videoRef && autoPlay) {
-      if (videoRef.paused && isOnScreen) {
-        play()
-      }
+    if (videoRef && autoPlay && videoRef.paused && isOnScreen && !isScrolling) {
+      play()
     }
-  }, [autoPlay, isOnScreen, play, videoRef])
+  }, [autoPlay, isOnScreen, isScrolling, play, videoRef])
 
   useEffect(() => {
     if (videoRef && !videoRef.paused && !isOnScreen) {
@@ -59,6 +59,7 @@ export default function Video(props: MediaProps) {
   return (
     <>
       <PostVideo
+        data-testid='video'
         controls={false}
         loop
         preload={preload}

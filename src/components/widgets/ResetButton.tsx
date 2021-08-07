@@ -7,6 +7,7 @@ export default function ResetButton(props: any) {
   const reset = useCallback(async () => {
     localStorage.clear()
     await signOut()
+
     window.location.hash = ''
     window.location.reload()
   }, [])

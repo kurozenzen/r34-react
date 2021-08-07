@@ -4,18 +4,16 @@ import { parseUrl } from '../data/utils'
  * Transforms a number into a shortened version for rendering.
  * Useful as it takes up less space.
  */
-export const formatCount = (numberString: number) => {
-  const number = numberString
-
-  if (number >= 1e6) {
-    return `${(number / 1e6).toFixed(0)}M`
+export const formatCount = (value: number) => {
+  if (value / 1e6 >= 1) {
+    return `${Math.trunc(value / 1e6)}M`
   }
 
-  if (number >= 1e3) {
-    return `${(number / 1e3).toFixed(0)}K`
+  if (value >= 1e3) {
+    return `${Math.trunc(value / 1e3)}K`
   }
 
-  return number
+  return value.toString()
 }
 
 /**
@@ -42,15 +40,8 @@ export function formatDuration(duration: number) {
 export function formatTagname(tagname: string) {
   return tagname
     .replace(/_/g, ' ')
-    .replace(/source:/g, ' ')
-    .replace(/rating:/g, ' ')
-}
-
-/**
- * Serializes tag names for use in api requests.
- */
-export function serializeTagname(tagname: string) {
-  return tagname.toLowerCase().replace(/ /g, '_')
+    .replace(/source:/g, '')
+    .replace(/rating:/g, '')
 }
 
 /**
@@ -60,14 +51,21 @@ export function formatTagnameAndCount(name: string, count?: number) {
   return count ? `${formatTagname(name)} (${formatCount(count)})` : formatTagname(name)
 }
 
-export function formatDateTime(date: Date) {
+/**
+ * Returns a string containing date and time of agiven Date object
+ */
+export function formatDatetime(date: Date) {
   return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
 }
 
+/**
+ * Returns a human friendly approximation of a given time
+ */
 export function formatTime(milliseconds: number) {
   if (milliseconds >= 315576e5) {
     return formatUnit(milliseconds, 315576e5, 'year')
   }
+
   if (milliseconds >= 26297568e2) {
     return formatUnit(milliseconds, 26297568e2, 'month')
   }
@@ -95,7 +93,7 @@ export function formatTime(milliseconds: number) {
   return `${milliseconds} ms`
 }
 
-function formatUnit(value: number, unitSize: number, unit: string) {
+export function formatUnit(value: number, unitSize: number, unit: string) {
   const result = (value / unitSize).toFixed(0)
 
   const unitString = result === '1' ? unit : `${unit}s`

@@ -114,7 +114,7 @@ interface CloseModalAction {
 
 interface SetSuggestionsAction {
   type: typeof SET_SUGGESTIONS
-  suggestions: r34.Tag[]
+  suggestions: r34.AnyTag[]
 }
 
 interface FetchSuggestionsAction {
@@ -276,7 +276,7 @@ export function closeModal(): CloseModalAction {
   }
 }
 
-export function setSuggestions(suggestions: r34.Tag[]): SetSuggestionsAction {
+export function setSuggestions(suggestions: r34.AnyTag[]): SetSuggestionsAction {
   return {
     type: SET_SUGGESTIONS,
     suggestions,

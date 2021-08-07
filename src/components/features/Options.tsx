@@ -1,35 +1,15 @@
-import React, { ChangeEventHandler, useCallback, useState } from 'react'
-import styled, { css, DefaultTheme } from 'styled-components'
+import { ChangeEventHandler, useCallback, useState } from 'react'
+import styled from 'styled-components'
 import LabeledToggle from '../common/LabeledToggle'
 import { PostsSort } from 'r34-types'
 import usePreference from '../../hooks/usePreference'
-import { borderRadius, flexRowWithGap, gridWithGap, PropsWithTheme } from '../../styled/mixins'
+import { flexRowWithGap, gridWithGap, PropsWithTheme } from '../../styled/mixins'
 import Select from '../common/Select'
+import { SubtleInput } from '../common/SubtleInput'
 
 const OptionsWrapper = styled.div`
   ${gridWithGap}
 `
-
-const StyledInput = styled.input(
-  (props: { value: string; theme: DefaultTheme }) => css`
-    background: ${props.theme.colors.backgroundColor};
-    padding: ${props.theme.dimensions.spacing};
-    ${borderRadius}
-    border: none;
-    outline: none;
-    color: ${props.theme.colors.accentColor};
-    width: 3.4rem;
-    text-align: right;
-    font-size: ${props.theme.fontSizes.content};
-
-    ::-webkit-inner-spin-button,
-    ::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    -moz-appearance: textfield;
-  `
-)
 
 const RatedRow = styled.div`
   ${flexRowWithGap}
@@ -63,22 +43,32 @@ export default function Options() {
     [ratedThresholdInternal, setRatedThreshold]
   )
 
+  const handleSubmit = useCallback((e) => {
+    if (e.key === 'Enter') e.target.blur()
+  }, [])
+
   const handleSortChange: ChangeEventHandler<HTMLSelectElement> = useCallback(
     (event) => setSort(event.target.value as PostsSort),
     [setSort]
   )
 
   return (
-    <OptionsWrapper>
+    <OptionsWrapper data-testid='options-wrapper'>
       <LabeledToggle value={rated} onToggle={toggleRated}>
         {rated ? (
           <RatedRow>
             <span>More than</span>
-            <StyledInput type='text' value={ratedThresholdInternal} onChange={onChange} onBlur={onBlur} />
+            <SubtleInput
+              type='number'
+              value={ratedThresholdInternal}
+              onChange={onChange}
+              onBlur={onBlur}
+              onKeyDown={handleSubmit}
+            />
             <span>likes</span>
           </RatedRow>
         ) : (
-          'Only show Rated Posts'
+          'Only show popular posts'
         )}
       </LabeledToggle>
       <SortRow>

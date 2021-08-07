@@ -3,17 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled, { css, DefaultTheme } from 'styled-components'
 import useThrottledEffect from 'use-throttled-effect'
 import useModifier from '../../hooks/useModifier'
-import { serializeTagname } from '../../misc/formatting'
-
 import { fetchSuggestions, setSuggestions } from '../../redux/actions'
 import { selectSuggestions } from '../../redux/selectors'
 import { AddButton, ModifierButton } from '../common/Buttons'
 import DropdownList from './DropdownList'
 import TagInput from './TagInput'
-
 import { PlusIcon } from '../../icons/FontAwesomeIcons'
-import { Supertag, Tag, AnyBiasedTag } from 'r34-types'
-import { bias, isSupertag } from '../../data/utils'
+import { Supertag, Tag, AnyBiasedTag, AnyTag } from 'r34-types'
+import { bias, isSupertag, serializeTagname } from '../../data/tagUtils'
 
 const TagSelectorWrapper = styled.div(
   (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: DefaultTheme }) => css`
@@ -70,7 +67,8 @@ export default function TagSelector(props: TagSelectorProps) {
         if (suggestions.length > 0) {
           dispatch(setSuggestions([]))
         }
-      } else {
+      }
+      if (value.length >= 3) {
         dispatch(fetchSuggestions(value, showSupertags))
       }
     },
@@ -81,7 +79,7 @@ export default function TagSelector(props: TagSelectorProps) {
   const handleAddClick = useCallback(() => {
     if (value.trim()) {
       const sanitizedTagname = serializeTagname(value)
-      const suggestion: Tag | undefined = suggestions.find((s) => s.name === sanitizedTagname)
+      const suggestion: AnyTag | undefined = suggestions.find((s) => s.name === sanitizedTagname)
 
       if (suggestion) activateTag(suggestion)
     }

@@ -6,14 +6,14 @@ import { AppAction, SET_SUGGESTIONS } from '../actions'
  * Key is postId, Value is time of like
  */
 export interface SuggestionsState {
-  entries: r34.Tag[]
+  entries: r34.AnyTag[]
 }
 
 const initialReaderState: SuggestionsState = {
   entries: [],
 }
 
-const setSuggestions = (state: SuggestionsState, suggestions: r34.Tag[]) =>
+const setSuggestions = (state: SuggestionsState, suggestions: r34.AnyTag[]) =>
   produce(state, (draft) => {
     draft.entries = suggestions
   })

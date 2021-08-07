@@ -11,6 +11,7 @@ import FlexPair from '../../common/FlexPair'
 const ScorePair = styled(FlexPair)(
   ({ $liked, theme }: { $liked: boolean; theme: DefaultTheme }) => css`
     transition: transform 0.1s ease-out;
+    cursor: pointer;
 
     ${$liked
       ? css`
@@ -46,7 +47,7 @@ export default function Score(props: { value: number; postId: number }) {
   )
 
   return (
-    <ScorePair onClick={handleClick} $liked={liked}>
+    <ScorePair onClick={handleClick} $liked={liked} data-testid='score'>
       <HeartIcon color='white' />
       <span>{formatCount(value + boolToNumber(liked))}</span>
     </ScorePair>

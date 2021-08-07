@@ -15,7 +15,6 @@ import LayoutOutOfItems from '../layout/LayoutOutOfItems'
 import LayoutLoadingItem from '../layout/LayoutLoadingItem'
 import useAction from '../../hooks/useAction'
 import PageLayout from '../layout/pages/PageLayout'
-
 import Reader from '../reader/Reader'
 
 export default function Search() {

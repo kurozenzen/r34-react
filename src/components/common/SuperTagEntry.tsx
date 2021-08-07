@@ -1,6 +1,5 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { removeSupertag, setTagsOfSupertag } from '../../firebase'
 import useToggle from '../../hooks/useToggle'
 import { CloseIcon, SupertagIcon } from '../../icons/FontAwesomeIcons'
 import { flexColumnWithGap, gridWithGap } from '../../styled/mixins'
@@ -8,6 +7,7 @@ import TagList from '../tag/TagList'
 import TagSelector from '../tagSelector/TagSelector'
 import { Faded } from './Text'
 import * as r34 from 'r34-types'
+import { useSupertag } from '../../hooks/useSupertag'
 
 const Wrapper = styled.div`
   ${flexColumnWithGap}
@@ -48,33 +48,17 @@ const Row = styled.div`
   }
 `
 
-interface SuperTagEntryProps extends r34.SupertagData {
-  name: string
+interface SupertagEntryProps {
+  supertag: r34.Supertag
 }
 
-export default function SuperTagEntry(props: SuperTagEntryProps) {
-  const { name, description, tags } = props
+export default function SupertagEntry(props: SupertagEntryProps) {
+  const { supertag } = props
+  const { name, description, tags } = supertag
 
   const [isOpen, toggleOpen] = useToggle()
-  const remove = useCallback(() => removeSupertag(name), [name])
-  const addTag = useCallback(
-    (newTag: r34.AnyBiasedTag) => {
-      // Safe becasue the TagSelector has showSupertags = false and therefore no supertags can enter this function
-      const tag = newTag as r34.BiasedTag
+  const [addTag, removeTag, deleteSupertag] = useSupertag(supertag)
 
-      const newTags = { ...tags, [tag.name]: tag.modifier }
-      setTagsOfSupertag(name, newTags)
-    },
-    [name, tags]
-  )
-  const removeTag = useCallback(
-    (tag: r34.AnyTag) => {
-      const newTags = { ...tags }
-      delete newTags[tag.name]
-      setTagsOfSupertag(name, newTags)
-    },
-    [name, tags]
-  )
   const tagObjects = useMemo(
     () =>
       Object.entries(tags).reduce((result, [name, modifier]) => {
@@ -91,7 +75,7 @@ export default function SuperTagEntry(props: SuperTagEntryProps) {
         <span>{name}</span>
         <Faded>{Object.keys(tags).length} tags</Faded>
         <Faded>{description}</Faded>
-        <CloseIcon onClick={remove} />
+        <CloseIcon onClick={deleteSupertag} />
       </Row>
 
       {isOpen && (

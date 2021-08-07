@@ -1,8 +1,9 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { WrenchIcon } from '../../icons/FontAwesomeIcons'
-import { borderRadius, layer } from '../../styled/mixins'
+import { borderRadius, flexColumnWithGap, layer } from '../../styled/mixins'
 import FlexPair from '../common/FlexPair'
+import { SmallTitle } from '../common/Text'
 
 const Wrapper = styled(FlexPair)(
   ({ theme }) => css`
@@ -14,7 +15,11 @@ const Wrapper = styled(FlexPair)(
   `
 )
 
-const deadline = new Date('2021-08-01')
+const Message = styled.div`
+  ${flexColumnWithGap}
+`
+
+const deadline = new Date('12-08-2021')
 
 export default function UpdateHighlight() {
   if (new Date() > deadline) {
@@ -23,12 +28,20 @@ export default function UpdateHighlight() {
 
   return (
     <Wrapper>
-      <WrenchIcon size={'lg'} />
-      <span>
-        Hey there! I added an experimental account system. This enables saving and loading preferences as well as
-        sharing them across different devices. Check it out in <a href='#settings'>Settings</a> and let me know what you
-        think of it.
-      </span>
+      <Message>
+        <FlexPair>
+          <WrenchIcon size={'lg'} />
+          <SmallTitle>Update News</SmallTitle>
+        </FlexPair>
+        <p>
+          The account system is a lot better now. I also added so called supertags, which require you to be logged in to
+          use.
+        </p>
+        <p>
+          They are pretty self explanatory tbh but in short they are multiple tags combined into one, just add 2 or more
+          tags to your search and get started. You can manage your supertags from settings {'->'} account.
+        </p>
+      </Message>
     </Wrapper>
   )
 }

@@ -9,8 +9,8 @@ export default function PrefPreloadVideos() {
 
   return (
     <Setting
-      title='Preload Videos'
-      description='Start loading videos immediately instead of just-in-time. This can improve the viewing experience but will consume a LOT of data. Only use with WIFI.'
+      title='Preload Animations'
+      description='Start loading videos and gifs immediately instead of when you click play. This will improve your viewing experience but will consume a LOT of data. Only use with WIFI.'
     >
       <Toggle value={preloadVideos} onToggle={togglePreloadVideos} />
     </Setting>

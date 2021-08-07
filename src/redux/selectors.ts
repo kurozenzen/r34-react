@@ -1,34 +1,35 @@
+import * as r34 from 'r34-types'
 import { createSelector, defaultMemoize } from 'reselect'
 import { ModalId } from '../data/types'
 import { AppState } from './appState'
-import * as r34 from 'r34-types'
 
 // Simple selectors
 export const selectActiveTags = (state: AppState) => state.tags.active
-export const selectResults = (state: AppState) => state.results
-export const selectPosts = (state: AppState) => state.results.posts
-export const selectCount = (state: AppState) => state.results.count
-export const selectPageNumber = (state: AppState) => state.results.pageNumber
-export const selectPreferences = (state: AppState) => state.preferences
-export const selectResultsLayout = (state: AppState) => state.preferences.resultsLayout
-export const selectPreloadVideos = (state: AppState) => state.preferences.resultsLayout
-export const selectOriginals = (state: AppState) => state.preferences.originals
-export const selectRated = (state: AppState) => state.preferences.rated
-export const selectRatedThreshold = (state: AppState) => state.preferences.ratedThreshold
-export const selectCookies = (state: AppState) => state.preferences.cookies
-export const selectFullsceenState = (state: AppState) => state.reader.isEnabled
-export const selectFullsceenPostId = (state: AppState) => state.reader.postId
-export const selectAliases = (state: AppState) => state.tags.aliases
-export const selectPageSize = (state: AppState) => state.preferences.pageSize
-export const selectTagSuggestionCount = (state: AppState) => state.preferences.tagSuggestionsCount
-export const selectShowMetadata = (state: AppState) => state.preferences.showMetadata
-export const selectShowComments = (state: AppState) => state.preferences.showComments
-export const selectSort = (state: AppState) => state.preferences.sort
-export const selectSuggestions = (state: AppState) => state.suggestions.entries
 export const selectActiveThemeId = (state: AppState) => state.preferences.themeId
+export const selectAliases = (state: AppState) => state.tags.aliases
 export const selectAutoPlay = (state: AppState) => state.preferences.autoPlay
+export const selectCookies = (state: AppState) => state.preferences.cookies
+export const selectCount = (state: AppState) => state.results.count
+export const selectFullsceenPostId = (state: AppState) => state.reader.postId
+export const selectFullsceenState = (state: AppState) => state.reader.isEnabled
 export const selectHideSeen = (state: AppState) => state.preferences.hideSeen
 export const selectOpenModalId = (state: AppState) => state.modals.openModal
+export const selectOriginals = (state: AppState) => state.preferences.originals
+export const selectPageNumber = (state: AppState) => state.results.pageNumber
+export const selectPageSize = (state: AppState) => state.preferences.pageSize
+export const selectPosts = (state: AppState) => state.results.posts
+export const selectPreferences = (state: AppState) => state.preferences
+export const selectPreloadVideos = (state: AppState) => state.preferences.preloadVideos
+export const selectPreloadGifs = (state: AppState) => state.preferences.preloadVideos
+export const selectRated = (state: AppState) => state.preferences.rated
+export const selectRatedThreshold = (state: AppState) => state.preferences.ratedThreshold
+export const selectResults = (state: AppState) => state.results
+export const selectResultsLayout = (state: AppState) => state.preferences.resultsLayout
+export const selectShowComments = (state: AppState) => state.preferences.showComments
+export const selectShowMetadata = (state: AppState) => state.preferences.showMetadata
+export const selectSort = (state: AppState) => state.preferences.sort
+export const selectSuggestions = (state: AppState) => state.suggestions.entries
+export const selectTagSuggestionCount = (state: AppState) => state.preferences.tagSuggestionsCount
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)

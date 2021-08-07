@@ -13,6 +13,8 @@ export default function Video(props: MediaProps) {
 
   const autoPlay = useSelector(selectAutoPlay)
 
+  const [userPlay, setUserPlay] = useState<boolean | null>(null)
+
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null)
 
   const [, setTime] = useState(Date.now())
@@ -36,7 +38,15 @@ export default function Video(props: MediaProps) {
   }, [videoRef, intervalId])
 
   const togglePlay = useCallback(() => {
-    videoRef && (videoRef.paused ? play() : pause())
+    if (videoRef) {
+      if (videoRef.paused) {
+        play()
+        setUserPlay(true)
+      } else {
+        pause()
+        setUserPlay(false)
+      }
+    }
   }, [videoRef, play, pause])
 
   const preload = useSelector(selectPreloadVideos) ? 'auto' : 'metadata'
@@ -45,16 +55,16 @@ export default function Video(props: MediaProps) {
   const isScrolling = useIsScrolling()
 
   useEffect(() => {
-    if (videoRef && autoPlay && videoRef.paused && isOnScreen && !isScrolling) {
+    if (videoRef && autoPlay && videoRef.paused && isOnScreen && !isScrolling && userPlay !== false) {
       play()
     }
-  }, [autoPlay, isOnScreen, isScrolling, play, videoRef])
+  }, [autoPlay, isOnScreen, isScrolling, play, userPlay, videoRef])
 
   useEffect(() => {
     if (videoRef && !videoRef.paused && !isOnScreen) {
       pause()
     }
-  }, [isOnScreen, pause, videoRef])
+  }, [isOnScreen, pause, userPlay, videoRef])
 
   return (
     <>

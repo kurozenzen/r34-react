@@ -1,16 +1,16 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import styled, { css } from 'styled-components'
-import Details from './details/Details'
-import Player from '../player/Player'
+import * as r34 from 'r34-types'
+import React from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectOriginals, selectShowComments } from '../../redux/selectors'
-import LayoutElementProps from '../layout/LayoutElementProps'
+import styled, { css } from 'styled-components'
 import { ActiveTab, NO_OP } from '../../data/types'
 import useToggle from '../../hooks/useToggle'
-import { layer } from '../../styled/mixins'
-import { getCorrectSource } from '../../data/utils'
 import { fetchComments } from '../../redux/actions'
-import * as r34 from 'r34-types'
+import { selectShowComments } from '../../redux/selectors'
+import { layer } from '../../styled/mixins'
+import LayoutElementProps from '../layout/LayoutElementProps'
+import { Media } from '../player/Media'
+import Details from './details/Details'
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
@@ -37,15 +37,15 @@ const PostWrapper = styled.div(
   `
 )
 
-export default function Post(props: r34.Post & LayoutElementProps) {
+export function ListPost(props: r34.Post & LayoutElementProps) {
   const {
+    style,
+    virtualRef,
     type,
     sample_url,
     file_url,
     preview_url,
-    style,
     onLoad = NO_OP,
-    virtualRef,
     id,
     width,
     height,
@@ -53,16 +53,40 @@ export default function Post(props: r34.Post & LayoutElementProps) {
     has_comments,
   } = props
 
+  return (
+    <ItemWrapper style={style} ref={virtualRef} className='list-div'>
+      <PositonWrapper>
+        <Post
+          type={type}
+          sample_url={sample_url}
+          file_url={file_url}
+          preview_url={preview_url}
+          onLoad={onLoad}
+          id={id}
+          width={width}
+          height={height}
+          comments={comments}
+          has_comments={has_comments}
+        />
+      </PositonWrapper>
+    </ItemWrapper>
+  )
+}
+
+type PostProps = Pick<
+  r34.Post,
+  'type' | 'sample_url' | 'file_url' | 'preview_url' | 'id' | 'width' | 'height' | 'comments' | 'has_comments'
+> & { onLoad?: () => void }
+
+export const Post = React.memo((props: PostProps) => {
+  const { type, sample_url, file_url, preview_url, onLoad = NO_OP, id, width, height, comments, has_comments } = props
+
   const dispatch = useDispatch()
 
+  const [activeTab, setActiveTab] = useState<ActiveTab>('tags')
   const [collapsed, toggleCollapsed] = useToggle(true)
 
-  const originals = useSelector(selectOriginals)
   const showComments = useSelector(selectShowComments)
-
-  const media_src = useMemo(() => {
-    return getCorrectSource(originals, file_url, sample_url)
-  }, [file_url, originals, sample_url])
 
   // re-measure when collapsed state changes
   useEffect(() => {
@@ -76,24 +100,20 @@ export default function Post(props: r34.Post & LayoutElementProps) {
     }
   }, [collapsed, showComments, has_comments, comments, dispatch, id])
 
-  const [activeTab, setActiveTab] = useState<ActiveTab>('tags')
-
   return (
-    <ItemWrapper style={style} ref={virtualRef} className='list-div'>
-      <PositonWrapper>
-        <PostWrapper onClick={toggleCollapsed} role='row'>
-          <Player
-            onLoad={onLoad}
-            type={type}
-            src={media_src}
-            thumbnail_src={preview_url}
-            postId={id}
-            width={width}
-            height={height}
-          />
-          {!collapsed && <Details postId={id} onLoad={onLoad} activeTab={activeTab} setActiveTab={setActiveTab} />}
-        </PostWrapper>
-      </PositonWrapper>
-    </ItemWrapper>
+    <PostWrapper onClick={toggleCollapsed} role='row'>
+      <Media
+        detailsVisible={!collapsed}
+        type={type}
+        thumbnailSrc={preview_url}
+        sampleSrc={sample_url}
+        fullSrc={file_url}
+        onLoad={onLoad}
+        postId={id}
+        width={width}
+        height={height}
+      />
+      {!collapsed && <Details postId={id} onLoad={onLoad} activeTab={activeTab} setActiveTab={setActiveTab} />}
+    </PostWrapper>
   )
-}
+})

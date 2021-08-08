@@ -1,24 +1,14 @@
-import { MouseEventHandler, useCallback } from 'react'
-
-import { ExpandIcon, ExternalLinkIcon, CloseIcon, DownloadIcon, ArrowDown } from '../../icons/FontAwesomeIcons'
+import { ArrowDown } from '../../icons/FontAwesomeIcons'
 import styled, { css } from 'styled-components'
 import useToggle from '../../hooks/useToggle'
 import { fadeOut } from '../../styled/animations'
-import { NO_OP } from '../../data/types'
 import { formatDuration } from '../../misc/formatting'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  selectFullsceenState,
-  selectNextIndex,
-  selectPreviousIndex,
-  selectPostById,
-  selectPosts,
-} from '../../redux/selectors'
-import { enterFullscreen, exitFullscreen, setFullScreenPost } from '../../redux/actions'
-import { download } from '../../data/utils'
-import ProgressBar from './ProgressBar'
-import { dropShadow, gutter } from '../../styled/mixins'
+import { ProgressBar } from './ProgressBar'
+import { dropShadow } from '../../styled/mixins'
 import { PlayPauseIcon } from '../../icons/PlayPauseIcon'
+import ToggleFullscreenButton from './ToggleFullscreenButton'
+import LinkList from './LinkList'
+import React from 'react'
 
 function overlayVisibility({ isVisible }: { isVisible: boolean }) {
   return isVisible
@@ -41,38 +31,6 @@ const Wrapper = styled.div`
 
 const VideoProgressBar = styled(ProgressBar)`
   grid-area: 4/1/4/4;
-`
-
-const ExpandButton = styled(ExpandIcon)(
-  ({ theme }) => css`
-    grid-area: 1/1/2/2;
-    place-self: start start;
-    ${dropShadow}
-    margin: ${theme.dimensions.gutter};
-    cursor: pointer;
-  `
-)
-
-const CloseButton = styled(CloseIcon)(
-  ({ theme }) => css`
-    grid-area: 1/1/2/2;
-    place-self: start start;
-    ${dropShadow}
-    margin: ${theme.dimensions.gutter};
-    cursor: pointer;
-  `
-)
-
-const LinkList = styled.div`
-  grid-area: 3/1/4/2;
-  place-self: end stretch;
-  display: flex;
-  place-items: start center;
-  ${gutter}
-
-  > svg {
-    ${dropShadow}
-  }
 `
 
 const ScrollHint = styled(ArrowDown)`
@@ -112,144 +70,93 @@ const LengthDisplay = styled.span(
   `
 )
 
-const DownloadButton = styled(DownloadIcon)`
-  cursor: pointer;
-`
-
-interface OverlayProps {
+type ImageOverlayProps = {
+  type: 'image'
   postId: number
-  togglePlay?: () => void
-  isPaused?: boolean
-  isPlayable: boolean
-  currentTime?: number
-  duration?: number
-  mediaRef?: HTMLVideoElement | null
+  fullSrc: string
 }
 
-function Overlay(props: OverlayProps) {
-  const {
-    togglePlay = NO_OP,
-    isPaused = true,
-    isPlayable = false,
-    currentTime = 0,
-    duration = null,
-    mediaRef,
-    postId,
-  } = props
+type GifOverlayProps = {
+  type: 'gif'
+  postId: number
+  fullSrc: string
+  isPaused: boolean
+  onTogglePaused: React.MouseEventHandler
+}
 
-  const dispatch = useDispatch()
+type VideoOverlayProps = {
+  type: 'video'
+  postId: number
+  fullSrc: string
+  isPaused: boolean
+  duration: number
+  onTogglePaused: React.MouseEventHandler
+  onSeek: (value: number) => void
+  videoRef: HTMLVideoElement | null
+}
 
-  const [isVisible, toggleVisible] = useToggle()
+type OverlayProps = (ImageOverlayProps | VideoOverlayProps | GifOverlayProps) & {
+  isVisible: boolean
+  setVisible: (value: boolean) => void
+}
 
-  const post = useSelector(selectPostById(postId))
-  const posts = useSelector(selectPosts)
-  const isReaderOpen = useSelector(selectFullsceenState)
-
-  const nextIndex = useSelector(selectNextIndex)
-  const previousIndex = useSelector(selectPreviousIndex)
-
-  const onDownloadClick = useCallback<MouseEventHandler>(
-    (event) => {
-      event.stopPropagation()
-      download(post.file_url)
-    },
-    [post.file_url]
-  )
-
-  const onExpandClick = useCallback<MouseEventHandler>(
-    (event) => {
-      event.stopPropagation()
-
-      if (isReaderOpen) {
-        dispatch(exitFullscreen())
-      } else {
-        mediaRef && mediaRef.pause()
-        dispatch(enterFullscreen(postId))
-      }
-    },
-    [dispatch, isReaderOpen, mediaRef, postId]
-  )
-
-  const handlePlayPressed: MouseEventHandler = useCallback(
-    (event) => {
-      event.stopPropagation()
-      togglePlay()
-    },
-    [togglePlay]
-  )
-
-  const selectPostAt = useCallback(
-    (index: number) => {
-      const postAtindex = posts[index]
-
-      if (postAtindex) {
-        dispatch(setFullScreenPost(postAtindex.id))
-      }
-    },
-    [dispatch, posts]
-  )
-
-  const selectNext = useCallback(() => {
-    if (nextIndex !== undefined) {
-      selectPostAt(nextIndex)
-    }
-  }, [selectPostAt, nextIndex])
-
-  const selectPrevious = useCallback(() => {
-    if (previousIndex !== undefined) {
-      selectPostAt(previousIndex)
-    }
-  }, [selectPostAt, previousIndex])
-
-  const onSeek = useCallback(
-    (value: number) => {
-      if (mediaRef) {
-        mediaRef.currentTime = value
-      }
-    },
-    [mediaRef]
-  )
+export function ImageOverlay(props: Omit<ImageOverlayProps, 'type'>) {
+  const { fullSrc } = props
 
   return (
-    <Wrapper isVisible={isPaused || isVisible} onClick={toggleVisible} data-testid='overlay-wrapper'>
-      {isReaderOpen ? (
-        <CloseButton color='white' onClick={onExpandClick} aria-label='Open Fullscreen' />
-      ) : (
-        <ExpandButton color='white' onClick={onExpandClick} aria-label='Open Fullscreen' />
-      )}
+    <>
+      <ToggleFullscreenButton postId={props.postId} />
+      <LinkList fullSrc={fullSrc} />
+    </>
+  )
+}
 
-      <LinkList>
-        <a
-          href={post.file_url}
-          target='_blank'
-          rel='noopener noreferrer'
-          aria-label='Open In New Tab'
-          title={post.file_url}
-        >
-          <ExternalLinkIcon color='white' title='Open image in new tab' />
-        </a>
+function GifOverlay(props: Omit<GifOverlayProps, 'type'>) {
+  const { fullSrc, isPaused, postId, onTogglePaused } = props
 
-        <DownloadButton color='white' aria-label='Download Image' onClick={onDownloadClick} title={post.file_url} />
-      </LinkList>
+  return (
+    <>
+      <ToggleFullscreenButton postId={postId} />
+      <LinkList fullSrc={fullSrc} />
+      <PlayButton isPaused={isPaused} onClick={onTogglePaused} aria-label='Play/Pause' />
+      <LengthDisplay>GIF</LengthDisplay>
+    </>
+  )
+}
 
-      {isPlayable && (
-        <>
-          <PlayButton isPaused={isPaused} onClick={handlePlayPressed} aria-label='Play/Pause' />
+function VideoOverlay(props: Omit<VideoOverlayProps, 'type'>) {
+  const { fullSrc, isPaused, postId, onTogglePaused, onSeek, duration, videoRef } = props
 
-          {!!duration && !!currentTime && (
-            <VideoProgressBar value={currentTime} maxValue={duration} onChange={onSeek} />
-          )}
+  return (
+    <>
+      <ToggleFullscreenButton postId={postId} />
+      <LinkList fullSrc={fullSrc} />
+      <PlayButton isPaused={isPaused} onClick={onTogglePaused} aria-label='Play/Pause' />
+      <LengthDisplay>{formatDuration(duration)}</LengthDisplay>
+      <VideoProgressBar isPaused={isPaused} videoRef={videoRef} onChange={onSeek} />
+    </>
+  )
+}
 
-          {mediaRef && !isNaN(mediaRef.duration) && <LengthDisplay>{formatDuration(mediaRef.duration)}</LengthDisplay>}
-          {post.type === 'gif' && <LengthDisplay>GIF</LengthDisplay>}
-        </>
-      )}
+function getOverlayContent(props: OverlayProps) {
+  switch (props.type) {
+    case 'image':
+      return <ImageOverlay {...props} />
+    case 'gif':
+      return <GifOverlay {...props} />
+    case 'video':
+      return <VideoOverlay {...props} />
+  }
+}
 
-      {isReaderOpen && <PreviousButton onClick={selectPrevious}></PreviousButton>}
-      {isReaderOpen && <NextButton onClick={selectNext}></NextButton>}
-      {isReaderOpen && <ScrollHint />}
+export function Overlay(props: OverlayProps) {
+  const { isVisible, setVisible } = props
+
+  const toggleVisible = React.useCallback(() => setVisible(!isVisible), [isVisible, setVisible])
+
+  return (
+    <Wrapper isVisible={isVisible} onClick={toggleVisible} data-testid='overlay-wrapper'>
+      {getOverlayContent(props)}
     </Wrapper>
   )
 }
-
-export default Overlay

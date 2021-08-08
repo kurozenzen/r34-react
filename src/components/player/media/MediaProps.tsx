@@ -1,10 +1,12 @@
 interface MediaProps {
-  src: string
-  thumbnail_src: string
   onLoad?: () => void
   postId: number
   width: number
   height: number
+  thumbnailSrc: string
+  viewSrc: string
+  fullSrc: string
+  detailsVisible: boolean
 }
 
 export default MediaProps

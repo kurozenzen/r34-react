@@ -1,19 +1,27 @@
 import React from 'react'
-import { PostRating } from 'r34-types'
+import * as r34 from 'r34-types'
 import { RatingIcon } from '../../../icons/FontAwesomeIcons'
 import FlexPair from '../../common/FlexPair'
+import { useTheme } from 'styled-components'
 
-const fullnames: Record<PostRating, string> = {
+const fullnames: Record<r34.PostRating, string> = {
   e: 'Explicit',
   q: 'Questionable',
   s: 'Safe',
 }
 
-export default function Rating(props: { value: PostRating }) {
+interface RatingProps {
+  value: r34.PostRating
+}
+
+export default function Rating(props: RatingProps) {
+  const { value } = props
+  const theme = useTheme()
+
   return (
-    <FlexPair data-testid='rating' title={fullnames[props.value]}>
-      <RatingIcon color='white' />
-      <span>{props.value.toUpperCase()}</span>
+    <FlexPair data-testid='rating' title={fullnames[value]}>
+      <RatingIcon color={theme.colors.text} />
+      <span>{value.toUpperCase()}</span>
     </FlexPair>
   )
 }

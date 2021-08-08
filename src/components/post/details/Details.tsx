@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, useCallback, useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import styled, { css, DefaultTheme } from 'styled-components'
-import { Post } from 'r34-types'
+import * as r34 from 'r34-types'
 import { ActiveTab, NO_OP } from '../../../data/types'
 import { listToMap } from '../../../data/utils'
 import useToggleTag from '../../../hooks/useToggleTag'
@@ -67,7 +67,7 @@ export default function Details(props: DetailsProps) {
   const { postId, onLoad = NO_OP, activeTab, setActiveTab } = props
   const { rating, score, tags, source, created_at, status, height, width, comments } = useSelector(
     selectPostById(postId)
-  ) as Post
+  ) as r34.Post
   const tagsForRendering = useMemo(
     () =>
       listToMap(
@@ -147,7 +147,7 @@ export default function Details(props: DetailsProps) {
               getIsActive={checkIsActive}
             />
           ),
-          comments: <Comments comments={comments} />,
+          comments: <Comments comments={comments as r34.Comment[]} />,
           metadata: <Metadata created_at={created_at} status={status} width={width} height={height} id={postId} />,
         }[activeTab]
       }

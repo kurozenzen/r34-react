@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import InifinteColumn from '../layout/infinite/InfiniteColumn'
-import Post from '../post/Post'
+import { ListPost } from '../post/Post'
 import { getMoreResults, getResults } from '../../redux/actions'
 import {
   selectHasMoreResults,
@@ -42,7 +42,7 @@ export default function Search() {
           items={posts}
           LoadingItem={LayoutLoadingItem}
           hasMoreRows={hasMorePosts}
-          ItemComponent={Post}
+          ItemComponent={ListPost}
           loadMore={loadMore}
           isLoading={isLoading}
           setLoading={setLoading}
@@ -54,7 +54,7 @@ export default function Search() {
           currentPage={pageNumber}
           hasMorePages={hasMorePosts}
           loadPage={loadPage}
-          ItemComponent={Post}
+          ItemComponent={ListPost}
           isLoading={isLoading}
           setLoading={setLoading}
           items={posts}

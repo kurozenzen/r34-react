@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, MouseEventHandler, useCallback, useEffect, useState } from 'react'
+import React, { ChangeEventHandler, MouseEventHandler, useCallback } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 
 function thumbStyle() {
@@ -50,22 +50,22 @@ const Slider = styled.input`
 `
 
 interface ProgressBarProps {
-  value: number
-  maxValue: number
+  isPaused: boolean
+  videoRef: HTMLVideoElement | null
   onChange: (newValue: number) => void
   className?: string
 }
 
-export default function ProgressBar(props: ProgressBarProps) {
-  const { value, maxValue, className, onChange } = props
+export const ProgressBar = (props: ProgressBarProps) => {
+  const { isPaused, videoRef, className, onChange } = props
 
-  const [internalValue, setInternalValue] = useState(value)
+  const sliderRef = React.useRef<HTMLInputElement>(null)
+
+  const theme = useTheme()
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => {
-      console.log('update')
       const newValue = Number(event.target.value)
-      setInternalValue(newValue)
       onChange(newValue)
     },
     [onChange]
@@ -75,31 +75,40 @@ export default function ProgressBar(props: ProgressBarProps) {
     event.stopPropagation()
   }, [])
 
-  // This hook ensures the parent component can control the state
-  useEffect(() => {
-    if (value !== internalValue) {
-      setInternalValue(value)
+  React.useEffect(() => {
+    if (!isPaused) {
+      console.log('starting interval')
+      const handle = setInterval(() => {
+        if (sliderRef?.current && videoRef) {
+          sliderRef.current.value = videoRef.currentTime.toString()
+          const chromePercentage = Math.round((videoRef.currentTime / videoRef.duration) * 100)
+          sliderRef.current.style.backgroundImage = `linear-gradient(90deg, ${theme.colors.accentColor} ${chromePercentage}%, transparent ${chromePercentage}%)`
+        }
+
+        return () => clearInterval(handle)
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value])
+  }, [isPaused])
 
-  const theme = useTheme()
-  const chromePercentage = Math.round((internalValue / maxValue) * 100)
+  // // This hook ensures the parent component can control the state
+  // useEffect(() => {
+  //   if (value !== internalValue) {
+  //     setInternalValue(value)
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value])
 
   return (
     <Slider
+      ref={sliderRef}
       type='range'
       step={0.034}
       min={0}
-      max={maxValue}
-      value={internalValue}
+      max={videoRef?.duration || 0}
       onChange={handleChange}
       className={className}
       onClick={handleClick}
-      style={{
-        backgroundImage: `linear-gradient(90deg, ${theme.colors.accentColor} ${chromePercentage}%, transparent ${chromePercentage}%
-      )`,
-      }}
     />
   )
 }

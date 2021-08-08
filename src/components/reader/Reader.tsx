@@ -4,18 +4,11 @@ import styled, { css } from 'styled-components'
 import useThrottledEffect from 'use-throttled-effect'
 import { openFullscreen } from '../../data/browserUtils'
 import { ActiveTab, NO_OP } from '../../data/types'
-import { getCorrectSource } from '../../data/utils'
 import useAction from '../../hooks/useAction'
 import useFullScreenCloseEffect from '../../hooks/useFullscreenCloseEffect'
 import { exitFullscreen, getMoreResults } from '../../redux/actions'
-import {
-  selectFullsceenState,
-  selectFullScreenIndex,
-  selectFullScreenPost,
-  selectOriginals,
-  selectPosts,
-} from '../../redux/selectors'
-import Player from '../player/Player'
+import { selectFullsceenState, selectFullScreenIndex, selectFullScreenPost, selectPosts } from '../../redux/selectors'
+import { Media } from '../player/Media'
 import Details from '../post/details/Details'
 import * as r34 from 'r34-types'
 
@@ -47,7 +40,6 @@ const FullScreenDiv = styled.div(
 
 export default function Reader() {
   const posts = useSelector(selectPosts)
-  const originals = useSelector(selectOriginals)
   const isReaderOpen = useSelector(selectFullsceenState)
   const fullScreenPost = useSelector(selectFullScreenPost) as r34.Post
   const fullScreenIndex = useSelector(selectFullScreenIndex)
@@ -83,16 +75,17 @@ export default function Reader() {
   }
 
   const { type, sample_url, file_url, preview_url, id, width, height } = fullScreenPost
-  const media_src = getCorrectSource(originals, file_url, sample_url)
 
   return (
     <FullScreenDiv ref={setReaderRef}>
-      <Player
-        onLoad={NO_OP}
+      <Media
+        detailsVisible={false}
         type={type}
-        src={media_src}
-        thumbnail_src={preview_url}
+        thumbnailSrc={preview_url}
+        sampleSrc={sample_url}
+        fullSrc={file_url}
         postId={id}
+        onLoad={NO_OP}
         width={width}
         height={height}
       />

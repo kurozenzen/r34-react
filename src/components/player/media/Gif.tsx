@@ -1,44 +1,43 @@
 import React, { useEffect, useState } from 'react'
 import { NO_OP } from '../../../data/types'
 import MediaProps from './MediaProps'
-import Overlay from '../Overlay'
+import { Overlay } from '../Overlay'
 import { PostImage } from './StyledMedia'
-import useIsOnScreen from '../../../hooks/useIsOnScreen'
 import { useSelector } from 'react-redux'
-import { selectAutoPlay, selectPreloadGifs } from '../../../redux/selectors'
-import { useIsScrolling } from '../../../hooks/useIsScrolling'
+import { selectPreloadGifs } from '../../../redux/selectors'
+import { useAutoplay } from '../../../hooks/useAutoplay'
 
 export default function Gif(props: MediaProps) {
-  const { src, thumbnail_src, onLoad = NO_OP, postId, width, height } = props
+  const { viewSrc, thumbnailSrc, fullSrc, onLoad = NO_OP, postId, width, height, detailsVisible } = props
 
-  const autoPlay = useSelector(selectAutoPlay)
+  const [overlayVisible, setOverlayVisible] = React.useState(true)
+
+  // user play
   const [userPlay, setUserPlay] = useState<boolean | null>(null)
+  const togglePlay: React.MouseEventHandler = React.useCallback(
+    (e) => {
+      e.stopPropagation()
+      setUserPlay(!userPlay)
+      setOverlayVisible(false)
+    },
+    [userPlay]
+  )
 
-  const [isPaused, setPaused] = useState(true)
+  // auto play
   const [gifRef, setGifRef] = useState<HTMLImageElement | null>(null)
+  const autoPlay = useAutoplay(gifRef)
 
-  const [isOnScreen] = useIsOnScreen(gifRef)
-  const isScrolling = useIsScrolling()
+  const isPlaying = userPlay === undefined ? autoPlay : userPlay
+
+  // Preloading
   const preload = useSelector(selectPreloadGifs)
 
-  const usedSource = isPaused ? thumbnail_src : src
-
-  useEffect(() => {
-    if (autoPlay && isOnScreen && !isScrolling && userPlay !== false) {
-      setPaused(false)
-    }
-  }, [autoPlay, isOnScreen, isScrolling, userPlay])
-
-  useEffect(() => {
-    if (!isOnScreen) {
-      setPaused(true)
-    }
-  }, [isOnScreen])
+  const usedSource = isPlaying ? viewSrc : thumbnailSrc
 
   useEffect(() => {
     if (preload) {
       const loader = new Image()
-      loader.src = src
+      loader.src = viewSrc
     }
   })
 
@@ -54,14 +53,15 @@ export default function Gif(props: MediaProps) {
         width={width}
         height={height}
       />
+
       <Overlay
-        isPlayable
-        isPaused={isPaused}
-        togglePlay={() => {
-          setUserPlay(isPaused)
-          setPaused(!isPaused)
-        }}
+        isVisible={!isPlaying || overlayVisible || detailsVisible}
+        setVisible={setOverlayVisible}
+        type='gif'
+        fullSrc={fullSrc}
         postId={postId}
+        isPaused={!isPlaying}
+        onTogglePaused={togglePlay}
       />
     </>
   )

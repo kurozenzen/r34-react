@@ -1,16 +1,32 @@
 import React from 'react'
 import { NO_OP } from '../../../data/types'
-import MediaProps from './MediaProps'
-import Overlay from '../Overlay'
+import { Overlay } from '../Overlay'
 import { PostImage } from './StyledMedia'
 
-export default function Picture(props: MediaProps) {
-  const { src, onLoad = NO_OP, postId, width, height } = props
+interface PictureProps {
+  viewSrc: string
+  fullSrc: string
+  onLoad?: () => void
+  width: number
+  height: number
+  postId: number
+}
+
+export default function Picture(props: PictureProps) {
+  const { viewSrc, fullSrc, postId, onLoad = NO_OP, width, height } = props
 
   return (
     <>
-      <PostImage data-testid='image' src={src} alt={src} onLoad={onLoad} loading='lazy' width={width} height={height} />
-      <Overlay isPlayable={false} postId={postId} />
+      <PostImage
+        data-testid='image'
+        src={viewSrc}
+        alt={viewSrc}
+        onLoad={onLoad}
+        loading='lazy'
+        width={width}
+        height={height}
+      />
+      <Overlay type='image' fullSrc={fullSrc} postId={postId} isVisible={true} setVisible={NO_OP} />
     </>
   )
 }

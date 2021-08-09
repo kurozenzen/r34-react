@@ -8,8 +8,8 @@ import {
   supportsObjectFit,
 } from '../../data/browserUtils'
 import { flexColumnWithGap, gutter, borderRadius } from '../../styled/mixins'
-import StatusImage from '../common/StatusImage'
-import { SmallTitle, Faded } from '../common/Text'
+import StatusImage from '../designsystem/StatusImage'
+import { SmallTitle, Faded } from '../designsystem/Text'
 
 const Wrapper = styled.div`
   ${flexColumnWithGap}

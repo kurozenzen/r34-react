@@ -2,7 +2,7 @@ import React from 'react'
 import { useTheme } from 'styled-components'
 import { LinkIcon } from '../../../icons/FontAwesomeIcons'
 import { formatSource } from '../../../misc/formatting'
-import ColoredIconLink from '../../common/ColoredIconLink'
+import ColoredIconLink from '../../designsystem/ColoredIconLink'
 import SourceProps from './SourceProps'
 
 export default function DefaultLinkSource({ value }: SourceProps) {

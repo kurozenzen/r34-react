@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { UndoIcon } from '../../icons/FontAwesomeIcons'
 import { setPosts } from '../../redux/actions'
-import { BlockButton } from '../common/Buttons'
+import { BlockButton } from '../designsystem/Buttons'
 
 export default function ResetResultsButton() {
   const dispatch = useDispatch()

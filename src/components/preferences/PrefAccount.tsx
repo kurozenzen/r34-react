@@ -1,5 +1,5 @@
 import React from 'react'
-import Setting from '../common/Setting'
+import Setting from '../designsystem/Setting'
 import SignIn from '../widgets/SignIn'
 
 export default function PrefAccount() {

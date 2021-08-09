@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { signOut } from '../../firebase'
 import { UndoIcon } from '../../icons/FontAwesomeIcons'
-import { BlockButton } from '../common/Buttons'
+import { BlockButton } from '../designsystem/Buttons'
 
 export default function ResetButton(props: any) {
   const reset = useCallback(async () => {

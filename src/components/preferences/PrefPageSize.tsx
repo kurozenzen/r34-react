@@ -1,7 +1,7 @@
 import React from 'react'
 import usePreference from '../../hooks/usePreference'
-import Setting from '../common/Setting'
-import { SmallNumberInput } from '../common/SmallInput'
+import Setting from '../designsystem/Setting'
+import { SmallNumberInput } from '../designsystem/SmallInput'
 
 export default function PrefPageSize() {
   const [pageSize, setPageSize] = usePreference('pageSize')

@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import { Post } from 'r34-types'
 import { CalendarIcon, CheckIcon, ImageIcon, SourceIcon } from '../../../icons/FontAwesomeIcons'
 import { formatDatetime, formatTime } from '../../../misc/formatting'
-import FlexPair from '../../common/FlexPair'
-import { Faded } from '../../common/Text'
+import FlexPair from '../../designsystem/FlexPair'
+import { Faded } from '../../designsystem/Text'
 import { AdditionalDetails } from './AdditonalDetails'
 
 const Entry = styled(Faded)`

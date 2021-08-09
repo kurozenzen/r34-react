@@ -4,8 +4,8 @@ import { signIn, signOut } from '../../firebase'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { GoogleIcon, SignOutIcon } from '../../icons/FontAwesomeIcons'
 import { flexRowWithGap } from '../../styled/mixins'
-import { RedButton } from '../common/Buttons'
-import FlexColumn from '../common/FlexColumn'
+import { RedButton } from '../designsystem/Buttons'
+import FlexColumn from '../designsystem/FlexColumn'
 
 const FlexRow = styled.div`
   ${flexRowWithGap}

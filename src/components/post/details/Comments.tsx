@@ -2,7 +2,7 @@ import * as r34 from 'r34-types'
 import React from 'react'
 import styled from 'styled-components'
 import { flexColumnGap } from '../../../styled/mixins'
-import { Faded } from '../../common/Text'
+import { Faded } from '../../designsystem/Text'
 import { AdditionalDetails } from './AdditonalDetails'
 
 const Comment = styled.div`

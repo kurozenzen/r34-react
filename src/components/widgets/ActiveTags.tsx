@@ -6,7 +6,7 @@ import useToggleTag from '../../hooks/useToggleTag'
 import { SupertagIcon } from '../../icons/FontAwesomeIcons'
 import { openModal } from '../../redux/actions'
 import { selectActiveTags, selectNumberOfActiveTags } from '../../redux/selectors'
-import { RedButton } from '../common/Buttons'
+import { RedButton } from '../designsystem/Buttons'
 import TagList from '../tag/TagList'
 
 interface ActiveTagsProps {

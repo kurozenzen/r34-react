@@ -2,8 +2,8 @@ import React, { MouseEventHandler, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 import { selectLastPage } from '../../../redux/selectors'
-import { RedButton } from '../../common/Buttons'
-import { SmallNumberInput } from '../../common/SmallInput'
+import { RedButton } from '../../designsystem/Buttons'
+import { SmallNumberInput } from '../../designsystem/SmallInput'
 
 const PageRow = styled.div(
   ({ theme }) => css`
@@ -50,14 +50,14 @@ export default function PageNavigation(props: PageNavigationProps) {
   const loadSpecificPage = useCallback((newPage: number | string) => loadPage(Number(newPage)), [loadPage])
   const loadFirst: MouseEventHandler<HTMLButtonElement> = useCallback(() => loadPage(0), [loadPage])
   const loadLast: MouseEventHandler<HTMLButtonElement> = useCallback(() => loadPage(lastPage), [loadPage, lastPage])
-  const loadPrevious: MouseEventHandler<HTMLButtonElement> = useCallback(() => loadPage(currentPage - 1), [
-    currentPage,
-    loadPage,
-  ])
-  const loadNext: MouseEventHandler<HTMLButtonElement> = useCallback(() => loadPage(currentPage + 1), [
-    currentPage,
-    loadPage,
-  ])
+  const loadPrevious: MouseEventHandler<HTMLButtonElement> = useCallback(
+    () => loadPage(currentPage - 1),
+    [currentPage, loadPage]
+  )
+  const loadNext: MouseEventHandler<HTMLButtonElement> = useCallback(
+    () => loadPage(currentPage + 1),
+    [currentPage, loadPage]
+  )
 
   // Render Empty divs to keep everything lined up
   // Could achive the same with grid-column (might do that in the future)

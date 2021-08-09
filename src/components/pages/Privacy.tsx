@@ -1,9 +1,9 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { gap } from '../../styled/mixins'
-import FlexColumn, { FlexColumnWithSpacing } from '../common/FlexColumn'
-import Surface from '../common/Surface'
-import { Faded, Title } from '../common/Text'
+import FlexColumn, { FlexColumnWithSpacing } from '../designsystem/FlexColumn'
+import Surface from '../designsystem/Surface'
+import { Faded, Title } from '../designsystem/Text'
 import Header from '../features/Header'
 
 const SectionBody = styled(Surface)(

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import styled, { css } from 'styled-components'
-import { Faded } from '../common/Text'
+import { Faded } from '../designsystem/Text'
 
 const tips = [
   'Try tapping the little plus in the tag search.',

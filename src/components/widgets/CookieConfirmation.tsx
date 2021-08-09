@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import styled, { css } from 'styled-components'
-import { RedButton } from '../common/Buttons'
+import { RedButton } from '../designsystem/Buttons'
 import usePreference from '../../hooks/usePreference'
 
 const CookieWrapper = styled.div(

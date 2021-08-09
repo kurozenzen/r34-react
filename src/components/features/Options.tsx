@@ -1,11 +1,11 @@
 import { ChangeEventHandler, useCallback, useState } from 'react'
 import styled from 'styled-components'
-import LabeledToggle from '../common/LabeledToggle'
+import LabeledToggle from '../designsystem/LabeledToggle'
 import { PostsSort } from 'r34-types'
 import usePreference from '../../hooks/usePreference'
 import { flexRowWithGap, gridWithGap, PropsWithTheme } from '../../styled/mixins'
-import Select from '../common/Select'
-import { SubtleInput } from '../common/SubtleInput'
+import Select from '../designsystem/Select'
+import { SubtleInput } from '../designsystem/SubtleInput'
 
 const OptionsWrapper = styled.div`
   ${gridWithGap}

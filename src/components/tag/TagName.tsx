@@ -1,6 +1,6 @@
 import { TagModifier } from 'r34-types'
 import { formatTagnameAndCount } from '../../misc/formatting'
-import { ModifierStyledText } from '../common/ModifierStyledText'
+import { ModifierStyledText } from '../designsystem/ModifierStyledText'
 
 interface TagNameProps {
   modifier: TagModifier

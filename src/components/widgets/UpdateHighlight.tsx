@@ -2,8 +2,8 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { WrenchIcon } from '../../icons/FontAwesomeIcons'
 import { borderRadius, flexColumnWithGap, layer } from '../../styled/mixins'
-import FlexPair from '../common/FlexPair'
-import { SmallTitle } from '../common/Text'
+import FlexPair from '../designsystem/FlexPair'
+import { SmallTitle } from '../designsystem/Text'
 
 const Wrapper = styled(FlexPair)(
   ({ theme }) => css`

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import useToggle from '../../hooks/useToggle'
 import { formatCount } from '../../misc/formatting'
 import { selectCount } from '../../redux/selectors'
-import { Title } from '../common/Text'
+import { Title } from '../designsystem/Text'
 
 export default function ResultsTitle() {
   const [fullNumber, toggleFullNumber] = useToggle()

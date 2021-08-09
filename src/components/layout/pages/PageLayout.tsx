@@ -1,7 +1,7 @@
 import React, { ReactNode, useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import { Post } from 'r34-types'
-import BaseFlexColumn from '../../common/FlexColumn'
+import BaseFlexColumn from '../../designsystem/FlexColumn'
 import PageNavigation from './PageNavigation'
 
 const FlexColumn = styled(BaseFlexColumn)(

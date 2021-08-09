@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { VerticalLine } from '../common/Lines'
+import { VerticalLine } from '../designsystem/Lines'
 
 const FotterWrapper = styled.footer(
   (props) => css`

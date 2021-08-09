@@ -4,9 +4,9 @@ import { ModalId } from '../../data/types'
 import { useSupertags } from '../../firebase'
 import { PlusIcon } from '../../icons/FontAwesomeIcons'
 import { openModal } from '../../redux/actions'
-import { RedButton } from '../common/Buttons'
-import Setting from '../common/Setting'
-import SupertagEntry from '../common/SupertagEntry'
+import { RedButton } from '../designsystem/Buttons'
+import Setting from '../designsystem/Setting'
+import SupertagEntry from '../designsystem/SupertagEntry'
 
 export default function PrefSupertags() {
   const supertags = useSupertags()

@@ -4,8 +4,8 @@ import styled, { css, ThemeProps } from 'styled-components'
 import { RouteName } from '../../data/types'
 import R34Icon from '../../icons/R34Icon'
 import { boxShadow, flexColumn, flexColumnGap, flexRowGap, flexRowWithGap } from '../../styled/mixins'
-import { VerticalLine } from '../common/Lines'
-import { BigTitle } from '../common/Text'
+import { VerticalLine } from '../designsystem/Lines'
+import { BigTitle } from '../designsystem/Text'
 
 const HeaderWrapper = styled.header(
   ({ theme }) => css`

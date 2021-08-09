@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { ResultsLayout } from 'r34-types'
 import usePreference from '../../hooks/usePreference'
-import Select from '../common/Select'
-import Setting from '../common/Setting'
+import Select from '../designsystem/Select'
+import Setting from '../designsystem/Setting'
 
 const layouts: Record<ResultsLayout, string> = {
   infinite_column: 'Infinite',

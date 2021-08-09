@@ -6,7 +6,7 @@ import { HeartIcon } from '../../../icons/FontAwesomeIcons'
 import { formatCount } from '../../../misc/formatting'
 import { likePost } from '../../../redux/actions'
 import { selectLikedByPostId } from '../../../redux/selectors'
-import FlexPair from '../../common/FlexPair'
+import FlexPair from '../../designsystem/FlexPair'
 
 const ScorePair = styled(FlexPair)(
   ({ $liked, theme }: { $liked: boolean; theme: DefaultTheme }) => css`

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ResetButton from '../widgets/ResetButton'
 import outOfResultsPicture from '../../icons/OutOfResults.png'
-import FlexImage from '../common/FlexImage'
+import FlexImage from '../designsystem/FlexImage'
 import themes, { defaultThemeId } from '../../styled/themes'
 import GlobalStyles from '../../GlobalStyles'
 

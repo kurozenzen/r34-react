@@ -1,7 +1,7 @@
 import React from 'react'
 import * as r34 from 'r34-types'
 import { RatingIcon } from '../../../icons/FontAwesomeIcons'
-import FlexPair from '../../common/FlexPair'
+import FlexPair from '../../designsystem/FlexPair'
 import { useTheme } from 'styled-components'
 
 const fullnames: Record<r34.PostRating, string> = {

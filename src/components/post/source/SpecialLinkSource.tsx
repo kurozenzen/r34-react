@@ -1,5 +1,5 @@
 import React from 'react'
-import ColoredIconLink from '../../common/ColoredIconLink'
+import ColoredIconLink from '../../designsystem/ColoredIconLink'
 
 interface SpecialLinkSourceProps {
   value: string

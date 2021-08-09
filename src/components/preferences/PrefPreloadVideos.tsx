@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import usePreference from '../../hooks/usePreference'
-import Setting from '../common/Setting'
-import Toggle from '../common/Toggle'
+import Setting from '../designsystem/Setting'
+import Toggle from '../designsystem/Toggle'
 
 export default function PrefPreloadVideos() {
   const [preloadVideos, setPreloadVideos] = usePreference('preloadVideos')

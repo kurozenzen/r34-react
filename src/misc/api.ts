@@ -2,7 +2,8 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getSupertags } from '../firebase'
 import * as r34 from 'r34-types'
-import { getTagParameter } from '../data/tagUtils'
+import { getTagParameter, isSuggestionError } from '../data/tagUtils'
+import { SuggestionsError } from '../data/types'
 
 const sourceTags: r34.Tag[] = [
   { name: 'source:*patreon*', count: 12711, types: ['source'] },
@@ -64,16 +65,18 @@ class API {
   /**
    * Retrieves tags given a searchTerm
    */
-  private async fetchTags(searchTerm: string, limit: number): Promise<r34.Tag[]> {
+  private async fetchTags(searchTerm: string, limit: number): Promise<r34.Tag[] | SuggestionsError> {
     return await (await fetch(`${this.activeApi}/tags?limit=${limit}&name=${searchTerm}&sort=count`)).json()
   }
 
   async getTags(searchTerm: string, limit: number = this.defaultPageSize, includeSupertags = false) {
-    let tags: r34.AnyTag[] = await this.fetchTags(`*${searchTerm}*`, limit)
+    const result = await this.fetchTags(`*${searchTerm}*`, limit)
 
-    // request more specific if we get blcoked by the api
-    // if (tags.length === 0) tags = await this.fetchTags(`${searchTerm}*`, limit)
-    // if (tags.length === 0) tags = await this.fetchTags(`${searchTerm}`, limit)
+    if (isSuggestionError(result)) {
+      return result
+    }
+
+    let tags = result as r34.AnyTag[]
 
     if (includeSupertags) {
       try {

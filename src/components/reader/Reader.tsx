@@ -74,7 +74,7 @@ export default function Reader() {
     return null
   }
 
-  const { type, sample_url, file_url, preview_url, id, width, height } = fullScreenPost
+  const { type, sample_url, file_url, preview_url, id, width, height, has_comments } = fullScreenPost
 
   return (
     <FullScreenDiv ref={setReaderRef}>
@@ -89,7 +89,7 @@ export default function Reader() {
         width={width}
         height={height}
       />
-      <Details postId={id} activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Details postId={id} activeTab={activeTab} setActiveTab={setActiveTab} hasComments={has_comments} />
     </FullScreenDiv>
   )
 }

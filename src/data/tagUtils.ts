@@ -1,4 +1,5 @@
 import * as r34 from 'r34-types'
+import { SuggestionsError } from './types'
 
 //#region Tag serialization
 
@@ -112,6 +113,10 @@ export function isSupertag(tag: unknown): tag is r34.Supertag {
 
 export function getInterestingType(types: r34.TagType[]) {
   return types.find((t) => !t.match(/^[general|ambiguous]$/))
+}
+
+export function isSuggestionError(value: unknown): value is SuggestionsError {
+  return (value as SuggestionsError).message !== undefined
 }
 
 //#endregion

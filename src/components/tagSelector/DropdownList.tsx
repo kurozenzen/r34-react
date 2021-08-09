@@ -4,6 +4,8 @@ import DropdownListEntry from './DropdownListEntry'
 import { flexColumn, flexColumnGap } from '../../styled/mixins'
 import * as r34 from 'r34-types'
 import { getInterestingType, isSupertag } from '../../data/tagUtils'
+import { SuggestionsError } from '../../data/types'
+import { DropdownListError } from './DropdownListError'
 
 function sizeAndPosition(tagSelector: HTMLDivElement | null) {
   if (tagSelector) {
@@ -73,27 +75,35 @@ interface DropdownListProps {
   tagSelectorRef: HTMLDivElement | null
   entries: r34.AnyTag[]
   onClick: (entry: r34.AnyTag) => void
+  error: SuggestionsError | null
 }
 
 export default function DropdownList(props: DropdownListProps) {
-  const { tagSelectorRef, entries, onClick } = props
+  const { tagSelectorRef, entries, onClick, error } = props
 
-  return entries.length > 0 ? (
+  return (
     <ListWrapper tagSelectorRef={tagSelectorRef}>
-      {entries.map((entry) => {
-        const type = isSupertag(entry) ? 'supertag' : getInterestingType(entry.types)
-        const count = isSupertag(entry) ? Object.keys(entry.tags).length : (entry.count as number)
+      {error ? (
+        <DropdownListError>
+          <span>{error.message}.</span>
+          <span>{error.results} tags found</span>
+        </DropdownListError>
+      ) : (
+        entries.map((entry) => {
+          const type = isSupertag(entry) ? 'supertag' : getInterestingType(entry.types)
+          const count = isSupertag(entry) ? Object.keys(entry.tags).length : (entry.count as number)
 
-        return (
-          <DropdownListEntry
-            key={entry.name}
-            onClick={() => onClick(entry)}
-            name={entry.name}
-            type={type}
-            count={count}
-          />
-        )
-      })}
+          return (
+            <DropdownListEntry
+              key={entry.name}
+              onClick={() => onClick(entry)}
+              name={entry.name}
+              type={type}
+              count={count}
+            />
+          )
+        })
+      )}
     </ListWrapper>
-  ) : null
+  )
 }

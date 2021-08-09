@@ -1,4 +1,4 @@
-import { ModalId } from '../data/types'
+import { ModalId, SuggestionsError } from '../data/types'
 import * as r34 from 'r34-types'
 
 // Action Names
@@ -23,6 +23,7 @@ export const SET_POSTS = `r34-react/SET_POSTS`
 export const SET_PREFERENCE = `r34-react/SET_PREFERENCE`
 export const SET_PREFERENCES = `r34-react/SET_PREFERENCES`
 export const SET_SUGGESTIONS = `r34-react/SET_SUGGESTIONS`
+export const SET_SUGGESTIONS_ERROR = `r34-react/SET_SUGGESTIONS_ERROR`
 
 // Action Types
 interface AddTagAction {
@@ -117,6 +118,11 @@ interface SetSuggestionsAction {
   suggestions: r34.AnyTag[]
 }
 
+interface SetSuggestionsErrorAction {
+  type: typeof SET_SUGGESTIONS_ERROR
+  error: SuggestionsError
+}
+
 interface FetchSuggestionsAction {
   type: typeof FETCH_SUGGESTIONS
   value: string
@@ -153,6 +159,7 @@ export type AppAction =
   | SetPreferenceAction
   | SetPreferencesAction
   | SetSuggestionsAction
+  | SetSuggestionsErrorAction
 
 // Action Creators
 export function addTag(tag: r34.AnyBiasedTag): AddTagAction {
@@ -280,6 +287,13 @@ export function setSuggestions(suggestions: r34.AnyTag[]): SetSuggestionsAction 
   return {
     type: SET_SUGGESTIONS,
     suggestions,
+  }
+}
+
+export function setSuggestionsError(error: SuggestionsError): SetSuggestionsErrorAction {
+  return {
+    type: SET_SUGGESTIONS_ERROR,
+    error,
   }
 }
 

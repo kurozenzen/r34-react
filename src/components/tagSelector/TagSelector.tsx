@@ -4,7 +4,7 @@ import styled, { css, DefaultTheme } from 'styled-components'
 import useThrottledEffect from 'use-throttled-effect'
 import useModifier from '../../hooks/useModifier'
 import { fetchSuggestions, setSuggestions } from '../../redux/actions'
-import { selectSuggestions } from '../../redux/selectors'
+import { selectSuggestions, selectSuggestionsError } from '../../redux/selectors'
 import { AddButton, ModifierButton } from '../common/Buttons'
 import DropdownList from './DropdownList'
 import TagInput from './TagInput'
@@ -49,6 +49,7 @@ export default function TagSelector(props: TagSelectorProps) {
   const [modifier, nextModifier] = useModifier()
 
   const suggestions = useSelector(selectSuggestions)
+  const error = useSelector(selectSuggestionsError)
 
   const activateTag = useCallback(
     (tag: Tag | Supertag) => {
@@ -85,10 +86,10 @@ export default function TagSelector(props: TagSelectorProps) {
     }
   }, [value, activateTag, suggestions])
 
-  const hasSuggestions = suggestions.length > 0
+  const showList = suggestions.length > 0 || error !== null
 
   return (
-    <TagSelectorWrapper ref={setTagSelectorRef} closed={!hasSuggestions}>
+    <TagSelectorWrapper ref={setTagSelectorRef} closed={!showList}>
       <ModifierButton onClick={nextModifier} aria-label='Tag Modifier'>
         {modifier}
       </ModifierButton>
@@ -96,8 +97,8 @@ export default function TagSelector(props: TagSelectorProps) {
       <AddButton onClick={handleAddClick} aria-label='Add Tag'>
         <PlusIcon />
       </AddButton>
-      {hasSuggestions && value.length > 0 && (
-        <DropdownList tagSelectorRef={tagSelectorRef} entries={suggestions} onClick={activateTag} />
+      {showList && value.length > 0 && (
+        <DropdownList tagSelectorRef={tagSelectorRef} entries={suggestions} error={error} onClick={activateTag} />
       )}
     </TagSelectorWrapper>
   )

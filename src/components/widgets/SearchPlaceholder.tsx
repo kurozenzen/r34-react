@@ -2,17 +2,16 @@ import React from 'react'
 import KofiButton from './KofiButton'
 import styled, { css } from 'styled-components'
 import RandomTip from './RandomTip'
-import { flexColumn, flexColumnGap } from '../../styled/mixins'
+import { flexColumnWithGap } from '../../styled/mixins'
 import UpdateHighlight from './UpdateHighlight'
 
 const Placeholder = styled.div(
   ({ theme }) => css`
-    ${flexColumn()}
+    ${flexColumnWithGap}
     align-items: center;
     max-width: ${theme.dimensions.bodyWidth};
     margin: auto;
 
-    height: calc(100vh - 400px);
     padding: 0 ${theme.dimensions.gutter};
   `
 )

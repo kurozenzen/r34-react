@@ -31,3 +31,5 @@ export type InViewHookResponse<T extends Element> = {
   inView: boolean
   entry?: IntersectionObserverEntry
 }
+
+export type SuggestionsError = { message: string; results: number }

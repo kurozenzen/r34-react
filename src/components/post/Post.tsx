@@ -113,7 +113,15 @@ export const Post = React.memo((props: PostProps) => {
         width={width}
         height={height}
       />
-      {!collapsed && <Details postId={id} onLoad={onLoad} activeTab={activeTab} setActiveTab={setActiveTab} />}
+      {!collapsed && (
+        <Details
+          postId={id}
+          onLoad={onLoad}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          hasComments={has_comments}
+        />
+      )}
     </PostWrapper>
   )
 })

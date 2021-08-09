@@ -61,10 +61,11 @@ interface DetailsProps {
   onLoad?: () => void
   activeTab: ActiveTab
   setActiveTab: React.Dispatch<React.SetStateAction<ActiveTab>>
+  hasComments: boolean
 }
 
 export default function Details(props: DetailsProps) {
-  const { postId, onLoad = NO_OP, activeTab, setActiveTab } = props
+  const { postId, onLoad = NO_OP, activeTab, setActiveTab, hasComments } = props
   const { rating, score, tags, source, created_at, status, height, width, comments } = useSelector(
     selectPostById(postId)
   ) as r34.Post
@@ -124,7 +125,7 @@ export default function Details(props: DetailsProps) {
           <MenuEntry active={activeTab === 'tags'} onClick={setTags}>
             Tags
           </MenuEntry>
-          {showComments && commentsLength > 0 && (
+          {showComments && hasComments && (
             <MenuEntry active={activeTab === 'comments'} onClick={setComments}>
               Comments
             </MenuEntry>

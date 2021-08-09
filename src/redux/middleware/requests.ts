@@ -1,32 +1,34 @@
-import { MiddlewareAPI } from 'redux'
+import * as r34 from 'r34-types'
 import { Dispatch } from 'react'
-import {
-  AppAction,
-  GET_RESULTS,
-  GET_MORE_RESULTS,
-  addPosts,
-  setPosts,
-  ADD_TAG,
-  addAliases,
-  LIKE_POST,
-  FETCH_SUGGESTIONS,
-  setSuggestions,
-  FETCH_COMMENTS,
-  setComments,
-} from '../actions'
+import { MiddlewareAPI } from 'redux'
+import { isSuggestionError, isSupertag, serializeTagname } from '../../data/tagUtils'
 import { api } from '../../misc/api'
 import {
+  addAliases,
+  addPosts,
+  ADD_TAG,
+  AppAction,
+  FETCH_COMMENTS,
+  FETCH_SUGGESTIONS,
+  GET_MORE_RESULTS,
+  GET_RESULTS,
+  LIKE_POST,
+  setComments,
+  setPosts,
+  setSuggestions,
+  setSuggestionsError,
+} from '../actions'
+import {
   selectActiveTags,
-  selectPageNumber,
   selectHasMoreResults,
+  selectHideSeen,
   selectMinRating,
+  selectPageNumber,
   selectPageSize,
+  selectPostById,
   selectSort,
   selectTagSuggestionCount,
-  selectPostById,
-  selectHideSeen,
 } from '../selectors'
-import { isSupertag, serializeTagname } from '../../data/tagUtils'
 
 const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => async (action: AppAction) => {
   const state = store.getState()
@@ -71,7 +73,7 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
 
     // Request types for newly added tag
     if (!isSupertag(action.tag) && action.tag.types.length === 0) {
-      const tags = await api.getTags(action.tag.name, 1)
+      const tags = (await api.getTags(action.tag.name, 1, false)) as r34.Tag[]
       const tag = tags.find((tag) => tag.name === action.tag.name)
 
       if (tag && !isSupertag(tag)) {
@@ -93,9 +95,13 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
 
   if (action.type === FETCH_SUGGESTIONS) {
     const limit = selectTagSuggestionCount(state)
-    const suggestions = await api.getTags(serializeTagname(action.value), limit, action.includeSupertags)
+    const result = await api.getTags(serializeTagname(action.value), limit, action.includeSupertags)
 
-    store.dispatch(setSuggestions(suggestions))
+    if (isSuggestionError(result)) {
+      store.dispatch(setSuggestionsError(result))
+    } else {
+      store.dispatch(setSuggestions(result))
+    }
   }
 
   if (action.type === FETCH_COMMENTS) {

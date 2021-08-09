@@ -29,6 +29,7 @@ export const selectShowComments = (state: AppState) => state.preferences.showCom
 export const selectShowMetadata = (state: AppState) => state.preferences.showMetadata
 export const selectSort = (state: AppState) => state.preferences.sort
 export const selectSuggestions = (state: AppState) => state.suggestions.entries
+export const selectSuggestionsError = (state: AppState) => state.suggestions.error
 export const selectTagSuggestionCount = (state: AppState) => state.preferences.tagSuggestionsCount
 
 // Memoized selectors

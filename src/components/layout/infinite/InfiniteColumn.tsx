@@ -21,7 +21,7 @@ interface InfiniteColumnProps<T> {
   LoadingItem: (props: LayoutElementProps) => JSX.Element
   hasMoreRows: boolean
   loadMore: () => void
-  ItemComponent: (props: T & LayoutElementProps) => JSX.Element
+  ItemComponent: (props: T & LayoutElementProps & { index: number }) => JSX.Element
   isLoading: boolean
   setLoading: (value: boolean) => void
 }
@@ -65,6 +65,7 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
                   style={style}
                   virtualRef={registerChild}
                   onLoad={measure}
+                  index={index - prependedRows}
                   {...items[index - prependedRows]}
                 />
               )

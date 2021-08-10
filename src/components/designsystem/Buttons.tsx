@@ -11,7 +11,7 @@ const TextButton = styled.button(
     gap: ${theme.dimensions.gutter};
     align-items: center;
     place-content: center;
-
+    cursor: pointer;
     transition: all ${theme.timings.longTransitionTime} ease-out;
   `
 )
@@ -21,6 +21,7 @@ export const InvisButton = styled.button(
     background-color: transparent;
     border: none;
     padding: ${theme.dimensions.gutter};
+    cursor: pointer;
     ${dropShadow({ theme })}
 
     svg {

@@ -27,11 +27,11 @@ const CloseButton = styled(CloseIcon)(
 )
 
 interface ToggleFullscreenButtonProps {
-  postId: number
+  index: number
 }
 
 export default function ToggleFullscreenButton(props: ToggleFullscreenButtonProps) {
-  const { postId } = props
+  const { index } = props
 
   const dispatch = useDispatch()
   const isInFullscreen = useSelector(selectFullsceenState)
@@ -47,9 +47,9 @@ export default function ToggleFullscreenButton(props: ToggleFullscreenButtonProp
   const onFullscreenEnter = React.useCallback<React.MouseEventHandler>(
     (event) => {
       event.stopPropagation()
-      dispatch(enterFullscreen(postId))
+      dispatch(enterFullscreen(index))
     },
-    [dispatch, postId]
+    [dispatch, index]
   )
 
   return isInFullscreen ? (

@@ -10,7 +10,6 @@ import { exitFullscreen, getMoreResults } from '../../redux/actions'
 import { selectFullsceenState, selectFullScreenIndex, selectFullScreenPost, selectPosts } from '../../redux/selectors'
 import { Media } from '../player/Media'
 import Details from '../post/details/Details'
-import * as r34 from 'r34-types'
 
 const FullScreenDiv = styled.div(
   ({ theme }) => css`
@@ -35,13 +34,18 @@ const FullScreenDiv = styled.div(
     > * {
       scroll-snap-align: start;
     }
+
+    ::-webkit-scrollbar {
+      width: 0px;
+    }
   `
 )
 
 export default function Reader() {
   const posts = useSelector(selectPosts)
   const isReaderOpen = useSelector(selectFullsceenState)
-  const fullScreenPost = useSelector(selectFullScreenPost) as r34.Post
+  const index = useSelector(selectFullScreenIndex)
+  const fullScreenPost = useSelector(selectFullScreenPost)
   const fullScreenIndex = useSelector(selectFullScreenIndex)
 
   const loadMore = useAction(getMoreResults)
@@ -84,10 +88,11 @@ export default function Reader() {
         thumbnailSrc={preview_url}
         sampleSrc={sample_url}
         fullSrc={file_url}
-        postId={id}
+        index={index}
         onLoad={NO_OP}
         width={width}
         height={height}
+        isFullscreen
       />
       <Details postId={id} activeTab={activeTab} setActiveTab={setActiveTab} hasComments={has_comments} />
     </FullScreenDiv>

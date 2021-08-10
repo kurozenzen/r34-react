@@ -1,63 +1,17 @@
 import React, { ChangeEventHandler, MouseEventHandler, useCallback } from 'react'
-import styled, { css, useTheme } from 'styled-components'
-
-function thumbStyle() {
-  const commonStyle = css`
-    height: 16px;
-    width: 16px;
-    border-radius: 100px;
-    background: #ffffff;
-    cursor: pointer;
-  `
-
-  return css`
-    &::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      ${commonStyle}
-    }
-
-    &::-moz-range-thumb {
-      ${commonStyle}
-    }
-
-    &::-ms-thumb {
-      ${commonStyle}
-    }
-  `
-}
-
-function trackStyle() {
-  return css`
-    -webkit-appearance: none;
-    width: 100%;
-    background: transparent;
-    border-radius: 100px;
-    height: 6px;
-
-    &::-moz-range-progress {
-      background-color: ${(props) => props.theme.colors.accentColor};
-    }
-
-    &::-ms-fill-lower {
-      background-color: ${(props) => props.theme.colors.accentColor};
-    }
-  `
-}
-
-const Slider = styled.input`
-  ${trackStyle}
-  ${thumbStyle}
-`
+import { useTheme } from 'styled-components'
+import { Slider } from '../designsystem/Slider'
 
 interface ProgressBarProps {
   isPaused: boolean
   videoRef: HTMLVideoElement | null
   onChange: (newValue: number) => void
   className?: string
+  onEnded?: () => void
 }
 
 export const ProgressBar = (props: ProgressBarProps) => {
-  const { isPaused, videoRef, className, onChange } = props
+  const { isPaused, videoRef, className, onChange, onEnded } = props
 
   const sliderRef = React.useRef<HTMLInputElement>(null)
 
@@ -76,27 +30,34 @@ export const ProgressBar = (props: ProgressBarProps) => {
   }, [])
 
   React.useEffect(() => {
+    if (onEnded && videoRef) {
+      videoRef.addEventListener('ended', onEnded)
+
+      return () => videoRef.removeEventListener('ended', onEnded)
+    }
+  })
+
+  React.useEffect(() => {
     if (!isPaused) {
-      const handle = setInterval(() => {
+      let handle: number
+
+      const step = () => {
         if (sliderRef?.current && videoRef) {
           sliderRef.current.value = videoRef.currentTime.toString()
           const chromePercentage = Math.round((videoRef.currentTime / videoRef.duration) * 100)
           sliderRef.current.style.backgroundImage = `linear-gradient(90deg, ${theme.colors.accentColor} ${chromePercentage}%, transparent ${chromePercentage}%)`
         }
 
-        return () => clearInterval(handle)
-      })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPaused])
+        handle = requestAnimationFrame(step)
+      }
 
-  // // This hook ensures the parent component can control the state
-  // useEffect(() => {
-  //   if (value !== internalValue) {
-  //     setInternalValue(value)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [value])
+      handle = requestAnimationFrame(step)
+
+      return () => {
+        cancelAnimationFrame(handle)
+      }
+    }
+  }, [isPaused, theme.colors.accentColor, theme.colors.backgroundColor2, videoRef])
 
   return (
     <Slider
@@ -108,6 +69,8 @@ export const ProgressBar = (props: ProgressBarProps) => {
       onChange={handleChange}
       className={className}
       onClick={handleClick}
+      $controls
+      $accent
     />
   )
 }

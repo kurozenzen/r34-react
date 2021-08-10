@@ -3,18 +3,18 @@ import { ENTER_FULLSCREEN, EXIT_FULLSCREEN, SET_FULLSCREEN_POST, AppAction } fro
 
 export interface ReaderState {
   isEnabled: boolean
-  postId: number
+  currentIndex: number
 }
 
 const initialReaderState: ReaderState = {
   isEnabled: false,
-  postId: 0,
+  currentIndex: 0,
 }
 
-const enterFullscreen = (state: ReaderState, postId: number) =>
+const enterFullscreen = (state: ReaderState, index: number) =>
   produce(state, (draft) => {
     draft.isEnabled = true
-    draft.postId = postId
+    draft.currentIndex = index
   })
 
 const exitFullscreen = (state: ReaderState) =>
@@ -22,9 +22,9 @@ const exitFullscreen = (state: ReaderState) =>
     draft.isEnabled = false
   })
 
-const setPostId = (state: ReaderState, value: number) =>
+const setIndex = (state: ReaderState, index: number) =>
   produce(state, (draft) => {
-    draft.postId = value
+    draft.currentIndex = index
   })
 
 const reader = (state: ReaderState = initialReaderState, action: AppAction): ReaderState => {
@@ -32,7 +32,7 @@ const reader = (state: ReaderState = initialReaderState, action: AppAction): Rea
     case ENTER_FULLSCREEN:
       return enterFullscreen(state, action.postId)
     case SET_FULLSCREEN_POST:
-      return setPostId(state, action.postId)
+      return setIndex(state, action.index)
     case EXIT_FULLSCREEN:
       return exitFullscreen(state)
     default:

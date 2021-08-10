@@ -10,7 +10,7 @@ export const selectAliases = (state: AppState) => state.tags.aliases
 export const selectAutoPlay = (state: AppState) => state.preferences.autoPlay
 export const selectCookies = (state: AppState) => state.preferences.cookies
 export const selectCount = (state: AppState) => state.results.count
-export const selectFullsceenPostId = (state: AppState) => state.reader.postId
+export const selectFullsceenIndex = (state: AppState) => state.reader.currentIndex
 export const selectFullsceenState = (state: AppState) => state.reader.isEnabled
 export const selectHideSeen = (state: AppState) => state.preferences.hideSeen
 export const selectOpenModalId = (state: AppState) => state.modals.openModal
@@ -43,8 +43,10 @@ export const selectLastPage = createSelector(
   selectPageSize,
   (count, pageSize) => Math.ceil(count / pageSize) - 1
 )
-export const selectFullScreenPost = createSelector(selectPosts, selectFullsceenPostId, (posts, fullScreenPostId) =>
-  posts.find((post) => post.id === fullScreenPostId)
+export const selectFullScreenPost = createSelector(
+  selectPosts,
+  selectFullsceenIndex,
+  (posts, fullScreenIndex) => posts[fullScreenIndex]
 )
 export const selectFullScreenIndex = createSelector(selectPosts, selectFullScreenPost, (posts, fullScreenPost) =>
   fullScreenPost ? posts.indexOf(fullScreenPost) : -1

@@ -18,7 +18,7 @@ interface PageLayoutProps<T> {
   currentPage: number
   hasMorePages: boolean
   loadPage: (pageNumber: number) => void
-  ItemComponent: (props: T) => JSX.Element
+  ItemComponent: (props: T & { index: number }) => JSX.Element
   isLoading: boolean
   setLoading: (value: boolean) => void
 }
@@ -40,8 +40,8 @@ export default function PageLayout(props: PageLayoutProps<Post>) {
       {items && items.length > 0 && (
         <>
           <PageNavigation currentPage={currentPage} loadPage={loadPage} />
-          {items?.map((item) => (
-            <ItemComponent key={item.id} {...item} />
+          {items?.map((item, index) => (
+            <ItemComponent key={item.id} index={index} {...item} />
           ))}
           <PageNavigation currentPage={currentPage} loadPage={scrollAndLoadPage} />
         </>

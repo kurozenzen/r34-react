@@ -1,6 +1,6 @@
 {
   "name": "r34-browser",
-  "version": "2.7.4",
+  "version": "2.7.5",
   "homepage": "https://kurozenzen.github.io/r34-react",
   "private": true,
   "dependencies": {

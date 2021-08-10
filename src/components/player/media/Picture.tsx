@@ -9,11 +9,12 @@ interface PictureProps {
   onLoad?: () => void
   width: number
   height: number
-  postId: number
+  index: number
+  isFullscreen: boolean
 }
 
 export default function Picture(props: PictureProps) {
-  const { viewSrc, fullSrc, postId, onLoad = NO_OP, width, height } = props
+  const { viewSrc, fullSrc, index, onLoad = NO_OP, width, height, isFullscreen } = props
 
   return (
     <>
@@ -26,7 +27,14 @@ export default function Picture(props: PictureProps) {
         width={width}
         height={height}
       />
-      <Overlay type='image' fullSrc={fullSrc} postId={postId} isVisible={true} setVisible={NO_OP} />
+      <Overlay
+        type='image'
+        fullSrc={fullSrc}
+        index={index}
+        isVisible={true}
+        setVisible={NO_OP}
+        isFullscreen={isFullscreen}
+      />
     </>
   )
 }

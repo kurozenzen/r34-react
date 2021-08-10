@@ -8,7 +8,7 @@ import { selectPreloadGifs } from '../../../redux/selectors'
 import { useAutoplay } from '../../../hooks/useAutoplay'
 
 export default function Gif(props: MediaProps) {
-  const { viewSrc, thumbnailSrc, fullSrc, onLoad = NO_OP, postId, width, height, detailsVisible } = props
+  const { viewSrc, thumbnailSrc, fullSrc, onLoad = NO_OP, index, width, height, detailsVisible, isFullscreen } = props
 
   const [overlayVisible, setOverlayVisible] = React.useState(true)
 
@@ -59,9 +59,10 @@ export default function Gif(props: MediaProps) {
         setVisible={setOverlayVisible}
         type='gif'
         fullSrc={fullSrc}
-        postId={postId}
+        index={index}
         isPaused={!isPlaying}
         onTogglePaused={togglePlay}
+        isFullscreen={isFullscreen}
       />
     </>
   )

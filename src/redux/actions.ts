@@ -92,7 +92,7 @@ interface EnterFullcreenAction {
 
 interface SetFullScreenPostAction {
   type: typeof SET_FULLSCREEN_POST
-  postId: number
+  index: number
 }
 
 interface ExitFullscreenAction {
@@ -256,10 +256,10 @@ export function exitFullscreen(): ExitFullscreenAction {
   }
 }
 
-export function setFullScreenPost(postId: number): SetFullScreenPostAction {
+export function setFullscreenPost(index: number): SetFullScreenPostAction {
   return {
     type: SET_FULLSCREEN_POST,
-    postId,
+    index,
   }
 }
 

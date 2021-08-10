@@ -1,9 +1,14 @@
 import React from 'react'
+import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import useToggle from '../../hooks/useToggle'
 import { formatCount } from '../../misc/formatting'
 import { selectCount } from '../../redux/selectors'
 import { Title } from '../designsystem/Text'
+
+const ClickableTitle = styled(Title)`
+  cursor: pointer;
+`
 
 export default function ResultsTitle() {
   const [fullNumber, toggleFullNumber] = useToggle()
@@ -12,8 +17,8 @@ export default function ResultsTitle() {
   const formattedCount = fullNumber ? count.toLocaleString() : formatCount(count)
 
   return (
-    <Title id='results' onClick={toggleFullNumber}>
+    <ClickableTitle id='results' onClick={toggleFullNumber}>
       {formattedCount} results
-    </Title>
+    </ClickableTitle>
   )
 }

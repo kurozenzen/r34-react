@@ -11,6 +11,7 @@ const Track = styled.div(
     border-radius: 30px;
     background-color: transparent;
     transition: transform ${props.theme.timings.longTransitionTime} ease-in-out;
+    cursor: pointer;
   `
 )
 

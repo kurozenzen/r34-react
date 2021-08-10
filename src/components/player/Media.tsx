@@ -7,7 +7,7 @@ import { useSources } from '../../hooks/useSources'
 
 type MediaProps = {
   type: r34.PostType
-  postId: number
+  index: number
   thumbnailSrc: string
   sampleSrc: string
   fullSrc: string
@@ -15,15 +15,37 @@ type MediaProps = {
   width: number
   height: number
   detailsVisible: boolean
+  isFullscreen?: boolean
 }
 
 export function Media(props: MediaProps) {
-  const { type, thumbnailSrc, sampleSrc, fullSrc, postId, onLoad, width, height, detailsVisible } = props
+  const {
+    type,
+    thumbnailSrc,
+    sampleSrc,
+    fullSrc,
+    index,
+    onLoad,
+    width,
+    height,
+    detailsVisible,
+    isFullscreen = false,
+  } = props
   const [preview, src] = useSources(type, thumbnailSrc, sampleSrc, fullSrc)
 
   switch (type) {
     case 'image':
-      return <Picture viewSrc={src} fullSrc={fullSrc} onLoad={onLoad} postId={postId} width={width} height={height} />
+      return (
+        <Picture
+          viewSrc={src}
+          fullSrc={fullSrc}
+          onLoad={onLoad}
+          index={index}
+          width={width}
+          height={height}
+          isFullscreen={isFullscreen}
+        />
+      )
     case 'gif':
       return (
         <Gif
@@ -32,9 +54,10 @@ export function Media(props: MediaProps) {
           thumbnailSrc={preview}
           fullSrc={fullSrc}
           onLoad={onLoad}
-          postId={postId}
+          index={index}
           width={width}
           height={height}
+          isFullscreen={isFullscreen}
         />
       )
     case 'video':
@@ -45,9 +68,10 @@ export function Media(props: MediaProps) {
           thumbnailSrc={preview}
           fullSrc={fullSrc}
           onLoad={onLoad}
-          postId={postId}
+          index={index}
           width={width}
           height={height}
+          isFullscreen={isFullscreen}
         />
       )
   }

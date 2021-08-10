@@ -19,7 +19,7 @@ const Message = styled.div`
   ${flexColumnWithGap}
 `
 
-const deadline = new Date('12-08-2021')
+const deadline = new Date('13-08-2021')
 
 export default function UpdateHighlight() {
   if (new Date() > deadline) {
@@ -33,14 +33,7 @@ export default function UpdateHighlight() {
           <WrenchIcon size={'lg'} />
           <SmallTitle>Update News</SmallTitle>
         </FlexPair>
-        <p>
-          The account system is a lot better now. I also added so called supertags, which require you to be logged in to
-          use.
-        </p>
-        <p>
-          They are pretty self explanatory tbh but in short they are multiple tags combined into one, just add 2 or more
-          tags to your search and get started. You can manage your supertags from settings {'->'} account.
-        </p>
+        <p>I am currently working on the fullscreen view. Things might not work that well over there.</p>
       </Message>
     </Wrapper>
   )

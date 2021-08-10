@@ -8,7 +8,7 @@ import { PostVideo } from './StyledMedia'
 import { useAutoplay } from '../../../hooks/useAutoplay'
 
 export default function Video(props: MediaProps) {
-  const { viewSrc, fullSrc, onLoad = NO_OP, postId, width, height, detailsVisible } = props
+  const { viewSrc, fullSrc, onLoad = NO_OP, index, width, height, detailsVisible, isFullscreen } = props
 
   const [overlayVisible, setOverlayVisible] = React.useState(true)
 
@@ -39,7 +39,7 @@ export default function Video(props: MediaProps) {
     if (!isPlaying && !videoRef?.paused) {
       videoRef?.pause()
     }
-  }, [isPlaying, videoRef])
+  }, [viewSrc, isPlaying, videoRef])
 
   const handleSeek = React.useCallback(
     (value: number) => {
@@ -55,7 +55,7 @@ export default function Video(props: MediaProps) {
       <PostVideo
         data-testid='video'
         controls={false}
-        loop
+        loop={!isFullscreen}
         preload={preload}
         ref={setVideoRef}
         onLoadedMetadata={onLoad}
@@ -65,7 +65,7 @@ export default function Video(props: MediaProps) {
       />
       <Overlay
         type='video'
-        postId={postId}
+        index={index}
         fullSrc={fullSrc}
         isPaused={!isPlaying}
         duration={videoRef?.duration || 0}
@@ -74,6 +74,7 @@ export default function Video(props: MediaProps) {
         videoRef={videoRef}
         isVisible={!isPlaying || detailsVisible || overlayVisible}
         setVisible={setOverlayVisible}
+        isFullscreen={isFullscreen}
       />
     </>
   )

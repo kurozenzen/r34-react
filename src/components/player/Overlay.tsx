@@ -7,6 +7,9 @@ import { PlayPauseIcon } from '../../icons/PlayPauseIcon'
 import ToggleFullscreenButton from './ToggleFullscreenButton'
 import LinkList from './LinkList'
 import React from 'react'
+import FullscreenProgressBar from './FullscreenProgressBar'
+import { useDispatch } from 'react-redux'
+import { setFullscreenPost } from '../../redux/actions'
 
 function overlayVisibility({ isVisible }: { isVisible: boolean }) {
   return isVisible
@@ -27,9 +30,19 @@ const Wrapper = styled.div`
   ${overlayVisibility};
 `
 
-const VideoProgressBar = styled(ProgressBar)`
-  grid-area: 4/1/4/4;
-`
+const VideoProgressBar = styled(ProgressBar)(
+  ({ theme }) => css`
+    grid-area: 4/1/4/4;
+    margin: ${theme.dimensions.gutter};
+  `
+)
+
+const AutoProgressBar = styled(FullscreenProgressBar)(
+  ({ theme }) => css`
+    grid-area: 4/1/4/4;
+    margin: ${theme.dimensions.gutter};
+  `
+)
 
 const PlayButton = styled(PlayPauseIcon)`
   height: 50px;
@@ -55,27 +68,30 @@ const LengthDisplay = styled.span(
 
 type ImageOverlayProps = {
   type: 'image'
-  postId: number
+  index: number
   fullSrc: string
+  isFullscreen: boolean
 }
 
 type GifOverlayProps = {
   type: 'gif'
-  postId: number
+  index: number
   fullSrc: string
   isPaused: boolean
   onTogglePaused: React.MouseEventHandler
+  isFullscreen: boolean
 }
 
 type VideoOverlayProps = {
   type: 'video'
-  postId: number
+  index: number
   fullSrc: string
   isPaused: boolean
   duration: number
   onTogglePaused: React.MouseEventHandler
   onSeek: (value: number) => void
   videoRef: HTMLVideoElement | null
+  isFullscreen: boolean
 }
 
 type OverlayProps = (ImageOverlayProps | VideoOverlayProps | GifOverlayProps) & {
@@ -84,39 +100,49 @@ type OverlayProps = (ImageOverlayProps | VideoOverlayProps | GifOverlayProps) & 
 }
 
 export function ImageOverlay(props: Omit<ImageOverlayProps, 'type'>) {
-  const { fullSrc } = props
+  const { index, fullSrc, isFullscreen } = props
 
   return (
     <>
-      <ToggleFullscreenButton postId={props.postId} />
+      <ToggleFullscreenButton index={index} />
       <LinkList fullSrc={fullSrc} />
+      {isFullscreen && <AutoProgressBar index={index} />}
     </>
   )
 }
 
 function GifOverlay(props: Omit<GifOverlayProps, 'type'>) {
-  const { fullSrc, isPaused, postId, onTogglePaused } = props
+  const { fullSrc, isPaused, index, onTogglePaused, isFullscreen } = props
 
   return (
     <>
-      <ToggleFullscreenButton postId={postId} />
+      <ToggleFullscreenButton index={index} />
       <LinkList fullSrc={fullSrc} />
       <PlayButton isPaused={isPaused} onClick={onTogglePaused} aria-label='Play/Pause' />
+      {isFullscreen && <AutoProgressBar index={index} isPaused={isPaused} />}
       <LengthDisplay>GIF</LengthDisplay>
     </>
   )
 }
 
 function VideoOverlay(props: Omit<VideoOverlayProps, 'type'>) {
-  const { fullSrc, isPaused, postId, onTogglePaused, onSeek, duration, videoRef } = props
+  const { fullSrc, isPaused, index, onTogglePaused, onSeek, duration, videoRef, isFullscreen } = props
+
+  const dispatch = useDispatch()
+
+  const handleEnded = React.useCallback(() => {
+    if (isFullscreen) {
+      dispatch(setFullscreenPost(index + 1))
+    }
+  }, [dispatch, index, isFullscreen])
 
   return (
     <>
-      <ToggleFullscreenButton postId={postId} />
+      <ToggleFullscreenButton index={index} />
       <LinkList fullSrc={fullSrc} />
       <PlayButton isPaused={isPaused} onClick={onTogglePaused} aria-label='Play/Pause' />
       <LengthDisplay>{formatDuration(duration)}</LengthDisplay>
-      <VideoProgressBar isPaused={isPaused} videoRef={videoRef} onChange={onSeek} />
+      <VideoProgressBar isPaused={isPaused} videoRef={videoRef} onChange={onSeek} onEnded={handleEnded} />
     </>
   )
 }

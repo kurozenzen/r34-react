@@ -37,7 +37,7 @@ const PostWrapper = styled.div(
   `
 )
 
-export function ListPost(props: r34.Post & LayoutElementProps) {
+export function ListPost(props: r34.Post & LayoutElementProps & { index: number }) {
   const {
     style,
     virtualRef,
@@ -51,6 +51,7 @@ export function ListPost(props: r34.Post & LayoutElementProps) {
     height,
     comments,
     has_comments,
+    index,
   } = props
 
   return (
@@ -67,6 +68,7 @@ export function ListPost(props: r34.Post & LayoutElementProps) {
           height={height}
           comments={comments}
           has_comments={has_comments}
+          index={index}
         />
       </PositonWrapper>
     </ItemWrapper>
@@ -76,10 +78,22 @@ export function ListPost(props: r34.Post & LayoutElementProps) {
 type PostProps = Pick<
   r34.Post,
   'type' | 'sample_url' | 'file_url' | 'preview_url' | 'id' | 'width' | 'height' | 'comments' | 'has_comments'
-> & { onLoad?: () => void }
+> & { onLoad?: () => void; index: number }
 
 export const Post = React.memo((props: PostProps) => {
-  const { type, sample_url, file_url, preview_url, onLoad = NO_OP, id, width, height, comments, has_comments } = props
+  const {
+    type,
+    sample_url,
+    file_url,
+    preview_url,
+    onLoad = NO_OP,
+    id,
+    width,
+    height,
+    comments,
+    has_comments,
+    index,
+  } = props
 
   const dispatch = useDispatch()
 
@@ -109,7 +123,7 @@ export const Post = React.memo((props: PostProps) => {
         sampleSrc={sample_url}
         fullSrc={file_url}
         onLoad={onLoad}
-        postId={id}
+        index={index}
         width={width}
         height={height}
       />

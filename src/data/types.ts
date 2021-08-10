@@ -19,6 +19,7 @@ export enum RouteName {
  */
 export enum ModalId {
   CREATE_SUPERTAG,
+  CELLULAR_WARNING,
 }
 
 /**

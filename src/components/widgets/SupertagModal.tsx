@@ -6,35 +6,15 @@ import { selectActiveTags } from '../../redux/selectors'
 import { defaultBlock, defaultBorder } from '../../styled/mixins'
 import { BlockButton } from '../designsystem/Buttons'
 import { HorizontalLine } from '../designsystem/Lines'
-import Surface from '../designsystem/Surface'
 import { Title } from '../designsystem/Text'
 import TagSelector from '../tagSelector/TagSelector'
 import ActiveTags from './ActiveTags'
 import * as r34 from 'r34-types'
 import { isSupertag } from '../../data/tagUtils'
 import { useActivateTag } from '../../hooks/useActivateTag'
-import { removeTag } from '../../redux/actions'
-
-const Wrapper = styled.div`
-  position: fixed;
-  display: grid;
-  place-items: center;
-
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  padding: 20px;
-
-  z-index: 1000;
-
-  background: #000000d0;
-`
-
-const ModalSurface = styled(Surface)`
-  max-width: 500px;
-  background-color: ${(props) => props.theme.colors.layerBgSolid};
-`
+import { closeModal, removeTag } from '../../redux/actions'
+import useAction from '../../hooks/useAction'
+import Modal from '../designsystem/Modal'
 
 const StyledInput = styled.input(
   ({ theme }) => css`
@@ -45,17 +25,13 @@ const StyledInput = styled.input(
   `
 )
 
-interface SupertagModalProps {
-  onClose: () => void
-}
-
-export default function SupertagModal(props: SupertagModalProps) {
-  const { onClose } = props
+export default function SupertagModal() {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const activeTags = useSelector(selectActiveTags)
   const dispatch = useDispatch()
   const activateTag = useActivateTag()
+  const close = useAction(closeModal)
 
   const tags: Record<string, r34.TagModifier> = Object.values(activeTags)
     .filter((tag): tag is r34.BiasedTag => !isSupertag(tag))
@@ -66,27 +42,25 @@ export default function SupertagModal(props: SupertagModalProps) {
       .then(() => {
         Object.keys(tags).forEach((tagname) => dispatch(removeTag(tagname)))
         activateTag({ name, description, tags })
+        close()
       })
       .catch(() => console.log('Failed to create supertag'))
-    onClose()
-  }, [activateTag, description, dispatch, name, onClose, tags])
+  }, [activateTag, close, description, dispatch, name, tags])
 
   return (
-    <Wrapper onClick={onClose}>
-      <ModalSurface onClick={(e) => e.stopPropagation()}>
-        <Title>Create Supertag</Title>
-        <HorizontalLine />
-        <StyledInput type='text' placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
-        <StyledInput
-          type='text'
-          placeholder='Description'
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <TagSelector showSupertags={false} onSubmit={activateTag} />
-        <ActiveTags />
-        <BlockButton onClick={handleCreate}>Create</BlockButton>
-      </ModalSurface>
-    </Wrapper>
+    <Modal>
+      <Title>Create Supertag</Title>
+      <HorizontalLine />
+      <StyledInput type='text' placeholder='Name' value={name} onChange={(e) => setName(e.target.value)} />
+      <StyledInput
+        type='text'
+        placeholder='Description'
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <TagSelector showSupertags={false} onSubmit={activateTag} />
+      <ActiveTags />
+      <BlockButton onClick={handleCreate}>Create</BlockButton>
+    </Modal>
   )
 }

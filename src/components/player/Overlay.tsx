@@ -1,6 +1,4 @@
-import { ArrowDown } from '../../icons/FontAwesomeIcons'
 import styled, { css } from 'styled-components'
-import useToggle from '../../hooks/useToggle'
 import { fadeOut } from '../../styled/animations'
 import { formatDuration } from '../../misc/formatting'
 import { ProgressBar } from './ProgressBar'
@@ -33,13 +31,6 @@ const VideoProgressBar = styled(ProgressBar)`
   grid-area: 4/1/4/4;
 `
 
-const ScrollHint = styled(ArrowDown)`
-  grid-area: 3/2/4/3;
-  place-self: end center;
-  height: 32px;
-  width: 32px;
-`
-
 const PlayButton = styled(PlayPauseIcon)`
   height: 50px;
   width: 50px;
@@ -48,14 +39,6 @@ const PlayButton = styled(PlayPauseIcon)`
   cursor: pointer;
   fill: white;
   ${dropShadow}
-`
-
-const PreviousButton = styled.div`
-  grid-area: 2/1/3/2;
-`
-
-const NextButton = styled.div`
-  grid-area: 2/3/3/4;
 `
 
 const LengthDisplay = styled.span(

@@ -11,5 +11,9 @@ export default function ResultsTitle() {
 
   const formattedCount = fullNumber ? count.toLocaleString() : formatCount(count)
 
-  return <Title onClick={toggleFullNumber}>{formattedCount} results</Title>
+  return (
+    <Title id='results' onClick={toggleFullNumber}>
+      {formattedCount} results
+    </Title>
+  )
 }

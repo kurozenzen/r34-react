@@ -5,6 +5,7 @@ import {
   supportsFlexGap,
   supportsFullscreen,
   supportsGap,
+  supportsNetworkInformationAPI,
   supportsObjectFit,
 } from '../../data/browserUtils'
 import { flexColumnWithGap, gutter, borderRadius } from '../../styled/mixins'
@@ -26,6 +27,7 @@ export default function FeatureDetection() {
   return (
     <Wrapper>
       <SmallTitle>Feature Detection</SmallTitle>
+      <Faded>This information is really valuable when investigating layout and browser issues.</Faded>
       <FeatureList>
         <Faded>
           <StatusImage value={supportsGap} /> Supports grid-gap
@@ -41,6 +43,9 @@ export default function FeatureDetection() {
         </Faded>
         <Faded>
           <StatusImage value={supportsFullscreen} /> Supports fullscreen
+        </Faded>
+        <Faded>
+          <StatusImage value={supportsNetworkInformationAPI} /> Supports advanced network info
         </Faded>
       </FeatureList>
     </Wrapper>

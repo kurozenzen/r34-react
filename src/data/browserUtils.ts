@@ -50,3 +50,6 @@ export function closeFullscreen() {
     document.msExitFullscreen()
   }
 }
+
+export const supportsNetworkInformationAPI =
+  'connection' in navigator || 'mozConnection' in navigator || 'webkitConnection' in navigator

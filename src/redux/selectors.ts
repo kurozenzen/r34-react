@@ -62,6 +62,10 @@ export const selectSupertagModalOpen = createSelector(
   selectOpenModalId,
   (modalId) => modalId === ModalId.CREATE_SUPERTAG
 )
+export const selectCellularWarningModalOpen = createSelector(
+  selectOpenModalId,
+  (modalId) => modalId === ModalId.CELLULAR_WARNING
+)
 
 // Parameterized selectors
 export const selectPostById = defaultMemoize((id: number) => {

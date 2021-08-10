@@ -51,7 +51,7 @@ export async function setPreferences(preferences: PreferencesState) {
 }
 
 export async function resetSeenPosts() {
-  console.log('broken')
+  console.warn('broken')
 }
 
 export async function getSupertags() {

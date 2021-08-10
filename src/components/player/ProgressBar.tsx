@@ -77,7 +77,6 @@ export const ProgressBar = (props: ProgressBarProps) => {
 
   React.useEffect(() => {
     if (!isPaused) {
-      console.log('starting interval')
       const handle = setInterval(() => {
         if (sliderRef?.current && videoRef) {
           sliderRef.current.value = videoRef.currentTime.toString()

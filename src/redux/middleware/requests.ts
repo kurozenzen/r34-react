@@ -53,7 +53,6 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     const minRating = selectMinRating(state)
     const sort = selectSort(state)
     const hideSeen = selectHideSeen(state)
-    console.log('hide seen', hideSeen)
 
     const res = await api.getPosts(activeTags, pageSize, pageNumber + 1, minRating, sort, hideSeen)
 

@@ -11,7 +11,7 @@ export default function ResetResultsButton() {
 
   return (
     <BlockButton onClick={handleClick}>
-      <UndoIcon /> Reset Application
+      <UndoIcon /> Reset Results
     </BlockButton>
   )
 }

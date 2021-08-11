@@ -3,10 +3,11 @@ import * as r34 from 'r34-types'
 import { bias, isBiased, isSupertag } from '../../data/tagUtils'
 import Supertag from './Supertag'
 import { BiasedTag } from './BiasedTag'
+import { TagIsActive } from '../../data/types'
 
 interface TagProps {
   tag: r34.AnyBiasedTag | r34.AnyTag
-  isActive: boolean
+  isActive: TagIsActive
   detailed: boolean
   onClick: (tag: r34.AnyBiasedTag) => void
 }

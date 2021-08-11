@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import { AnyBiasedTag, AnyTag } from 'r34-types'
 import { flexRowGap, flexColumnGap } from '../../styled/mixins'
 import Tag from './Tag'
+import { TagIsActive } from '../../data/types'
 
 const TagListWrapper = styled.div(
   ({ theme }) => css`
@@ -32,7 +33,7 @@ interface TagListProps {
   children?: React.ReactNode
 
   onTagClick: (tag: AnyBiasedTag) => void
-  getIsActive?: (tag: AnyTag) => boolean
+  getIsActive?: (tag: AnyTag) => TagIsActive
 }
 
 /**
@@ -45,7 +46,7 @@ export default function TagList(props: TagListProps) {
   return (
     <TagListWrapper className={className}>
       {Object.entries(tags).map(([key, tag]) => (
-        <Tag key={key} detailed={detailed} tag={tag} onClick={onTagClick} isActive={getIsActive?.(tag) || false} />
+        <Tag key={key} detailed={detailed} tag={tag} onClick={onTagClick} isActive={getIsActive?.(tag) || 'no'} />
       ))}
       {children}
     </TagListWrapper>

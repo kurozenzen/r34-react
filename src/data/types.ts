@@ -34,3 +34,5 @@ export type InViewHookResponse<T extends Element> = {
 }
 
 export type SuggestionsError = { message: string; results: number }
+
+export type TagIsActive = 'direct' | 'indirect' | 'no'

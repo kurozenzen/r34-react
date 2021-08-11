@@ -1,5 +1,6 @@
 import * as r34 from 'r34-types'
 import { createSelector, defaultMemoize } from 'reselect'
+import { isSupertag } from '../data/tagUtils'
 import { ModalId } from '../data/types'
 import { AppState } from './appState'
 
@@ -83,3 +84,9 @@ export const selectAliasesByTagName = defaultMemoize((tagName: string) => {
 })
 
 export const selectLikedByPostId = defaultMemoize((id: number) => (state: AppState) => id in state.likes)
+
+export const selectActiveSupertagTags = createSelector(selectActiveTags, (activeTags) =>
+  Object.values(activeTags)
+    .filter(isSupertag)
+    .reduce((result, tag) => ({ ...result, ...tag.tags }), {})
+)

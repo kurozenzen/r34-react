@@ -7,6 +7,7 @@ import TypeIcon from '../../icons/TypeIcon'
 import AliasesList from './AliasesList'
 import { ChipWrapper } from './ChipWrapper'
 import TagName from './TagName'
+import { TagIsActive } from '../../data/types'
 
 const DropdownArrow = styled(ArrowDown)(
   ({ $collapsed, theme }: { $collapsed: boolean; theme: DefaultTheme }) => css`
@@ -28,7 +29,7 @@ interface TagChipProps {
   modifier: TagModifier
   count?: number
   type?: TagType
-  isActive: boolean
+  isActive: TagIsActive
   detailed: boolean
   onClick: React.EventHandler<SyntheticEvent>
   aliases?: AliasTag[]

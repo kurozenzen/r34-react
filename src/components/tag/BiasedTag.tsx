@@ -1,10 +1,11 @@
 import * as r34 from 'r34-types'
 import TagChip from './TagChip'
 import { getInterestingType } from '../../data/tagUtils'
+import { TagIsActive } from '../../data/types'
 
 interface TagProps {
   tag: r34.BiasedTag
-  isActive: boolean
+  isActive: TagIsActive
   detailed: boolean
   onClick: React.MouseEventHandler
 }

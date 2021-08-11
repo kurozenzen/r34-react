@@ -12,7 +12,7 @@ import { PlusIcon } from '../../icons/FontAwesomeIcons'
 import { Supertag, Tag, AnyBiasedTag, AnyTag } from 'r34-types'
 import { bias, isSupertag, serializeTagname } from '../../data/tagUtils'
 
-const TagSelectorWrapper = styled.div(
+const TagSelectorWrapper = styled.form(
   (props: { closed: boolean; ref: (ref: HTMLInputElement) => void; theme: DefaultTheme }) => css`
     display: flex;
     background: white;
@@ -45,7 +45,7 @@ export default function TagSelector(props: TagSelectorProps) {
   const dispatch = useDispatch()
 
   const [value, setValue] = useState('')
-  const [tagSelectorRef, setTagSelectorRef] = useState<HTMLDivElement | null>(null)
+  const [tagSelectorRef, setTagSelectorRef] = useState<HTMLElement | null>(null)
   const [modifier, nextModifier] = useModifier()
 
   const suggestions = useSelector(selectSuggestions)
@@ -88,8 +88,10 @@ export default function TagSelector(props: TagSelectorProps) {
 
   const showList = suggestions.length > 0 || error !== null
 
+  const preventDefault = useCallback((e) => e.preventDefault(), [])
+
   return (
-    <TagSelectorWrapper ref={setTagSelectorRef} closed={!showList}>
+    <TagSelectorWrapper ref={setTagSelectorRef} closed={!showList} onSubmit={preventDefault}>
       <ModifierButton onClick={nextModifier} aria-label='Tag Modifier'>
         {modifier}
       </ModifierButton>

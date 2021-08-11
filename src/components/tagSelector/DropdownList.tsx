@@ -7,7 +7,7 @@ import { getInterestingType, isSupertag } from '../../data/tagUtils'
 import { SuggestionsError } from '../../data/types'
 import { DropdownListError } from './DropdownListError'
 
-function sizeAndPosition(tagSelector: HTMLDivElement | null) {
+function sizeAndPosition(tagSelector: HTMLElement | null) {
   if (tagSelector) {
     const { offsetTop, clientHeight, offsetLeft, clientWidth } = tagSelector
 
@@ -26,7 +26,7 @@ function sizeAndPosition(tagSelector: HTMLDivElement | null) {
 }
 
 const ListWrapper = styled.div(
-  ({ theme, tagSelectorRef }: { tagSelectorRef: HTMLDivElement | null; theme: DefaultTheme }) => css`
+  ({ theme, tagSelectorRef }: { tagSelectorRef: HTMLElement | null; theme: DefaultTheme }) => css`
     ${flexColumn()}
     ${flexColumnGap('1px')}
     ${sizeAndPosition(tagSelectorRef)};
@@ -72,7 +72,7 @@ const ListWrapper = styled.div(
 )
 
 interface DropdownListProps {
-  tagSelectorRef: HTMLDivElement | null
+  tagSelectorRef: HTMLElement | null
   entries: r34.AnyTag[]
   onClick: (entry: r34.AnyTag) => void
   error: SuggestionsError | null

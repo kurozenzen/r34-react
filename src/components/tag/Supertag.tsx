@@ -1,10 +1,11 @@
 import React from 'react'
 import * as r34 from 'r34-types'
 import TagChip from './TagChip'
+import { TagIsActive } from '../../data/types'
 
 interface SupertagProps {
   tag: r34.Supertag
-  isActive: boolean
+  isActive: TagIsActive
   detailed: boolean
   onClick: React.MouseEventHandler
 }

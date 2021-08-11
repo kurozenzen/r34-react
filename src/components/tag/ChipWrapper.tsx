@@ -1,13 +1,19 @@
 import { MouseEventHandler } from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
+import { TagIsActive } from '../../data/types'
 import { flexRowWithGap } from '../../styled/mixins'
 
 const dropdownBorderRadius = (collapsed: boolean, theme: DefaultTheme) =>
   collapsed ? theme.dimensions.borderRadius : `${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0 0`
 
-const switchingColors = (active: boolean, theme: DefaultTheme) => {
-  const fg = active ? theme.colors.backgroundColor : theme.colors.accentColor
-  const bg = active ? theme.colors.accentColor : 'transparent'
+const switchingColors = (active: TagIsActive, theme: DefaultTheme) => {
+  const fg = active === 'direct' ? theme.colors.backgroundColor : theme.colors.accentColor
+  const bg =
+    active === 'direct'
+      ? theme.colors.accentColor
+      : active === 'indirect'
+      ? `${theme.colors.accentColor}40`
+      : 'transparent'
 
   return css`
     color: ${fg};
@@ -39,7 +45,7 @@ const switchingColors = (active: boolean, theme: DefaultTheme) => {
 }
 
 export const ChipWrapper = styled.div(
-  (props: { active: boolean; collapsed: boolean; onMouseLeave: MouseEventHandler; theme: DefaultTheme }) =>
+  (props: { active: TagIsActive; collapsed: boolean; onMouseLeave: MouseEventHandler; theme: DefaultTheme }) =>
     css`
       ${flexRowWithGap({ theme: props.theme })}
       ${switchingColors(props.active, props.theme)}

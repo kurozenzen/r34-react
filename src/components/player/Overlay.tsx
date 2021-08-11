@@ -6,10 +6,11 @@ import { dropShadow } from '../../styled/mixins'
 import { PlayPauseIcon } from '../../icons/PlayPauseIcon'
 import ToggleFullscreenButton from './ToggleFullscreenButton'
 import LinkList from './LinkList'
-import React from 'react'
+import React, { useCallback } from 'react'
 import FullscreenProgressBar from './FullscreenProgressBar'
 import { useDispatch } from 'react-redux'
 import { setFullscreenPost } from '../../redux/actions'
+import { BackwardIcon, ForwardIcon } from '../../icons/FontAwesomeIcons'
 
 function overlayVisibility({ isVisible }: { isVisible: boolean }) {
   return isVisible
@@ -65,6 +66,20 @@ const LengthDisplay = styled.span(
     margin: ${props.theme.dimensions.gutter};
   `
 )
+
+const ForwardArea = styled.div`
+  display: grid;
+  grid-area: 2/3/3/4;
+  place-items: center;
+  opacity: 0;
+`
+
+const BackwardArea = styled.div`
+  display: grid;
+  grid-area: 2/1/3/2;
+  place-items: center;
+  opacity: 0;
+`
 
 type ImageOverlayProps = {
   type: 'image'
@@ -136,11 +151,37 @@ function VideoOverlay(props: Omit<VideoOverlayProps, 'type'>) {
     }
   }, [dispatch, index, isFullscreen])
 
+  const handleSkipForward = useCallback(
+    (e) => {
+      e.preventDefault()
+      if (videoRef) {
+        onSeek(videoRef.currentTime + 10)
+      }
+    },
+    [onSeek, videoRef]
+  )
+
+  const handleSkipBackward = useCallback(
+    (e) => {
+      e.preventDefault()
+      if (videoRef) {
+        onSeek(videoRef.currentTime - 10)
+      }
+    },
+    [onSeek, videoRef]
+  )
+
   return (
     <>
       <ToggleFullscreenButton index={index} />
       <LinkList fullSrc={fullSrc} />
+      <BackwardArea onDoubleClick={handleSkipBackward}>
+        <BackwardIcon tabIndex={0} />
+      </BackwardArea>
       <PlayButton isPaused={isPaused} onClick={onTogglePaused} aria-label='Play/Pause' />
+      <ForwardArea onDoubleClick={handleSkipForward}>
+        <ForwardIcon tabIndex={0} />
+      </ForwardArea>
       <LengthDisplay>{formatDuration(duration)}</LengthDisplay>
       <VideoProgressBar isPaused={isPaused} videoRef={videoRef} onChange={onSeek} onEnded={handleEnded} />
     </>

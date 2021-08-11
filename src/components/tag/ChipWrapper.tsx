@@ -23,6 +23,7 @@ const switchingColors = (active: TagIsActive, theme: DefaultTheme) => {
 
     svg {
       color: ${fg};
+      transition: color ${theme.timings.transitionTime} ease-out;
     }
 
     cursor: pointer;

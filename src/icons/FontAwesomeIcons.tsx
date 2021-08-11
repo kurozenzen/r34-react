@@ -9,6 +9,7 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons'
 import {
+  faBackward,
   faCalendarDay,
   faCaretDown,
   faCheckCircle,
@@ -18,6 +19,7 @@ import {
   faDownload,
   faExpand,
   faExternalLinkAlt,
+  faForward,
   faHashtag,
   faHeart,
   faImage,
@@ -75,3 +77,5 @@ export const TumblrIcon = bindIcon(faTumblr)
 export const TwitterIcon = bindIcon(faTwitter)
 export const UndoIcon = bindIcon(faUndoAlt)
 export const WrenchIcon = bindIcon(faWrench)
+export const ForwardIcon = bindIcon(faForward)
+export const BackwardIcon = bindIcon(faBackward)

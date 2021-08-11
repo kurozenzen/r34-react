@@ -1,6 +1,4 @@
 import React, { useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
-import { RouteName } from '../../data/types'
 import useAction from '../../hooks/useAction'
 import { closeModal, getResults } from '../../redux/actions'
 import Modal from '../designsystem/Modal'
@@ -25,13 +23,11 @@ const ButtonRow = styled.div`
 export default function CellularWarningModal() {
   const close = useAction(closeModal)
   const search = useAction(getResults)
-  const history = useHistory()
 
   const onConfirm = useCallback(() => {
-    history.push({ pathname: RouteName.SEARCH, hash: 'results' })
     search()
     close()
-  }, [close, history, search])
+  }, [close, search])
 
   const onCancel = useCallback(() => {
     close()

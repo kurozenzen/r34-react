@@ -1,6 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled, { css } from 'styled-components'
+import { closeFullscreen, openFullscreen } from '../../data/browserUtils'
+import useFullScreenCloseEffect from '../../hooks/useFullscreenCloseEffect'
 import { setFullscreenPost } from '../../redux/actions'
 import { selectFullsceenIndex } from '../../redux/selectors'
 import Story from '../layout/stories/Story'
@@ -30,6 +33,9 @@ const Filler = styled.div(
 
 export default function Stories() {
   const dispatch = useDispatch()
+  const history = useHistory()
+
+  const [ref, setRef] = React.useState<HTMLElement | null>(null)
 
   const setIndex = React.useCallback((index: number) => dispatch(setFullscreenPost(index)), [dispatch])
 
@@ -43,8 +49,18 @@ export default function Stories() {
     document.getElementById(`story-${nextIdx}`)?.scrollIntoView({ behavior: 'smooth' })
   }, [nextIdx])
 
+  useFullScreenCloseEffect(() => {
+    history.goBack()
+  })
+
+  React.useEffect(() => {
+    if (ref) {
+      openFullscreen(ref)
+    }
+  }, [ref])
+
   return (
-    <StoriesWrapper>
+    <StoriesWrapper ref={setRef}>
       <Filler index={currentIdx} />
       {indexes.map((index) => {
         if (index < 0) return null

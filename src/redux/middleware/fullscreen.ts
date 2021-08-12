@@ -5,7 +5,7 @@ import { closeFullscreen } from '../../data/browserUtils'
 
 const fullscreen = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => async (action: AppAction) => {
   if (action.type === EXIT_FULLSCREEN) {
-    closeFullscreen()
+    // closeFullscreen()
   }
 
   next(action)

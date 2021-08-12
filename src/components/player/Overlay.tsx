@@ -137,7 +137,7 @@ function GifOverlay(props: Omit<GifOverlayProps, 'type'>) {
     <>
       <ToggleFullscreenButton index={index} />
       <LinkList fullSrc={fullSrc} />
-      <PlayButton isPaused={isPaused || !isActive} onClick={onTogglePaused} aria-label='Play/Pause' />
+      <PlayButton isPaused={isPaused} onClick={onTogglePaused} aria-label='Play/Pause' />
       {isFullscreen && (
         <AutoProgressBar index={index} isPaused={isPaused} onFinished={onFinished} isActive={isActive} />
       )}

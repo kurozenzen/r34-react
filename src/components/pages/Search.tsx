@@ -15,13 +15,13 @@ import LayoutOutOfItems from '../layout/LayoutOutOfItems'
 import LayoutLoadingItem from '../layout/LayoutLoadingItem'
 import useAction from '../../hooks/useAction'
 import PageLayout from '../layout/pages/PageLayout'
-import Reader from '../reader/Reader'
-import { RouteName } from '../../data/types'
-import { useHistory } from 'react-router-dom'
+import { useScrollUpBackNavigation } from '../../hooks/useScrollUpBackNavigation'
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 export default function Search() {
   const [isLoading, setLoading] = useState(false)
-  const history = useHistory()
+
+  const dispatch = useDispatch()
 
   const posts = useSelector(selectPosts)
   const hasMorePosts = useSelector(selectHasMoreResults)
@@ -29,26 +29,15 @@ export default function Search() {
   const pageSize = useSelector(selectPageSize)
   const pageNumber = useSelector(selectPageNumber)
 
-  const dispatch = useDispatch()
   const loadMore = useAction(getMoreResults)
   const loadPage = useCallback((index: number) => dispatch(getResults(index)), [dispatch])
 
-  React.useEffect(() => {
-    if (history.location.hash !== 'results') {
-      const listener = () => {
-        console.log('adding hash')
-        history.push({ pathname: RouteName.SEARCH, hash: 'results' })
-      }
-      document.addEventListener('scroll', listener, { passive: true, once: true })
-      return () => document.removeEventListener('scroll', listener)
-    }
-  }, [history])
+  useScrollUpBackNavigation('results')
 
-  document.title = 'R34 React'
+  usePageTitle('R34 React')
 
   return (
     <>
-      <Reader />
       {resultsLayout === 'infinite_column' ? (
         <InifinteColumn
           Header={LayoutHeader}

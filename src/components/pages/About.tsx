@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { useTheme } from 'styled-components'
+import { usePageTitle } from '../../hooks/usePageTitle'
 import { DiscordIcon, GithubIcon } from '../../icons/FontAwesomeIcons'
 import R34Icon from '../../icons/R34Icon'
 import FlexColumn, { FlexColumnWithSpacing } from '../designsystem/FlexColumn'
@@ -75,7 +76,7 @@ const Body = styled.div`
 `
 
 export default function About() {
-  document.title = 'R34 React - About'
+  usePageTitle('R34 React - About')
 
   const iconColor = useTheme().colors.text
 

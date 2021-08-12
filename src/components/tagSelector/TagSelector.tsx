@@ -92,12 +92,12 @@ export default function TagSelector(props: TagSelectorProps) {
 
   return (
     <TagSelectorWrapper ref={setTagSelectorRef} closed={!showList} onSubmit={preventDefault}>
-      <ModifierButton onClick={nextModifier} aria-label='Tag Modifier'>
+      <ModifierButton onClick={nextModifier} aria-label='Tag Modifier' title='Tag Modifier'>
         {modifier}
       </ModifierButton>
       <TagInput value={value} setValue={setValue} onSubmit={handleAddClick} />
       <AddButton onClick={handleAddClick} aria-label='Add Tag'>
-        <PlusIcon />
+        <PlusIcon title='Add tag' />
       </AddButton>
       {showList && value.length > 0 && (
         <DropdownList tagSelectorRef={tagSelectorRef} entries={suggestions} error={error} onClick={activateTag} />

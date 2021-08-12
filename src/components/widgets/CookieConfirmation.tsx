@@ -24,14 +24,14 @@ const StyledSpan = styled.span`
 `
 
 export default function CookieConfirmation() {
-  const [cookies, setCookies] = usePreference('cookies')
+  const [, setCookies] = usePreference('cookies')
 
   const handleAccept = useCallback(() => setCookies(true), [setCookies])
 
-  return cookies ? null : (
+  return (
     <CookieWrapper>
       <StyledSpan>This website uses cookies.</StyledSpan>
-      <RedButton onClick={handleAccept} aria-label='Allow Cookies'>
+      <RedButton onClick={handleAccept} aria-label='Allow Cookies' title='Accept Cookie usage'>
         Okay
       </RedButton>
     </CookieWrapper>

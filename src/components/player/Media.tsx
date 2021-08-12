@@ -16,6 +16,8 @@ type MediaProps = {
   height: number
   detailsVisible: boolean
   isFullscreen?: boolean
+  onFinished?: () => void
+  isActive?: boolean
 }
 
 export function Media(props: MediaProps) {
@@ -30,6 +32,8 @@ export function Media(props: MediaProps) {
     height,
     detailsVisible,
     isFullscreen = false,
+    onFinished,
+    isActive = false,
   } = props
   const [preview, src] = useSources(type, thumbnailSrc, sampleSrc, fullSrc)
 
@@ -44,6 +48,8 @@ export function Media(props: MediaProps) {
           width={width}
           height={height}
           isFullscreen={isFullscreen}
+          onFinished={onFinished}
+          isActive={isActive}
         />
       )
     case 'gif':
@@ -58,6 +64,8 @@ export function Media(props: MediaProps) {
           width={width}
           height={height}
           isFullscreen={isFullscreen}
+          onFinished={onFinished}
+          isActive={isActive}
         />
       )
     case 'video':
@@ -72,6 +80,8 @@ export function Media(props: MediaProps) {
           width={width}
           height={height}
           isFullscreen={isFullscreen}
+          onFinished={onFinished}
+          isActive={isActive}
         />
       )
   }

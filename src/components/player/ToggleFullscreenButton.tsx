@@ -1,9 +1,10 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled, { css } from 'styled-components'
+import { RouteName } from '../../data/types'
 import { ExpandIcon, CloseIcon } from '../../icons/FontAwesomeIcons'
-import { exitFullscreen, enterFullscreen } from '../../redux/actions'
-import { selectFullsceenState } from '../../redux/selectors'
+import { setFullscreenPost } from '../../redux/actions'
 import { dropShadow } from '../../styled/mixins'
 
 const ExpandButton = styled(ExpandIcon)(
@@ -34,25 +35,26 @@ export default function ToggleFullscreenButton(props: ToggleFullscreenButtonProp
   const { index } = props
 
   const dispatch = useDispatch()
-  const isInFullscreen = useSelector(selectFullsceenState)
+  const history = useHistory()
 
   const onFullscreenExit = React.useCallback<React.MouseEventHandler>(
     (event) => {
       event.stopPropagation()
-      dispatch(exitFullscreen())
+      history.goBack()
     },
-    [dispatch]
+    [history]
   )
 
   const onFullscreenEnter = React.useCallback<React.MouseEventHandler>(
     (event) => {
       event.stopPropagation()
-      dispatch(enterFullscreen(index))
+      dispatch(setFullscreenPost(index))
+      history.push(RouteName.STORIES)
     },
-    [dispatch, index]
+    [dispatch, history, index]
   )
 
-  return isInFullscreen ? (
+  return history.location.pathname === RouteName.STORIES ? (
     <CloseButton color='white' onClick={onFullscreenExit} aria-label='Exit fullscreen' title='Exit fullscreen' />
   ) : (
     <ExpandButton color='white' onClick={onFullscreenEnter} aria-label='Enter fullscreen' title='Enter fullscreen' />

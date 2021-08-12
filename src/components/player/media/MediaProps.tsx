@@ -8,6 +8,8 @@ interface MediaProps {
   fullSrc: string
   detailsVisible: boolean
   isFullscreen: boolean
+  onFinished?: () => void
+  isActive: boolean
 }
 
 export default MediaProps

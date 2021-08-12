@@ -2,6 +2,7 @@ import styled, { css, useTheme } from 'styled-components'
 
 import { getVersionString } from '../../data/utils'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
+import { usePageTitle } from '../../hooks/usePageTitle'
 import { CodeBranchIcon } from '../../icons/FontAwesomeIcons'
 import { flexRowWithGap, gap } from '../../styled/mixins'
 import FlexColumn, { FlexColumnWithSpacing } from '../designsystem/FlexColumn'
@@ -46,11 +47,11 @@ const SettingsColumn = styled(FlexColumnWithSpacing)`
 `
 
 export default function Settings() {
-  document.title = 'R34 React - Settings'
-
   const theme = useTheme()
   const versionString = getVersionString()
   const [isSignedIn] = useFirebaseAuthState()
+
+  usePageTitle('R34 React - Settings')
 
   return (
     <FlexColumn>

@@ -10,9 +10,13 @@ interface FullscreenProgressBarProps {
   className?: string
   index: number
   isPaused?: boolean
+  onFinished?: () => void
+  isActive: boolean
 }
 
 export default function FullscreenProgressBar(props: FullscreenProgressBarProps) {
+  const { onFinished = NO_OP, isActive } = props
+
   const [mouseState, setMouseState] = useState(false)
   const dispatch = useDispatch()
   const setPost = useCallback((newIndex) => dispatch(setFullscreenPost(newIndex)), [dispatch])
@@ -42,7 +46,8 @@ export default function FullscreenProgressBar(props: FullscreenProgressBarProps)
   const ref = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
-    if (!mouseState) {
+    if (!mouseState && isActive) {
+      console.log('triggered')
       let handle: number
       let then = new Date().getTime()
 
@@ -57,7 +62,7 @@ export default function FullscreenProgressBar(props: FullscreenProgressBarProps)
           ref.current.style.backgroundImage = `linear-gradient(90deg, #ffffff80 ${chromePercentage}%, transparent ${chromePercentage}%)`
 
           if (newValue >= Number(ref.current.max)) {
-            setPost(props.index + 1)
+            onFinished()
             if (ref.current) {
               ref.current.value = '0'
             }
@@ -74,7 +79,7 @@ export default function FullscreenProgressBar(props: FullscreenProgressBarProps)
         cancelAnimationFrame(handle)
       }
     }
-  }, [mouseState, props.index, setPost])
+  }, [isActive, mouseState, onFinished, props.index, setPost])
 
   return (
     <Slider

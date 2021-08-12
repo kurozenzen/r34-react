@@ -1,30 +1,33 @@
-import React, { Suspense, useEffect } from 'react'
-import { Provider, useDispatch, useSelector } from 'react-redux'
+import React, { Suspense } from 'react'
+import { Provider, useSelector } from 'react-redux'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components'
 import ErrorBoundary from './components/features/ErrorBoundary'
 import ErrorScreen from './components/pages/ErrorScreen'
 import LoadingScreen from './components/pages/LoadingScreen'
-import CookieConfirmation from './components/widgets/CookieConfirmation'
-import { RouteName } from './data/types'
-import GlobalStyles from './GlobalStyles'
-import themes, { defaultThemeId } from './styled/themes'
-import { selectActiveThemeId, selectCellularWarningModalOpen, selectSupertagModalOpen } from './redux/selectors'
-import { persistor, store } from './redux/store'
 import Terms from './components/pages/Terms'
-import useFirebaseAuthState from './hooks/useFirebaseAuthState'
-import { fetchPreferences } from './redux/actions'
-import SupertagModal from './components/widgets/SupertagModal'
-
-// init firebase immediately
-import './firebase'
 import CellularWarningModal from './components/widgets/CellularWarningModal'
+import CookieConfirmation from './components/widgets/CookieConfirmation'
+import SupertagModal from './components/widgets/SupertagModal'
+import { RouteName } from './data/types'
+import './firebase' // init firebase immediately
+import GlobalStyles from './GlobalStyles'
+import { useLoadPreferences } from './hooks/useLoadPreferences'
+import {
+  selectActiveThemeId,
+  selectCellularWarningModalOpen,
+  selectCookies,
+  selectSupertagModalOpen,
+} from './redux/selectors'
+import { persistor, store } from './redux/store'
+import themes, { defaultThemeId } from './styled/themes'
 
 const Settings = React.lazy(() => import('./components/pages/Settings'))
 const Search = React.lazy(() => import('./components/pages/Search'))
 const About = React.lazy(() => import('./components/pages/About'))
 const Privacy = React.lazy(() => import('./components/pages/Privacy'))
+const Stories = React.lazy(() => import('./components/pages/Stories'))
 
 export default function App() {
   return (
@@ -39,17 +42,12 @@ export default function App() {
 }
 
 function ThemedApp() {
-  const dispatch = useDispatch()
-  const themeId = useSelector(selectActiveThemeId)
-  const isSupertagModalOpen = useSelector(selectSupertagModalOpen)
+  const cookies = useSelector(selectCookies)
   const isCellularWarningModalOpen = useSelector(selectCellularWarningModalOpen)
-  const [isSignedIn] = useFirebaseAuthState()
+  const isSupertagModalOpen = useSelector(selectSupertagModalOpen)
+  const themeId = useSelector(selectActiveThemeId)
 
-  useEffect(() => {
-    if (isSignedIn) {
-      dispatch(fetchPreferences())
-    }
-  }, [dispatch, isSignedIn])
+  useLoadPreferences()
 
   return (
     <ThemeProvider theme={themes[themeId] || defaultThemeId}>
@@ -57,27 +55,18 @@ function ThemedApp() {
       <HashRouter>
         <Suspense fallback={<LoadingScreen />}>
           <Switch>
-            <Route exact path={RouteName.SETTINGS}>
-              <Settings />
-            </Route>
-            <Route exact path={RouteName.ABOUT}>
-              <About />
-            </Route>
-            <Route exact path={RouteName.PRIVACY}>
-              <Privacy />
-            </Route>
-            <Route exact path={RouteName.TERMS}>
-              <Terms />
-            </Route>
-            <Route path={RouteName.SEARCH}>
-              <Search />
-            </Route>
+            <Route exact path={RouteName.ABOUT} component={About} />
+            <Route exact path={RouteName.PRIVACY} component={Privacy} />
+            <Route exact path={RouteName.SETTINGS} component={Settings} />
+            <Route exact path={RouteName.STORIES} component={Stories} />
+            <Route exact path={RouteName.TERMS} component={Terms} />
+            <Route path={RouteName.SEARCH} component={Search} />
           </Switch>
         </Suspense>
 
         {isSupertagModalOpen && <SupertagModal />}
         {isCellularWarningModalOpen && <CellularWarningModal />}
-        <CookieConfirmation />
+        {!cookies && <CookieConfirmation />}
       </HashRouter>
     </ThemeProvider>
   )

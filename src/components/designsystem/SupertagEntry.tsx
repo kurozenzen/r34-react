@@ -75,7 +75,7 @@ export default function SupertagEntry(props: SupertagEntryProps) {
         <span>{name}</span>
         <Faded>{Object.keys(tags).length} tags</Faded>
         <Faded>{description}</Faded>
-        <CloseIcon onClick={deleteSupertag} />
+        <CloseIcon onClick={deleteSupertag} title='Delete supertag' />
       </Row>
 
       {isOpen && (

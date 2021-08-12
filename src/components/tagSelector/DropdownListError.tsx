@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components'
+import { flexRowWithGap } from '../../styled/mixins'
 
 export const DropdownListError = styled.div(
   ({ theme }) => css`
-    display: flex;
+    ${flexRowWithGap}
     flex-wrap: wrap;
     min-height: ${theme.dimensions.blockHeight}; // COMPAT: Kiwi Browser
     background: ${theme.colors.backgroundColor2};

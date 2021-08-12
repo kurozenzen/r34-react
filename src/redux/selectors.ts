@@ -76,6 +76,11 @@ export const selectPostById = defaultMemoize((id: number) => {
     return posts.find((post) => post.id === id) as r34.Post
   })
 })
+export const selectPostByIndex = defaultMemoize((index: number) => {
+  return createSelector(selectPosts, (posts) => {
+    return posts[index]
+  })
+})
 
 export const selectAliasesByTagName = defaultMemoize((tagName: string) => {
   return createSelector(selectAliases, (aliases) => {

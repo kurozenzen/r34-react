@@ -8,7 +8,18 @@ import { PostVideo } from './StyledMedia'
 import { useAutoplay } from '../../../hooks/useAutoplay'
 
 export default function Video(props: MediaProps) {
-  const { viewSrc, fullSrc, onLoad = NO_OP, index, width, height, detailsVisible, isFullscreen } = props
+  const {
+    viewSrc,
+    fullSrc,
+    onLoad = NO_OP,
+    index,
+    width,
+    height,
+    detailsVisible,
+    isFullscreen,
+    isActive,
+    onFinished,
+  } = props
 
   const [overlayVisible, setOverlayVisible] = React.useState(true)
 
@@ -27,7 +38,7 @@ export default function Video(props: MediaProps) {
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null)
   const autoPlay = useAutoplay(videoRef)
 
-  const isPlaying = userPlay === undefined ? autoPlay : userPlay
+  const isPlaying = userPlay === null ? autoPlay : userPlay
 
   const preload = useSelector(selectPreloadVideos) ? 'auto' : 'metadata'
 
@@ -75,6 +86,8 @@ export default function Video(props: MediaProps) {
         isVisible={!isPlaying || detailsVisible || overlayVisible}
         setVisible={setOverlayVisible}
         isFullscreen={isFullscreen}
+        onFinished={onFinished}
+        isActive={isActive}
       />
     </>
   )

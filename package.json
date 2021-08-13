@@ -1,6 +1,6 @@
 {
   "name": "r34-browser",
-  "version": "2.7.6",
+  "version": "2.7.7",
   "homepage": "https://kurozenzen.github.io/r34-react",
   "private": true,
   "dependencies": {
@@ -8,6 +8,8 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.2",
     "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
+    "@sentry/react": "^6.11.0",
+    "@sentry/tracing": "^6.11.0",
     "firebase": "^8.8.0",
     "gh-pages": "^3.2.3",
     "immer": "^9.0.5",

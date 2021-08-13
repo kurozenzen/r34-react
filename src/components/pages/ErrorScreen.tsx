@@ -22,6 +22,7 @@ const FullScreenCentered = styled.div`
 
 export default function ErrorScreen() {
   const theme = themes[defaultThemeId]
+
   return (
     <FullScreenCentered theme={theme}>
       <GlobalStyles theme={theme} />

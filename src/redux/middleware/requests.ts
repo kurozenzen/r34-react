@@ -72,12 +72,14 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
 
     // Request types for newly added tag
     if (!isSupertag(action.tag) && action.tag.types.length === 0) {
-      const tags = (await api.getTags(action.tag.name, 1, false)) as r34.Tag[]
-      const tag = tags.find((tag) => tag.name === action.tag.name)
+      const data = await api.getTags(action.tag.name, 1, false)
+      if (!isSuggestionError(data)) {
+        const tag = data.find((tag) => tag.name === action.tag.name)
 
-      if (tag && !isSupertag(tag)) {
-        action.tag.types = tag.types
-        action.tag.count = tag.count
+        if (tag && !isSupertag(tag)) {
+          action.tag.types = tag.types
+          action.tag.count = tag.count
+        }
       }
     }
   }

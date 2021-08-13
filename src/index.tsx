@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom'
 import * as Sentry from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
 import App from './App'
+import { getVersionString } from './data/utils'
 
 Sentry.init({
   dsn: 'https://1a2933d829da41fe84d4dab5fcc520ae@o955708.ingest.sentry.io/5905045',
@@ -15,6 +16,7 @@ Sentry.init({
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
   tracesSampleRate: 1.0,
+  release: getVersionString(),
 })
 
 ReactDOM.render(<App />, document.getElementById('app-root'))

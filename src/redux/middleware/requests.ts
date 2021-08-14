@@ -1,4 +1,3 @@
-import * as r34 from 'r34-types'
 import { Dispatch } from 'react'
 import { MiddlewareAPI } from 'redux'
 import { isSuggestionError, isSupertag, serializeTagname } from '../../data/tagUtils'

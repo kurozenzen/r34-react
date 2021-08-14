@@ -91,21 +91,24 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
     [Header, prependedRows, items, ItemComponent, hasMoreRows, isLoading, LoadingItem, OutOfItems]
   )
 
-  const loadMoreRows = (params: IndexRange) => {
-    if (isLoading || !hasMoreRows) {
-      return Promise.reject(0)
-    }
+  const loadMoreRows = useCallback(
+    (params: IndexRange) => {
+      if (!isLoading && hasMoreRows) {
+        setLoading(true)
+        loadMore()
 
-    setLoading(true)
-    loadMore()
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            setLoading(false)
+            resolve(1)
+          }, 1000)
+        })
+      }
 
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        setLoading(false)
-        resolve(1)
-      }, 1000)
-    })
-  }
+      return Promise.resolve()
+    },
+    [hasMoreRows, isLoading, loadMore, setLoading]
+  )
 
   const handleResize = useCallback((size) => {
     cache.clearAll()

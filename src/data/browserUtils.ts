@@ -22,34 +22,41 @@ export const supportsGap = 'gap' in document.body.style
 export const supportsAspectRatio = 'aspect-ratio' in document.body.style
 export const supportsObjectFit = 'object-fit' in document.body.style
 export const supportsFullscreen = document.fullscreenEnabled
-
-export function openFullscreen(element: Element) {
-  if (element.requestFullscreen) {
-    element.requestFullscreen()
-    //@ts-expect-error
-  } else if (element.webkitRequestFullscreen) {
-    //@ts-expect-error
-    element.webkitRequestFullscreen()
-    //@ts-expect-error
-  } else if (element.msRequestFullscreen) {
-    //@ts-expect-error
-    element.msRequestFullscreen()
-  }
-}
-
-export function closeFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen()
-    //@ts-expect-error
-  } else if (document.webkitExitFullscreen) {
-    //@ts-expect-error
-    document.webkitExitFullscreen()
-    //@ts-expect-error
-  } else if (document.msExitFullscreen) {
-    //@ts-expect-error
-    document.msExitFullscreen()
-  }
-}
-
 export const supportsNetworkInformationAPI =
   'connection' in navigator || 'mozConnection' in navigator || 'webkitConnection' in navigator
+
+export async function openFullscreen(element: Element) {
+  if (document.fullscreenEnabled && document.fullscreenElement === null) {
+    try {
+      const result = element.requestFullscreen()
+
+      if ('then' in result) {
+        return await result
+      }
+
+      return Promise.resolve(result)
+    } catch (err) {
+      // this causes a warning in console. So nothing to do for me here.
+    }
+  }
+
+  return null
+}
+
+export async function closeFullscreen() {
+  if (document.fullscreenEnabled && document.fullscreenElement !== null) {
+    try {
+      const result = document.exitFullscreen()
+
+      if ('then' in result) {
+        return await result
+      }
+
+      return Promise.resolve(result)
+    } catch (err) {
+      // this causes a warning in console. So nothing to do for me here.
+    }
+  }
+
+  return null
+}

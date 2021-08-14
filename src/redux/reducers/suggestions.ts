@@ -3,15 +3,12 @@ import * as r34 from 'r34-types'
 import { SuggestionsError } from '../../data/types'
 import { AppAction, SET_SUGGESTIONS, SET_SUGGESTIONS_ERROR } from '../actions'
 
-/**
- * Key is postId, Value is time of like
- */
 export interface SuggestionsState {
   entries: r34.AnyTag[]
   error: SuggestionsError | null
 }
 
-const initialReaderState: SuggestionsState = {
+const initialSuggestionsState: SuggestionsState = {
   entries: [],
   error: null,
 }
@@ -28,7 +25,7 @@ const setError = (state: SuggestionsState, error: SuggestionsError) =>
     draft.error = error
   })
 
-const suggestions = (state: SuggestionsState = initialReaderState, action: AppAction): SuggestionsState => {
+const suggestions = (state: SuggestionsState = initialSuggestionsState, action: AppAction): SuggestionsState => {
   switch (action.type) {
     case SET_SUGGESTIONS:
       return setSuggestions(state, action.suggestions)

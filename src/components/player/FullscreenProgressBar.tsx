@@ -47,7 +47,6 @@ export default function FullscreenProgressBar(props: FullscreenProgressBarProps)
 
   React.useEffect(() => {
     if (!mouseState && isActive) {
-      console.log('triggered')
       let handle: number
       let then = new Date().getTime()
 
@@ -75,7 +74,6 @@ export default function FullscreenProgressBar(props: FullscreenProgressBarProps)
       handle = requestAnimationFrame(renderFrame)
 
       return () => {
-        console.log('removed interval')
         cancelAnimationFrame(handle)
       }
     }

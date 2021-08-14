@@ -2,8 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import styled, { css } from 'styled-components'
-import { closeFullscreen, openFullscreen } from '../../data/browserUtils'
-import useFullScreenCloseEffect from '../../hooks/useFullscreenCloseEffect'
+import { openFullscreen } from '../../data/browserUtils'
 import { setFullscreenPost } from '../../redux/actions'
 import { selectFullsceenIndex } from '../../redux/selectors'
 import Story from '../layout/stories/Story'
@@ -37,21 +36,31 @@ export default function Stories() {
 
   const [ref, setRef] = React.useState<HTMLElement | null>(null)
 
-  const setIndex = React.useCallback((index: number) => dispatch(setFullscreenPost(index)), [dispatch])
-
   const currentIdx = useSelector(selectFullsceenIndex)
   const nextIdx = currentIdx + 1
   const prevIdx = currentIdx - 1
 
   const indexes = [prevIdx, currentIdx, nextIdx]
 
+  const setIndex = React.useCallback((index: number) => dispatch(setFullscreenPost(index)), [dispatch])
+
   const scrollToNext = React.useCallback(() => {
     document.getElementById(`story-${nextIdx}`)?.scrollIntoView({ behavior: 'smooth' })
   }, [nextIdx])
 
-  useFullScreenCloseEffect(() => {
-    history.goBack()
-  })
+  React.useEffect(() => {
+    const handler = () => {
+      if (!document.fullscreenElement) {
+        history.goBack()
+      }
+    }
+
+    document.addEventListener('fullscreenchange', handler, { passive: true })
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handler)
+    }
+  }, [history])
 
   React.useEffect(() => {
     if (ref) {
@@ -66,7 +75,7 @@ export default function Stories() {
         if (index < 0) return null
         if (index < currentIdx) return <Story key={index} index={index} onInView={setIndex} />
         if (index > currentIdx) return <Story key={index} index={index} onInView={setIndex} />
-        return <Story key={index} index={index} onFinished={scrollToNext} />
+        return <Story key={index} index={index} onFinished={scrollToNext} active />
       })}
     </StoriesWrapper>
   )

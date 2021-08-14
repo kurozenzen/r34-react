@@ -23,5 +23,5 @@ export function useAutoplay(ref: Element | null) {
     }
   }, [isOnScreen])
 
-  return autoPlay && playing
+  return playing
 }

@@ -1,33 +1,33 @@
 import produce from 'immer'
 import { ENTER_FULLSCREEN, EXIT_FULLSCREEN, SET_FULLSCREEN_POST, AppAction } from '../actions'
 
-export interface ReaderState {
+export interface FullscreenState {
   isEnabled: boolean
   currentIndex: number
 }
 
-const initialReaderState: ReaderState = {
+const initialFullscreenState: FullscreenState = {
   isEnabled: false,
   currentIndex: 0,
 }
 
-const enterFullscreen = (state: ReaderState, index: number) =>
+const enterFullscreen = (state: FullscreenState, index: number) =>
   produce(state, (draft) => {
     draft.isEnabled = true
     draft.currentIndex = index
   })
 
-const exitFullscreen = (state: ReaderState) =>
+const exitFullscreen = (state: FullscreenState) =>
   produce(state, (draft) => {
     draft.isEnabled = false
   })
 
-const setIndex = (state: ReaderState, index: number) =>
+const setIndex = (state: FullscreenState, index: number) =>
   produce(state, (draft) => {
     draft.currentIndex = index
   })
 
-const reader = (state: ReaderState = initialReaderState, action: AppAction): ReaderState => {
+export const fullscreen = (state: FullscreenState = initialFullscreenState, action: AppAction): FullscreenState => {
   switch (action.type) {
     case ENTER_FULLSCREEN:
       return enterFullscreen(state, action.postId)
@@ -39,5 +39,3 @@ const reader = (state: ReaderState = initialReaderState, action: AppAction): Rea
       return state
   }
 }
-
-export default reader

@@ -112,6 +112,9 @@ export function useSupertags() {
 
           setSupertags(result)
         })
+        .catch((err) => {
+          console.error('Error with useSupertags', err)
+        })
     }
   }, [userInfo?.email])
 

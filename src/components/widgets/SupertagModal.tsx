@@ -44,7 +44,7 @@ export default function SupertagModal() {
         activateTag({ name, description, tags })
         close()
       })
-      .catch(() => console.log('Failed to create supertag'))
+      .catch((err) => console.error('Failed to create supertag', err))
   }, [activateTag, close, description, dispatch, name, tags])
 
   return (

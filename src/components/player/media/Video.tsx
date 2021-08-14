@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { NO_OP } from '../../../data/types'
-import { selectPreloadVideos } from '../../../redux/selectors'
+import { selectAutoPlay, selectPreloadVideos } from '../../../redux/selectors'
 import MediaProps from './MediaProps'
 import { Overlay } from '../Overlay'
 import { PostVideo } from './StyledMedia'
@@ -21,36 +21,37 @@ export default function Video(props: MediaProps) {
     onFinished,
   } = props
 
+  const [playState, setPlayState] = useState(false)
+
   const [overlayVisible, setOverlayVisible] = React.useState(true)
-
-  // user play
-  const [userPlay, setUserPlay] = useState<boolean | null>(null)
-  const togglePlay: React.MouseEventHandler = React.useCallback(
-    (e) => {
-      e.stopPropagation()
-      setUserPlay(!userPlay)
-      setOverlayVisible(false)
-    },
-    [userPlay]
-  )
-
-  // auto play
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null)
+
   const autoPlay = useAutoplay(videoRef)
 
-  const isPlaying = userPlay === null ? autoPlay : userPlay
-
   const preload = useSelector(selectPreloadVideos) ? 'auto' : 'metadata'
+  const prefAutoplay = useSelector(selectAutoPlay)
 
-  React.useEffect(() => {
-    if (isPlaying && videoRef?.paused) {
-      videoRef?.play()
+  const play = React.useCallback(async () => {
+    if (videoRef?.paused) {
+      try {
+        await videoRef.play()
+        setPlayState(true)
+      } catch (err) {
+        console.error('Failed to start video:', err)
+      }
     }
+  }, [videoRef])
 
-    if (!isPlaying && !videoRef?.paused) {
-      videoRef?.pause()
+  const pause = React.useCallback(() => {
+    if (!videoRef?.paused) {
+      try {
+        videoRef?.pause()
+        setPlayState(false)
+      } catch (err) {
+        console.error('Failed to start video:', err)
+      }
     }
-  }, [viewSrc, isPlaying, videoRef])
+  }, [videoRef])
 
   const handleSeek = React.useCallback(
     (value: number) => {
@@ -60,6 +61,34 @@ export default function Video(props: MediaProps) {
     },
     [videoRef]
   )
+
+  // user play
+  const togglePlay: React.MouseEventHandler = React.useCallback(
+    (e) => {
+      e.stopPropagation()
+      if (videoRef) {
+        if (videoRef.paused) {
+          play()
+          setOverlayVisible(false)
+        } else {
+          pause()
+        }
+      }
+    },
+    [pause, play, videoRef]
+  )
+
+  React.useEffect(() => {
+    if (prefAutoplay) {
+      if (autoPlay) {
+        play()
+      }
+    }
+
+    if (!autoPlay) {
+      pause()
+    }
+  }, [autoPlay, pause, play, prefAutoplay])
 
   return (
     <>
@@ -78,12 +107,12 @@ export default function Video(props: MediaProps) {
         type='video'
         index={index}
         fullSrc={fullSrc}
-        isPaused={!isPlaying}
+        isPaused={!playState}
         duration={videoRef?.duration || 0}
         onTogglePaused={togglePlay}
         onSeek={handleSeek}
         videoRef={videoRef}
-        isVisible={!isPlaying || detailsVisible || overlayVisible}
+        isVisible={!playState || detailsVisible || overlayVisible}
         setVisible={setOverlayVisible}
         isFullscreen={isFullscreen}
         onFinished={onFinished}

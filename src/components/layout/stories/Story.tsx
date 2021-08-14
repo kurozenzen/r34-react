@@ -18,16 +18,24 @@ interface StoryProps {
   index: number
   onInView?: (index: number) => void
   onFinished?: () => void
+  active?: boolean
 }
 
 export default function Story(props: StoryProps) {
-  const { index, onInView, onFinished } = props
+  const { index, onInView, onFinished, active = false } = props
   const [ref, setRef] = React.useState<HTMLElement | null>(null)
   const [isInView] = useIsOnScreen(ref)
   const { type, preview_url, sample_url, file_url, width, height } = useSelector(selectPostByIndex(index))
 
   React.useEffect(() => {
+    if (active && ref) {
+      ref.scrollIntoView()
+    }
+  }, [active, ref])
+
+  React.useEffect(() => {
     if (onInView && isInView) {
+      console.log('Index ', index, 'is in view')
       onInView(index)
     }
   }, [index, isInView, onInView])

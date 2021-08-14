@@ -126,6 +126,7 @@ export const Post = React.memo((props: PostProps) => {
         index={index}
         width={width}
         height={height}
+        isActive={true}
       />
       {!collapsed && (
         <Details

@@ -4,7 +4,7 @@ import MediaProps from './MediaProps'
 import { Overlay } from '../Overlay'
 import { PostImage } from './StyledMedia'
 import { useSelector } from 'react-redux'
-import { selectPreloadGifs } from '../../../redux/selectors'
+import { selectAutoPlay, selectPreloadGifs } from '../../../redux/selectors'
 import { useAutoplay } from '../../../hooks/useAutoplay'
 
 export default function Gif(props: MediaProps) {
@@ -25,26 +25,49 @@ export default function Gif(props: MediaProps) {
   const [overlayVisible, setOverlayVisible] = React.useState(true)
 
   // user play
-  const [userPlay, setUserPlay] = useState<boolean | null>(null)
-  const togglePlay: React.MouseEventHandler = React.useCallback(
-    (e) => {
-      e.stopPropagation()
-      setUserPlay(!userPlay)
-      setOverlayVisible(false)
-    },
-    [userPlay]
-  )
+  const [playState, setPlayState] = useState(false)
 
   // auto play
   const [gifRef, setGifRef] = useState<HTMLImageElement | null>(null)
+  const prefAutoplay = useSelector(selectAutoPlay)
   const autoPlay = useAutoplay(gifRef)
-
-  const isPlaying = userPlay === null ? autoPlay : userPlay
-
   // Preloading
   const preload = useSelector(selectPreloadGifs)
 
-  const usedSource = isPlaying ? viewSrc : thumbnailSrc
+  const usedSource = playState ? viewSrc : thumbnailSrc
+
+  const play = React.useCallback(async () => {
+    setPlayState(true)
+  }, [])
+
+  const pause = React.useCallback(() => {
+    setPlayState(false)
+  }, [])
+
+  const togglePlay: React.MouseEventHandler = React.useCallback(
+    (e) => {
+      e.stopPropagation()
+      if (playState) {
+        setPlayState(false)
+      } else {
+        setPlayState(true)
+        setOverlayVisible(false)
+      }
+    },
+    [playState]
+  )
+
+  React.useEffect(() => {
+    if (prefAutoplay) {
+      if (autoPlay) {
+        setPlayState(true)
+      }
+    }
+
+    if (!autoPlay) {
+      setPlayState(false)
+    }
+  }, [autoPlay, pause, play, prefAutoplay])
 
   useEffect(() => {
     if (preload) {
@@ -67,12 +90,12 @@ export default function Gif(props: MediaProps) {
       />
 
       <Overlay
-        isVisible={!isPlaying || overlayVisible || detailsVisible}
+        isVisible={!playState || overlayVisible || detailsVisible}
         setVisible={setOverlayVisible}
         type='gif'
         fullSrc={fullSrc}
         index={index}
-        isPaused={!isPlaying}
+        isPaused={!playState}
         onTogglePaused={togglePlay}
         isFullscreen={isFullscreen}
         onFinished={onFinished}

@@ -11,8 +11,8 @@ export const selectAliases = (state: AppState) => state.tags.aliases
 export const selectAutoPlay = (state: AppState) => state.preferences.autoPlay
 export const selectCookies = (state: AppState) => state.preferences.cookies
 export const selectCount = (state: AppState) => state.results.count
-export const selectFullsceenIndex = (state: AppState) => state.reader.currentIndex
-export const selectFullsceenState = (state: AppState) => state.reader.isEnabled
+export const selectFullsceenIndex = (state: AppState) => state.fullscreen.currentIndex
+export const selectFullsceenState = (state: AppState) => state.fullscreen.isEnabled
 export const selectHideSeen = (state: AppState) => state.preferences.hideSeen
 export const selectOpenModalId = (state: AppState) => state.modals.openModal
 export const selectOriginals = (state: AppState) => state.preferences.originals

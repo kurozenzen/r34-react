@@ -91,7 +91,7 @@ class API {
           tags = [...matchingSupertags, ...tags]
         }
       } catch {
-        // do nothing as supertags are optional
+        // do nothing as supertags are only for registered users.
       }
     }
 

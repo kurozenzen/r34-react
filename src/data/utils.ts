@@ -17,6 +17,7 @@ export function parseUrl(value: string) {
   try {
     return new URL(value)
   } catch (err) {
+    // This is expected. If this method cannot parse the url it will return undefined.
     return undefined
   }
 }
@@ -49,7 +50,7 @@ export function download(url: string) {
       a.click()
       a.remove()
     })
-    .catch((e) => console.error(e))
+    .catch((e) => console.error('Download error:', e))
 }
 
 /**

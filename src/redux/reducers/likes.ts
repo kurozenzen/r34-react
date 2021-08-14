@@ -6,7 +6,7 @@ import { AppAction, LIKE_POST } from '../actions'
  */
 export type LikesState = Record<number, number>
 
-const initialReaderState: LikesState = {}
+const initialLikesState: LikesState = {}
 
 const likePost = (state: LikesState, postId: number) =>
   produce(state, (draft) => {
@@ -18,7 +18,7 @@ const likePost = (state: LikesState, postId: number) =>
     // Like 1000 likes max, delete oldest when more are added?
   })
 
-const likes = (state: LikesState = initialReaderState, action: AppAction): LikesState => {
+const likes = (state: LikesState = initialLikesState, action: AppAction): LikesState => {
   switch (action.type) {
     case LIKE_POST:
       return likePost(state, action.postId)

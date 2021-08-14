@@ -1,6 +1,5 @@
 import React, { MouseEventHandler } from 'react'
 import styled from 'styled-components'
-import { NO_OP } from '../data/types'
 
 interface PlayPauseIconProps {
   className?: string
@@ -40,7 +39,7 @@ const MorphSvg = styled.svg`
  * Additionally, this component takes a classname
  */
 export function PlayPauseIcon(props: PlayPauseIconProps) {
-  const { onClick = NO_OP, className = '', isPaused } = props
+  const { onClick, className = '', isPaused } = props
 
   return (
     <MorphSvg

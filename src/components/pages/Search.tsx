@@ -9,11 +9,11 @@ import {
   selectPageSize,
   selectPosts,
   selectResultsLayout,
+  selectUpdated,
 } from '../../redux/selectors'
 import LayoutHeader from '../layout/LayoutHeader'
 import LayoutOutOfItems from '../layout/LayoutOutOfItems'
 import LayoutLoadingItem from '../layout/LayoutLoadingItem'
-import useAction from '../../hooks/useAction'
 import PageLayout from '../layout/pages/PageLayout'
 import { useScrollUpBackNavigation } from '../../hooks/useScrollUpBackNavigation'
 import { usePageTitle } from '../../hooks/usePageTitle'
@@ -22,17 +22,36 @@ export default function Search() {
   const [isLoading, setLoading] = useState(false)
 
   const dispatch = useDispatch()
+  const [lastUpdated, setLastUpdated] = useState(-1)
 
+  const updated = useSelector(selectUpdated)
   const posts = useSelector(selectPosts)
   const hasMorePosts = useSelector(selectHasMoreResults)
   const resultsLayout = useSelector(selectResultsLayout)
   const pageSize = useSelector(selectPageSize)
   const pageNumber = useSelector(selectPageNumber)
 
-  const loadMore = useAction(getMoreResults)
-  const loadPage = useCallback((index: number) => dispatch(getResults(index)), [dispatch])
+  const loadMore = useCallback(() => {
+    setLoading(true)
+    dispatch(getMoreResults())
+  }, [dispatch])
 
-  useScrollUpBackNavigation('results')
+  const loadPage = useCallback(
+    (index: number) => {
+      setLoading(true)
+      dispatch(getResults(index))
+    },
+    [dispatch]
+  )
+
+  React.useEffect(() => {
+    if (isLoading && updated > lastUpdated) {
+      setLoading(false)
+      setLastUpdated(new Date().getTime())
+    }
+  }, [isLoading, lastUpdated, updated])
+
+  useScrollUpBackNavigation('#results')
 
   usePageTitle('R34 React')
 
@@ -48,7 +67,6 @@ export default function Search() {
           ItemComponent={ListPost}
           loadMore={loadMore}
           isLoading={isLoading}
-          setLoading={setLoading}
         />
       ) : (
         <PageLayout
@@ -59,7 +77,6 @@ export default function Search() {
           loadPage={loadPage}
           ItemComponent={ListPost}
           isLoading={isLoading}
-          setLoading={setLoading}
           items={posts}
         />
       )}

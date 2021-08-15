@@ -20,7 +20,6 @@ interface PageLayoutProps<T> {
   loadPage: (pageNumber: number) => void
   ItemComponent: (props: T & { index: number }) => JSX.Element
   isLoading: boolean
-  setLoading: (value: boolean) => void
 }
 
 export default function PageLayout(props: PageLayoutProps<Post>) {

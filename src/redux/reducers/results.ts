@@ -6,18 +6,21 @@ export interface ResultsState {
   posts: Post[]
   pageNumber: number
   count: number
+  updated: number
 }
 
 const initialResultsState: ResultsState = {
   posts: [],
   pageNumber: 0,
   count: 0,
+  updated: 0,
 }
 
 const addPosts = (state: ResultsState, posts: Post[]) =>
   produce(state, (draft) => {
     draft.posts = [...state.posts, ...posts]
     draft.pageNumber = state.pageNumber + 1
+    draft.updated = new Date().getTime()
   })
 
 const setPosts = (state: ResultsState, posts: Post[], postCount: number, pageNumber: number = 0) =>
@@ -25,6 +28,7 @@ const setPosts = (state: ResultsState, posts: Post[], postCount: number, pageNum
     draft.posts = posts
     draft.count = postCount
     draft.pageNumber = pageNumber
+    draft.updated = new Date().getTime()
   })
 
 const setComments = (state: ResultsState, postId: number, comments: Comment[]) =>

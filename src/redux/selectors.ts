@@ -32,6 +32,7 @@ export const selectSort = (state: AppState) => state.preferences.sort
 export const selectSuggestions = (state: AppState) => state.suggestions.entries
 export const selectSuggestionsError = (state: AppState) => state.suggestions.error
 export const selectTagSuggestionCount = (state: AppState) => state.preferences.tagSuggestionsCount
+export const selectUpdated = (state: AppState) => state.results.updated
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)

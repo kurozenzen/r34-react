@@ -23,21 +23,10 @@ interface InfiniteColumnProps<T> {
   loadMore: () => void
   ItemComponent: (props: T & LayoutElementProps & { index: number }) => JSX.Element
   isLoading: boolean
-  setLoading: (value: boolean) => void
 }
 
 export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
-  const {
-    Header,
-    items = [],
-    LoadingItem,
-    hasMoreRows,
-    ItemComponent,
-    loadMore,
-    OutOfItems,
-    isLoading,
-    setLoading,
-  } = props
+  const { Header, items = [], LoadingItem, hasMoreRows, ItemComponent, loadMore, OutOfItems, isLoading } = props
 
   const prependedRows = Header ? 1 : 0
   const loadingRows = 1
@@ -94,20 +83,12 @@ export default function InifinteColumn<T>(props: InfiniteColumnProps<T>) {
   const loadMoreRows = useCallback(
     (params: IndexRange) => {
       if (!isLoading && hasMoreRows) {
-        setLoading(true)
         loadMore()
-
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            setLoading(false)
-            resolve(1)
-          }, 1000)
-        })
       }
 
       return Promise.resolve()
     },
-    [hasMoreRows, isLoading, loadMore, setLoading]
+    [hasMoreRows, isLoading, loadMore]
   )
 
   const handleResize = useCallback((size) => {

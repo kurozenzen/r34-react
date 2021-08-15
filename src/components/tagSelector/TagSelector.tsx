@@ -68,8 +68,7 @@ export default function TagSelector(props: TagSelectorProps) {
         if (suggestions.length > 0) {
           dispatch(setSuggestions([]))
         }
-      }
-      if (value.length >= 3) {
+      } else {
         dispatch(fetchSuggestions(value, showSupertags))
       }
     },
@@ -82,7 +81,11 @@ export default function TagSelector(props: TagSelectorProps) {
       const sanitizedTagname = serializeTagname(value)
       const suggestion: AnyTag | undefined = suggestions.find((s) => s.name === sanitizedTagname)
 
-      if (suggestion) activateTag(suggestion)
+      if (suggestion) {
+        activateTag(suggestion)
+      } else {
+        activateTag({ name: sanitizedTagname, types: [] })
+      }
     }
   }, [value, activateTag, suggestions])
 

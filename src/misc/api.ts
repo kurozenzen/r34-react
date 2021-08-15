@@ -5,6 +5,9 @@ import * as r34 from 'r34-types'
 import { getTagParameter, isSuggestionError } from '../data/tagUtils'
 import { SuggestionsError } from '../data/types'
 
+type Version = 'v1' | 'v2'
+type Target = 'local' | 'live'
+
 const sourceTags: r34.Tag[] = [
   { name: 'source:*patreon*', count: 12711, types: ['source'] },
   { name: 'source:*twitter*', count: 99927, types: ['source'] },
@@ -23,8 +26,8 @@ class API {
   readonly apiUrl1 = 'https://r34-json.herokuapp.com'
   readonly apiUrl2 = 'https://r34-api-clone.herokuapp.com'
 
-  private target: 'local' | 'live' = 'live'
-  private version: 'v1' | 'v2' = 'v2'
+  private target: Target = 'live'
+  private version: Version = 'v2'
   private activeApi!: string
 
   constructor() {
@@ -49,16 +52,12 @@ class API {
 
   /**
    * Updates the base url with new configuration.
-   * In case "live" api fails it will fallback to the backup.
    */
   setActiveApi() {
     if (this.target === 'local') {
       this.activeApi = `${this.apiLocal}/${this.version}`
     } else {
       this.activeApi = `${this.apiUrl1}/${this.version}`
-
-      // Failover to apiUrl2
-      fetch(this.activeApi).catch(() => (this.activeApi = `${this.apiUrl2}/${this.version}`))
     }
   }
 
@@ -70,7 +69,8 @@ class API {
   }
 
   async getTags(searchTerm: string, limit: number = this.defaultPageSize, includeSupertags = false) {
-    const result = await this.fetchTags(`*${searchTerm}*`, limit)
+    const doFuzzySearch = searchTerm.length > 3
+    const result = await this.fetchTags(doFuzzySearch ? `*${searchTerm}*` : searchTerm, limit)
 
     if (isSuggestionError(result)) {
       return result

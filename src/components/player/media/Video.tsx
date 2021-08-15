@@ -39,6 +39,11 @@ export default function Video(props: MediaProps) {
       } catch (err) {
         if ((err as DOMException).message.includes("user didn't interact with the document first")) {
           console.warn('Autoplay failed because the user did not interact with the page first:', err)
+        } else if ((err as DOMException).message.includes('play() request was interrupted by a call to pause()')) {
+          // This happens when you scrollfast with autoplay enabled.
+          // The videos attempt to play but before they actually start you already scroll on
+          // and they get paused as they move offscreen.
+          console.warn('Play was interrupted by pause', err)
         } else {
           console.error('Failed to start video:', err)
         }

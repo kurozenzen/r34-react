@@ -38,6 +38,7 @@ export default function Video(props: MediaProps) {
         setPlayState(true)
       } catch (err) {
         if ((err as DOMException).message.includes("user didn't interact with the document first")) {
+          // Modern browsers prevent playing of videos before the use has interacted with the page in some form
           console.warn('Autoplay failed because the user did not interact with the page first:', err)
         } else if ((err as DOMException).message.includes('play() request was interrupted by a call to pause()')) {
           // This happens when you scrollfast with autoplay enabled.

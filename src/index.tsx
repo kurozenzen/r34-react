@@ -13,6 +13,16 @@ Sentry.init({
   integrations: [new Integrations.BrowserTracing()],
   tracesSampleRate: 1.0,
   release: getVersionString(),
+  beforeBreadcrumb(breadcrumb, hint) {
+    try {
+      if (breadcrumb?.category?.startsWith('ui')) {
+        breadcrumb.message = `${hint?.event?.target.tagName.toLowerCase()}: ${hint?.event.target.innerText}`
+      }
+    } catch (err) {
+      // fancy breadcrumbs are optional
+    }
+    return breadcrumb
+  },
 })
 
 ReactDOM.render(<App />, document.getElementById('app-root'))

@@ -37,7 +37,11 @@ export default function Video(props: MediaProps) {
         await videoRef.play()
         setPlayState(true)
       } catch (err) {
-        console.error('Failed to start video:', err)
+        if ((err as DOMException).message.includes("user didn't interact with the document first")) {
+          console.warn('Autoplay failed because the user did not interact with the page first:', err)
+        } else {
+          console.error('Failed to start video:', err)
+        }
       }
     }
   }, [videoRef])

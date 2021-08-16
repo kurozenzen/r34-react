@@ -33,6 +33,7 @@ export const selectSuggestions = (state: AppState) => state.suggestions.entries
 export const selectSuggestionsError = (state: AppState) => state.suggestions.error
 export const selectTagSuggestionCount = (state: AppState) => state.preferences.tagSuggestionsCount
 export const selectUpdated = (state: AppState) => state.results.updated
+export const selectAutoscrollDelay = (state: AppState) => state.preferences.autoscrollDelay
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)

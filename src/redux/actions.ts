@@ -1,5 +1,6 @@
 import { ModalId, SuggestionsError } from '../data/types'
 import * as r34 from 'r34-types'
+import { PreferencesState } from './reducers/preferences'
 
 // Action Names
 export const ADD_ALIASES = `r34-react/ADD_ALIASES`
@@ -73,7 +74,7 @@ interface SetPreferenceAction {
 
 interface SetPreferencesAction {
   type: typeof SET_PREFERENCES
-  preferences: Partial<Record<r34.PreferenceKey, any>>
+  preferences: Partial<PreferencesState>
 }
 
 interface GetResultsAction {
@@ -223,7 +224,7 @@ export function setPreference(key: r34.PreferenceKey, value: any): SetPreference
   }
 }
 
-export function setPreferences(preferences: Partial<Record<r34.PreferenceKey, any>>): SetPreferencesAction {
+export function setPreferences(preferences: Partial<PreferencesState>): SetPreferencesAction {
   return {
     type: SET_PREFERENCES,
     preferences,

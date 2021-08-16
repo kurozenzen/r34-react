@@ -31,8 +31,8 @@ const dark: DefaultTheme = {
     negative: '#dd1010',
   },
   shadow: {
-    radius: '4px',
-    color: 'transparent',
+    radius: '6px',
+    color: '#00000080',
   },
   timings: {
     transitionTime: '0.2s',

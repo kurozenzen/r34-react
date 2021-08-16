@@ -3,7 +3,7 @@ import { Link, LinkProps, useLocation } from 'react-router-dom'
 import styled, { css, ThemeProps } from 'styled-components'
 import { RouteName } from '../../data/types'
 import R34Icon from '../../icons/R34Icon'
-import { boxShadow, flexColumn, flexColumnGap, flexRowGap, flexRowWithGap } from '../../styled/mixins'
+import { flexColumn, flexColumnGap, flexRowGap, flexRowWithGap } from '../../styled/mixins'
 import { VerticalLine } from '../designsystem/Lines'
 import { BigTitle } from '../designsystem/Text'
 
@@ -20,7 +20,6 @@ const TitleBar = styled.div(
     justify-content: center;
     background: ${theme.colors.layerBgSolid};
     padding: ${theme.dimensions.gutter} 0;
-    ${boxShadow({ theme })}
   `
 )
 

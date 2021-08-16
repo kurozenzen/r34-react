@@ -12,6 +12,7 @@ import { Faded, Title } from '../designsystem/Text'
 import Header from '../features/Header'
 import PrefAccount from '../preferences/PrefAccount'
 import PrefAutoPlay from '../preferences/PrefAutoPlay'
+import PrefAutoscrollDelay from '../preferences/PrefAutoscrollDelay'
 
 import PrefHideSeenPosts from '../preferences/PrefHideSeenPosts'
 import PrefLoadOriginals from '../preferences/PrefLoadOriginals'
@@ -87,6 +88,7 @@ export default function Settings() {
           </Faded>
           <HorizontalLine />
           <PrefAutoPlay />
+          <PrefAutoscrollDelay />
         </SettingsSurface>
 
         <Title>Developer</Title>

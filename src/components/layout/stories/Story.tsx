@@ -6,12 +6,20 @@ import useIsOnScreen from '../../../hooks/useIsOnScreen'
 import { selectPostByIndex } from '../../../redux/selectors'
 import { Media } from '../../player/Media'
 const Screen = styled.div`
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
+  max-height: 100vh;
+  max-width: 100vw;
   scroll-snap-align: start;
   scroll-snap-stop: always;
 
   display: grid;
+
+  img,
+  video {
+    max-height: 100vh;
+    max-width: 100vh;
+  }
 `
 
 interface StoryProps {

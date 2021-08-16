@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom'
 export function useScrollUpBackNavigation(hash: string) {
   const history = useHistory()
   React.useEffect(() => {
-    if (history.location.hash !== 'results') {
+    if (history.location.hash !== hash) {
       const listener = () => {
         history.push({ pathname: history.location.pathname, hash })
       }

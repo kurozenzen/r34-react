@@ -1,22 +1,38 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { download } from '../../data/utils'
 import { DownloadIcon, ExternalLinkIcon } from '../../icons/FontAwesomeIcons'
-import { gutter, dropShadow } from '../../styled/mixins'
+import { dropShadow, flexRowWithGap } from '../../styled/mixins'
+import { InvisButton } from '../designsystem/Buttons'
 
-const Wrapper = styled.div`
-  grid-area: 3/1/4/2;
-  place-self: end stretch;
-  display: flex;
-  place-items: start center;
-  ${gutter}
+const Wrapper = styled.div(
+  ({ theme }) => css`
+    grid-area: 3/1/4/2;
+    ${flexRowWithGap}
+    place-self: end start;
+    place-items: start center;
+  `
+)
 
-  > svg {
-    ${dropShadow}
-  }
-`
+const LinkButton = styled.a(
+  ({ theme }) => css`
+    padding: ${theme.dimensions.gutter};
+    cursor: pointer;
+    ${dropShadow({ theme })}
 
-const DownloadButton = styled(DownloadIcon)`
+    svg {
+      transition: all ${theme.timings.transitionTime} ease-out;
+    }
+
+    :active {
+      svg {
+        transform: scale(1.1);
+      }
+    }
+  `
+)
+
+const DownloadButton = styled(InvisButton)`
   cursor: pointer;
 `
 
@@ -37,11 +53,13 @@ export default function LinkList(props: LinkListProps) {
 
   return (
     <Wrapper>
-      <a href={fullSrc} target='_blank' rel='noopener noreferrer' aria-label='Open In New Tab' title={fullSrc}>
+      <LinkButton href={fullSrc} target='_blank' rel='noopener noreferrer' aria-label='Open In New Tab' title={fullSrc}>
         <ExternalLinkIcon color='white' title='Open image in new tab' />
-      </a>
+      </LinkButton>
 
-      <DownloadButton color='white' aria-label='Download Image' onClick={handleDownload} title={fullSrc} />
+      <DownloadButton aria-label='Download Image' onClick={handleDownload} title={fullSrc}>
+        <DownloadIcon color='white' />
+      </DownloadButton>
     </Wrapper>
   )
 }

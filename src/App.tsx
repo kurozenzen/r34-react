@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 import { Provider, useSelector } from 'react-redux'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components'
 import ErrorBoundary from './components/features/ErrorBoundary'
@@ -52,7 +52,7 @@ function ThemedApp() {
   return (
     <ThemeProvider theme={themes[themeId] || defaultThemeId}>
       <GlobalStyles />
-      <HashRouter>
+      <BrowserRouter basename='/r34-react'>
         <Suspense fallback={<LoadingScreen />}>
           <Switch>
             <Route exact path={RouteName.ABOUT} component={About} />
@@ -67,7 +67,7 @@ function ThemedApp() {
         {isSupertagModalOpen && <SupertagModal />}
         {isCellularWarningModalOpen && <CellularWarningModal />}
         {!cookies && <CookieConfirmation />}
-      </HashRouter>
+      </BrowserRouter>
     </ThemeProvider>
   )
 }

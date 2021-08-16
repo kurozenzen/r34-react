@@ -1,10 +1,9 @@
-import React, { useCallback, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { NO_OP } from '../../data/types'
 import { setFullscreenPost } from '../../redux/actions'
+import { selectAutoscrollDelay } from '../../redux/selectors'
 import { Slider } from '../designsystem/Slider'
-
-const duration = 5000
 
 interface FullscreenProgressBarProps {
   className?: string
@@ -17,9 +16,11 @@ interface FullscreenProgressBarProps {
 export default function FullscreenProgressBar(props: FullscreenProgressBarProps) {
   const { onFinished = NO_OP, isActive } = props
 
-  const [mouseState, setMouseState] = useState(false)
   const dispatch = useDispatch()
-  const setPost = useCallback((newIndex) => dispatch(setFullscreenPost(newIndex)), [dispatch])
+  const [mouseState, setMouseState] = React.useState(false)
+  const setPost = React.useCallback((newIndex) => dispatch(setFullscreenPost(newIndex)), [dispatch])
+  const duration = 1000 * useSelector(selectAutoscrollDelay)
+  const ref = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
     const listener = () => setMouseState(true)
@@ -42,8 +43,6 @@ export default function FullscreenProgressBar(props: FullscreenProgressBarProps)
       document.removeEventListener('touchend', listener)
     }
   })
-
-  const ref = React.useRef<HTMLInputElement>(null)
 
   React.useEffect(() => {
     if (!mouseState && isActive) {
@@ -77,7 +76,7 @@ export default function FullscreenProgressBar(props: FullscreenProgressBarProps)
         cancelAnimationFrame(handle)
       }
     }
-  }, [isActive, mouseState, onFinished, props.index, setPost])
+  }, [duration, isActive, mouseState, onFinished, props.index, setPost])
 
   return (
     <Slider

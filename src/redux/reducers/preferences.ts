@@ -17,6 +17,7 @@ export interface PreferencesState {
   themeId: r34.Theme
   autoPlay: boolean
   hideSeen: boolean
+  autoscrollDelay: number
 }
 
 const initialPreferencesState: PreferencesState = {
@@ -34,6 +35,7 @@ const initialPreferencesState: PreferencesState = {
   themeId: 'dark',
   autoPlay: false,
   hideSeen: false,
+  autoscrollDelay: 10,
 }
 
 function setPreference<T extends r34.PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {

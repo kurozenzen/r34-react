@@ -16,7 +16,17 @@ Sentry.init({
   beforeBreadcrumb(breadcrumb, hint) {
     try {
       if (breadcrumb?.category?.startsWith('ui')) {
-        breadcrumb.message = `${hint?.event?.target.tagName.toLowerCase()}: ${hint?.event.target.innerText}`
+        const target = hint?.event.target as HTMLElement
+        const tag = target.tagName.toLowerCase()
+        if (target.innerText) {
+          breadcrumb.message = `${tag}: ${target.innerText}`
+        } else if (target.id) {
+          breadcrumb.message = `${tag}: ${target.id}`
+        } else if (target.getAttribute('name')) {
+          breadcrumb.message = `${tag}: ${target.getAttribute('name')}`
+        } else if (target.title) {
+          breadcrumb.message = `${tag}: ${target.title}`
+        }
       }
     } catch (err) {
       // fancy breadcrumbs are optional

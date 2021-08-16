@@ -1,6 +1,7 @@
-import React, { MouseEventHandler } from 'react'
+import React from 'react'
+import * as r34 from 'r34-types'
 import styled, { css } from 'styled-components'
-import { TagType } from 'r34-types'
+import { CountUnit } from '../../data/types'
 import TypeIcon from '../../icons/TypeIcon'
 import { formatCount, formatTagname } from '../../misc/formatting'
 
@@ -32,19 +33,17 @@ const Icon = styled.div`
   text-align: center;
 `
 
-type Unit = 'tags' | 'posts'
-
 interface EntryProps {
   name: string
   count: number
-  type?: TagType
-  onClick: MouseEventHandler
+  type?: r34.TagType
+  onClick: React.MouseEventHandler
 }
 
 export default function DropdownListEntry(props: EntryProps) {
   const { name, count, type, onClick } = props
 
-  const unit: Unit = type === 'supertag' ? 'tags' : 'posts'
+  const unit: CountUnit = type === 'supertag' ? 'tags' : 'posts'
 
   return (
     <EntryWrapper onClick={onClick}>

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import { AnyTag } from '../../../r34-types'
+import { AnyTag } from 'r34-types'
 import { TagIsActive } from '../data/types'
 import { selectActiveSupertagTags, selectActiveTags } from '../redux/selectors'
 

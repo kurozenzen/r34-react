@@ -70,39 +70,44 @@ class API {
 
   async getTags(searchTerm: string, limit: number = this.defaultPageSize, includeSupertags = false) {
     const doFuzzySearch = searchTerm.length > 3
-    const result = await this.fetchTags(doFuzzySearch ? `*${searchTerm}*` : searchTerm, limit)
+    try {
+      const result = await this.fetchTags(doFuzzySearch ? `*${searchTerm}*` : searchTerm, limit)
 
-    if (isSuggestionError(result)) {
-      return result
-    }
-
-    let tags = result as r34.AnyTag[]
-
-    if (includeSupertags) {
-      try {
-        const supertags = await getSupertags()
-        if (supertags) {
-          const matchingSupertags = Object.entries(supertags)
-            .filter(([name, details]) => name.toLowerCase().includes(searchTerm.toLowerCase()))
-            .map(([name, details]) => ({
-              name,
-              ...details,
-            }))
-          tags = [...matchingSupertags, ...tags]
-        }
-      } catch {
-        // do nothing as supertags are only for registered users.
+      if (isSuggestionError(result)) {
+        return result
       }
+
+      let tags = result as r34.AnyTag[]
+
+      if (includeSupertags) {
+        try {
+          const supertags = await getSupertags()
+          if (supertags) {
+            const matchingSupertags = Object.entries(supertags)
+              .filter(([name, details]) => name.toLowerCase().includes(searchTerm.toLowerCase()))
+              .map(([name, details]) => ({
+                name,
+                ...details,
+              }))
+            tags = [...matchingSupertags, ...tags]
+          }
+        } catch {
+          // do nothing as supertags are only for registered users.
+        }
+      }
+
+      // HACKY: Inject suggestions for ratings and some sources
+      const matchingRating = ratingTags.filter((tag) => tag.name.includes(searchTerm.replace('rating:', '')))
+      tags = [...matchingRating, ...tags]
+
+      const matchingSourceTags = sourceTags.filter((tag) => tag.name.includes(searchTerm.replace('source:', '')))
+      tags = [...matchingSourceTags, ...tags]
+
+      return tags
+    } catch (err) {
+      console.warn('Failed to get tags:', err)
+      return []
     }
-
-    // HACKY: Inject suggestions for ratings and some sources
-    const matchingRating = ratingTags.filter((tag) => tag.name.includes(searchTerm.replace('rating:', '')))
-    tags = [...matchingRating, ...tags]
-
-    const matchingSourceTags = sourceTags.filter((tag) => tag.name.includes(searchTerm.replace('source:', '')))
-    tags = [...matchingSourceTags, ...tags]
-
-    return tags
   }
 
   /**
@@ -116,34 +121,51 @@ class API {
     sort: r34.PostsSort = 'date',
     hideSeen = false
   ) {
-    const idToken = await firebase.auth().currentUser?.getIdToken()
-    const url = this.buildPostUrl(pageNumber, tags, { minScore, limit, sort, hideSeen })
-    const apiResponse = await fetch(url, {
-      headers: {
-        Authorization: 'Bearer ' + idToken,
-      },
-    })
-    const data: r34.PostsResponse = await apiResponse.json()
+    try {
+      const idToken = await firebase.auth().currentUser?.getIdToken()
+      const url = this.buildPostUrl(pageNumber, tags, { minScore, limit, sort, hideSeen })
+      const apiResponse = await fetch(url, {
+        headers: {
+          Authorization: 'Bearer ' + idToken,
+        },
+      })
+      const data: r34.PostsResponse = await apiResponse.json()
 
-    return data
+      return data
+    } catch (err) {
+      console.warn('Failed to get posts:', err)
+      return { count: 0, posts: [] }
+    }
   }
 
   /**
    * Returns all aliases for a given tag
    */
   async getAliases(tagName: string) {
-    const aliases: r34.AliasTag[] = await (await fetch(`${this.activeApi}/alias/${encodeURIComponent(tagName)}`)).json()
+    try {
+      const aliases: r34.AliasTag[] = await (
+        await fetch(`${this.activeApi}/alias/${encodeURIComponent(tagName)}`)
+      ).json()
 
-    return aliases
+      return aliases
+    } catch (err) {
+      console.warn('Failed to get aliases:', err)
+      return []
+    }
   }
 
   /**
    * Returns all comments for a given post.
    */
   async getComments(post: r34.Post) {
-    const comments: r34.Comment[] = await (await fetch(post.comments_url)).json()
+    try {
+      const comments: r34.Comment[] = await (await fetch(post.comments_url)).json()
 
-    return comments
+      return comments
+    } catch (err) {
+      console.warn('Failed to get comments:', err)
+      return []
+    }
   }
 
   /**

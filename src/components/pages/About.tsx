@@ -8,7 +8,7 @@ import { HorizontalLine } from '../designsystem/Lines'
 import Surface from '../designsystem/Surface'
 import { Faded, Title } from '../designsystem/Text'
 import Header from '../features/Header'
-import KofiButton, { AButton } from '../widgets/KofiButton'
+import { KofiButton, AButton, PatreonButton } from '../widgets/SponsoringButtons'
 
 const AboutSurface = styled(Surface)`
   grid-template-rows: auto auto auto auto 1fr;
@@ -134,6 +134,7 @@ export default function About() {
               Discord
             </Connection>
             <KofiButton id='V7V73PWW9' label='Ko-fi' />
+            <PatreonButton name='kurozenzen' label='Patreon' />
           </FlexRow>
           <Divider />
           <Body>

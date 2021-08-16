@@ -1,5 +1,5 @@
 import React from 'react'
-import KofiButton from './KofiButton'
+import { RandomSponsoring } from './SponsoringButtons'
 import styled, { css } from 'styled-components'
 import RandomTip from './RandomTip'
 import { flexColumnWithGap } from '../../styled/mixins'
@@ -13,6 +13,10 @@ const Placeholder = styled.div(
     margin: auto;
 
     padding: 0 ${theme.dimensions.gutter};
+
+    .fa-patreon {
+      color: #ff424d;
+    }
   `
 )
 
@@ -21,7 +25,7 @@ export default function SearchPlaceholder() {
     <Placeholder>
       <UpdateHighlight />
       <RandomTip />
-      <KofiButton id='V7V73PWW9' label='Support Me on Ko-fi' />
+      <RandomSponsoring />
     </Placeholder>
   )
 }

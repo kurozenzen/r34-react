@@ -8,7 +8,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v2
+  #       with:
+  #         node-version: '14'
+  #         cache: 'npm'
+  #     - run: npm install
+  #     - run: npm test
+  #     - run: npm run deploy
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,4 +29,3 @@ jobs:
           cache: 'npm'
       - run: npm install
       - run: npm test
-      - run: npm run deploy

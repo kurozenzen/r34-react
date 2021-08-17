@@ -27,8 +27,8 @@ const dark: DefaultTheme = {
 
     // semantic
     liked: '#ff0d50',
-    positive: '#40ee40',
-    negative: '#dd1010',
+    positive: '#3fb950',
+    negative: '#f85149',
   },
   shadow: {
     radius: '6px',

@@ -17,6 +17,7 @@ export const AButton = styled.a(
     font-family: 'Quicksand', Helvetica, Century Gothic, sans-serif !important;
     font-weight: 700;
     font-size: 14px;
+    white-space: nowrap;
 
     :visited {
       color: ${theme.colors.text} !important;

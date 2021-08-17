@@ -96,7 +96,7 @@ export default function TagSelector(props: TagSelectorProps) {
 
   return (
     <TagSelectorWrapper ref={setTagSelectorRef} closed={!showList} onSubmit={preventDefault}>
-      <ModifierButton onClick={nextModifier} aria-label='Tag Modifier' title='Tag Modifier'>
+      <ModifierButton onClick={nextModifier} aria-label='Tag Modifier' title='Cycle tag modifier'>
         {modifier}
       </ModifierButton>
       <TagInput value={value} setValue={setValue} onSubmit={handleAddClick} />

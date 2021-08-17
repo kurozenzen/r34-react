@@ -36,7 +36,7 @@ export default function Modal(props: ModalProps) {
   const blockEvent = useCallback((e) => e.stopPropagation(), [])
 
   return (
-    <Wrapper onClick={close}>
+    <Wrapper onClick={close} title='Close modal'>
       <ModalSurface onClick={blockEvent}>{children}</ModalSurface>
     </Wrapper>
   )

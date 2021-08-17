@@ -115,7 +115,7 @@ export const Post = React.memo((props: PostProps) => {
   }, [collapsed, showComments, has_comments, comments, dispatch, id])
 
   return (
-    <PostWrapper onClick={toggleCollapsed} role='row'>
+    <PostWrapper onClick={toggleCollapsed} role='row' data-name='post-wrapper'>
       <Media
         detailsVisible={!collapsed}
         type={type}

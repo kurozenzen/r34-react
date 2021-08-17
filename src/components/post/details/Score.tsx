@@ -47,7 +47,7 @@ export default function Score(props: { value: number; postId: number }) {
   )
 
   return (
-    <ScorePair onClick={handleClick} $liked={liked} data-testid='score'>
+    <ScorePair onClick={handleClick} $liked={liked} data-testid='score' title='Like this post'>
       <HeartIcon color='white' />
       <span>{formatCount(value + boolToNumber(liked))}</span>
     </ScorePair>

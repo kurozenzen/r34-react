@@ -35,7 +35,7 @@ export default function Alias(props: AliasProps) {
   )
 
   return (
-    <AliasWrapper onClick={handleClick}>
+    <AliasWrapper onClick={handleClick} data-name={`alias:${name}`}>
       <TagName modifier={modifier} name={name} count={count} />
     </AliasWrapper>
   )

@@ -70,7 +70,7 @@ export default function SupertagEntry(props: SupertagEntryProps) {
 
   return (
     <Wrapper>
-      <Row onClick={toggleOpen}>
+      <Row onClick={toggleOpen} title='Open supertag details'>
         <SupertagIcon />
         <span>{name}</span>
         <Faded>{Object.keys(tags).length} tags</Faded>

@@ -122,16 +122,16 @@ export default function Details(props: DetailsProps) {
       </Bar>
       {((showComments && commentsLength > 0) || showMetadata) && (
         <Menu>
-          <MenuEntry active={activeTab === 'tags'} onClick={setTags}>
+          <MenuEntry active={activeTab === 'tags'} onClick={setTags} title='Show tags'>
             Tags
           </MenuEntry>
           {showComments && hasComments && (
-            <MenuEntry active={activeTab === 'comments'} onClick={setComments}>
+            <MenuEntry active={activeTab === 'comments'} onClick={setComments} title='Show comments'>
               Comments
             </MenuEntry>
           )}
           {showMetadata && (
-            <MenuEntry active={activeTab === 'metadata'} onClick={setMetadata}>
+            <MenuEntry active={activeTab === 'metadata'} onClick={setMetadata} title='Show metadata'>
               Metadata
             </MenuEntry>
           )}

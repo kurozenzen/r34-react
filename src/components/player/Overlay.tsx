@@ -203,7 +203,7 @@ export function Overlay(props: OverlayProps) {
   const toggleVisible = React.useCallback(() => setVisible(!isVisible), [isVisible, setVisible])
 
   return (
-    <Wrapper isVisible={isVisible} onClick={toggleVisible} data-testid='overlay-wrapper'>
+    <Wrapper isVisible={isVisible} onClick={toggleVisible} data-testid='overlay-wrapper' data-name='overlay'>
       {getOverlayContent(props)}
     </Wrapper>
   )

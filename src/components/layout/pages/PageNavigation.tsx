@@ -64,13 +64,29 @@ export default function PageNavigation(props: PageNavigationProps) {
   return (
     <PageRow className='page-navigation'>
       <Left>
-        {currentPage > 1 && <PageNumber onClick={loadFirst}>0</PageNumber>}
-        {currentPage > 0 && <PageNumber onClick={loadPrevious}>{currentPage - 1}</PageNumber>}
+        {currentPage > 1 && (
+          <PageNumber onClick={loadFirst} title='First Page'>
+            0
+          </PageNumber>
+        )}
+        {currentPage > 0 && (
+          <PageNumber onClick={loadPrevious} title='Previous page'>
+            {currentPage - 1}
+          </PageNumber>
+        )}
       </Left>
       <CurrentNumber value={currentPage} onSubmit={loadSpecificPage} />
       <Right>
-        {currentPage < lastPage && <PageNumber onClick={loadNext}>{currentPage + 1}</PageNumber>}
-        {currentPage < lastPage - 1 && <PageNumber onClick={loadLast}>{lastPage}</PageNumber>}
+        {currentPage < lastPage && (
+          <PageNumber onClick={loadNext} title='Next Page'>
+            {currentPage + 1}
+          </PageNumber>
+        )}
+        {currentPage < lastPage - 1 && (
+          <PageNumber onClick={loadLast} title='Last Page'>
+            {lastPage}
+          </PageNumber>
+        )}
       </Right>
     </PageRow>
   )

@@ -43,6 +43,7 @@ export function PlayPauseIcon(props: PlayPauseIconProps) {
 
   return (
     <MorphSvg
+      name='Play/Pause'
       viewBox='0 0 24 24'
       xmlns='http://www.w3.org/2000/svg'
       onClick={onClick}

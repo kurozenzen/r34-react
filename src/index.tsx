@@ -26,6 +26,10 @@ Sentry.init({
           breadcrumb.message = `${tag}: ${target.getAttribute('name')}`
         } else if (target.title) {
           breadcrumb.message = `${tag}: ${target.title}`
+        } else if (target.getAttribute('aria-label')) {
+          breadcrumb.message = `${tag}: ${target.getAttribute('aria-label')}`
+        } else if (target.getAttribute('data-name')) {
+          breadcrumb.message = `${tag}: ${target.getAttribute('data-name')}`
         }
       }
     } catch (err) {

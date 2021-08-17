@@ -77,7 +77,7 @@ export default function TagChip(props: TagChipProps) {
       <TagName modifier={modifier} name={name} count={count} />
       {detailed && aliases && aliases.length > 0 && (
         <>
-          <DropdownArrow onClick={handleArrowClick} $collapsed={collapsed} />
+          <DropdownArrow onClick={handleArrowClick} $collapsed={collapsed} title='Show aliases' />
           {!collapsed && tagRef && <AliasesList aliases={aliases} modifier={modifier} parentRef={tagRef} />}
         </>
       )}

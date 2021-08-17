@@ -15,7 +15,8 @@ declare module 'styled-components' {
     colors: {
       text: string
       accentColor: string
-      hoverAccent: string
+      accentColorHover: string
+      accentColorActive: string
       backgroundColor: string
       backgroundColor2: string
       subduedText: string

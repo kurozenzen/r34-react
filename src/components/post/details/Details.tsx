@@ -120,7 +120,7 @@ export default function Details(props: DetailsProps) {
         <Score value={score} postId={postId} />
         {!!source && <Source value={source} />}
       </Bar>
-      {((showComments && commentsLength > 0) || showMetadata) && (
+      {((showComments && hasComments) || showMetadata) && (
         <Menu>
           <MenuEntry active={activeTab === 'tags'} onClick={setTags} title='Show tags'>
             Tags

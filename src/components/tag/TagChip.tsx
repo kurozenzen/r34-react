@@ -43,6 +43,7 @@ export default function TagChip(props: TagChipProps) {
 
   const handleClick = useCallback(
     (event: React.MouseEvent | React.KeyboardEvent) => {
+      event.preventDefault()
       event.stopPropagation()
       onClick(event)
     },
@@ -72,6 +73,7 @@ export default function TagChip(props: TagChipProps) {
       onKeyDown={handleEnter}
       onMouseLeave={resetCollapsed}
       ref={setTagRef}
+      tabIndex={0}
     >
       {detailed && <TypeIcon type={type} />}
       <TagName modifier={modifier} name={name} count={count} />

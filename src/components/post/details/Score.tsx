@@ -22,10 +22,6 @@ const ScorePair = styled(FlexPair)(
           }
         `
       : css``}
-
-    :active {
-      transform: scale(1.1);
-    }
   `
 )
 

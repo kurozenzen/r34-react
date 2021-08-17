@@ -9,9 +9,8 @@ const EntryWrapper = styled.div(
   ({ theme }) => css`
     display: grid;
     grid-template-columns: 48px 1fr auto;
-    min-height: ${theme.dimensions.blockHeight}; // COMPAT: Kiwi Browser
-    height: ${theme.dimensions.blockHeight};
     background: ${theme.colors.backgroundColor2};
+    padding: ${theme.dimensions.bigSpacing} 0;
     align-items: center;
     cursor: pointer;
   `

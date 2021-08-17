@@ -40,8 +40,11 @@ export default createGlobalStyle(
     @media (pointer: fine) {
       // Underline stuff that is focused on non-touch devices
       // makes keyboard navigation clearer
-      :focus {
-        text-decoration: underline;
+      button,
+      input {
+        &:focus {
+          text-decoration: underline;
+        }
       }
 
       ::-webkit-scrollbar {

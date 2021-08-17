@@ -13,9 +13,9 @@ const dark: DefaultTheme = {
   },
   colors: {
     //basic
-    text: '#fff',
+    text: '#ffffff',
     backgroundColor: '#121212',
-    backgroundColor2: '#fff',
+    backgroundColor2: '#ffffff',
     subduedText: '#ffffff80',
     layerBg: '#ffffff11',
     layerBgSolid: '#222222',
@@ -23,7 +23,8 @@ const dark: DefaultTheme = {
 
     // theme
     accentColor: '#ee3344',
-    hoverAccent: '#ff4455',
+    accentColorHover: '#f74555',
+    accentColorActive: '#d93847',
 
     // semantic
     liked: '#ff0d50',

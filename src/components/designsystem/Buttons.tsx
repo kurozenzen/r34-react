@@ -27,12 +27,6 @@ export const InvisButton = styled.button(
     svg {
       transition: all ${theme.timings.transitionTime} ease-out;
     }
-
-    :active {
-      svg {
-        transform: scale(1.1);
-      }
-    }
   `
 )
 
@@ -42,10 +36,6 @@ export const RedButton = styled(TextButton)`
 
 export const BlockButton = styled(RedButton)`
   width: 100%;
-
-  :active {
-    transform: scaleX(1.03) scaleY(1.1);
-  }
 `
 
 export const AddButton = styled(RedButton)(

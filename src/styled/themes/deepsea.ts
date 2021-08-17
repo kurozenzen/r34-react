@@ -10,7 +10,8 @@ const deepsea = {
     layerBgSolid: '#111929',
     layerBgHighlight: '#ffffff22',
     accentColor: '#4090bb',
-    hoverAccent: '#4090bb',
+    accentColorHover: '#55aecf',
+    accentColorActive: '#3b7a9c',
   },
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
 import DropdownListEntry from './DropdownListEntry'
-import { flexColumn, flexColumnGap } from '../../styled/mixins'
+import { dropdownScrollbar, flexColumn, flexColumnGap } from '../../styled/mixins'
 import * as r34 from 'r34-types'
 import { getInterestingType, isSupertag } from '../../data/tagUtils'
 import { SuggestionsError } from '../../data/types'
@@ -39,35 +39,7 @@ const ListWrapper = styled.div(
     overflow-y: auto;
     z-index: 3;
 
-    ::-webkit-scrollbar {
-      width: 8px;
-
-      :hover {
-        background: ${theme.colors.layerBg};
-      }
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: ${theme.colors.backgroundColor2};
-      border-left: 1px lightgray solid;
-    }
-
-    /* Handle */
-    :hover {
-      ::-webkit-scrollbar {
-        background: ${theme.colors.backgroundColor}20;
-      }
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: ${theme.colors.backgroundColor}40;
-      border-radius: 1000px;
-
-      :hover {
-        background: ${theme.colors.backgroundColor}30;
-      }
-    }
+    ${dropdownScrollbar}
   `
 )
 

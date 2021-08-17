@@ -5,7 +5,8 @@ const electric = {
   colors: {
     ...dark.colors,
     accentColor: '#2ae',
-    hoverAccent: '#2ae',
+    accentColorHover: '#39b8f7',
+    accentColorActive: '#1e99d6',
   },
 }
 

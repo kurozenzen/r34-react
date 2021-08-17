@@ -33,15 +33,30 @@ export function layer({ theme }: PropsWithTheme) {
 export function primaryHover({ theme }: PropsWithTheme) {
   return css`
     color: ${theme.colors.backgroundColor};
-    background: ${theme.colors.accentColor};
+    border-color: ${theme.colors.accentColor};
+    background-color: ${theme.colors.accentColor};
+
+    transition: color ${theme.timings.transitionTime} linear, border-color ${theme.timings.transitionTime} linear,
+      background-color ${theme.timings.transitionTime} linear;
 
     :hover {
-      background-color: ${theme.colors.hoverAccent};
-      color: ${theme.colors.backgroundColor};
+      border-color: ${theme.colors.accentColorHover};
+      background-color: ${theme.colors.accentColorHover};
     }
 
-    :active,
-    :focus {
+    :active {
+      border-color: ${theme.colors.accentColorActive};
+      background-color: ${theme.colors.accentColorActive};
+    }
+
+    ${focusBorderAndColor}
+  `
+}
+
+export function focusBorderAndColor({ theme }: PropsWithTheme) {
+  return css`
+    :focus,
+    :focus-within {
       color: ${theme.colors.backgroundColor2};
       border-color: ${theme.colors.backgroundColor2};
     }
@@ -203,5 +218,39 @@ export function mediaStyle() {
     ${boxShadow}
     grid-area: 1/1/2/2;
     z-index: 1;
+  `
+}
+
+export function dropdownScrollbar({ theme }: PropsWithTheme) {
+  return css`
+    ::-webkit-scrollbar {
+      width: 8px;
+
+      :hover {
+        background: ${theme.colors.layerBg};
+      }
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: ${theme.colors.backgroundColor2};
+      border-left: 1px lightgray solid;
+    }
+
+    /* Handle */
+    :hover {
+      ::-webkit-scrollbar {
+        background: ${theme.colors.backgroundColor}20;
+      }
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: ${theme.colors.backgroundColor}40;
+      border-radius: 100px;
+
+      :hover {
+        background: ${theme.colors.backgroundColor}30;
+      }
+    }
   `
 }

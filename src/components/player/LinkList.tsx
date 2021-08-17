@@ -23,12 +23,6 @@ const LinkButton = styled.a(
     svg {
       transition: all ${theme.timings.transitionTime} ease-out;
     }
-
-    :active {
-      svg {
-        transform: scale(1.1);
-      }
-    }
   `
 )
 

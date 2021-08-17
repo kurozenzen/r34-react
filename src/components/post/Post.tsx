@@ -33,7 +33,7 @@ const PostWrapper = styled.div(
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto auto;
     border-radius: ${theme.dimensions.borderRadius};
-    ${layer({ theme })}
+    ${layer}
   `
 )
 
@@ -115,7 +115,7 @@ export const Post = React.memo((props: PostProps) => {
   }, [collapsed, showComments, has_comments, comments, dispatch, id])
 
   return (
-    <PostWrapper onClick={toggleCollapsed} role='row' data-name='post-wrapper'>
+    <PostWrapper onClick={toggleCollapsed} role='row' data-name='post-wrapper' tabIndex={0}>
       <Media
         detailsVisible={!collapsed}
         type={type}

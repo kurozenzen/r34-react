@@ -15,8 +15,7 @@ interface AliasProps {
 const AliasWrapper = styled.div(
   ({ theme }) => css`
     ${flexRowWithGap({ theme })}
-    padding: 0 ${theme.dimensions.bigSpacing};
-    height: ${theme.dimensions.blockHeight};
+    padding: ${theme.dimensions.bigSpacing};
     font-size: ${theme.fontSizes.content};
   `
 )

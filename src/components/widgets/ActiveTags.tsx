@@ -31,7 +31,7 @@ export default function ActiveTags(props: ActiveTagsProps) {
   useEffect(() => onChange(), [onChange, activeTags])
 
   return numberOfActiveTags > 0 ? (
-    <TagList tags={activeTags} detailed={true} onTagClick={toggleTag} getIsActive={checkIsActive}>
+    <TagList tags={activeTags} onTagClick={toggleTag} getIsActive={checkIsActive} detailed>
       {offerSupertags && Object.keys(activeTags).length > 1 && (
         <RedButton onClick={openSupertagModal} title='Create a supertag'>
           <SupertagIcon />

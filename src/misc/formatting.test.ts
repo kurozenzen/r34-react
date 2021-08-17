@@ -53,7 +53,7 @@ Object.entries(formatTimeCases).forEach(([testname, [value, expected]]) =>
 )
 
 const formatDatetimeCases: Record<string, [Date, string]> = {
-  basic: [new Date('1995-12-17T03:24'), '17/12/1995 03:24:00'],
+  basic: [new Date('1995-12-17T03:24'), '17/12/1995 03:24'],
 }
 
 Object.entries(formatDatetimeCases).forEach(([testname, [value, expected]]) =>

@@ -51,11 +51,19 @@ export function formatTagnameAndCount(name: string, count?: number) {
   return count ? `${formatTagname(name)} (${formatCount(count)})` : formatTagname(name)
 }
 
+const z = (value: number) => (value < 10 ? `0${value}` : value.toString())
+
 /**
  * Returns a string containing date and time of agiven Date object
  */
 export function formatDatetime(date: Date) {
-  return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+  const dd = z(date.getDate())
+  const MM = z(date.getMonth() + 1) // zero indexed
+  const yyyy = date.getFullYear()
+  const hh = z(date.getHours())
+  const mm = z(date.getMinutes())
+
+  return `${dd}/${MM}/${yyyy} ${hh}:${mm}`
 }
 
 /**

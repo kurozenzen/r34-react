@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -18,4 +18,4 @@ jobs:
           cache: 'npm'
       - run: npm install
       - run: npm test
-      - run: npm deploy
+      - run: npm run deploy

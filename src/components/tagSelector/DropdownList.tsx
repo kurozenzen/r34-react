@@ -36,7 +36,6 @@ const ListWrapper = styled.div(
     border-top: none;
     border-radius: 0 0 3px 3px;
     color: black;
-    overflow-y: auto;
     z-index: 3;
 
     ${dropdownScrollbar}

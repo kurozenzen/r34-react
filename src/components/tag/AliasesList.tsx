@@ -29,7 +29,6 @@ const ListWrapper = styled.div(({ theme, parentRef }: { theme: DefaultTheme; par
         }
 
         max-height: 30vh;
-        overflow-y: scroll;
 
         ${dropdownScrollbar}
       `

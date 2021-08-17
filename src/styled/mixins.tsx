@@ -223,6 +223,9 @@ export function mediaStyle() {
 
 export function dropdownScrollbar({ theme }: PropsWithTheme) {
   return css`
+    overflow-x: hidden;
+    overflow-y: auto;
+
     ::-webkit-scrollbar {
       width: 8px;
 

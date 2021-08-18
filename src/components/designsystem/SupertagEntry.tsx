@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import useToggle from '../../hooks/useToggle'
 import { CloseIcon, ShareIcon, SupertagIcon } from '../../icons/FontAwesomeIcons'
 import { flexColumnWithGap, gridWithGap } from '../../styled/mixins'
@@ -8,7 +8,7 @@ import TagSelector from '../tagSelector/TagSelector'
 import { Faded } from './Text'
 import * as r34 from 'r34-types'
 import { useSupertag } from '../../hooks/useSupertag'
-import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { RouteName } from '../../data/types'
 import { encodeSupertag } from '../../data/tagUtils'
 import { InvisButton } from './Buttons'
@@ -55,6 +55,14 @@ const Row = styled.div`
   }
 `
 
+const LinkButton = styled(Link)(
+  ({ theme }) => css`
+    padding: ${theme.dimensions.gutter};
+    cursor: pointer;
+    color: ${theme.colors.text};
+  `
+)
+
 interface SupertagEntryProps {
   supertag: r34.Supertag
 }
@@ -62,7 +70,6 @@ interface SupertagEntryProps {
 export default function SupertagEntry(props: SupertagEntryProps) {
   const { supertag } = props
   const { name, description, tags } = supertag
-  const history = useHistory()
 
   const [isOpen, toggleOpen] = useToggle()
   const [addTag, removeTag, deleteSupertag] = useSupertag(supertag)
@@ -74,15 +81,6 @@ export default function SupertagEntry(props: SupertagEntryProps) {
         return result
       }, {} as Record<string, Omit<r34.BiasedTag, 'count'>>),
     [tags]
-  )
-
-  const openShareView = React.useCallback(
-    (event) => {
-      event.stopPropagation()
-      event.preventDefault()
-      history.push({ pathname: RouteName.SHARE, hash: encodeSupertag(supertag) })
-    },
-    [history, supertag]
   )
 
   const handleRemove = React.useCallback(
@@ -101,9 +99,9 @@ export default function SupertagEntry(props: SupertagEntryProps) {
         <span>{name}</span>
         <Faded>{Object.keys(tags).length} tags</Faded>
         <Faded>{description}</Faded>
-        <InvisButton onClick={openShareView} title='Share supertag'>
+        <LinkButton to={`${RouteName.SHARE}?${encodeSupertag(supertag)}`} title='Share supertag'>
           <ShareIcon />
-        </InvisButton>
+        </LinkButton>
         <InvisButton onClick={handleRemove} title='Delete supertag'>
           <CloseIcon />
         </InvisButton>

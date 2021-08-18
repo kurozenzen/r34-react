@@ -79,11 +79,11 @@ const Tags = styled(TagList)`
 const TAG_NO_OP = (tag: r34.AnyBiasedTag) => {}
 
 export default function About() {
-  usePageTitle('R34 React - About')
-
   const location = useLocation()
 
-  const { name, description, tags } = decodeSupertag(location.hash)
+  const { name, description, tags } = decodeSupertag(location.search)
+
+  usePageTitle(`R34 React - ${name}`)
 
   const tagObjects = React.useMemo(
     () =>

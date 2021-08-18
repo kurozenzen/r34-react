@@ -25,6 +25,7 @@ export const SET_PREFERENCE = `r34-react/SET_PREFERENCE`
 export const SET_PREFERENCES = `r34-react/SET_PREFERENCES`
 export const SET_SUGGESTIONS = `r34-react/SET_SUGGESTIONS`
 export const SET_SUGGESTIONS_ERROR = `r34-react/SET_SUGGESTIONS_ERROR`
+export const SET_SUGGESTIONS_MODIFIER = 'r34-react/SET_SUGGESTIONS_MODIFIER'
 
 // Action Types
 interface AddTagAction {
@@ -138,6 +139,11 @@ interface SavePreferencesAction {
   type: typeof SAVE_PREFERENCES
 }
 
+interface SetSuggestionsModifierAction {
+  type: typeof SET_SUGGESTIONS_MODIFIER
+  modifier: r34.TagModifier
+}
+
 export type AppAction =
   | AddAliasesAction
   | AddPostsAction
@@ -161,6 +167,7 @@ export type AppAction =
   | SetPreferencesAction
   | SetSuggestionsAction
   | SetSuggestionsErrorAction
+  | SetSuggestionsModifierAction
 
 // Action Creators
 export function addTag(tag: r34.AnyBiasedTag): AddTagAction {
@@ -315,5 +322,12 @@ export function fetchPreferences(): FetchPreferencesAction {
 export function savePreferences(): SavePreferencesAction {
   return {
     type: SAVE_PREFERENCES,
+  }
+}
+
+export function setSuggestionsModifier(modifier: r34.TagModifier): SetSuggestionsModifierAction {
+  return {
+    type: SET_SUGGESTIONS_MODIFIER,
+    modifier,
   }
 }

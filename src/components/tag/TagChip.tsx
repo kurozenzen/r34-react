@@ -32,11 +32,12 @@ interface TagChipProps {
   isActive: TagIsActive
   detailed: boolean
   onClick: React.EventHandler<SyntheticEvent>
+  onContextMenu?: React.EventHandler<SyntheticEvent>
   aliases?: AliasTag[]
 }
 
 export default function TagChip(props: TagChipProps) {
-  const { name, count, modifier, type, isActive, detailed, onClick, aliases } = props
+  const { name, count, modifier, type, isActive, detailed, onClick, onContextMenu, aliases } = props
 
   const [tagRef, setTagRef] = useState<HTMLDivElement | null>(null)
   const [collapsed, toggleCollapsed, resetCollapsed] = useToggle(true)
@@ -65,6 +66,15 @@ export default function TagChip(props: TagChipProps) {
     [handleClick]
   )
 
+  const handleContextMenu = React.useCallback(
+    (e) => {
+      e.stopPropagation()
+      e.preventDefault()
+      onContextMenu?.(e)
+    },
+    [onContextMenu]
+  )
+
   return (
     <ChipWrapper
       active={isActive}
@@ -72,6 +82,7 @@ export default function TagChip(props: TagChipProps) {
       onClick={handleClick}
       onKeyDown={handleEnter}
       onMouseLeave={resetCollapsed}
+      onContextMenu={handleContextMenu}
       ref={setTagRef}
       tabIndex={0}
     >

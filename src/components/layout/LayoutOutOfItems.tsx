@@ -53,7 +53,7 @@ export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: 
         {aliases.length > 0 && (
           <>
             <p>How about some of these?</p>
-            <TagList tags={aliasesForRendering} onTagClick={toggleTag} detailed />
+            <TagList tags={aliasesForRendering} onTagClick={toggleTag} onTagMenu={NO_OP} detailed />
           </>
         )}
       </StyledSurface>

@@ -10,10 +10,11 @@ interface TagProps {
   isActive: TagIsActive
   detailed: boolean
   onClick: (tag: r34.AnyBiasedTag) => void
+  onContextMenu: (tag: r34.AnyBiasedTag) => void
 }
 
 export default function Tag(props: TagProps) {
-  const { tag, isActive, detailed, onClick } = props
+  const { tag, isActive, detailed, onClick, onContextMenu } = props
 
   const biasedTag = isSupertag(tag) || isBiased(tag) ? tag : bias(tag, '+')
 
@@ -25,9 +26,22 @@ export default function Tag(props: TagProps) {
     [onClick, biasedTag]
   )
 
+  const handleContextMenu: MouseEventHandler = useCallback(
+    (event) => {
+      onContextMenu(biasedTag)
+    },
+    [biasedTag, onContextMenu]
+  )
+
   return isSupertag(biasedTag) ? (
     <Supertag tag={biasedTag} isActive={isActive} detailed={detailed} onClick={handleClick} />
   ) : (
-    <BiasedTag tag={biasedTag} isActive={isActive} detailed={detailed} onClick={handleClick} />
+    <BiasedTag
+      tag={biasedTag}
+      isActive={isActive}
+      detailed={detailed}
+      onClick={handleClick}
+      onContextMenu={handleContextMenu}
+    />
   )
 }

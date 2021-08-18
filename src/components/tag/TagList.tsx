@@ -33,6 +33,7 @@ interface TagListProps {
   children?: React.ReactNode
 
   onTagClick: (tag: AnyBiasedTag) => void
+  onTagMenu: (tag: AnyBiasedTag) => void
   getIsActive?: (tag: AnyTag) => TagIsActive
 }
 
@@ -41,12 +42,19 @@ interface TagListProps {
  *
  */
 export default function TagList(props: TagListProps) {
-  const { tags, className, detailed, children = null, onTagClick, getIsActive } = props
+  const { tags, className, detailed, children = null, onTagClick, getIsActive, onTagMenu } = props
 
   return (
     <TagListWrapper className={className}>
       {Object.entries(tags).map(([key, tag]) => (
-        <Tag key={key} detailed={detailed} tag={tag} onClick={onTagClick} isActive={getIsActive?.(tag) || 'no'} />
+        <Tag
+          key={key}
+          detailed={detailed}
+          tag={tag}
+          onClick={onTagClick}
+          onContextMenu={onTagMenu}
+          isActive={getIsActive?.(tag) || 'no'}
+        />
       ))}
       {children}
     </TagListWrapper>

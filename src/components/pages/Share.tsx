@@ -16,6 +16,7 @@ import { Faded, Title } from '../designsystem/Text'
 import Header from '../features/Header'
 import TagList from '../tag/TagList'
 import socialPreview from '../../icons/social-preview.png'
+import { NO_OP } from '../../data/types'
 
 const ShareColumn = styled(FlexColumnWithSpacing)`
   place-content: center;
@@ -156,7 +157,7 @@ export default function About() {
             <ScrollFaded id='share-link'>{window.location.href}</ScrollFaded>
             <CopyIcon />
           </Link>
-          <Tags tags={tagObjects} detailed={false} onTagClick={TAG_NO_OP} />
+          <Tags tags={tagObjects} detailed={false} onTagClick={TAG_NO_OP} onTagMenu={NO_OP} />
         </SupertagSurface>
       </ShareColumn>
     </FlexColumn>

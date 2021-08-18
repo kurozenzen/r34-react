@@ -1,5 +1,5 @@
 import React, { MouseEventHandler, useCallback, useEffect, useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import styled, { css, DefaultTheme } from 'styled-components'
 import * as r34 from 'r34-types'
 import { ActiveTab, NO_OP } from '../../../data/types'
@@ -14,6 +14,8 @@ import Metadata from './Metadata'
 import Rating from './Rating'
 import Score from './Score'
 import { useCheckIsActive } from '../../../hooks/useCheckIsActive'
+import { addTag } from '../../../redux/actions'
+import useModifier from '../../../hooks/useModifier'
 
 const Bar = styled.div(
   ({ theme }) => css`
@@ -65,6 +67,9 @@ interface DetailsProps {
 }
 
 export default function Details(props: DetailsProps) {
+  const dispatch = useDispatch()
+  const [modifier] = useModifier()
+
   const { postId, onLoad = NO_OP, activeTab, setActiveTab, hasComments } = props
   const { rating, score, tags, source, created_at, status, height, width, comments } = useSelector(
     selectPostById(postId)
@@ -107,6 +112,13 @@ export default function Details(props: DetailsProps) {
     [setActiveTab]
   )
 
+  const addTagWithModifier = React.useCallback(
+    (tag: r34.AnyBiasedTag) => {
+      dispatch(addTag({ ...tag, modifier }))
+    },
+    [dispatch, modifier]
+  )
+
   useEffect(() => {
     onLoad()
   }, [onLoad, activeTab])
@@ -144,6 +156,7 @@ export default function Details(props: DetailsProps) {
               detailed={false}
               onTagClick={toggleTag}
               getIsActive={checkIsActive}
+              onTagMenu={addTagWithModifier}
             />
           ),
           comments: <Comments comments={comments as r34.Comment[]} />,

@@ -10,10 +10,11 @@ interface TagProps {
   isActive: TagIsActive
   detailed: boolean
   onClick: React.MouseEventHandler
+  onContextMenu: React.MouseEventHandler
 }
 
 export function BiasedTag(props: TagProps) {
-  const { tag, detailed, onClick, isActive } = props
+  const { tag, detailed, onClick, isActive, onContextMenu } = props
   const { name, count, modifier, types } = tag
 
   const aliases = useSelector(selectAliases)[name]
@@ -27,6 +28,7 @@ export function BiasedTag(props: TagProps) {
       isActive={isActive}
       detailed={detailed}
       onClick={onClick}
+      onContextMenu={onContextMenu}
       aliases={aliases}
     />
   )

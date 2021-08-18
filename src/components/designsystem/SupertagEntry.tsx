@@ -10,7 +10,7 @@ import * as r34 from 'r34-types'
 import { useSupertag } from '../../hooks/useSupertag'
 import { Link } from 'react-router-dom'
 import { RouteName } from '../../data/types'
-import { encodeSupertag } from '../../data/tagUtils'
+import { encodeSupertag, isSupertag } from '../../data/tagUtils'
 import { InvisButton } from './Buttons'
 
 const Wrapper = styled.div`
@@ -92,6 +92,17 @@ export default function SupertagEntry(props: SupertagEntryProps) {
     [deleteSupertag]
   )
 
+  const onTagMenu = React.useCallback(
+    (tag: r34.AnyBiasedTag) => {
+      if (!isSupertag(tag)) {
+        const order: r34.TagModifier[] = ['+', '-', '~']
+        const nextModifer = order[(order.indexOf(tag.modifier) + 1) % 3]
+        addTag({ ...tag, modifier: nextModifer })
+      }
+    },
+    [addTag]
+  )
+
   return (
     <Wrapper>
       <Row onClick={toggleOpen} title='Open supertag details'>
@@ -110,7 +121,7 @@ export default function SupertagEntry(props: SupertagEntryProps) {
       {isOpen && (
         <>
           <TagSelector onSubmit={addTag} showSupertags={false} />
-          <TagList tags={tagObjects} detailed={false} onTagClick={removeTag}></TagList>
+          <TagList tags={tagObjects} detailed={false} onTagClick={removeTag} onTagMenu={onTagMenu}></TagList>
         </>
       )}
     </Wrapper>

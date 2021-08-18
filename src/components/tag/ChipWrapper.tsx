@@ -55,6 +55,7 @@ export const ChipWrapper = styled.div(
       height: ${props.theme.dimensions.blockHeight};
       border-radius: ${dropdownBorderRadius(props.collapsed, props.theme)};
       font-size: ${props.theme.fontSizes.content};
+      user-select: none;
 
       ${props.collapsed
         ? ''

@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
-    <circle cx="75" cy="75" fill="none" stroke="#e34" r="70" stroke-width="8" />
-    <text font-family="Arial" font-size="100" fill="#e34" x="20" y="110">34</text>
+    <circle cx="75" cy="75" fill="none" stroke="#ee3344" r="70" stroke-width="8" />
+    <text font-family="Arial" font-size="100" fill="#ee3344" x="20" y="110">34</text>
 </svg>

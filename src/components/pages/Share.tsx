@@ -1,7 +1,6 @@
 import * as r34 from 'r34-types'
 import React from 'react'
-//@ts-expect-error
-import MetaTags from 'react-meta-tags'
+import { Helmet } from 'react-helmet'
 import { useLocation } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import { decodeSupertag } from '../../data/tagUtils'
@@ -123,11 +122,11 @@ export default function About() {
 
   return (
     <FlexColumn>
-      <MetaTags>
+      <Helmet>
         <meta property='og:description' content={description} />
         <meta property='og:title' content={`Supertag - ${name}`} />
         <meta property='og:image' content={socialPreview} />
-      </MetaTags>
+      </Helmet>
       <Header />
       <ShareColumn>
         <Title>Supertag</Title>

@@ -23,10 +23,11 @@ import {
 import { persistor, store } from './redux/store'
 import themes, { defaultThemeId } from './styled/themes'
 
-const Settings = React.lazy(() => import('./components/pages/Settings'))
-const Search = React.lazy(() => import('./components/pages/Search'))
 const About = React.lazy(() => import('./components/pages/About'))
 const Privacy = React.lazy(() => import('./components/pages/Privacy'))
+const Search = React.lazy(() => import('./components/pages/Search'))
+const Settings = React.lazy(() => import('./components/pages/Settings'))
+const Share = React.lazy(() => import('./components/pages/Share'))
 const Stories = React.lazy(() => import('./components/pages/Stories'))
 
 export default function App() {
@@ -60,6 +61,7 @@ function ThemedApp() {
             <Route exact path={RouteName.SETTINGS} component={Settings} />
             <Route exact path={RouteName.STORIES} component={Stories} />
             <Route exact path={RouteName.TERMS} component={Terms} />
+            <Route exact path={RouteName.SHARE} component={Share} />
             <Route path={RouteName.SEARCH} component={Search} />
           </Switch>
         </Suspense>

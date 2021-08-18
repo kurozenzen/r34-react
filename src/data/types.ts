@@ -13,6 +13,7 @@ export enum RouteName {
   PRIVACY = '/privacy',
   TERMS = '/terms',
   STORIES = '/stories',
+  SHARE = '/share',
 }
 
 /**

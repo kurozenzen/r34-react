@@ -82,8 +82,6 @@ export default function Details(props: DetailsProps) {
 
   const checkIsActive = useCheckIsActive()
 
-  const commentsLength = comments?.length || 0
-
   const toggleTag = useToggleTag()
   const setTags: MouseEventHandler = useCallback(
     (event) => {

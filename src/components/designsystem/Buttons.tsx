@@ -23,6 +23,7 @@ export const InvisButton = styled.button(
     padding: ${theme.dimensions.gutter};
     cursor: pointer;
     ${dropShadow({ theme })}
+    color: ${theme.colors.text};
 
     svg {
       transition: all ${theme.timings.transitionTime} ease-out;

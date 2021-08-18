@@ -120,3 +120,38 @@ export function isSuggestionError(value: unknown): value is SuggestionsError {
 }
 
 //#endregion
+
+//#region Compression
+
+function removeLeadingHastag(value: string) {
+  if (value[0] === '#') return value.substr(1)
+  else return value
+}
+
+export function encodeSupertag(supertag: r34.Supertag) {
+  const payload = `${encodeURI(supertag.name)}/${encodeURI(supertag.description)}/${encodeURI(
+    Object.entries(supertag.tags)
+      .map(([t, m]) => `${t},${m}`)
+      .join(';')
+  )}`
+
+  console.log(Buffer.from(payload).toString('base64'))
+
+  return Buffer.from(payload).toString('base64')
+}
+
+export function decodeSupertag(base64: string) {
+  const payload = Buffer.from(removeLeadingHastag(base64), 'base64').toString()
+
+  const parts = payload.split('/').map(decodeURI)
+
+  const supertag: r34.Supertag = {
+    name: parts[0],
+    description: parts[1],
+    tags: Object.fromEntries(parts[2].split(';').map((e) => e.split(','))),
+  }
+
+  return supertag
+}
+
+//#endregion

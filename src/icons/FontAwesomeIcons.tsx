@@ -15,6 +15,7 @@ import {
   faCheckCircle,
   faCheckSquare,
   faCodeBranch,
+  faCopy,
   faCopyright,
   faDownload,
   faExpand,
@@ -29,6 +30,7 @@ import {
   faPlus,
   faRegistered,
   faSearch,
+  faShareAlt,
   faSignOutAlt,
   faTags,
   faTimes,
@@ -52,6 +54,7 @@ export const CharacterIcon = bindIcon(faUser)
 export const CheckIcon = bindIcon(faCheckSquare)
 export const CloseIcon = bindIcon(faTimes)
 export const CodeBranchIcon = bindIcon(faCodeBranch)
+export const CopyIcon = bindIcon(faCopy)
 export const CopyrightIcon = bindIcon(faCopyright)
 export const DeviantArtIcon = bindIcon(faDeviantart)
 export const DiscordIcon = bindIcon(faDiscord)
@@ -69,6 +72,7 @@ export const PatreonIcon = bindIcon(faPatreon)
 export const PlusIcon = bindIcon(faPlus)
 export const RatingIcon = bindIcon(faRegistered)
 export const SearchIcon = bindIcon(faSearch)
+export const ShareIcon = bindIcon(faShareAlt)
 export const SignOutIcon = bindIcon(faSignOutAlt)
 export const SourceIcon = bindIcon(faHashtag)
 export const SuccessIcon = bindIcon(faCheckCircle)

@@ -1,13 +1,17 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import useToggle from '../../hooks/useToggle'
-import { CloseIcon, SupertagIcon } from '../../icons/FontAwesomeIcons'
+import { CloseIcon, ShareIcon, SupertagIcon } from '../../icons/FontAwesomeIcons'
 import { flexColumnWithGap, gridWithGap } from '../../styled/mixins'
 import TagList from '../tag/TagList'
 import TagSelector from '../tagSelector/TagSelector'
 import { Faded } from './Text'
 import * as r34 from 'r34-types'
 import { useSupertag } from '../../hooks/useSupertag'
+import { useHistory } from 'react-router-dom'
+import { RouteName } from '../../data/types'
+import { encodeSupertag } from '../../data/tagUtils'
+import { InvisButton } from './Buttons'
 
 const Wrapper = styled.div`
   ${flexColumnWithGap}
@@ -25,7 +29,7 @@ const Wrapper = styled.div`
 
 const Row = styled.div`
   ${gridWithGap}
-  grid-template-columns: auto auto 1fr auto;
+  grid-template-columns: auto auto 1fr auto auto;
   grid-template-rows: 1fr auto;
   align-items: center;
   cursor: pointer;
@@ -46,6 +50,9 @@ const Row = styled.div`
   > :nth-child(5) {
     grid-area: 1/4/3/5;
   }
+  > :nth-child(6) {
+    grid-area: 1/6/3/6;
+  }
 `
 
 interface SupertagEntryProps {
@@ -55,6 +62,7 @@ interface SupertagEntryProps {
 export default function SupertagEntry(props: SupertagEntryProps) {
   const { supertag } = props
   const { name, description, tags } = supertag
+  const history = useHistory()
 
   const [isOpen, toggleOpen] = useToggle()
   const [addTag, removeTag, deleteSupertag] = useSupertag(supertag)
@@ -68,6 +76,24 @@ export default function SupertagEntry(props: SupertagEntryProps) {
     [tags]
   )
 
+  const openShareView = React.useCallback(
+    (event) => {
+      event.stopPropagation()
+      event.preventDefault()
+      history.push({ pathname: RouteName.SHARE, hash: encodeSupertag(supertag) })
+    },
+    [history, supertag]
+  )
+
+  const handleRemove = React.useCallback(
+    (event) => {
+      event.stopPropagation()
+      event.preventDefault()
+      deleteSupertag()
+    },
+    [deleteSupertag]
+  )
+
   return (
     <Wrapper>
       <Row onClick={toggleOpen} title='Open supertag details'>
@@ -75,7 +101,12 @@ export default function SupertagEntry(props: SupertagEntryProps) {
         <span>{name}</span>
         <Faded>{Object.keys(tags).length} tags</Faded>
         <Faded>{description}</Faded>
-        <CloseIcon onClick={deleteSupertag} title='Delete supertag' />
+        <InvisButton onClick={openShareView} title='Share supertag'>
+          <ShareIcon />
+        </InvisButton>
+        <InvisButton onClick={handleRemove} title='Delete supertag'>
+          <CloseIcon />
+        </InvisButton>
       </Row>
 
       {isOpen && (

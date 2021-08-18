@@ -5,6 +5,10 @@ export interface PropsWithTheme {
   theme: DefaultTheme
 }
 
+export interface SupportsDisable {
+  disabled: boolean
+}
+
 /**
  * Gives elements a border TODO: rename to defaultborder
  */
@@ -23,34 +27,39 @@ export function defaultBorder({ theme }: PropsWithTheme) {
 export function layer({ theme }: PropsWithTheme) {
   return css`
     background-color: ${theme.colors.layerBg};
-    ${boxShadow({ theme })}
   `
 }
 
 /**
  * Element becomes accentColor on hover, and is highlighted when active/focused
  */
-export function primaryHover({ theme }: PropsWithTheme) {
-  return css`
-    color: ${theme.colors.backgroundColor};
-    border-color: ${theme.colors.accentColor};
-    background-color: ${theme.colors.accentColor};
+export function primaryHover({ theme, disabled }: PropsWithTheme & Partial<SupportsDisable>) {
+  return disabled
+    ? css`
+        color: ${theme.colors.backgroundColor};
+        border-color: transparent;
+        background-color: ${theme.colors.subduedText};
+      `
+    : css`
+        color: ${theme.colors.backgroundColor};
+        border-color: ${theme.colors.accentColor};
+        background-color: ${theme.colors.accentColor};
 
-    transition: color ${theme.timings.transitionTime} linear, border-color ${theme.timings.transitionTime} linear,
-      background-color ${theme.timings.transitionTime} linear;
+        transition: color ${theme.timings.transitionTime} linear, border-color ${theme.timings.transitionTime} linear,
+          background-color ${theme.timings.transitionTime} linear;
 
-    :hover {
-      border-color: ${theme.colors.accentColorHover};
-      background-color: ${theme.colors.accentColorHover};
-    }
+        :hover {
+          border-color: ${theme.colors.accentColorHover};
+          background-color: ${theme.colors.accentColorHover};
+        }
 
-    :active {
-      border-color: ${theme.colors.accentColorActive};
-      background-color: ${theme.colors.accentColorActive};
-    }
+        :active {
+          border-color: ${theme.colors.accentColorActive};
+          background-color: ${theme.colors.accentColorActive};
+        }
 
-    ${focusBorderAndColor}
-  `
+        ${focusBorderAndColor}
+      `
 }
 
 export function focusBorderAndColor({ theme }: PropsWithTheme) {

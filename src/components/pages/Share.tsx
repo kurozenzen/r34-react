@@ -1,19 +1,22 @@
-import React from 'react'
 import * as r34 from 'r34-types'
+import React from 'react'
+//@ts-expect-error
+import MetaTags from 'react-meta-tags'
 import { useLocation } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import { decodeSupertag } from '../../data/tagUtils'
+import { addSupertag, removeSupertag, useSupertags } from '../../firebase'
+import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { usePageTitle } from '../../hooks/usePageTitle'
 import { CopyIcon, PlusIcon, SuccessIcon } from '../../icons/FontAwesomeIcons'
+import { borderRadius, flexRowWithGap, layer } from '../../styled/mixins'
+import { RedButton } from '../designsystem/Buttons'
 import FlexColumn, { FlexColumnWithSpacing } from '../designsystem/FlexColumn'
 import Surface from '../designsystem/Surface'
 import { Faded, Title } from '../designsystem/Text'
 import Header from '../features/Header'
 import TagList from '../tag/TagList'
-import { RedButton } from '../designsystem/Buttons'
-import { borderRadius, flexRowWithGap, layer } from '../../styled/mixins'
-import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
-import { addSupertag, removeSupertag, useSupertags } from '../../firebase'
+import socialPreview from '../../icons/social-preview.png'
 
 const ShareColumn = styled(FlexColumnWithSpacing)`
   place-content: center;
@@ -120,6 +123,11 @@ export default function About() {
 
   return (
     <FlexColumn>
+      <MetaTags>
+        <meta property='og:description' content={description} />
+        <meta property='og:title' content={`Supertag - ${name}`} />
+        <meta property='og:image' content={socialPreview} />
+      </MetaTags>
       <Header />
       <ShareColumn>
         <Title>Supertag</Title>

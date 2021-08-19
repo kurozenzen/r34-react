@@ -5,7 +5,12 @@
   "icons": [
     {
       "src": "maskable_icon.svg",
-      "sizes": "150x150",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "large_icon.png",
+      "sizes": "768x768",
       "purpose": "any maskable"
     }
   ],

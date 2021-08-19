@@ -50,7 +50,7 @@ export default function DropdownListEntry(props: EntryProps) {
         <TypeIcon type={type} />
       </Icon>
       <Name>{formatTagname(name)}</Name>
-      <Count>
+      <Count title={`${count} ${unit}`}>
         {count && formatCount(count)} {unit}
       </Count>
     </EntryWrapper>

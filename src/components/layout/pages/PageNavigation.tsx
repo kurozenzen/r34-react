@@ -75,7 +75,7 @@ export default function PageNavigation(props: PageNavigationProps) {
           </PageNumber>
         )}
       </Left>
-      <CurrentNumber value={currentPage} onSubmit={loadSpecificPage} />
+      <CurrentNumber value={currentPage} onSubmit={loadSpecificPage} min={0} max={lastPage} step={1} />
       <Right>
         {currentPage < lastPage && (
           <PageNumber onClick={loadNext} title='Next Page'>

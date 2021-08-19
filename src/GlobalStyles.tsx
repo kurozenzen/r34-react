@@ -28,6 +28,9 @@ export default createGlobalStyle(
       color: ${theme.colors.text};
       background-color: ${theme.colors.backgroundColor};
       transition: color 0.4s, background-color 0.4s;
+
+      // always show scrollbar to prevent layout shifts when changing pages
+      overflow-y: scroll;
     }
 
     a {

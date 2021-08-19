@@ -11,7 +11,7 @@ export default function PrefTagSuggestions() {
       title='Number of Tag suggestions'
       description='Controls the number of tags displayed when searching. Increase this when searching for niche tags.'
     >
-      <SmallNumberInput value={tagSuggestionsCount} onSubmit={setTagSuggestionsCount} />
+      <SmallNumberInput value={tagSuggestionsCount} onSubmit={setTagSuggestionsCount} min={3} max={200} step={1} />
     </Setting>
   )
 }

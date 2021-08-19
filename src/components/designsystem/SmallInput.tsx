@@ -12,13 +12,22 @@ const StyledInput = styled.input(
   `
 )
 
-interface SmallInputProps<T> {
-  value: T
-  onSubmit: (value: T) => void
+interface SmallTextInputProps {
+  value: string
+  onSubmit: (value: string) => void
   className?: string
 }
 
-export function SmallTextInput(props: SmallInputProps<string>) {
+interface SmallNumberInputProps {
+  value: number
+  onSubmit: (value: number) => void
+  min?: number
+  max?: number
+  step?: number
+  className?: string
+}
+
+export function SmallTextInput(props: SmallTextInputProps) {
   const { value, onSubmit, className } = props
   const [internalValue, setInternalValue] = useState(value)
 
@@ -52,8 +61,8 @@ export function SmallTextInput(props: SmallInputProps<string>) {
   )
 }
 
-export function SmallNumberInput(props: SmallInputProps<number>) {
-  const { value, onSubmit, className } = props
+export function SmallNumberInput(props: SmallNumberInputProps) {
+  const { value, onSubmit, className, min, max, step } = props
   const [internalValue, setInternalValue] = useState(value.toString())
 
   useEffect(() => {
@@ -77,6 +86,9 @@ export function SmallNumberInput(props: SmallInputProps<number>) {
   return (
     <StyledInput
       type='number'
+      min={min}
+      max={max}
+      step={step}
       value={internalValue}
       onChange={onChange}
       onBlur={onBlur}

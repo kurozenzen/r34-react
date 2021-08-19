@@ -4,7 +4,7 @@ import SupertagEntry from './SupertagEntry'
 
 test('SupertagEntry: renders', () => {
   render(
-    <TestWrapper withTheme>
+    <TestWrapper withTheme withRouter>
       <SupertagEntry supertag={{ name: 'my supertag', description: 'a cool desc', tags: { 'tag 1': '+' } }} />
     </TestWrapper>
   )
@@ -15,7 +15,7 @@ test('SupertagEntry: renders', () => {
 
 test('SupertagEntry: open', () => {
   render(
-    <TestWrapper withTheme withStore>
+    <TestWrapper withTheme withStore withRouter>
       <SupertagEntry
         supertag={{ name: 'my supertag', description: 'a cool desc', tags: { 'tag 1': '+', 'tag 2': '+' } }}
       />

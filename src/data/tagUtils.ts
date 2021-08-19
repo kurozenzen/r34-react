@@ -135,8 +135,6 @@ export function encodeSupertag(supertag: r34.Supertag) {
       .join(';')
   )}`
 
-  console.log(Buffer.from(payload).toString('base64'))
-
   return Buffer.from(payload).toString('base64')
 }
 

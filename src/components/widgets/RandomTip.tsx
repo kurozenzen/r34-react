@@ -28,6 +28,11 @@ const tips = [
   'Supertags are collections of tags that you can add together.',
   'Supertags retain the modifiers of the tags they contain.',
   'You can tap this tip to get another one.',
+  'You can change the modifier of a tag by: clicking and holding it on mobile and right clicking it on desktop.',
+  'You can share your supertags with friends in the settings.',
+  'Join the discord to get involved with other people who use the app.',
+  'I am taking feature request on my discord in case there is some functionalityyou want.',
+  'Check out the about section for info/links about the app and myself.',
 ]
 
 const Span = styled(Faded)(

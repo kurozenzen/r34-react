@@ -43,7 +43,6 @@ export default function Story(props: StoryProps) {
 
   React.useEffect(() => {
     if (onInView && isInView) {
-      console.log('Index ', index, 'is in view')
       onInView(index)
     }
   }, [index, isInView, onInView])

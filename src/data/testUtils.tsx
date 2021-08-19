@@ -1,5 +1,6 @@
 import { Post } from 'r34-types'
 import { Provider } from 'react-redux'
+import { HashRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { store } from '../redux/store'
 import dark from '../styled/themes/dark'
@@ -45,16 +46,27 @@ export const getDefaultPost = () =>
     width: 1,
   } as Post)
 
-export function TestWrapper(props: { children: JSX.Element; withTheme?: boolean; withStore?: boolean }) {
-  return props.withStore ? (
-    <Provider store={store}>
-      {props.withTheme ? <ThemeProvider theme={dark}>{props.children}</ThemeProvider> : props.children}
-    </Provider>
-  ) : props.withTheme ? (
-    <ThemeProvider theme={dark}>{props.children}</ThemeProvider>
-  ) : (
-    props.children
-  )
+export function TestWrapper(props: {
+  children: JSX.Element
+  withTheme?: boolean
+  withStore?: boolean
+  withRouter?: boolean
+}) {
+  let result = props.children
+
+  if (props.withRouter) {
+    result = <HashRouter>{result}</HashRouter>
+  }
+
+  if (props.withTheme) {
+    result = <ThemeProvider theme={dark}>{result}</ThemeProvider>
+  }
+
+  if (props.withStore) {
+    result = <Provider store={store}>{result}</Provider>
+  }
+
+  return result
 }
 
 export function mockIntersectionObserver() {

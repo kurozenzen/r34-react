@@ -11,16 +11,21 @@ import { GenericConverter } from './genericConverter'
 const userConverter = new GenericConverter<User>()
 
 async function getUserDoc() {
-  const { currentUser } = firebase.auth()
-  const email = currentUser?.email
+  try {
+    const { currentUser } = firebase.auth()
+    const email = currentUser?.email
 
-  if (email) {
-    const key = await sha256(email)
-    const userDoc = firebase.firestore().collection('users').doc(key)
-    return userDoc
+    if (email) {
+      const key = await sha256(email)
+      const userDoc = firebase.firestore().collection('users').doc(key)
+      return userDoc
+    }
+
+    return undefined
+  } catch (err) {
+    console.warn('Failed to get user document:', err)
+    return undefined
   }
-
-  return undefined
 }
 
 async function getUserData() {
@@ -93,8 +98,7 @@ export function useSupertags() {
   const [supertags, setSupertags] = useState<Record<string, SupertagData>>({})
   const [collection, setCollection] = useState<firebase.firestore.CollectionReference>()
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, userInfo] = useFirebaseAuthState()
+  const [, userInfo] = useFirebaseAuthState()
 
   useEffect(() => {
     if (userInfo?.email) {

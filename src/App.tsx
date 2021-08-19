@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react'
+import { Helmet } from 'react-helmet'
 import { Provider, useSelector } from 'react-redux'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -47,12 +48,16 @@ function ThemedApp() {
   const isCellularWarningModalOpen = useSelector(selectCellularWarningModalOpen)
   const isSupertagModalOpen = useSelector(selectSupertagModalOpen)
   const themeId = useSelector(selectActiveThemeId)
+  const theme = themes[themeId] || defaultThemeId
 
   useLoadPreferences()
 
   return (
-    <ThemeProvider theme={themes[themeId] || defaultThemeId}>
+    <ThemeProvider theme={theme}>
       <GlobalStyles />
+      <Helmet>
+        <meta name='theme-color' content={theme.colors.layerBgSolid} />
+      </Helmet>
       <HashRouter>
         <Suspense fallback={<LoadingScreen />}>
           <Switch>

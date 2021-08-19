@@ -1,12 +1,12 @@
 // Polyfills
-import 'whatwg-fetch'
-
-import React from 'react'
-import ReactDOM from 'react-dom'
 import * as Sentry from '@sentry/react'
 import { Integrations } from '@sentry/tracing'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import 'whatwg-fetch'
 import App from './App'
 import { getVersionString } from './data/utils'
+import * as serviceWorker from './serviceWorker'
 
 Sentry.init({
   dsn: 'https://1a2933d829da41fe84d4dab5fcc520ae@o955708.ingest.sentry.io/5905045',
@@ -40,3 +40,5 @@ Sentry.init({
 })
 
 ReactDOM.render(<App />, document.getElementById('app-root'))
+
+serviceWorker.register()

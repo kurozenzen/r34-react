@@ -1,6 +1,5 @@
 import * as r34 from 'r34-types'
 import React from 'react'
-import { Helmet } from 'react-helmet'
 import { useLocation } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import { decodeSupertag } from '../../data/tagUtils'
@@ -15,7 +14,6 @@ import Surface from '../designsystem/Surface'
 import { Faded, Title } from '../designsystem/Text'
 import Header from '../features/Header'
 import TagList from '../tag/TagList'
-import socialPreview from '../../icons/social-preview.png'
 import { NO_OP } from '../../data/types'
 
 const ShareColumn = styled(FlexColumnWithSpacing)`
@@ -123,11 +121,6 @@ export default function About() {
 
   return (
     <FlexColumn>
-      <Helmet>
-        <meta property='og:description' content={description} />
-        <meta property='og:title' content={`Supertag - ${name}`} />
-        <meta property='og:image' content={socialPreview} />
-      </Helmet>
       <Header />
       <ShareColumn>
         <Title>Supertag</Title>

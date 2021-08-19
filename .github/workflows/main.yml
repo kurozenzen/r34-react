@@ -17,13 +17,14 @@ jobs:
         with:
           node-version: '14'
           cache: 'npm'
+          
+      - name: Install ⬇
         run: npm install
 
       - name: Test 🧪
         run: npm test
 
       - name: Deploy 🚀
-        run: npm run build
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages

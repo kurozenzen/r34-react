@@ -11,13 +11,20 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Setup ⚙
+        uses: actions/checkout@v2
+        uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'npm'
-      - run: npm install
-      - run: npm test
-      - run: npm run deploy
+        run: npm install
+
+      - name: Test 🧪
+        run: npm test
+
+      - name: Deploy 🚀
+        run: npm run build
+        uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: build

@@ -4,9 +4,14 @@
   "description": "Mobile-First Rule34 Browsing Tool",
   "icons": [
     {
-      "src": "favicon.svg",
-      "sizes": "150x150",
-      "purpose": "any"
+      "src": "maskable_icon.svg",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "large_icon.png",
+      "sizes": "768x768",
+      "purpose": "any maskable"
     }
   ],
   "lang": "en",

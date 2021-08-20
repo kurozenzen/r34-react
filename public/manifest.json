@@ -1,7 +1,7 @@
 {
   "short_name": "R34 React",
   "name": "Rule34 React",
-  "description": "Mobile-First Rule34 Browsing Tool",
+  "description": "A Rule34 browsing tool focused on simplicity and user experience.",
   "icons": [
     {
       "src": "maskable_icon.svg",

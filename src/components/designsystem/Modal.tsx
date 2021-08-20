@@ -22,6 +22,9 @@ const Wrapper = styled.div`
 
 const ModalSurface = styled(Surface)`
   max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  overscroll-behavior: none;
   background-color: ${(props) => props.theme.colors.layerBgSolid};
 `
 

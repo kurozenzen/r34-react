@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { flexRowWithGap } from '../../styled/mixins'
+import { flexRowWithGap } from '../../styled/mixins/layout'
 
 export const DropdownListError = styled.div(
   ({ theme }) => css`
@@ -11,6 +11,5 @@ export const DropdownListError = styled.div(
     align-items: center;
     justify-content: center;
     text-align: center;
-    cursor: pointer;
   `
 )

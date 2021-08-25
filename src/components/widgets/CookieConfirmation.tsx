@@ -1,9 +1,11 @@
 import React, { useCallback } from 'react'
 import styled, { css } from 'styled-components'
-import { RedButton } from '../designsystem/Buttons'
+import { PrimaryButton } from '../designsystem/Buttons'
 import usePreference from '../../hooks/usePreference'
+import { ZIndex } from '../../styled/zIndex'
+import { SolidSurface } from '../designsystem/Surface'
 
-const CookieWrapper = styled.div(
+const CookieWrapper = styled(SolidSurface)(
   ({ theme }) => css`
     position: fixed;
     bottom: 0;
@@ -14,8 +16,7 @@ const CookieWrapper = styled.div(
     justify-content: space-between;
     color: ${theme.colors.text};
     background: ${theme.colors.layerBgSolid};
-    padding: ${theme.dimensions.gutter};
-    z-index: 100;
+    z-index: ${ZIndex.COOKIEBAR};
   `
 )
 
@@ -31,9 +32,9 @@ export default function CookieConfirmation() {
   return (
     <CookieWrapper>
       <StyledSpan>This website uses cookies.</StyledSpan>
-      <RedButton onClick={handleAccept} aria-label='Allow Cookies' title='Accept Cookie usage'>
+      <PrimaryButton onClick={handleAccept} aria-label='Allow Cookies' title='Accept Cookie usage'>
         Okay
-      </RedButton>
+      </PrimaryButton>
     </CookieWrapper>
   )
 }

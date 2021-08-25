@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import styled, { css } from 'styled-components'
 import { TagModifier } from 'r34-types'
 import { addTag } from '../../redux/actions'
-import { flexRowWithGap } from '../../styled/mixins'
+import { flexRowWithGap } from '../../styled/mixins/layout'
 import TagName from './TagName'
 
 interface AliasProps {

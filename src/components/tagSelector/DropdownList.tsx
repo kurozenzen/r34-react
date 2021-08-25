@@ -1,11 +1,13 @@
 import React from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
 import DropdownListEntry from './DropdownListEntry'
-import { dropdownScrollbar, flexColumn, flexColumnGap } from '../../styled/mixins'
 import * as r34 from 'r34-types'
 import { getInterestingType, isSupertag } from '../../data/tagUtils'
 import { SuggestionsError } from '../../data/types'
 import { DropdownListError } from './DropdownListError'
+import { flexColumnGap } from '../../styled/mixins/gap'
+import { flexColumn } from '../../styled/mixins/layout'
+import { dropdownScrollbar } from '../../styled/mixins/scrollbar'
 
 function sizeAndPosition(tagSelector: HTMLElement | null) {
   if (tagSelector) {

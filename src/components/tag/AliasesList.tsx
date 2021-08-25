@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
 import Alias from './Alias'
 import * as r34 from 'r34-types'
-import { dropdownScrollbar } from '../../styled/mixins'
+import { dropdownScrollbar } from '../../styled/mixins/scrollbar'
 
 const ListWrapper = styled.div(({ theme, parentRef }: { theme: DefaultTheme; parentRef: HTMLDivElement }) =>
   parentRef

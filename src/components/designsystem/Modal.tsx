@@ -1,32 +1,30 @@
 import React, { useCallback } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import useAction from '../../hooks/useAction'
 import { closeModal } from '../../redux/actions'
-import Surface from './Surface'
+import { fullscreenOverlay } from '../../styled/mixins/layout'
+import { ZIndex } from '../../styled/zIndex'
+import { SolidSurface } from './Surface'
 
-const Wrapper = styled.div`
-  position: fixed;
-  display: grid;
-  place-items: center;
+const Wrapper = styled.div(
+  ({ theme }) => css`
+    display: grid;
+    place-items: center;
+    ${fullscreenOverlay}
+    z-index: ${ZIndex.MODAL};
+    padding: ${theme.dimensions.hugeSpacing};
+    background: ${theme.colors.backdrop};
+  `
+)
 
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  padding: 20px;
-
-  z-index: 1000;
-
-  background: #000000d0;
-`
-
-const ModalSurface = styled(Surface)`
-  max-width: 500px;
-  max-height: 80vh;
-  overflow-y: auto;
-  overscroll-behavior: none;
-  background-color: ${(props) => props.theme.colors.layerBgSolid};
-`
+const ModalSurface = styled(SolidSurface)(
+  ({ theme }) => css`
+    max-width: ${theme.dimensions.modalWidth};
+    max-height: 100vh;
+    overflow-y: auto;
+    overscroll-behavior: none;
+  `
+)
 
 interface ModalProps {
   children: React.ReactNode

@@ -2,13 +2,13 @@ import styled, { css } from 'styled-components'
 import { fadeOut } from '../../styled/animations'
 import { formatDuration } from '../../misc/formatting'
 import { ProgressBar } from './ProgressBar'
-import { dropShadow } from '../../styled/mixins'
 import { PlayPauseIcon } from '../../icons/PlayPauseIcon'
 import ToggleFullscreenButton from './ToggleFullscreenButton'
 import LinkList from './LinkList'
 import React, { useCallback } from 'react'
 import FullscreenProgressBar from './FullscreenProgressBar'
 import { BackwardIcon, ForwardIcon } from '../../icons/FontAwesomeIcons'
+import { dropShadow } from '../../styled/mixins/shadow'
 
 function overlayVisibility({ isVisible }: { isVisible: boolean }) {
   return isVisible
@@ -20,11 +20,9 @@ function overlayVisibility({ isVisible }: { isVisible: boolean }) {
 }
 
 const Wrapper = styled.div`
-  grid-area: 1/1/2/2;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto 1fr auto auto;
-  z-index: 1;
 
   ${overlayVisibility};
 `
@@ -32,14 +30,14 @@ const Wrapper = styled.div`
 const VideoProgressBar = styled(ProgressBar)(
   ({ theme }) => css`
     grid-area: 4/1/4/4;
-    margin: ${theme.dimensions.gutter};
+    margin: ${theme.dimensions.bigSpacing};
   `
 )
 
 const AutoProgressBar = styled(FullscreenProgressBar)(
   ({ theme }) => css`
     grid-area: 4/1/4/4;
-    margin: ${theme.dimensions.gutter};
+    margin: ${theme.dimensions.bigSpacing};
   `
 )
 
@@ -61,7 +59,7 @@ const LengthDisplay = styled.span(
     color: white;
     border-radius: 4px;
     padding: ${props.theme.dimensions.spacing};
-    margin: ${props.theme.dimensions.gutter};
+    margin: ${props.theme.dimensions.bigSpacing};
   `
 )
 
@@ -203,7 +201,13 @@ export function Overlay(props: OverlayProps) {
   const toggleVisible = React.useCallback(() => setVisible(!isVisible), [isVisible, setVisible])
 
   return (
-    <Wrapper isVisible={isVisible} onClick={toggleVisible} data-testid='overlay-wrapper' data-name='overlay'>
+    <Wrapper
+      isVisible={isVisible}
+      onClick={toggleVisible}
+      data-testid='overlay-wrapper'
+      data-name='overlay'
+      className='overlay'
+    >
       {getOverlayContent(props)}
     </Wrapper>
   )

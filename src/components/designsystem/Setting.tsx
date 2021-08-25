@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { gridWithGap } from '../../styled/mixins'
+import { gridWithGap } from '../../styled/mixins/layout'
 import { SmallTitle, Faded } from './Text'
 
 const Grid = styled.div`

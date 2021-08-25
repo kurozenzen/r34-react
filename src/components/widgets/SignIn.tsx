@@ -3,9 +3,9 @@ import styled, { css } from 'styled-components'
 import { signIn, signOut } from '../../firebase'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { GoogleIcon, SignOutIcon } from '../../icons/FontAwesomeIcons'
-import { flexRowWithGap } from '../../styled/mixins'
-import { RedButton } from '../designsystem/Buttons'
-import FlexColumn from '../designsystem/FlexColumn'
+import { flexRowWithGap } from '../../styled/mixins/layout'
+import { PrimaryButton } from '../designsystem/Buttons'
+import { FlexColumn } from '../designsystem/FlexColumn'
 
 const FlexRow = styled.div`
   ${flexRowWithGap}
@@ -32,19 +32,19 @@ export default function SignIn() {
       <FlexColumn>
         <FlexRow>
           <ProfilePicture src={picture} alt={name} title={name} />
-          <RedButton onClick={handleSignOut}>
+          <PrimaryButton onClick={handleSignOut}>
             <SignOutIcon />
             <span>Sign Out</span>
-          </RedButton>
+          </PrimaryButton>
         </FlexRow>
       </FlexColumn>
     )
   }
 
   return (
-    <RedButton onClick={handleSignIn}>
+    <PrimaryButton onClick={handleSignIn}>
       <GoogleIcon />
       <span>Sign In</span>
-    </RedButton>
+    </PrimaryButton>
   )
 }

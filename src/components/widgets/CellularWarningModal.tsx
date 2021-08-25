@@ -5,8 +5,8 @@ import Modal from '../designsystem/Modal'
 import eeek from '../../icons/eeek.png'
 import FlexImage from '../designsystem/FlexImage'
 import { Faded, Title } from '../designsystem/Text'
-import { flexRowWithGap } from '../../styled/mixins'
-import { RedButton } from '../designsystem/Buttons'
+import { flexRowWithGap } from '../../styled/mixins/layout'
+import { PrimaryButton } from '../designsystem/Buttons'
 import styled from 'styled-components'
 import { FailedIcon, SuccessIcon } from '../../icons/FontAwesomeIcons'
 import LabeledToggle from '../designsystem/LabeledToggle'
@@ -15,7 +15,7 @@ import usePreference from '../../hooks/usePreference'
 const ButtonRow = styled.div`
   ${flexRowWithGap}
 
-  > button {
+  > ${PrimaryButton} {
     flex-grow: 1;
   }
 `
@@ -58,12 +58,12 @@ export default function CellularWarningModal() {
         Load original sizes
       </LabeledToggle>
       <ButtonRow>
-        <RedButton onClick={onConfirm}>
+        <PrimaryButton onClick={onConfirm}>
           <SuccessIcon /> Yes
-        </RedButton>
-        <RedButton onClick={onCancel}>
+        </PrimaryButton>
+        <PrimaryButton onClick={onCancel}>
           <FailedIcon /> No
-        </RedButton>
+        </PrimaryButton>
       </ButtonRow>
     </Modal>
   )

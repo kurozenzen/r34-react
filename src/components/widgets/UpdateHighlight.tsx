@@ -1,13 +1,13 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
 import { WrenchIcon } from '../../icons/FontAwesomeIcons'
-import { borderRadius, flexColumnWithGap, layer } from '../../styled/mixins'
+import { flexColumnWithGap } from '../../styled/mixins/layout'
+import { layer } from '../../styled/mixins/theming'
 import FlexPair from '../designsystem/FlexPair'
 import { SmallTitle } from '../designsystem/Text'
 
 const Wrapper = styled(FlexPair)(
   ({ theme }) => css`
-    ${borderRadius}
     ${layer}
     width: 100%;
     padding: ${theme.dimensions.hugeSpacing};

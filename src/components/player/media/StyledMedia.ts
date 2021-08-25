@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { mediaStyle } from '../../../styled/mixins'
+import { mediaStyle } from '../../../styled/mixins/media'
 import FlexImage from '../../designsystem/FlexImage'
 import FlexVideo from '../../designsystem/FlexVideo'
 

@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import useToggle from '../../hooks/useToggle'
 import { CloseIcon, ShareIcon, SupertagIcon } from '../../icons/FontAwesomeIcons'
-import { flexColumnWithGap, gridWithGap } from '../../styled/mixins'
 import TagList from '../tag/TagList'
 import TagSelector from '../tagSelector/TagSelector'
 import { Faded } from './Text'
@@ -12,18 +11,17 @@ import { Link } from 'react-router-dom'
 import { RouteName } from '../../data/types'
 import { encodeSupertag, isSupertag } from '../../data/tagUtils'
 import { InvisButton } from './Buttons'
+import { flexColumnWithGap, gridWithGap } from '../../styled/mixins/layout'
 
 const Wrapper = styled.div`
   ${flexColumnWithGap}
-
-  padding: ${(props) => props.theme.dimensions.gutter};
 
   :not(:last-child) {
     border-bottom: solid gray 1px;
   }
 
   :active {
-    background: ${(props) => props.theme.colors.layerBgHighlight};
+    background: ${({ theme }) => theme.colors.layerBgHighlight};
   }
 `
 
@@ -57,7 +55,7 @@ const Row = styled.div`
 
 const LinkButton = styled(Link)(
   ({ theme }) => css`
-    padding: ${theme.dimensions.gutter};
+    padding: ${theme.dimensions.bigSpacing};
     cursor: pointer;
     color: ${theme.colors.text};
   `

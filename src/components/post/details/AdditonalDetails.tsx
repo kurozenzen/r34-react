@@ -1,9 +1,10 @@
 import styled from 'styled-components'
-import { flexColumnWithGap, gutter } from '../../../styled/mixins'
+import { defaultSpacing } from '../../../styled/mixins/gap'
+import { flexColumnWithGap } from '../../../styled/mixins/layout'
 
 export const AdditionalDetails = styled.div`
   ${flexColumnWithGap}
-  ${gutter}
+  ${defaultSpacing}
   
   flex-wrap: wrap;
   padding-top: 0;

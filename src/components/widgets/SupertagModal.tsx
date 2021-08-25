@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 import { addSupertag } from '../../firebase'
 import { selectActiveTags } from '../../redux/selectors'
-import { defaultBlock, defaultBorder } from '../../styled/mixins'
+import { defaultBorder } from '../../styled/mixins/theming'
 import { BlockButton } from '../designsystem/Buttons'
 import { HorizontalLine } from '../designsystem/Lines'
 import { Title } from '../designsystem/Text'
@@ -15,6 +15,7 @@ import { useActivateTag } from '../../hooks/useActivateTag'
 import { closeModal, removeTag } from '../../redux/actions'
 import useAction from '../../hooks/useAction'
 import Modal from '../designsystem/Modal'
+import { defaultBlock } from '../../styled/mixins/layout'
 
 const StyledInput = styled.input(
   ({ theme }) => css`

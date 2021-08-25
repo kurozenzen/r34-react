@@ -7,14 +7,15 @@ import { addSupertag, removeSupertag, useSupertags } from '../../firebase'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { usePageTitle } from '../../hooks/usePageTitle'
 import { CopyIcon, PlusIcon, SuccessIcon } from '../../icons/FontAwesomeIcons'
-import { borderRadius, flexRowWithGap, layer } from '../../styled/mixins'
-import { RedButton } from '../designsystem/Buttons'
-import FlexColumn, { FlexColumnWithSpacing } from '../designsystem/FlexColumn'
-import Surface from '../designsystem/Surface'
+import { PrimaryButton } from '../designsystem/Buttons'
+import { FlexColumn, FlexColumnWithSpacing } from '../designsystem/FlexColumn'
+import { Surface } from '../designsystem/Surface'
 import { Faded, Title } from '../designsystem/Text'
 import Header from '../features/Header'
 import TagList from '../tag/TagList'
 import { NO_OP } from '../../data/types'
+import { flexRowWithGap } from '../../styled/mixins/layout'
+import { layer } from '../../styled/mixins/theming'
 
 const ShareColumn = styled(FlexColumnWithSpacing)`
   place-content: center;
@@ -23,13 +24,15 @@ const ShareColumn = styled(FlexColumnWithSpacing)`
   flex-grow: 1;
 `
 
-const SupertagSurface = styled(Surface)`
-  grid-template-rows: auto auto auto 1fr;
-  grid-template-columns: 1fr auto;
-  padding: 16px;
-  justify-content: center;
-  max-width: 500px;
-`
+const SupertagSurface = styled(Surface)(
+  ({ theme }) => css`
+    grid-template-rows: auto auto auto 1fr;
+    grid-template-columns: 1fr auto;
+    padding: ${theme.dimensions.hugeSpacing};
+    justify-content: center;
+    max-width: ${theme.dimensions.modalWidth};
+  `
+)
 
 const Name = styled(Title)`
   text-align: left;
@@ -40,7 +43,7 @@ const ShortDesc = styled(Faded)`
   grid-area: 2/1/3/3;
 `
 
-const ImportButton = styled(RedButton)`
+const ImportButton = styled(PrimaryButton)`
   grid-area: 1/2/2/3;
 `
 
@@ -57,7 +60,6 @@ const Link = styled.span(
   ({ theme }) => css`
     ${flexRowWithGap}
     ${layer}
-    ${borderRadius}
     padding: ${theme.dimensions.bigSpacing};
     color: ${theme.colors.subduedText};
     grid-area: 3/1/4/3;

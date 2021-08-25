@@ -1,6 +1,7 @@
 import React, { ChangeEventHandler } from 'react'
 import styled, { css } from 'styled-components'
-import { defaultBorder, defaultBlock } from '../../styled/mixins'
+import { defaultBlock } from '../../styled/mixins/layout'
+import { defaultBorder, defaultInput } from '../../styled/mixins/theming'
 
 const Wrapper = styled.div(
   ({ theme }) => css`
@@ -11,12 +12,10 @@ const Wrapper = styled.div(
 
 const StyledSelect = styled.select(
   ({ theme }) => css`
-    ${defaultBorder({ theme })}
-    ${defaultBlock({ theme })}
+    ${defaultInput}
+
     width: 100%;
     height: 100%;
-    background-color: ${theme.colors.backgroundColor2};
-    cursor: pointer;
   `
 )
 

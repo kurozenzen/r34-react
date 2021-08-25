@@ -2,17 +2,17 @@ import React, { MouseEventHandler, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 import { selectLastPage } from '../../../redux/selectors'
-import { RedButton } from '../../designsystem/Buttons'
+import { gridWithGap } from '../../../styled/mixins/layout'
+import { PrimaryButton } from '../../designsystem/Buttons'
 import { SmallNumberInput } from '../../designsystem/SmallInput'
 
 const PageRow = styled.div(
   ({ theme }) => css`
-    display: grid;
+    ${gridWithGap}
     grid-template-columns: 1fr auto 1fr;
     justify-content: center;
     place-items: center;
-    gap: ${theme.dimensions.gutter};
-    padding: ${theme.dimensions.gutter};
+    padding: ${theme.dimensions.bigSpacing};
     padding-bottom: 0;
     max-width: ${theme.dimensions.bodyWidth};
     margin: auto;
@@ -29,7 +29,7 @@ const Right = styled.div`
   gap: 8px;
 `
 
-const PageNumber = styled(RedButton)`
+const PageNumber = styled(PrimaryButton)`
   min-width: 50px;
 `
 

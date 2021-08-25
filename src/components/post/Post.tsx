@@ -7,20 +7,20 @@ import { ActiveTab, NO_OP } from '../../data/types'
 import useToggle from '../../hooks/useToggle'
 import { fetchComments } from '../../redux/actions'
 import { selectShowComments } from '../../redux/selectors'
-import { layer } from '../../styled/mixins'
+import { layer } from '../../styled/mixins/theming'
 import LayoutElementProps from '../layout/LayoutElementProps'
 import { Media } from '../player/Media'
 import Details from './details/Details'
 
 const ItemWrapper = styled.div(
   ({ theme }) => css`
-    padding-top: ${theme.dimensions.gutter};
+    padding-top: ${theme.dimensions.bigSpacing};
   `
 )
 
 const PositonWrapper = styled.div(
   ({ theme }) => css`
-    padding: 0 ${theme.dimensions.gutter};
+    padding: 0 ${theme.dimensions.bigSpacing};
     width: 100%;
     max-width: ${theme.dimensions.bodyWidth};
     margin: auto;
@@ -32,8 +32,18 @@ const PostWrapper = styled.div(
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto auto;
-    border-radius: ${theme.dimensions.borderRadius};
     ${layer}
+
+    // Set area of media and overlay
+    img, video {
+      grid-area: 1/1/2/2;
+      z-index: 1;
+    }
+
+    .overlay {
+      grid-area: 1/1/2/2;
+      z-index: 1;
+    }
   `
 )
 

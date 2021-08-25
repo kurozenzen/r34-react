@@ -1,18 +1,36 @@
 import styled, { css } from 'styled-components'
-import { defaultBorder, dropShadow, primaryHover } from '../../styled/mixins'
+import { buttonBaseStyle } from '../../styled/mixins/layout'
+import { dropShadow } from '../../styled/mixins/shadow'
+import { defaultBorder, primary, transitionAll } from '../../styled/mixins/theming'
 
-const TextButton = styled.button(
+const TextButton = styled.button`
+  ${buttonBaseStyle}
+`
+
+export const LinkButton = styled.a(
   ({ theme }) => css`
-    height: ${theme.dimensions.blockHeight};
-    padding: 0 ${theme.dimensions.bigSpacing};
-    font-size: ${theme.fontSizes.content};
-    ${defaultBorder({ theme })}
-    display: inline-flex;
-    gap: ${theme.dimensions.gutter};
-    align-items: center;
-    place-content: center;
-    cursor: pointer;
-    transition: all ${theme.timings.longTransitionTime} ease-out;
+    ${buttonBaseStyle}
+
+    gap: ${theme.dimensions.bigSpacing};
+    padding: 0 ${theme.dimensions.hugeSpacing};
+    background-color: ${theme.colors.layerBg};
+    border-radius: ${theme.dimensions.borderRadius};
+    color: ${theme.colors.text};
+
+    :visited {
+      color: ${theme.colors.text} !important;
+      text-decoration: none !important;
+    }
+
+    :hover {
+      opacity: 0.8;
+      text-decoration: none !important;
+    }
+
+    :active {
+      opacity: 0.6;
+      text-decoration: none !important;
+    }
   `
 )
 
@@ -20,28 +38,35 @@ export const InvisButton = styled.button(
   ({ theme }) => css`
     background-color: transparent;
     border: none;
-    padding: ${theme.dimensions.gutter};
-    cursor: pointer;
-    ${dropShadow({ theme })}
+    padding: ${theme.dimensions.bigSpacing};
     color: ${theme.colors.text};
+    cursor: pointer;
+
+    ${dropShadow}
 
     svg {
-      transition: all ${theme.timings.transitionTime} ease-out;
+      ${transitionAll}
     }
   `
 )
 
-export const RedButton = styled(TextButton)`
-  ${primaryHover}
-`
+export const PrimaryButton = styled(TextButton)(
+  ({ theme }) => css`
+    ${primary}
 
-export const BlockButton = styled(RedButton)`
+    gap: ${theme.dimensions.bigSpacing};
+    padding: 0 ${theme.dimensions.hugeSpacing};
+  `
+)
+
+export const BlockButton = styled(PrimaryButton)`
   width: 100%;
 `
 
-export const AddButton = styled(RedButton)(
+export const AddButton = styled(PrimaryButton)(
   ({ theme }) => css`
     border-radius: 0 ${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0;
+    min-width: ${theme.dimensions.blockHeight};
   `
 )
 
@@ -51,7 +76,7 @@ export const ModifierButton = styled(TextButton)(
     min-width: 48px;
     font-weight: bold;
 
-    ${defaultBorder({ theme })}
+    ${defaultBorder}
     border-right-width: 0;
     border-radius: ${theme.dimensions.borderRadius} 0 0 ${theme.dimensions.borderRadius};
   `

@@ -2,21 +2,20 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { download } from '../../data/utils'
 import { DownloadIcon, ExternalLinkIcon } from '../../icons/FontAwesomeIcons'
-import { dropShadow, flexRowWithGap } from '../../styled/mixins'
+import { flexRowWithGap } from '../../styled/mixins/layout'
+import { dropShadow } from '../../styled/mixins/shadow'
 import { InvisButton } from '../designsystem/Buttons'
 
-const Wrapper = styled.div(
-  ({ theme }) => css`
-    grid-area: 3/1/4/2;
-    ${flexRowWithGap}
-    place-self: end start;
-    place-items: start center;
-  `
-)
+const Wrapper = styled.div`
+  grid-area: 3/1/4/2;
+  ${flexRowWithGap}
+  place-self: end start;
+  place-items: start center;
+`
 
 const LinkButton = styled.a(
   ({ theme }) => css`
-    padding: ${theme.dimensions.gutter};
+    padding: ${theme.dimensions.bigSpacing};
     cursor: pointer;
     ${dropShadow({ theme })}
 

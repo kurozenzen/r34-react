@@ -1,12 +1,12 @@
 import React, { ReactNode, useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import { Post } from 'r34-types'
-import BaseFlexColumn from '../../designsystem/FlexColumn'
+import { FlexColumn } from '../../designsystem/FlexColumn'
 import PageNavigation from './PageNavigation'
 
-const FlexColumn = styled(BaseFlexColumn)(
+const PageLayoutFlexColumn = styled(FlexColumn)(
   ({ theme }) => css`
-    padding-bottom: ${theme.dimensions.gutter};
+    padding-bottom: ${theme.dimensions.bigSpacing};
   `
 )
 
@@ -34,7 +34,7 @@ export default function PageLayout(props: PageLayoutProps<Post>) {
   )
 
   return (
-    <FlexColumn>
+    <PageLayoutFlexColumn>
       {header}
       {items && items.length > 0 && (
         <>
@@ -45,6 +45,6 @@ export default function PageLayout(props: PageLayoutProps<Post>) {
           <PageNavigation currentPage={currentPage} loadPage={scrollAndLoadPage} />
         </>
       )}
-    </FlexColumn>
+    </PageLayoutFlexColumn>
   )
 }

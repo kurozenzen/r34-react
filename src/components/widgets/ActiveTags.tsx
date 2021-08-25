@@ -8,7 +8,7 @@ import useToggleTag from '../../hooks/useToggleTag'
 import { SupertagIcon } from '../../icons/FontAwesomeIcons'
 import { addTag, openModal } from '../../redux/actions'
 import { selectActiveTags, selectNumberOfActiveTags } from '../../redux/selectors'
-import { RedButton } from '../designsystem/Buttons'
+import { PrimaryButton } from '../designsystem/Buttons'
 import TagList from '../tag/TagList'
 
 interface ActiveTagsProps {
@@ -46,9 +46,9 @@ export default function ActiveTags(props: ActiveTagsProps) {
   return numberOfActiveTags > 0 ? (
     <TagList tags={activeTags} onTagClick={toggleTag} getIsActive={checkIsActive} onTagMenu={onTagMenu} detailed>
       {offerSupertags && Object.keys(activeTags).length > 1 && (
-        <RedButton onClick={openSupertagModal} title='Create a supertag'>
+        <PrimaryButton onClick={openSupertagModal} title='Create a supertag'>
           <SupertagIcon />
-        </RedButton>
+        </PrimaryButton>
       )}
     </TagList>
   ) : null

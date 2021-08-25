@@ -1,14 +1,18 @@
 import React from 'react'
-import styled, { useTheme } from 'styled-components'
+import { Link } from 'react-router-dom'
+import styled, { css, useTheme } from 'styled-components'
+import { RouteName } from '../../data/types'
 import { usePageTitle } from '../../hooks/usePageTitle'
-import { DiscordIcon, GithubIcon } from '../../icons/FontAwesomeIcons'
+import { DiscordIcon, GithubIcon, PrivacyIcon, TermsIcon } from '../../icons/FontAwesomeIcons'
 import R34Icon from '../../icons/R34Icon'
-import FlexColumn, { FlexColumnWithSpacing } from '../designsystem/FlexColumn'
+import { buttonBaseStyle, multilineList } from '../../styled/mixins/layout'
+import { LinkButton } from '../designsystem/Buttons'
+import { FlexColumn, FlexColumnWithSpacing } from '../designsystem/FlexColumn'
 import { HorizontalLine } from '../designsystem/Lines'
-import Surface from '../designsystem/Surface'
+import { Surface } from '../designsystem/Surface'
 import { Faded, Title } from '../designsystem/Text'
 import Header from '../features/Header'
-import { KofiButton, AButton, PatreonButton } from '../widgets/SponsoringButtons'
+import { KofiButton, PatreonButton } from '../widgets/SponsoringButtons'
 
 const AboutSurface = styled(Surface)`
   grid-template-rows: auto auto auto auto 1fr;
@@ -52,14 +56,6 @@ const FlexRow = styled.div`
   padding-bottom: 4px;
 `
 
-const Connection = styled(AButton)`
-  display: inline-flex;
-  gap: 5px;
-  max-height: 40px;
-  align-items: center;
-  white-space: nowrap;
-`
-
 const Divider = styled(HorizontalLine)`
   grid-area: 4/1/5/4;
 `
@@ -74,6 +70,21 @@ const Body = styled.div`
     line-height: 20px;
   }
 `
+const AdditionalLinks = styled.div`
+  ${multilineList}
+  place-content: center;
+`
+
+const FadedLink = styled(Link)(
+  ({ theme }) => css`
+    ${buttonBaseStyle}
+    color: ${theme.colors.subduedText};
+
+    :visited {
+      color: ${theme.colors.subduedText};
+    }
+  `
+)
 
 export default function About() {
   usePageTitle('R34 React - About')
@@ -90,22 +101,22 @@ export default function About() {
           <Name>R34 React</Name>
           <ShortDesc>Here are some links</ShortDesc>
           <FlexRow>
-            <Connection href='https://github.com/kurozenzen/r34-react' target='_newtab'>
+            <LinkButton href='https://github.com/kurozenzen/r34-react' target='_newtab'>
               <GithubIcon color={iconColor} />
               Frontend
-            </Connection>
-            <Connection href='https://github.com/kurozenzen/r34-json-api'>
+            </LinkButton>
+            <LinkButton href='https://github.com/kurozenzen/r34-json-api'>
               <GithubIcon color={iconColor} />
               Backend
-            </Connection>
-            <Connection href='https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md'>
+            </LinkButton>
+            <LinkButton href='https://github.com/kurozenzen/r34-react/issues/new?template=bug_report.md'>
               <GithubIcon color={iconColor} />
               Bug Report
-            </Connection>
-            <Connection href='https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md'>
+            </LinkButton>
+            <LinkButton href='https://github.com/kurozenzen/r34-react/issues/new?template=feature_request.md'>
               <GithubIcon color={iconColor} />
               Feature Request
-            </Connection>
+            </LinkButton>
           </FlexRow>
           <Divider />
           <Body>
@@ -125,14 +136,14 @@ export default function About() {
           <Username>(kurozenzen)</Username>
           <ShortDesc>Here are some links</ShortDesc>
           <FlexRow>
-            <Connection href='https://github.com/kurozenzen'>
+            <LinkButton href='https://github.com/kurozenzen'>
               <GithubIcon color={iconColor} />
               GitHub
-            </Connection>
-            <Connection href=' https://discord.gg/yyJFG5PVBZ'>
+            </LinkButton>
+            <LinkButton href=' https://discord.gg/yyJFG5PVBZ'>
               <DiscordIcon color={iconColor} />
               Discord
-            </Connection>
+            </LinkButton>
             <KofiButton id='V7V73PWW9' label='Ko-fi' />
             <PatreonButton name='kurozenzen' label='Patreon' />
           </FlexRow>
@@ -143,14 +154,18 @@ export default function About() {
               Feel free to ping me on discord or write me an email if you wanna get in touch. I am usually quite
               friendly.
             </p>
-            <p>
-              Also, if you have already sent me an email and I am not responding contact me on discord. I am not
-              ignoring you I have probably just missed the email.
-            </p>
             <p>That's all. Have a nice day.</p>
           </Body>
         </AboutSurface>
       </FlexColumnWithSpacing>
+      <AdditionalLinks>
+        <FadedLink to={RouteName.TERMS}>
+          <TermsIcon /> Terms and Conditions
+        </FadedLink>
+        <FadedLink to={RouteName.PRIVACY}>
+          <PrivacyIcon /> Privacy
+        </FadedLink>
+      </AdditionalLinks>
     </FlexColumn>
   )
 }

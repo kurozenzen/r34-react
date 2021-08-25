@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { flexMedia, preserveAspectRatio } from '../../styled/mixins'
+import { flexMedia, preserveAspectRatio } from '../../styled/mixins/media'
 
 const FlexVideo = styled.video`
   ${flexMedia}

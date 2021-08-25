@@ -1,21 +1,21 @@
+import * as r34 from 'r34-types'
 import React, { useMemo } from 'react'
-import Surface from '../designsystem/Surface'
+import { useSelector } from 'react-redux'
+import styled, { css } from 'styled-components'
+import { NO_OP } from '../../data/types'
+import useToggleTag from '../../hooks/useToggleTag'
+import outOfResultsPicture from '../../icons/OutOfResults.png'
+import { selectAliasesAsList } from '../../redux/selectors'
+import FlexImage from '../designsystem/FlexImage'
+import { HorizontalLine } from '../designsystem/Lines'
+import { Surface } from '../designsystem/Surface'
 import { SmallTitle } from '../designsystem/Text'
 import TagList from '../tag/TagList'
-import outOfResultsPicture from '../../icons/OutOfResults.png'
-import { useSelector } from 'react-redux'
-import { selectAliasesAsList } from '../../redux/selectors'
-import { NO_OP } from '../../data/types'
 import LayoutElementProps from './LayoutElementProps'
-import { HorizontalLine } from '../designsystem/Lines'
-import styled, { css } from 'styled-components'
-import FlexImage from '../designsystem/FlexImage'
-import useToggleTag from '../../hooks/useToggleTag'
-import * as r34 from 'r34-types'
 
 const Div = styled.div(
   ({ theme }) => css`
-    padding: ${theme.dimensions.gutter};
+    padding: ${theme.dimensions.bigSpacing};
   `
 )
 

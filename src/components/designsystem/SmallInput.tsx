@@ -1,16 +1,13 @@
 import React, { ChangeEventHandler, useCallback, useEffect, useState } from 'react'
-import styled, { css } from 'styled-components'
-import { defaultBorder, defaultBlock } from '../../styled/mixins'
+import styled from 'styled-components'
+import { defaultInput } from '../../styled/mixins/theming'
 
-const StyledInput = styled.input(
-  ({ theme }) => css`
-    width: 70px;
-    ${defaultBorder({ theme })}
-    background-color: ${theme.colors.backgroundColor2};
-    ${defaultBlock({ theme })}
-    text-align: left;
-  `
-)
+const StyledInput = styled.input`
+  ${defaultInput}
+
+  width: 70px;
+  text-align: left;
+`
 
 interface SmallTextInputProps {
   value: string

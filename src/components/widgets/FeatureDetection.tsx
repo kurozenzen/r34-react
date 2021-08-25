@@ -8,7 +8,9 @@ import {
   supportsNetworkInformationAPI,
   supportsObjectFit,
 } from '../../data/browserUtils'
-import { flexColumnWithGap, gutter, borderRadius } from '../../styled/mixins'
+import { defaultSpacing } from '../../styled/mixins/gap'
+import { flexColumnWithGap } from '../../styled/mixins/layout'
+import { borderRadius } from '../../styled/mixins/theming'
 import StatusImage from '../designsystem/StatusImage'
 import { SmallTitle, Faded } from '../designsystem/Text'
 
@@ -18,7 +20,7 @@ const Wrapper = styled.div`
 
 const FeatureList = styled.div`
   ${flexColumnWithGap}
-  ${gutter}
+  ${defaultSpacing}
   ${borderRadius}
   background: ${(props) => props.theme.colors.backgroundColor};
 `

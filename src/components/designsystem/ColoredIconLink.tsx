@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { flexRowWithGap } from '../../styled/mixins'
+import { flexRowWithGap } from '../../styled/mixins/layout'
 
 const ColoredIconLink = styled.a(
   ({ color, theme }) => css`

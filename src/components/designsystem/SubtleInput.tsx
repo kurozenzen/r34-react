@@ -1,5 +1,5 @@
 import styled, { css, DefaultTheme } from 'styled-components'
-import { borderRadius } from '../../styled/mixins'
+import { borderRadius } from '../../styled/mixins/theming'
 
 export const SubtleInput = styled.input(
   (props: { value: string; theme: DefaultTheme }) => css`

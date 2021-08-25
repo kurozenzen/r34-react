@@ -7,9 +7,9 @@ const dark: DefaultTheme = {
     spacing: '4px',
     bigSpacing: '8px',
     hugeSpacing: '16px',
-    gutter: '8px',
-    blockHeight: '32px',
+    blockHeight: '36px',
     bodyWidth: '1000px',
+    modalWidth: '500px',
   },
   colors: {
     //basic
@@ -20,6 +20,7 @@ const dark: DefaultTheme = {
     layerBg: '#ffffff11',
     layerBgSolid: '#222222',
     layerBgHighlight: '#ffffff22',
+    backdrop: '#000000d0',
 
     // theme
     accentColor: '#ee3344',
@@ -27,6 +28,8 @@ const dark: DefaultTheme = {
     accentColorActive: '#d93847',
 
     // semantic
+    toggleOff: '#ffffff',
+    focus: '#ffffff',
     liked: '#ff0d50',
     positive: '#3fb950',
     negative: '#f85149',
@@ -40,7 +43,7 @@ const dark: DefaultTheme = {
     longTransitionTime: '0.2s',
   },
   fontSizes: {
-    content: '15px',
+    content: '16px',
     bigTitle: '24px',
   },
 }

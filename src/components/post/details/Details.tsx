@@ -6,7 +6,6 @@ import { ActiveTab, NO_OP } from '../../../data/types'
 import { listToMap } from '../../../data/utils'
 import useToggleTag from '../../../hooks/useToggleTag'
 import { selectPostById, selectShowComments, selectShowMetadata } from '../../../redux/selectors'
-import { flexRowGap, flexRowWithGap, gutter, layer } from '../../../styled/mixins'
 import TagList from '../../tag/TagList'
 import Source from '../source/Source'
 import Comments from './Comments'
@@ -16,6 +15,9 @@ import Score from './Score'
 import { useCheckIsActive } from '../../../hooks/useCheckIsActive'
 import { addTag } from '../../../redux/actions'
 import useModifier from '../../../hooks/useModifier'
+import { layer } from '../../../styled/mixins/theming'
+import { defaultSpacing } from '../../../styled/mixins/gap'
+import { flexRowWithGap } from '../../../styled/mixins/layout'
 
 const Bar = styled.div(
   ({ theme }) => css`
@@ -26,19 +28,19 @@ const Bar = styled.div(
     flex-wrap: nowrap;
     overflow-x: auto;
     ${layer({ theme })}
-    padding: ${theme.dimensions.gutter};
-    ${flexRowGap(theme.dimensions.hugeSpacing)}
+    ${defaultSpacing}
     border-radius: 0 0 ${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius};
   `
 )
 
-const Menu = styled.div`
-  ${flexRowWithGap}
-  ${gutter}
-  justify-content: space-around;
-  margin-top: 8px;
-  grid-row: 3/4;
-`
+const Menu = styled.div(
+  ({ theme }) => css`
+    ${flexRowWithGap}
+    justify-content: space-around;
+    margin-top: ${theme.dimensions.bigSpacing};
+    grid-row: 3/4;
+  `
+)
 
 const MenuEntry = styled.span`
   cursor: pointer;
@@ -54,7 +56,7 @@ const MenuEntry = styled.span`
 const DetailsTagList = styled(TagList)(
   ({ theme }) => css`
     grid-row: 4/5;
-    padding: ${theme.dimensions.gutter};
+    padding: ${theme.dimensions.bigSpacing};
   `
 )
 

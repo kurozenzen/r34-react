@@ -2,42 +2,45 @@ import 'styled-components'
 
 declare module 'styled-components' {
   export interface DefaultTheme {
-    dimensions: {
-      borderRadius: string
-      borderWidth: string
-      spacing: string
-      bigSpacing: string
-      hugeSpacing: string
-      gutter: string
-      blockHeight: string
-      bodyWidth: string
-    }
     colors: {
-      text: string
       accentColor: string
-      accentColorHover: string
       accentColorActive: string
+      accentColorHover: string
+      backdrop: string
       backgroundColor: string
       backgroundColor2: string
-      subduedText: string
+      focus: string
       layerBg: string
-      layerBgSolid: string
       layerBgHighlight: string
+      layerBgSolid: string
       liked: string
-      positive: string
       negative: string
+      positive: string
+      subduedText: string
+      text: string
+      toggleOff: string
     }
-    shadow: {
-      radius: string
-      color: string
-    }
-    timings: {
-      transitionTime: string
-      longTransitionTime: string
+    dimensions: {
+      bigSpacing: string
+      blockHeight: string
+      bodyWidth: string
+      borderRadius: string
+      borderWidth: string
+      hugeSpacing: string
+      modalWidth: string
+      spacing: string
     }
     fontSizes: {
-      content: string
       bigTitle: string
+      content: string
+    }
+    shadow: {
+      color: string
+      radius: string
+    }
+    timings: {
+      longTransitionTime: string
+      transitionTime: string
     }
   }
 }

@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 import { RouteName } from '../../data/types'
 import { ExpandIcon, CloseIcon } from '../../icons/FontAwesomeIcons'
 import { setFullscreenPost } from '../../redux/actions'
-import { dropShadow } from '../../styled/mixins'
+import { dropShadow } from '../../styled/mixins/shadow'
 import { InvisButton } from '../designsystem/Buttons'
 
 const ToggleButton = styled(InvisButton)(
@@ -13,7 +13,7 @@ const ToggleButton = styled(InvisButton)(
     grid-area: 1/1/2/2;
     place-self: start start;
     ${dropShadow}
-    padding: ${theme.dimensions.gutter};
+    padding: ${theme.dimensions.bigSpacing};
     cursor: pointer;
   `
 )

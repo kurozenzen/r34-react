@@ -1,10 +1,22 @@
 import styled from 'styled-components'
-import { borderRadius, gutter, layer } from '../../styled/mixins'
+import { defaultSpacing } from '../../styled/mixins/gap'
+import { layer, solidLayer } from '../../styled/mixins/theming'
 
-export default styled.div`
+/**
+ * Includes spacing and background color
+ */
+export const Surface = styled.div`
   display: grid;
-  ${gutter}
+  ${defaultSpacing}
   ${layer}
-  ${borderRadius}
+  width: 100%;
+`
+
+/**
+ * Includes spacing and background color
+ */
+export const SolidSurface = styled.div`
+  ${defaultSpacing}
+  ${solidLayer}
   width: 100%;
 `

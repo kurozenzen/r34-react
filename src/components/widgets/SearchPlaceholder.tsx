@@ -2,7 +2,7 @@ import React from 'react'
 import { RandomSponsoring } from './SponsoringButtons'
 import styled, { css } from 'styled-components'
 import RandomTip from './RandomTip'
-import { flexColumnWithGap } from '../../styled/mixins'
+import { flexColumnWithGap } from '../../styled/mixins/layout'
 import UpdateHighlight from './UpdateHighlight'
 
 const Placeholder = styled.div(
@@ -12,7 +12,7 @@ const Placeholder = styled.div(
     max-width: ${theme.dimensions.bodyWidth};
     margin: auto;
 
-    padding: 0 ${theme.dimensions.gutter};
+    padding: 0 ${theme.dimensions.bigSpacing};
 
     .fa-patreon {
       color: #ff424d;

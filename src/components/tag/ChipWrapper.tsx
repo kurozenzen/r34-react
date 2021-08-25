@@ -1,7 +1,8 @@
 import { MouseEventHandler } from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
 import { TagIsActive } from '../../data/types'
-import { flexRowWithGap, focusBorderAndColor, primaryHover } from '../../styled/mixins'
+import { flexRowWithGap } from '../../styled/mixins/layout'
+import { primary, secondary, focus } from '../../styled/mixins/theming'
 
 const dropdownBorderRadius = (collapsed: boolean, theme: DefaultTheme) =>
   collapsed ? theme.dimensions.borderRadius : `${theme.dimensions.borderRadius} ${theme.dimensions.borderRadius} 0 0`
@@ -10,7 +11,7 @@ const switchingColors = (active: TagIsActive, collapsed: boolean, theme: Default
   switch (active) {
     case 'direct':
       return css`
-        ${primaryHover}
+        ${primary}
       `
     case 'indirect':
       return css`
@@ -25,21 +26,11 @@ const switchingColors = (active: TagIsActive, collapsed: boolean, theme: Default
           background-color: ${theme.colors.accentColor}50;
         }
 
-        ${focusBorderAndColor}
+        ${focus}
       `
     case 'no':
       return css`
-        color: ${theme.colors.accentColor};
-
-        :hover {
-          background-color: ${theme.colors.accentColor}40;
-        }
-
-        :active {
-          background-color: ${theme.colors.accentColor}20;
-        }
-
-        ${focusBorderAndColor}
+        ${secondary}
       `
   }
 }
@@ -51,7 +42,7 @@ export const ChipWrapper = styled.div(
       border: ${props.theme.colors.accentColor} ${props.theme.dimensions.borderWidth} solid;
       ${flexRowWithGap({ theme: props.theme })}
       ${switchingColors(props.active, props.collapsed, props.theme)}
-      padding: 0 ${props.theme.dimensions.gutter};
+      padding: 0 ${props.theme.dimensions.bigSpacing};
       height: ${props.theme.dimensions.blockHeight};
       border-radius: ${dropdownBorderRadius(props.collapsed, props.theme)};
       font-size: ${props.theme.fontSizes.content};

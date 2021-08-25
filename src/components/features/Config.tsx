@@ -2,16 +2,17 @@ import styled from 'styled-components'
 import TagSelector from '../tagSelector/TagSelector'
 import Options from './Options'
 import { Title } from '../designsystem/Text'
-import Surface from '../designsystem/Surface'
+import { Surface } from '../designsystem/Surface'
 import SearchButton from '../widgets/SearchButton'
 import ActiveTags from '../widgets/ActiveTags'
-import { flexColumn, gutter, centeredMaxWidth } from '../../styled/mixins'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { useActivateTag } from '../../hooks/useActivateTag'
+import { defaultSpacing } from '../../styled/mixins/gap'
+import { centeredMaxWidth, flexColumn } from '../../styled/mixins/layout'
 
 const ConfigWrapper = styled.section`
   ${flexColumn}
-  ${gutter}
+  ${defaultSpacing}
   ${centeredMaxWidth}
 `
 

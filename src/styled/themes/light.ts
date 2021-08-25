@@ -5,12 +5,14 @@ const light = {
   colors: {
     ...dark.colors,
     text: '#000',
-    backgroundColor: '#eee',
-    backgroundColor2: '#eee',
-    subduedText: '#00000080',
+    backgroundColor: '#ffffff',
+    backgroundColor2: '#ffffff',
+    subduedText: '#00000060',
     layerBg: '#ffffff',
     layerBgSolid: '#ffffff',
     layerBgHighlight: '#00000022',
+    focus: '#000000',
+    toggleOff: '#00000060',
   },
   shadow: {
     ...dark.shadow,

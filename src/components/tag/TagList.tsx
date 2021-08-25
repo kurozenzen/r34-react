@@ -1,18 +1,13 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { AnyBiasedTag, AnyTag } from 'r34-types'
-import { flexRowGap, flexColumnGap } from '../../styled/mixins'
+import { multilineList } from '../../styled/mixins/layout'
 import Tag from './Tag'
 import { TagIsActive } from '../../data/types'
 
-const TagListWrapper = styled.div(
-  ({ theme }) => css`
-    display: inline-flex;
-    flex-wrap: wrap;
-    ${flexRowGap(theme.dimensions.gutter)}
-    ${flexColumnGap(theme.dimensions.gutter)}
-  `
-)
+const TagListWrapper = styled.div`
+  ${multilineList}
+`
 
 interface TagListProps {
   /**

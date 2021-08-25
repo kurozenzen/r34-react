@@ -15,6 +15,7 @@ import {
   faCheckCircle,
   faCheckSquare,
   faCodeBranch,
+  faCog,
   faCopy,
   faCopyright,
   faDownload,
@@ -29,6 +30,7 @@ import {
   faPen,
   faPlus,
   faRegistered,
+  faScroll,
   faSearch,
   faShareAlt,
   faSignOutAlt,
@@ -37,6 +39,7 @@ import {
   faTimesCircle,
   faUndoAlt,
   faUser,
+  faUserShield,
   faWrench,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
@@ -70,13 +73,16 @@ export const LinkIcon = bindIcon(faLink)
 export const MetaDataIcon = bindIcon(faInfoCircle)
 export const PatreonIcon = bindIcon(faPatreon)
 export const PlusIcon = bindIcon(faPlus)
+export const PrivacyIcon = bindIcon(faUserShield)
 export const RatingIcon = bindIcon(faRegistered)
 export const SearchIcon = bindIcon(faSearch)
+export const SettingsIcon = bindIcon(faCog)
 export const ShareIcon = bindIcon(faShareAlt)
 export const SignOutIcon = bindIcon(faSignOutAlt)
 export const SourceIcon = bindIcon(faHashtag)
 export const SuccessIcon = bindIcon(faCheckCircle)
 export const SupertagIcon = bindIcon(faTags)
+export const TermsIcon = bindIcon(faScroll)
 export const TumblrIcon = bindIcon(faTumblr)
 export const TwitterIcon = bindIcon(faTwitter)
 export const UndoIcon = bindIcon(faUndoAlt)

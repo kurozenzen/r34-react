@@ -3,9 +3,10 @@ import styled from 'styled-components'
 import LabeledToggle from '../designsystem/LabeledToggle'
 import { PostsSort } from 'r34-types'
 import usePreference from '../../hooks/usePreference'
-import { flexRowWithGap, gridWithGap, PropsWithTheme } from '../../styled/mixins'
 import Select from '../designsystem/Select'
 import { SubtleInput } from '../designsystem/SubtleInput'
+import { gridWithGap, flexRowWithGap } from '../../styled/mixins/layout'
+import { PropsWithTheme } from '../../styled/mixins/types'
 
 const OptionsWrapper = styled.div`
   ${gridWithGap}

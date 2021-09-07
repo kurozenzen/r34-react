@@ -9,6 +9,8 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons'
 import {
+  faArrowRight,
+  faArrowUp,
   faBackward,
   faCalendarDay,
   faCaretDown,
@@ -76,7 +78,7 @@ export const PlusIcon = bindIcon(faPlus)
 export const PrivacyIcon = bindIcon(faUserShield)
 export const RatingIcon = bindIcon(faRegistered)
 export const SearchIcon = bindIcon(faSearch)
-export const SettingsIcon = bindIcon(faCog)
+export const PreferencesIcon = bindIcon(faCog)
 export const ShareIcon = bindIcon(faShareAlt)
 export const SignOutIcon = bindIcon(faSignOutAlt)
 export const SourceIcon = bindIcon(faHashtag)
@@ -89,3 +91,5 @@ export const UndoIcon = bindIcon(faUndoAlt)
 export const WrenchIcon = bindIcon(faWrench)
 export const ForwardIcon = bindIcon(faForward)
 export const BackwardIcon = bindIcon(faBackward)
+export const SubmitIcon = bindIcon(faArrowRight)
+export const ArrowUp = bindIcon(faArrowUp)

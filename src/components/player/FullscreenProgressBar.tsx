@@ -56,7 +56,7 @@ export default function FullscreenProgressBar(props: FullscreenProgressBarProps)
           then = now
 
           ref.current.value = newValue.toString()
-          const chromePercentage = Math.round((newValue / duration) * 100)
+          const chromePercentage = (newValue / duration) * 100
           ref.current.style.backgroundImage = `linear-gradient(90deg, #ffffff80 ${chromePercentage}%, transparent ${chromePercentage}%)`
 
           if (newValue >= Number(ref.current.max)) {
@@ -82,7 +82,7 @@ export default function FullscreenProgressBar(props: FullscreenProgressBarProps)
     <Slider
       ref={ref}
       type='range'
-      step={0.034}
+      step={1}
       min={0}
       max={duration}
       onChange={NO_OP}

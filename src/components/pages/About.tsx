@@ -9,16 +9,15 @@ import { buttonBaseStyle, multilineList } from '../../styled/mixins/layout'
 import { LinkButton } from '../designsystem/Buttons'
 import { FlexColumn, FlexColumnWithSpacing } from '../designsystem/FlexColumn'
 import { HorizontalLine } from '../designsystem/Lines'
-import { Surface } from '../designsystem/Surface'
 import { Faded, Title } from '../designsystem/Text'
+import TitledSurface from '../designsystem/TitledSurface'
 import Header from '../features/Header'
 import { KofiButton, PatreonButton } from '../widgets/SponsoringButtons'
 
-const AboutSurface = styled(Surface)`
+const AboutSurface = styled(TitledSurface)`
   grid-template-rows: auto auto auto auto 1fr;
   grid-template-columns: auto auto 1fr;
-  padding: 16px;
-  align-items: center;
+  padding: ${({ theme }) => theme.dimensions.hugeSpacing};
 `
 
 const ProfilePicture = styled.img`
@@ -41,6 +40,7 @@ const Name = styled(Title)`
 
 const Username = styled(Faded)`
   text-align: left;
+  align-self: center;
   grid-area: 1/3/2/4;
 `
 
@@ -86,8 +86,10 @@ const FadedLink = styled(Link)(
   `
 )
 
+const ButtonList = styled(FlexRow)``
+
 export default function About() {
-  usePageTitle('R34 React - About')
+  usePageTitle('Rule34 React - About')
 
   const iconColor = useTheme().colors.text
 
@@ -95,12 +97,11 @@ export default function About() {
     <FlexColumn>
       <Header />
       <FlexColumnWithSpacing>
-        <Title>The App</Title>
-        <AboutSurface>
+        <AboutSurface title='The App' compact>
           <AppLogo size={100} />
-          <Name>R34 React</Name>
+          <Name>Rule34 React</Name>
           <ShortDesc>Here are some links</ShortDesc>
-          <FlexRow>
+          <ButtonList>
             <LinkButton href='https://github.com/kurozenzen/r34-react' target='_newtab'>
               <GithubIcon color={iconColor} />
               Frontend
@@ -117,7 +118,7 @@ export default function About() {
               <GithubIcon color={iconColor} />
               Feature Request
             </LinkButton>
-          </FlexRow>
+          </ButtonList>
           <Divider />
           <Body>
             <p>A simple yet powerful search tool for rule34.xxx.</p>
@@ -127,15 +128,14 @@ export default function About() {
             </p>
           </Body>
         </AboutSurface>
-        <Title>Me</Title>
-        <AboutSurface>
+        <AboutSurface title='Me' compact>
           <ProfilePicture
             src={`https://avatars.githubusercontent.com/u/44543171?s=400&u=fbda1f0794336c90624d2005d8fd24a5ecb1e5fd&v=4`}
           />
           <Name>Zen Kuro</Name>
           <Username>(kurozenzen)</Username>
           <ShortDesc>Here are some links</ShortDesc>
-          <FlexRow>
+          <ButtonList>
             <LinkButton href='https://github.com/kurozenzen'>
               <GithubIcon color={iconColor} />
               GitHub
@@ -146,7 +146,7 @@ export default function About() {
             </LinkButton>
             <KofiButton id='V7V73PWW9' label='Ko-fi' />
             <PatreonButton name='kurozenzen' label='Patreon' />
-          </FlexRow>
+          </ButtonList>
           <Divider />
           <Body>
             <p>Hi my name is Zen. I made this website. I hope you like it.</p>
@@ -157,15 +157,15 @@ export default function About() {
             <p>That's all. Have a nice day.</p>
           </Body>
         </AboutSurface>
+        <AdditionalLinks>
+          <FadedLink to={RouteName.TERMS}>
+            <TermsIcon /> Terms and Conditions
+          </FadedLink>
+          <FadedLink to={RouteName.PRIVACY}>
+            <PrivacyIcon /> Privacy
+          </FadedLink>
+        </AdditionalLinks>
       </FlexColumnWithSpacing>
-      <AdditionalLinks>
-        <FadedLink to={RouteName.TERMS}>
-          <TermsIcon /> Terms and Conditions
-        </FadedLink>
-        <FadedLink to={RouteName.PRIVACY}>
-          <PrivacyIcon /> Privacy
-        </FadedLink>
-      </AdditionalLinks>
     </FlexColumn>
   )
 }

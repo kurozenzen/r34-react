@@ -5,7 +5,7 @@ import styled, { css, DefaultTheme } from 'styled-components'
 import useThrottledEffect from 'use-throttled-effect'
 import { bias, isSupertag, serializeTagname } from '../../data/tagUtils'
 import useModifier from '../../hooks/useModifier'
-import { PlusIcon } from '../../icons/FontAwesomeIcons'
+import { SubmitIcon } from '../../icons/FontAwesomeIcons'
 import { fetchSuggestions, setSuggestions } from '../../redux/actions'
 import { selectSuggestions, selectSuggestionsError } from '../../redux/selectors'
 import { AddButton, ModifierButton } from '../designsystem/Buttons'
@@ -101,7 +101,7 @@ export default function TagSelector(props: TagSelectorProps) {
       </ModifierButton>
       <TagInput value={value} setValue={setValue} onSubmit={handleAddClick} />
       <AddButton onClick={handleAddClick} aria-label='Add Tag'>
-        <PlusIcon title='Add tag' />
+        <SubmitIcon title='Add tag' />
       </AddButton>
       {showList && value.length > 0 && (
         <DropdownList tagSelectorRef={tagSelectorRef} entries={suggestions} error={error} onClick={activateTag} />

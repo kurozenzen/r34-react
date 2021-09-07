@@ -1,6 +1,6 @@
 ![banner](https://raw.githubusercontent.com/kurozenzen/r34-react/master/public/banner.png)
 
-# R34 React App
+# Rule34 React
 
 Check it out here: https://kurozenzen.github.io/r34-react/
 

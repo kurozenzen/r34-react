@@ -8,7 +8,7 @@ export type ActiveTab = 'tags' | 'comments' | 'metadata'
  */
 export enum RouteName {
   SEARCH = '/',
-  SETTINGS = '/settings',
+  PREFERENCES = '/preferences',
   ABOUT = '/about',
   PRIVACY = '/privacy',
   TERMS = '/terms',

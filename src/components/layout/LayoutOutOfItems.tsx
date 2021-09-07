@@ -11,6 +11,7 @@ import { HorizontalLine } from '../designsystem/Lines'
 import { Surface } from '../designsystem/Surface'
 import { SmallTitle } from '../designsystem/Text'
 import TagList from '../tag/TagList'
+import ScrollToTopButton from '../widgets/ScrollToTopButton'
 import LayoutElementProps from './LayoutElementProps'
 
 const Div = styled.div(
@@ -32,6 +33,14 @@ const StyledImage = styled(FlexImage)`
 `
 
 export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: LayoutElementProps) {
+  return (
+    <Div style={style} ref={virtualRef} onLoad={onLoad} role='row'>
+      <OutOfItems />
+    </Div>
+  )
+}
+
+export function OutOfItems() {
   const aliases = useSelector(selectAliasesAsList)
   const aliasesForRendering = useMemo(
     () =>
@@ -44,19 +53,18 @@ export default function LayoutOutOfItems({ onLoad = NO_OP, virtualRef, style }: 
   const toggleTag = useToggleTag()
 
   return (
-    <Div style={style} ref={virtualRef} onLoad={onLoad} role='row'>
-      <StyledSurface>
-        <StyledImage src={outOfResultsPicture} alt='Shironeko does not understand' />
-        <HorizontalLine />
-        <SmallTitle>You have reached the end!</SmallTitle>
-        <p>Go look for something else!</p>
-        {aliases.length > 0 && (
-          <>
-            <p>How about some of these?</p>
-            <TagList tags={aliasesForRendering} onTagClick={toggleTag} onTagMenu={NO_OP} detailed />
-          </>
-        )}
-      </StyledSurface>
-    </Div>
+    <StyledSurface>
+      <StyledImage src={outOfResultsPicture} alt='Shironeko does not understand' />
+      <HorizontalLine />
+      <SmallTitle>You have reached the end!</SmallTitle>
+      <p>Go look for something else!</p>
+      {aliases.length > 0 && (
+        <>
+          <p>How about some of these?</p>
+          <TagList tags={aliasesForRendering} onTagClick={toggleTag} onTagMenu={NO_OP} detailed />
+        </>
+      )}
+      <ScrollToTopButton />
+    </StyledSurface>
   )
 }

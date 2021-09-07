@@ -85,3 +85,5 @@ export function getCorrectSource(loadOriginal: boolean, big_src: string, small_s
 export function boolToNumber(value: boolean) {
   return value ? 1 : 0
 }
+
+export const randomBelow = (max: number) => Math.floor(Math.random() * max)

@@ -27,15 +27,17 @@ import themes, { defaultThemeId } from './styled/themes'
 const About = React.lazy(() => import('./components/pages/About'))
 const Privacy = React.lazy(() => import('./components/pages/Privacy'))
 const Search = React.lazy(() => import('./components/pages/Search'))
-const Settings = React.lazy(() => import('./components/pages/Settings'))
+const Preferences = React.lazy(() => import('./components/pages/Preferences'))
 const Share = React.lazy(() => import('./components/pages/Share'))
 const Stories = React.lazy(() => import('./components/pages/Stories'))
+
+const loadingScreen = <LoadingScreen />
 
 export default function App() {
   return (
     <ErrorBoundary fallback={<ErrorScreen />}>
       <Provider store={store}>
-        <PersistGate loading={<LoadingScreen />} persistor={persistor}>
+        <PersistGate loading={loadingScreen} persistor={persistor}>
           <ThemedApp />
         </PersistGate>
       </Provider>
@@ -59,11 +61,11 @@ function ThemedApp() {
         <meta name='theme-color' content={theme.colors.layerBgSolid} />
       </Helmet>
       <HashRouter>
-        <Suspense fallback={<LoadingScreen />}>
+        <Suspense fallback={loadingScreen}>
           <Switch>
             <Route exact path={RouteName.ABOUT} component={About} />
             <Route exact path={RouteName.PRIVACY} component={Privacy} />
-            <Route exact path={RouteName.SETTINGS} component={Settings} />
+            <Route exact path={RouteName.PREFERENCES} component={Preferences} />
             <Route exact path={RouteName.STORIES} component={Stories} />
             <Route exact path={RouteName.TERMS} component={Terms} />
             <Route exact path={RouteName.SHARE} component={Share} />

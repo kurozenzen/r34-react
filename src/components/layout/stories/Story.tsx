@@ -18,7 +18,13 @@ const Screen = styled.div`
   img,
   video {
     max-height: 100vh;
-    max-width: 100vh;
+    max-width: 100vw;
+  }
+
+  img,
+  video,
+  .overlay {
+    grid-area: 1/1/2/2;
   }
 `
 

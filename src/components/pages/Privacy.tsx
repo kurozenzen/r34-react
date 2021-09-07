@@ -20,7 +20,7 @@ const Section = styled(FlexColumnWithSpacing)`
 `
 
 export default function Privacy() {
-  document.title = 'R34 React - Privacy Policy'
+  document.title = 'Rule34 React - Privacy Policy'
 
   return (
     <FlexColumn>
@@ -70,15 +70,15 @@ export default function Privacy() {
         <Title>Cookies and Browser Storage</Title>
         <SectionBody>
           <p>Cookies are used to enable Google Analytics.</p>
-          <p>I store application data (mainly settings) locally in your browser.</p>
+          <p>I store application data (mainly preferences) locally in your browser.</p>
         </SectionBody>
       </Section>
       <Section>
         <Title>Google Account</Title>
         <SectionBody>
           <p>
-            If you choose to sign in with your Google Account, your settings will be stored anonymously on a server so
-            they are available on all your devices.
+            If you choose to sign in with your Google Account, your preferences will be stored anonymously on a server
+            so they are available on all your devices.
           </p>
         </SectionBody>
       </Section>

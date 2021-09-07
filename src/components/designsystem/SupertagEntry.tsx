@@ -13,17 +13,21 @@ import { encodeSupertag, isSupertag } from '../../data/tagUtils'
 import { InvisButton } from './Buttons'
 import { flexColumnWithGap, gridWithGap } from '../../styled/mixins/layout'
 
-const Wrapper = styled.div`
-  ${flexColumnWithGap}
+const Wrapper = styled.div(
+  ({ theme }) => css`
+    ${flexColumnWithGap}
 
-  :not(:last-child) {
-    border-bottom: solid gray 1px;
-  }
+    padding-block: ${theme.dimensions.bigSpacing};
 
-  :active {
-    background: ${({ theme }) => theme.colors.layerBgHighlight};
-  }
-`
+    :not(:last-child) {
+      border-bottom: solid gray 1px;
+    }
+
+    :active {
+      background: ${theme.colors.layerBgHighlight};
+    }
+  `
+)
 
 const Row = styled.div`
   ${gridWithGap}

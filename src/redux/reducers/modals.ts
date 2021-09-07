@@ -2,9 +2,6 @@ import produce from 'immer'
 import { ModalId } from '../../data/types'
 import { AppAction, CLOSE_MODAL, OPEN_MODAL } from '../actions'
 
-/**
- * Key is postId, Value is time of like
- */
 export interface ModalsState {
   openModal: ModalId | null
 }

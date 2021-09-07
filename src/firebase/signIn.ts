@@ -1,17 +1,31 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
-const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+let initialized = false
+let googleAuthProvider!: firebase.auth.GoogleAuthProvider
+
+export function init() {
+  googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+  initialized = true
+}
 
 export function signIn() {
-  firebase
-    .auth()
-    .signInWithPopup(googleAuthProvider)
-    .catch((error) => {
-      console.error('Sign in failed:', error.code, error.message)
-    })
+  if (initialized) {
+    firebase
+      .auth()
+      .signInWithPopup(googleAuthProvider)
+      .catch((error) => {
+        console.error('Sign in failed:', error.code, error.message)
+      })
+  } else {
+    console.warn('Cannot sign in before initialization')
+  }
 }
 
 export async function signOut() {
-  return await firebase.auth().signOut()
+  if (initialized) {
+    return await firebase.auth().signOut()
+  } else {
+    console.warn('Cannot sign out before initialization')
+  }
 }

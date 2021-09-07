@@ -90,6 +90,7 @@ export function buttonBaseStyle({ theme }: PropsWithTheme) {
     cursor: pointer;
     white-space: nowrap;
     border-radius: ${theme.dimensions.borderRadius};
+    font-size: ${theme.fontSizes.content};
     ${defaultRowSpacing}
     ${transitionAll}
   `

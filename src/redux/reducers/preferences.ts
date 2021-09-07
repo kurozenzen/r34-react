@@ -20,7 +20,7 @@ export interface PreferencesState {
   autoscrollDelay: number
 }
 
-const initialPreferencesState: PreferencesState = {
+export const initialPreferencesState: PreferencesState = {
   rated: false,
   ratedThreshold: 1,
   originals: false,

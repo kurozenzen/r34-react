@@ -1,3 +1,4 @@
+import { AliasTag } from 'r34-types'
 import { Dispatch } from 'react'
 import { MiddlewareAPI } from 'redux'
 import { isSuggestionError, isSupertag, serializeTagname } from '../../data/tagUtils'
@@ -60,7 +61,12 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
 
   if (action.type === ADD_TAG) {
     const activeTags = selectActiveTags(state)
-    const aliases = await api.getAliases(action.tag.name)
+    let aliases: AliasTag[] = []
+    try {
+      aliases = await api.getAliases(action.tag.name)
+    } catch (err) {
+      console.warn('Failed toget aliases for tag:', action.tag)
+    }
 
     const sanitizedAliases = aliases
       .sort((a, b) => b.count - a.count)
@@ -71,14 +77,18 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
 
     // Request types for newly added tag
     if (!isSupertag(action.tag) && action.tag.types.length === 0) {
-      const data = await api.getTags(action.tag.name, 1, false)
-      if (!isSuggestionError(data)) {
-        const tag = data.find((tag) => tag.name === action.tag.name)
+      try {
+        const data = await api.getTags(action.tag.name, 1, false)
+        if (!isSuggestionError(data)) {
+          const tag = data.find((tag) => tag.name === action.tag.name)
 
-        if (tag && !isSupertag(tag)) {
-          action.tag.types = tag.types
-          action.tag.count = tag.count
+          if (tag && !isSupertag(tag)) {
+            action.tag.types = tag.types
+            action.tag.count = tag.count
+          }
         }
+      } catch (err) {
+        console.warn('Failed to get types for tag:', action.tag)
       }
     }
   }

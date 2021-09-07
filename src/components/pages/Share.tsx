@@ -83,7 +83,7 @@ export default function About() {
 
   const { name, description, tags } = decodeSupertag(location.search)
 
-  usePageTitle(`R34 React - ${name}`)
+  usePageTitle(`Rule34 React - ${name}`)
 
   const tagObjects = React.useMemo(
     () =>

@@ -41,6 +41,7 @@ export const InvisButton = styled.button(
     padding: ${theme.dimensions.bigSpacing};
     color: ${theme.colors.text};
     cursor: pointer;
+    font-size: ${theme.fontSizes.content};
 
     ${dropShadow}
 
@@ -74,7 +75,11 @@ export const ModifierButton = styled(TextButton)(
   ({ theme }) => css`
     background-color: transparent;
     min-width: 48px;
-    font-weight: bold;
+    font-size: 24px;
+
+    :focus {
+      text-decoration: none;
+    }
 
     ${defaultBorder}
     border-right-width: 0;

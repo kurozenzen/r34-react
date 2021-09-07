@@ -53,7 +53,7 @@ export default function Search() {
 
   useScrollUpBackNavigation('#results')
 
-  usePageTitle('R34 React')
+  usePageTitle('Rule34 React')
 
   return (
     <>

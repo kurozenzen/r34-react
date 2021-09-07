@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 import TagSelector from '../tagSelector/TagSelector'
-import Options from './Options'
-import { Title } from '../designsystem/Text'
-import { Surface } from '../designsystem/Surface'
 import SearchButton from '../widgets/SearchButton'
 import ActiveTags from '../widgets/ActiveTags'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { useActivateTag } from '../../hooks/useActivateTag'
 import { defaultSpacing } from '../../styled/mixins/gap'
 import { centeredMaxWidth, flexColumn } from '../../styled/mixins/layout'
+import TitledSurface from '../designsystem/TitledSurface'
+import RatedFilter from '../widgets/RatedFilter'
+import SortSelect from '../widgets/SortSelect'
 
 const ConfigWrapper = styled.section`
   ${flexColumn}
@@ -16,7 +16,7 @@ const ConfigWrapper = styled.section`
   ${centeredMaxWidth}
 `
 
-export default function Config(props: { onLoad: () => void }) {
+export default function SearchEditor(props: { onLoad: () => void }) {
   const { onLoad } = props
 
   const [isSignedIn] = useFirebaseAuthState()
@@ -24,15 +24,13 @@ export default function Config(props: { onLoad: () => void }) {
 
   return (
     <ConfigWrapper>
-      <Title>
-        <label htmlFor='tag-input'>Search</label>
-      </Title>
-      <Surface>
+      <TitledSurface title={<label htmlFor='tag-input'>Search</label>} compact>
         <TagSelector onSubmit={activateTag} showSupertags />
         <ActiveTags onChange={onLoad} offerSupertags={isSignedIn} />
-        <Options />
+        <RatedFilter />
+        <SortSelect />
         <SearchButton />
-      </Surface>
+      </TitledSurface>
     </ConfigWrapper>
   )
 }

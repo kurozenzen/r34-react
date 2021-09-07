@@ -36,7 +36,7 @@ export default function Menu() {
         <span>Search</span>
       </LocationStyledLink>
 
-      <LocationStyledLink current={current} to={RouteName.SETTINGS}>
+      <LocationStyledLink current={current} to={RouteName.PREFERENCES}>
         <span>Preferences</span>
       </LocationStyledLink>
 

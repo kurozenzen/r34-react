@@ -8,9 +8,19 @@ import useFirebaseAuthState from '../hooks/useFirebaseAuthState'
 import { PreferencesState } from '../redux/reducers/preferences'
 import { GenericConverter } from './genericConverter'
 
-const userConverter = new GenericConverter<User>()
+let initialized = false
+let userConverter!: GenericConverter<User>
+
+export function init() {
+  userConverter = new GenericConverter<User>()
+  initialized = true
+}
 
 async function getUserDoc() {
+  if (!initialized) {
+    console.warn('Cannot get userDoc. Not initialized yet')
+    return undefined
+  }
   try {
     const { currentUser } = firebase.auth()
     const email = currentUser?.email
@@ -56,7 +66,7 @@ export async function setPreferences(preferences: PreferencesState) {
 }
 
 export async function resetSeenPosts() {
-  console.warn('broken')
+  console.warn('no longer supported')
 }
 
 export async function getSupertags() {

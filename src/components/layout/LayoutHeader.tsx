@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCount } from '../../redux/selectors'
-import Config from '../features/Config'
+import SearchEditor from '../features/SearchEditor'
 import Header from '../features/Header'
 import LayoutElementProps from './LayoutElementProps'
 import { NO_OP } from '../../data/types'
@@ -20,7 +20,7 @@ export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: Layo
   return (
     <div onLoad={onLoad} ref={virtualRef} style={style} role='row'>
       <Header />
-      <Config onLoad={onLoad} />
+      <SearchEditor onLoad={onLoad} />
       {count > 0 ? <ResultsTitle /> : <SearchPlaceholder />}
     </div>
   )

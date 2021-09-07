@@ -2,14 +2,23 @@ import { createGlobalStyle, css } from 'styled-components'
 
 export default createGlobalStyle(
   ({ theme }) => css`
+    p,
+    a,
+    button,
+    span,
+    div,
+    select,
+    input {
+      font-family: 'Raleway', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: ${theme.fontSizes.content};
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-
-      font-family: 'Raleway', sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
 
       :focus {
         outline: none;

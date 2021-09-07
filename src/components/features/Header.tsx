@@ -1,9 +1,12 @@
 import styled, { css } from 'styled-components'
 import R34Icon from '../../icons/R34Icon'
-import { flexColumn, flexRowWithGap } from '../../styled/mixins/layout'
-import { SolidSurface } from '../designsystem/Surface'
+import { defaultSpacing } from '../../styled/mixins/gap'
+import { flexColumn } from '../../styled/mixins/layout'
+import FlexPair from '../designsystem/FlexPair'
 import { BigTitle } from '../designsystem/Text'
-import Menubar from './Menubar'
+import OfflineIndicator from '../widgets/OfflineIndicator'
+import Menubar from '../widgets/Menubar'
+import React from 'react'
 
 const HeaderWrapper = styled.header(
   ({ theme }) => css`
@@ -12,12 +15,17 @@ const HeaderWrapper = styled.header(
   `
 )
 
-const TitleBar = styled(SolidSurface)(
+const TitleBar = styled.div(
   ({ theme }) => css`
-    ${flexRowWithGap({ theme })}
-    justify-content: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    ${defaultSpacing}
 
-    padding: ${theme.dimensions.bigSpacing} 0;
+    > :first-child,
+    > :last-child {
+      width: ${theme.dimensions.blockHeight};
+    }
   `
 )
 
@@ -25,10 +33,12 @@ export default function Header() {
   return (
     <HeaderWrapper role='cell'>
       <TitleBar>
-        <R34Icon size={32} />
-        <BigTitle>
-          <span>Browse</span> <a href='https://rule34.xxx'>Rule34</a>
-        </BigTitle>
+        <div>{/*placeholder*/}</div>
+        <FlexPair>
+          <R34Icon size={32} />
+          <BigTitle>Rule34 React</BigTitle>
+        </FlexPair>
+        <OfflineIndicator />
       </TitleBar>
       <Menubar />
     </HeaderWrapper>

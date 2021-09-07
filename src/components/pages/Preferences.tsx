@@ -1,15 +1,14 @@
-import styled, { css, useTheme } from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 
 import { getVersionString } from '../../data/utils'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { usePageTitle } from '../../hooks/usePageTitle'
 import { CodeBranchIcon } from '../../icons/FontAwesomeIcons'
-import { gap } from '../../styled/mixins/gap'
 import { flexRowWithGap } from '../../styled/mixins/layout'
 import { FlexColumn, FlexColumnWithSpacing } from '../designsystem/FlexColumn'
 import { HorizontalLine } from '../designsystem/Lines'
-import { Surface } from '../designsystem/Surface'
-import { Faded, Title } from '../designsystem/Text'
+import { Faded } from '../designsystem/Text'
+import TitledSurface from '../designsystem/TitledSurface'
 import Header from '../features/Header'
 import PrefAccount from '../preferences/PrefAccount'
 import PrefAutoPlay from '../preferences/PrefAutoPlay'
@@ -29,13 +28,6 @@ import ResetButton from '../widgets/ResetButton'
 import ResetResultsButton from '../widgets/ResetResultsButton'
 import ResetSeenPostsButton from '../widgets/ResetSeenPostsButton'
 
-const SettingsSurface = styled(Surface)(
-  ({ theme }) => css`
-    padding: ${theme.dimensions.hugeSpacing};
-    ${gap(theme.dimensions.hugeSpacing)};
-  `
-)
-
 const VersionWrapper = styled.div`
   ${flexRowWithGap}
   flex-grow: 1;
@@ -43,33 +35,31 @@ const VersionWrapper = styled.div`
   min-height: 50px;
 `
 
-const SettingsColumn = styled(FlexColumnWithSpacing)`
+const PreferencesColumn = styled(FlexColumnWithSpacing)`
   flex-grow: 1;
 `
 
-export default function Settings() {
+export default function Preferences() {
   const theme = useTheme()
   const versionString = getVersionString()
   const [isSignedIn] = useFirebaseAuthState()
 
-  usePageTitle('R34 React - Settings')
+  usePageTitle('Rule34 React - Preferences')
 
   return (
     <FlexColumn>
       <Header />
-      <SettingsColumn>
-        <Title>General</Title>
-        <SettingsSurface>
+      <PreferencesColumn>
+        <TitledSurface title='General'>
           <PrefResultsLayout />
           <PrefPreloadVideos />
           <PrefLoadOriginals />
           <PrefTagSuggestions />
           <PrefPageSize />
           <PrefShowComments />
-        </SettingsSurface>
+        </TitledSurface>
 
-        <Title>Account</Title>
-        <SettingsSurface>
+        <TitledSurface title='Account'>
           <PrefAccount />
           <PrefTheme />
           {isSignedIn && (
@@ -78,10 +68,9 @@ export default function Settings() {
               <PrefHideSeenPosts />
             </>
           )}
-        </SettingsSurface>
+        </TitledSurface>
 
-        <Title>Experimental</Title>
-        <SettingsSurface>
+        <TitledSurface title='Experimental'>
           <Faded>
             These features that are still under active development. They might change a lot in the future. Please report
             any bugs you find so I can fix them :)
@@ -89,22 +78,20 @@ export default function Settings() {
           <HorizontalLine />
           <PrefAutoPlay />
           <PrefAutoscrollDelay />
-        </SettingsSurface>
-
-        <Title>Developer</Title>
-        <SettingsSurface>
+        </TitledSurface>
+        <TitledSurface title='Developer'>
           <PrefMetadata />
           <FeatureDetection />
           <ResetResultsButton />
           <ResetSeenPostsButton />
           <ResetButton />
-        </SettingsSurface>
+        </TitledSurface>
 
         <VersionWrapper>
           <CodeBranchIcon color={theme.colors.subduedText} />
           <Faded>{versionString}</Faded>
         </VersionWrapper>
-      </SettingsColumn>
+      </PreferencesColumn>
     </FlexColumn>
   )
 }

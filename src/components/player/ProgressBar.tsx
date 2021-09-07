@@ -44,7 +44,8 @@ export const ProgressBar = (props: ProgressBarProps) => {
       const step = () => {
         if (sliderRef?.current && videoRef) {
           sliderRef.current.value = videoRef.currentTime.toString()
-          const chromePercentage = Math.round((videoRef.currentTime / videoRef.duration) * 100)
+          const chromePercentage = (videoRef.currentTime / videoRef.duration) * 100
+          console.log(chromePercentage)
           sliderRef.current.style.backgroundImage = `linear-gradient(90deg, ${theme.colors.accentColor} ${chromePercentage}%, transparent ${chromePercentage}%)`
         }
 
@@ -63,7 +64,7 @@ export const ProgressBar = (props: ProgressBarProps) => {
     <Slider
       ref={sliderRef}
       type='range'
-      step={0.034}
+      step={1}
       min={0}
       max={videoRef?.duration || 0}
       onChange={handleChange}

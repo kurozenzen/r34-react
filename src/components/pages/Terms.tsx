@@ -19,7 +19,7 @@ const Section = styled(FlexColumnWithSpacing)`
 `
 
 export default function Terms() {
-  document.title = 'R34 React - Terms of Service'
+  document.title = 'Rule34 React - Terms of Service'
 
   return (
     <FlexColumn>

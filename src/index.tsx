@@ -2,7 +2,7 @@
 import 'whatwg-fetch'
 
 import * as Sentry from '@sentry/react'
-import { Integrations } from '@sentry/tracing'
+import { Offline } from '@sentry/integrations'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
@@ -11,6 +11,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
 Sentry.init({
   dsn: 'https://1a2933d829da41fe84d4dab5fcc520ae@o955708.ingest.sentry.io/5905045',
+  integrations: [new Offline()],
   tracesSampleRate: 1.0,
   release: getVersionString(),
   beforeBreadcrumb(breadcrumb, hint) {
@@ -33,7 +34,7 @@ Sentry.init({
         }
       }
     } catch (err) {
-      // fancy breadcrumbs are optional
+      // fancy breadcrumbs are optional. So no error handling required.
     }
     return breadcrumb
   },

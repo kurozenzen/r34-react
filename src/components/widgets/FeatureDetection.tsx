@@ -5,6 +5,7 @@ import {
   supportsFlexGap,
   supportsFullscreen,
   supportsGap,
+  supportsLocalStorage,
   supportsNetworkInformationAPI,
   supportsObjectFit,
 } from '../../data/browserUtils'
@@ -48,6 +49,9 @@ export default function FeatureDetection() {
         </Faded>
         <Faded>
           <StatusImage value={supportsNetworkInformationAPI} /> Supports advanced network info
+        </Faded>
+        <Faded>
+          <StatusImage value={supportsLocalStorage} /> Supports localStorage
         </Faded>
       </FeatureList>
     </Wrapper>

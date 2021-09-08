@@ -5,7 +5,9 @@ import { BlockButton } from '../designsystem/Buttons'
 
 export default function ResetButton(props: any) {
   const reset = useCallback(async () => {
-    localStorage.clear()
+    // localStorage can be disabled in browser settings
+    localStorage?.clear()
+
     await signOut()
 
     window.location.hash = ''

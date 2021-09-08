@@ -24,6 +24,7 @@ export const supportsObjectFit = 'object-fit' in document.body.style
 export const supportsFullscreen = document.fullscreenEnabled
 export const supportsNetworkInformationAPI =
   'connection' in navigator || 'mozConnection' in navigator || 'webkitConnection' in navigator
+export const supportsLocalStorage = Boolean(localStorage)
 
 export async function openFullscreen(element: Element) {
   if (document.fullscreenEnabled && document.fullscreenElement === null) {

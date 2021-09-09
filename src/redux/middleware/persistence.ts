@@ -11,12 +11,13 @@ import {
 import * as firebaseFunctions from '../../firebase'
 import { initialPreferencesState } from '../reducers/preferences'
 
-let saveTimeout: NodeJS.Timeout | null = null
+let saveTimeout: ReturnType<typeof setTimeout> | null = null
 
 const persistence = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => async (action: AppAction) => {
   if (action.type === SET_PREFERENCE) {
     if (saveTimeout) {
-      saveTimeout.refresh()
+      clearTimeout(saveTimeout)
+      saveTimeout = null
     } else {
       saveTimeout = setTimeout(() => {
         store.dispatch(savePreferences())

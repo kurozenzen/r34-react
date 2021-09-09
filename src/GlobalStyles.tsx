@@ -15,23 +15,6 @@ export default createGlobalStyle(
       font-size: ${theme.fontSizes.content};
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-
-      :focus {
-        outline: none;
-      }
-    }
-
-    html,
-    body,
-    #app-root {
-      width: 100%;
-      height: 100%;
-    }
-
     body {
       font-size: ${theme.fontSizes.content};
       color: ${theme.colors.text};

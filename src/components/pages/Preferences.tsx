@@ -1,5 +1,4 @@
 import styled, { useTheme } from 'styled-components'
-
 import { getVersionString } from '../../data/utils'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { usePageTitle } from '../../hooks/usePageTitle'

@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { ModalId } from '../../data/types'
-import { useSupertags } from '../../firebase'
+import { useSupertags } from '../../hooks/useSupertags'
 import { PlusIcon } from '../../icons/FontAwesomeIcons'
 import { openModal } from '../../redux/actions'
 import { PrimaryButton } from '../designsystem/Buttons'
@@ -12,7 +12,7 @@ export default function PrefSupertags() {
   const supertags = useSupertags()
 
   const dispatch = useDispatch()
-  const openSupertagModal = useCallback(() => dispatch(openModal(ModalId.CREATE_SUPERTAG)), [dispatch])
+  const openSupertagModal = React.useCallback(() => dispatch(openModal(ModalId.CREATE_SUPERTAG)), [dispatch])
 
   return (
     <>
@@ -24,7 +24,6 @@ export default function PrefSupertags() {
           <PlusIcon /> Add new
         </PrimaryButton>
       </Setting>
-
       <div>
         {Object.entries(supertags).map(([name, details]) => (
           <SupertagEntry key={name} supertag={{ name, ...details }}></SupertagEntry>

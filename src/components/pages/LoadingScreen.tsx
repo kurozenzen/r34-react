@@ -3,10 +3,11 @@ import styled from 'styled-components'
 import Loading from '../../icons/Loading'
 
 const FullScreenCentered = styled.div`
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  width: 100vw;
   display: grid;
   place-items: center;
+  background: black;
 `
 
 export default function LoadingScreen() {

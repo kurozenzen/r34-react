@@ -3,8 +3,7 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import { decodeSupertag } from '../../data/tagUtils'
-import { addSupertag, removeSupertag, useSupertags } from '../../firebase'
-import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
+import { addSupertag, removeSupertag } from '../../firebase'
 import { usePageTitle } from '../../hooks/usePageTitle'
 import { CopyIcon, PlusIcon, SuccessIcon } from '../../icons/FontAwesomeIcons'
 import { PrimaryButton } from '../designsystem/Buttons'
@@ -16,6 +15,8 @@ import TagList from '../tag/TagList'
 import { NO_OP } from '../../data/types'
 import { flexRowWithGap } from '../../styled/mixins/layout'
 import { layer } from '../../styled/mixins/theming'
+import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
+import { useSupertags } from '../../hooks/useSupertags'
 
 const ShareColumn = styled(FlexColumnWithSpacing)`
   place-content: center;

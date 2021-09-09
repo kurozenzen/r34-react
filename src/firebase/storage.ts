@@ -1,10 +1,8 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import { useEffect, useState } from 'react'
 import { SupertagData, TagModifier, User } from 'r34-types'
 import { sha256 } from '../data/encryption'
-import useFirebaseAuthState from '../hooks/useFirebaseAuthState'
 import { PreferencesState } from '../redux/reducers/preferences'
 import { GenericConverter } from './genericConverter'
 
@@ -102,53 +100,4 @@ export async function setTagsOfSupertag(name: string, tags: Record<string, TagMo
   const userDoc = await getUserDoc()
 
   userDoc?.collection('supertags').doc(name).update({ tags })
-}
-
-export function useSupertags() {
-  const [supertags, setSupertags] = useState<Record<string, SupertagData>>({})
-  const [collection, setCollection] = useState<firebase.firestore.CollectionReference>()
-
-  const [, userInfo] = useFirebaseAuthState()
-
-  useEffect(() => {
-    if (userInfo?.email) {
-      sha256(userInfo.email)
-        .then((hash) => {
-          const col = firebase.firestore().collection(`users/${hash}/supertags`)
-          setCollection(col)
-          return col.get()
-        })
-        .then((snapshot) => {
-          const result = snapshot.docs.reduce((result, doc) => {
-            result[doc.id] = doc.data() as SupertagData
-            return result
-          }, {} as Record<string, SupertagData>)
-
-          setSupertags(result)
-        })
-        .catch((err) => {
-          console.error('Error with useSupertags', err)
-        })
-    }
-  }, [userInfo?.email])
-
-  useEffect(() => {
-    if (collection) {
-      const unsubscribe = collection.onSnapshot((snapshot) => {
-        const result = snapshot.docs.reduce((result, doc) => {
-          const userSupertags = doc
-          result[userSupertags.id] = doc.data() as SupertagData
-          return result
-        }, {} as Record<string, SupertagData>)
-
-        setSupertags(result)
-      })
-
-      return () => {
-        unsubscribe()
-      }
-    }
-  }, [collection])
-
-  return supertags
 }

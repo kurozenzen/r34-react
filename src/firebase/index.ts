@@ -31,13 +31,10 @@ export function init() {
 
 if (window.navigator.onLine) {
   init()
-  console.log('App started in online mode')
 } else {
-  console.log('App started in offline mode')
   window.addEventListener(
     'online',
     () => {
-      console.log('Going into online mode.')
       init()
     },
     { once: true }

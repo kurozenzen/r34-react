@@ -8,6 +8,7 @@ import useToggle from '../../hooks/useToggle'
 import { fetchComments } from '../../redux/actions'
 import { selectShowComments } from '../../redux/selectors'
 import { layer } from '../../styled/mixins/theming'
+import { ZIndex } from '../../styled/zIndex'
 import LayoutElementProps from '../layout/LayoutElementProps'
 import { Media } from '../player/Media'
 import Details from './details/Details'
@@ -37,12 +38,12 @@ const PostWrapper = styled.div(
     // Set area of media and overlay
     img, video {
       grid-area: 1/1/2/2;
-      z-index: 1;
+      z-index: ${ZIndex.POST};
     }
 
     .overlay {
       grid-area: 1/1/2/2;
-      z-index: 1;
+      z-index: ${ZIndex.OVERLAY};
     }
   `
 )

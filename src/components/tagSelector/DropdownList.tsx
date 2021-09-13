@@ -8,6 +8,7 @@ import { DropdownListError } from './DropdownListError'
 import { flexColumnGap } from '../../styled/mixins/gap'
 import { flexColumn } from '../../styled/mixins/layout'
 import { dropdownScrollbar } from '../../styled/mixins/scrollbar'
+import { ZIndex } from '../../styled/zIndex'
 
 function sizeAndPosition(tagSelector: HTMLElement | null) {
   if (tagSelector) {
@@ -38,7 +39,7 @@ const ListWrapper = styled.div(
     border-top: none;
     border-radius: 0 0 3px 3px;
     color: black;
-    z-index: 3;
+    z-index: ${ZIndex.DROPDOWN};
 
     ${dropdownScrollbar}
   `

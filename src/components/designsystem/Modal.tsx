@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import styled, { css } from 'styled-components'
 import useAction from '../../hooks/useAction'
 import { closeModal } from '../../redux/actions'
-import { fullscreenOverlay } from '../../styled/mixins/layout'
+import { flexColumnWithGap, fullscreenOverlay } from '../../styled/mixins/layout'
 import { ZIndex } from '../../styled/zIndex'
 import { SolidSurface } from './Surface'
 
@@ -19,6 +19,7 @@ const Wrapper = styled.div(
 
 const ModalSurface = styled(SolidSurface)(
   ({ theme }) => css`
+    ${flexColumnWithGap}
     max-width: ${theme.dimensions.modalWidth};
     max-height: 100vh;
     overflow-y: auto;
@@ -38,7 +39,9 @@ export default function Modal(props: ModalProps) {
 
   return (
     <Wrapper onClick={close} title='Close modal'>
-      <ModalSurface onClick={blockEvent}>{children}</ModalSurface>
+      <ModalSurface onClick={blockEvent} title=''>
+        {children}
+      </ModalSurface>
     </Wrapper>
   )
 }

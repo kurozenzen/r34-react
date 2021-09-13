@@ -15,6 +15,10 @@ export default createGlobalStyle(
       font-size: ${theme.fontSizes.content};
     }
 
+    html {
+      background-color: ${theme.colors.backgroundColor};
+    }
+
     body {
       font-size: ${theme.fontSizes.content};
       color: ${theme.colors.text};

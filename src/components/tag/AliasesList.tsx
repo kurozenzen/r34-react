@@ -3,6 +3,7 @@ import styled, { css, DefaultTheme } from 'styled-components'
 import Alias from './Alias'
 import * as r34 from 'r34-types'
 import { dropdownScrollbar } from '../../styled/mixins/scrollbar'
+import { ZIndex } from '../../styled/zIndex'
 
 const ListWrapper = styled.div(({ theme, parentRef }: { theme: DefaultTheme; parentRef: HTMLDivElement }) =>
   parentRef
@@ -21,7 +22,7 @@ const ListWrapper = styled.div(({ theme, parentRef }: { theme: DefaultTheme; par
         border-top: none;
 
         background: ${theme.colors.backgroundColor2};
-        z-index: 3;
+        z-index: ${ZIndex.DROPDOWN};
         color: ${theme.colors.backgroundColor};
 
         > :not(:last-child) {

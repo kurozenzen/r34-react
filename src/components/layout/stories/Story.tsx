@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { NO_OP } from '../../../data/types'
 import useIsOnScreen from '../../../hooks/useIsOnScreen'
 import { selectPostByIndex } from '../../../redux/selectors'
+import { ZIndex } from '../../../styled/zIndex'
 import { Media } from '../../player/Media'
 const Screen = styled.div`
   min-height: 100vh;
@@ -19,6 +20,11 @@ const Screen = styled.div`
   video {
     max-height: 100vh;
     max-width: 100vw;
+    z-index: ${ZIndex.POST};
+  }
+
+  .overlay {
+    z-index: ${ZIndex.OVERLAY};
   }
 
   img,

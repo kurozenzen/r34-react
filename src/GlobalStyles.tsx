@@ -40,7 +40,8 @@ export default createGlobalStyle(
       // Underline stuff that is focused on non-touch devices
       // makes keyboard navigation clearer
       button,
-      input {
+      input,
+      select {
         &:focus {
           text-decoration: underline;
         }

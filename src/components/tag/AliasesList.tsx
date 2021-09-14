@@ -5,38 +5,42 @@ import * as r34 from 'r34-types'
 import { dropdownScrollbar } from '../../styled/mixins/scrollbar'
 import { ZIndex } from '../../styled/zIndex'
 
-const ListWrapper = styled.div(({ theme, parentRef }: { theme: DefaultTheme; parentRef: HTMLDivElement }) =>
-  parentRef
-    ? css`
-        position: absolute;
-        top: ${parentRef.offsetTop + parentRef.clientHeight + 4}px;
-        left: ${parentRef.offsetLeft}px;
-        width: ${parentRef.clientWidth + 4}px;
+const ListWrapper = styled.div(({ theme, parentRef }: { theme: DefaultTheme; parentRef: HTMLDivElement }) => {
+  if (parentRef) {
+    const clientRect = parentRef.getBoundingClientRect()
 
-        display: flex;
-        flex-direction: column;
+    return css`
+      position: absolute;
+      top: ${parentRef.offsetTop + clientRect.height}px;
+      left: ${parentRef.offsetLeft}px;
+      width: ${clientRect.width}px;
 
-        border-bottom-left-radius: ${theme.dimensions.borderRadius};
-        border-bottom-right-radius: ${theme.dimensions.borderRadius};
-        border: ${theme.dimensions.borderWidth} solid ${theme.colors.accentColor};
-        border-top: none;
+      display: flex;
+      flex-direction: column;
 
-        background: ${theme.colors.backgroundColor2};
-        z-index: ${ZIndex.DROPDOWN};
-        color: ${theme.colors.backgroundColor};
+      border-bottom-left-radius: ${theme.dimensions.borderRadius};
+      border-bottom-right-radius: ${theme.dimensions.borderRadius};
+      border: ${theme.dimensions.borderWidth} solid ${theme.colors.accentColor};
+      border-top: none;
 
-        > :not(:last-child) {
-          border-bottom: ${theme.dimensions.borderWidth} solid lightgray;
-        }
+      background: ${theme.colors.backgroundColor2};
+      z-index: ${ZIndex.DROPDOWN};
+      color: ${theme.colors.backgroundColor};
 
-        max-height: 30vh;
+      > :not(:last-child) {
+        border-bottom: ${theme.dimensions.borderWidth} solid lightgray;
+      }
 
-        ${dropdownScrollbar}
-      `
-    : css`
-        display: none;
-      `
-)
+      max-height: 30vh;
+
+      ${dropdownScrollbar}
+    `
+  } else {
+    return css`
+      display: none;
+    `
+  }
+})
 
 interface AliasesListProps {
   aliases: r34.AliasTag[]

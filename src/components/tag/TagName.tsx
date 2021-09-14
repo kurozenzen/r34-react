@@ -11,9 +11,5 @@ interface TagNameProps {
 export default function TagName(props: TagNameProps) {
   const { modifier, name, count } = props
 
-  return (
-    <ModifierStyledText modifier={modifier} tabIndex={0}>
-      {formatTagnameAndCount(name, count)}
-    </ModifierStyledText>
-  )
+  return <ModifierStyledText modifier={modifier}>{formatTagnameAndCount(name, count)}</ModifierStyledText>
 }

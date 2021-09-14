@@ -24,6 +24,14 @@ const DropdownArrow = styled(ArrowDown)(
   `
 )
 
+const DropdownWrapper = styled.div(
+  ({ theme }) => css`
+    .aliaslist {
+      border-color: ${theme.colors.backgroundColor2};
+    }
+  `
+)
+
 interface TagChipProps {
   name: string
   modifier: TagModifier
@@ -40,7 +48,7 @@ export default function TagChip(props: TagChipProps) {
   const { name, count, modifier, type, isActive, detailed, onClick, onContextMenu, aliases } = props
 
   const [tagRef, setTagRef] = useState<HTMLDivElement | null>(null)
-  const [collapsed, toggleCollapsed, resetCollapsed] = useToggle(true)
+  const [collapsed, toggleCollapsed] = useToggle(true)
 
   const handleClick = useCallback(
     (event: React.MouseEvent | React.KeyboardEvent) => {
@@ -76,24 +84,25 @@ export default function TagChip(props: TagChipProps) {
   )
 
   return (
-    <ChipWrapper
-      active={isActive}
-      collapsed={collapsed}
-      onClick={handleClick}
-      onKeyDown={handleEnter}
-      onMouseLeave={resetCollapsed}
-      onContextMenu={handleContextMenu}
-      ref={setTagRef}
-      tabIndex={0}
-    >
-      {detailed && <TypeIcon type={type} />}
-      <TagName modifier={modifier} name={name} count={count} />
-      {detailed && aliases && aliases.length > 0 && (
-        <>
+    <DropdownWrapper>
+      <ChipWrapper
+        active={isActive}
+        collapsed={collapsed}
+        onClick={handleClick}
+        onKeyDown={handleEnter}
+        onContextMenu={handleContextMenu}
+        ref={setTagRef}
+        tabIndex={0}
+      >
+        {detailed && <TypeIcon type={type} />}
+        <TagName modifier={modifier} name={name} count={count} />
+        {detailed && aliases && aliases.length > 0 && (
           <DropdownArrow onClick={handleArrowClick} $collapsed={collapsed} title='Show aliases' />
-          {!collapsed && tagRef && <AliasesList aliases={aliases} modifier={modifier} parentRef={tagRef} />}
-        </>
+        )}
+      </ChipWrapper>
+      {detailed && aliases && aliases.length > 0 && !collapsed && tagRef && (
+        <AliasesList aliases={aliases} modifier={modifier} parentRef={tagRef} />
       )}
-    </ChipWrapper>
+    </DropdownWrapper>
   )
 }

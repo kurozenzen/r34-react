@@ -1,4 +1,3 @@
-import { MouseEventHandler } from 'react'
 import styled, { css, DefaultTheme } from 'styled-components'
 import { TagIsActive } from '../../data/types'
 import { flexRowWithGap } from '../../styled/mixins/layout'
@@ -36,7 +35,7 @@ const switchingColors = (active: TagIsActive, collapsed: boolean, theme: Default
 }
 
 export const ChipWrapper = styled.div(
-  (props: { active: TagIsActive; collapsed: boolean; onMouseLeave: MouseEventHandler; theme: DefaultTheme }) =>
+  (props: { active: TagIsActive; collapsed: boolean; theme: DefaultTheme }) =>
     css`
       cursor: pointer;
       border: ${props.theme.colors.accentColor} ${props.theme.dimensions.borderWidth} solid;
@@ -53,9 +52,5 @@ export const ChipWrapper = styled.div(
         : css`
             border-bottom-color: ${props.theme.colors.accentColor};
           `}
-
-      .aliaslist {
-        border-color: ${props.theme.colors.backgroundColor2};
-      }
     `
 )

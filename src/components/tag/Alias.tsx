@@ -17,6 +17,7 @@ const AliasWrapper = styled.div(
     ${flexRowWithGap({ theme })}
     padding: ${theme.dimensions.bigSpacing};
     font-size: ${theme.fontSizes.content};
+    cursor: pointer;
   `
 )
 

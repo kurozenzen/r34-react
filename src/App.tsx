@@ -5,6 +5,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components'
 import ErrorBoundary from './components/features/ErrorBoundary'
+import GlobalKeybindings from './components/features/GlobalKeybindings'
 import ErrorScreen from './components/pages/ErrorScreen'
 import LoadingScreen from './components/pages/LoadingScreen'
 import Terms from './components/pages/Terms'
@@ -57,6 +58,7 @@ function ThemedApp() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
+      <GlobalKeybindings />
       <Helmet>
         <meta name='theme-color' content={theme.colors.layerBgSolid} />
       </Helmet>

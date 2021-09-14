@@ -4,8 +4,8 @@
     "static/js/0.5e8e570e.chunk.js.map": "/r34-react/static/js/0.5e8e570e.chunk.js.map",
     "static/js/1.01dc7d9d.chunk.js": "/r34-react/static/js/1.01dc7d9d.chunk.js",
     "static/js/1.01dc7d9d.chunk.js.map": "/r34-react/static/js/1.01dc7d9d.chunk.js.map",
-    "main.js": "/r34-react/static/js/main.27382f7a.chunk.js",
-    "main.js.map": "/r34-react/static/js/main.27382f7a.chunk.js.map",
+    "main.js": "/r34-react/static/js/main.679ed07b.chunk.js",
+    "main.js.map": "/r34-react/static/js/main.679ed07b.chunk.js.map",
     "runtime-main.js": "/r34-react/static/js/runtime-main.f2662266.js",
     "runtime-main.js.map": "/r34-react/static/js/runtime-main.f2662266.js.map",
     "static/js/4.c9e803ce.chunk.js": "/r34-react/static/js/4.c9e803ce.chunk.js",
@@ -35,6 +35,6 @@
   "entrypoints": [
     "static/js/runtime-main.f2662266.js",
     "static/js/4.c9e803ce.chunk.js",
-    "static/js/main.27382f7a.chunk.js"
+    "static/js/main.679ed07b.chunk.js"
   ]
 }

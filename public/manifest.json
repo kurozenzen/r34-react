@@ -4,14 +4,19 @@
   "description": "A Rule34 browsing tool focused on simplicity and user experience.",
   "icons": [
     {
-      "src": "maskable_icon.svg",
-      "sizes": "192x192",
-      "purpose": "any maskable"
+      "src": "https://raw.githubusercontent.com/kurozenzen/r34-branding/main/assets/favicon.svg",
+      "sizes": "150x150",
+      "purpose": "any"
     },
     {
-      "src": "large_icon.png",
+      "src": "https://raw.githubusercontent.com/kurozenzen/r34-branding/main/assets/maskable_icon.svg",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/kurozenzen/r34-branding/main/assets/large_icon.png",
       "sizes": "768x768",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ],
   "lang": "en",

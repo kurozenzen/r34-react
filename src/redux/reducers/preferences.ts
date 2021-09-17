@@ -14,7 +14,7 @@ export interface PreferencesState {
   showMetadata: boolean
   showComments: boolean
   sort: r34.PostsSort
-  themeId: r34.Theme
+  themeId: r34.ThemeId
   autoPlay: boolean
   hideSeen: boolean
   autoscrollDelay: number

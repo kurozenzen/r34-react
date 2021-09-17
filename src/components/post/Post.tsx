@@ -28,25 +28,23 @@ const PositonWrapper = styled.div(
   `
 )
 
-const PostWrapper = styled.div(
-  ({ theme }) => css`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
-    ${layer}
+const PostWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto;
+  ${layer}
 
-    // Set area of media and overlay
+  // Set area of media and overlay
     img, video {
-      grid-area: 1/1/2/2;
-      z-index: ${ZIndex.POST};
-    }
+    grid-area: 1/1/2/2;
+    z-index: ${ZIndex.POST};
+  }
 
-    .overlay {
-      grid-area: 1/1/2/2;
-      z-index: ${ZIndex.OVERLAY};
-    }
-  `
-)
+  .overlay {
+    grid-area: 1/1/2/2;
+    z-index: ${ZIndex.OVERLAY};
+  }
+`
 
 export function ListPost(props: r34.Post & LayoutElementProps & { index: number }) {
   const {

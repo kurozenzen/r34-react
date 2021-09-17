@@ -1,4 +1,4 @@
-![banner](https://raw.githubusercontent.com/kurozenzen/r34-react/master/public/banner.png)
+![banner](https://raw.githubusercontent.com/kurozenzen/r34-branding/main/assets/banner.png)
 
 # Rule34 React
 

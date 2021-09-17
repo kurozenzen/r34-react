@@ -12,7 +12,7 @@ export function transitionAll({ theme }: PropsWithTheme) {
 }
 
 /**
- * Sets borger-radius to the default
+ * Sets border-radius to the default
  */
 export function borderRadius({ theme }: PropsWithTheme) {
   return css`

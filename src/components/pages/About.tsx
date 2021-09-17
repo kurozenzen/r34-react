@@ -7,7 +7,8 @@ import { DiscordIcon, GithubIcon, PrivacyIcon, TermsIcon } from '../../icons/Fon
 import R34Icon from '../../icons/R34Icon'
 import { buttonBaseStyle, multilineList } from '../../styled/mixins/layout'
 import { LinkButton } from '../designsystem/Buttons'
-import { FlexColumn, FlexColumnWithSpacing } from '../designsystem/FlexColumn'
+import { DefaultPageColumn } from '../designsystem/DefaultPageColumn'
+import { FlexColumn } from '../designsystem/FlexColumn'
 import { HorizontalLine } from '../designsystem/Lines'
 import { Faded, Title } from '../designsystem/Text'
 import TitledSurface from '../designsystem/TitledSurface'
@@ -96,7 +97,7 @@ export default function About() {
   return (
     <FlexColumn>
       <Header />
-      <FlexColumnWithSpacing>
+      <DefaultPageColumn>
         <AboutSurface title='The App' compact>
           <AppLogo size={100} />
           <Name>Rule34 React</Name>
@@ -165,7 +166,7 @@ export default function About() {
             <PrivacyIcon /> Privacy
           </FadedLink>
         </AdditionalLinks>
-      </FlexColumnWithSpacing>
+      </DefaultPageColumn>
     </FlexColumn>
   )
 }

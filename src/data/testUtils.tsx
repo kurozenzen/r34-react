@@ -3,7 +3,7 @@ import { Provider } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { store } from '../redux/store'
-import dark from '../styled/themes/dark'
+import { themes } from 'r34-branding'
 import { NO_OP } from './types'
 
 type Item = {
@@ -59,7 +59,7 @@ export function TestWrapper(props: {
   }
 
   if (props.withTheme) {
-    result = <ThemeProvider theme={dark}>{result}</ThemeProvider>
+    result = <ThemeProvider theme={themes.dark}>{result}</ThemeProvider>
   }
 
   if (props.withStore) {

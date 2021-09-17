@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import ResetButton from '../widgets/ResetButton'
 import outOfResultsPicture from '../../icons/OutOfResults.png'
 import FlexImage from '../designsystem/FlexImage'
-import themes, { defaultThemeId } from '../../styled/themes'
+import { themes, defaultThemeId } from 'r34-branding'
 import GlobalStyles from '../../GlobalStyles'
 
 const FullScreenCentered = styled.div`

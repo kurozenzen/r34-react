@@ -23,7 +23,7 @@ import {
   selectSupertagModalOpen,
 } from './redux/selectors'
 import { persistor, store } from './redux/store'
-import themes, { defaultThemeId } from './styled/themes'
+import { themes, defaultThemeId } from 'r34-branding'
 
 const About = React.lazy(() => import('./components/pages/About'))
 const Privacy = React.lazy(() => import('./components/pages/Privacy'))

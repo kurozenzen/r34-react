@@ -4,7 +4,7 @@ import ColoredIconLink from '../../designsystem/ColoredIconLink'
 interface SpecialLinkSourceProps {
   value: string
   color: string
-  Icon: (props: unknown) => JSX.Element
+  Icon: (props: unknown) => JSX.Element | null
   title: string
 }
 

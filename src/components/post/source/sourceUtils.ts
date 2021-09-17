@@ -12,7 +12,7 @@ export function extractSecondElement(value: string) {
   return value.split(' ')[0].split('?')[0].split('/')[1]
 }
 
-export type SourceMapping = [string, (props: any) => JSX.Element, (value: string) => string]
+export type SourceMapping = [string, (props: any) => JSX.Element | null, (value: string) => string]
 
 export const sources: Record<string, SourceMapping> = {
   'twitter.com/': ['#1da1f2', TwitterIcon, (value) => extractFirstElement(value.split('twitter.com/')[1])],

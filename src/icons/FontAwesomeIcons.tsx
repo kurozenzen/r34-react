@@ -45,12 +45,15 @@ import {
   faWrench,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome'
+import React from 'react'
 
 /**
  * Component factory that shortens the definition of a new icon considerably
  */
-const bindIcon = (icon: IconProp) => (props: Omit<FontAwesomeIconProps, 'icon'>) =>
-  <FontAwesomeIcon data-testid='icon' icon={icon} {...props} />
+const bindIcon = (icon: IconProp) =>
+  React.memo((props: Omit<FontAwesomeIconProps, 'icon'>) => (
+    <FontAwesomeIcon data-testid='icon' icon={icon} {...props} />
+  ))
 
 export const ArrowDown = bindIcon(faCaretDown)
 export const ArtistIcon = bindIcon(faPen)

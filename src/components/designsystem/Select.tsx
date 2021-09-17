@@ -5,19 +5,17 @@ import { defaultBorder, defaultInput } from '../../styled/mixins/theming'
 
 const Wrapper = styled.div(
   ({ theme }) => css`
-    width: 100px;
+    width: 120px;
     height: ${theme.dimensions.blockHeight};
   `
 )
 
-const StyledSelect = styled.select(
-  ({ theme }) => css`
-    ${defaultInput}
+const StyledSelect = styled.select`
+  ${defaultInput}
 
-    width: 100%;
-    height: 100%;
-  `
-)
+  width: 100%;
+  height: 100%;
+`
 
 const Option = styled.option(
   ({ theme }) => css`

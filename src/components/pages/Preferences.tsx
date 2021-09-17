@@ -4,7 +4,8 @@ import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { usePageTitle } from '../../hooks/usePageTitle'
 import { CodeBranchIcon } from '../../icons/FontAwesomeIcons'
 import { flexRowWithGap } from '../../styled/mixins/layout'
-import { FlexColumn, FlexColumnWithSpacing } from '../designsystem/FlexColumn'
+import { DefaultPageColumn } from '../designsystem/DefaultPageColumn'
+import { FlexColumn } from '../designsystem/FlexColumn'
 import { HorizontalLine } from '../designsystem/Lines'
 import { Faded } from '../designsystem/Text'
 import TitledSurface from '../designsystem/TitledSurface'
@@ -34,10 +35,6 @@ const VersionWrapper = styled.div`
   min-height: 50px;
 `
 
-const PreferencesColumn = styled(FlexColumnWithSpacing)`
-  flex-grow: 1;
-`
-
 export default function Preferences() {
   const theme = useTheme()
   const versionString = getVersionString()
@@ -48,7 +45,7 @@ export default function Preferences() {
   return (
     <FlexColumn>
       <Header />
-      <PreferencesColumn>
+      <DefaultPageColumn>
         <TitledSurface title='General'>
           <PrefResultsLayout />
           <PrefPreloadVideos />
@@ -90,7 +87,7 @@ export default function Preferences() {
           <CodeBranchIcon color={theme.colors.subduedText} />
           <Faded>{versionString}</Faded>
         </VersionWrapper>
-      </PreferencesColumn>
+      </DefaultPageColumn>
     </FlexColumn>
   )
 }

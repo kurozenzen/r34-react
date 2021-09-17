@@ -1,14 +1,13 @@
 import React, { useCallback } from 'react'
-import { Theme } from 'r34-types'
+import { ThemeId } from 'r34-types'
 import usePreference from '../../hooks/usePreference'
 import Select from '../designsystem/Select'
 import Setting from '../designsystem/Setting'
 
-const themes: Record<Theme, string> = {
+const themes: Record<ThemeId, string> = {
   dark: 'Dark',
   light: 'Light',
   coffee: 'Coffee',
-  electric: 'Electric',
   deepsea: 'Deep Sea',
 }
 

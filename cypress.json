@@ -1,0 +1,7 @@
+{
+  "component": {
+    "testFiles": "**/*.test.{js,ts,jsx,tsx}",
+    "componentFolder": "src"
+  },
+  "projectId": "8891ie"
+}

@@ -56,9 +56,9 @@ export default function DropdownList(props: DropdownListProps) {
   const { tagSelectorRef, entries, onClick, error } = props
 
   return (
-    <ListWrapper tagSelectorRef={tagSelectorRef}>
+    <ListWrapper tagSelectorRef={tagSelectorRef} role='list'>
       {error ? (
-        <DropdownListError>
+        <DropdownListError role='listitem'>
           <span>{error.message}.</span>
           <span>{error.results} tags found</span>
         </DropdownListError>

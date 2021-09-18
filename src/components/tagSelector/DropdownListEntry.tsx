@@ -45,7 +45,7 @@ export default function DropdownListEntry(props: EntryProps) {
   const unit: CountUnit = type === 'supertag' ? 'tags' : 'posts'
 
   return (
-    <EntryWrapper onClick={onClick}>
+    <EntryWrapper onClick={onClick} role='listitem'>
       <Icon>
         <TypeIcon type={type} />
       </Icon>

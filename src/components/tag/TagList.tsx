@@ -40,7 +40,7 @@ export default function TagList(props: TagListProps) {
   const { tags, className, detailed, children = null, onTagClick, getIsActive, onTagMenu } = props
 
   return (
-    <TagListWrapper className={className}>
+    <TagListWrapper className={className} role='list'>
       {Object.entries(tags).map(([key, tag]) => (
         <Tag
           key={key}

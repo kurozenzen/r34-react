@@ -26,6 +26,7 @@ export const SET_PREFERENCES = `r34-react/SET_PREFERENCES`
 export const SET_SUGGESTIONS = `r34-react/SET_SUGGESTIONS`
 export const SET_SUGGESTIONS_ERROR = `r34-react/SET_SUGGESTIONS_ERROR`
 export const SET_SUGGESTIONS_MODIFIER = 'r34-react/SET_SUGGESTIONS_MODIFIER'
+export const SCROLL_TO_POST = 'r34-react/SCROLL_TO_POST'
 
 // Action Types
 interface AddTagAction {
@@ -144,6 +145,11 @@ interface SetSuggestionsModifierAction {
   modifier: r34.TagModifier
 }
 
+interface ScrollToPostAction {
+  type: typeof SCROLL_TO_POST
+  index: number
+}
+
 export type AppAction =
   | AddAliasesAction
   | AddPostsAction
@@ -168,6 +174,7 @@ export type AppAction =
   | SetSuggestionsAction
   | SetSuggestionsErrorAction
   | SetSuggestionsModifierAction
+  | ScrollToPostAction
 
 // Action Creators
 export function addTag(tag: r34.AnyBiasedTag): AddTagAction {
@@ -267,6 +274,13 @@ export function exitFullscreen(): ExitFullscreenAction {
 export function setFullscreenPost(index: number): SetFullScreenPostAction {
   return {
     type: SET_FULLSCREEN_POST,
+    index,
+  }
+}
+
+export function scrollToPost(index: number): ScrollToPostAction {
+  return {
+    type: SCROLL_TO_POST,
     index,
   }
 }

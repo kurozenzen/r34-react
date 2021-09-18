@@ -93,6 +93,7 @@ export default function TagChip(props: TagChipProps) {
         onContextMenu={handleContextMenu}
         ref={setTagRef}
         tabIndex={0}
+        role='listitem'
       >
         {detailed && <TypeIcon type={type} />}
         <TagName modifier={modifier} name={name} count={count} />

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 import { RouteName } from '../../data/types'
 import { ExpandIcon, CloseIcon } from '../../icons/FontAwesomeIcons'
-import { setFullscreenPost } from '../../redux/actions'
+import { scrollToPost, setFullscreenPost } from '../../redux/actions'
 import { dropShadow } from '../../styled/mixins/shadow'
 import { InvisButton } from '../designsystem/Buttons'
 
@@ -32,8 +32,9 @@ export default function ToggleFullscreenButton(props: ToggleFullscreenButtonProp
     (event) => {
       event.stopPropagation()
       history.goBack()
+      dispatch(scrollToPost(index))
     },
-    [history]
+    [dispatch, history, index]
   )
 
   const onFullscreenEnter = React.useCallback<React.MouseEventHandler>(

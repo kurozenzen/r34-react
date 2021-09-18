@@ -58,16 +58,17 @@ export default function Gif(props: MediaProps) {
   )
 
   React.useEffect(() => {
-    if (prefAutoplay) {
+    if (prefAutoplay || isFullscreen) {
       if (autoPlay) {
         setPlayState(true)
+        setOverlayVisible(false)
       }
     }
 
     if (!autoPlay) {
       setPlayState(false)
     }
-  }, [autoPlay, pause, play, prefAutoplay])
+  }, [autoPlay, isFullscreen, pause, play, prefAutoplay])
 
   useEffect(() => {
     if (preload) {

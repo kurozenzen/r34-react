@@ -88,17 +88,20 @@ export default function Video(props: MediaProps) {
     [pause, play, videoRef]
   )
 
+  // automatic play/pause
   React.useEffect(() => {
-    if (prefAutoplay) {
+    // in fullscreen mode autoplay is on by default
+    if (prefAutoplay || isFullscreen) {
       if (autoPlay) {
         play()
+        setOverlayVisible(false)
       }
     }
 
     if (!autoPlay) {
       pause()
     }
-  }, [autoPlay, pause, play, prefAutoplay])
+  }, [autoPlay, isFullscreen, pause, play, prefAutoplay])
 
   return (
     <>
@@ -122,7 +125,7 @@ export default function Video(props: MediaProps) {
         onTogglePaused={togglePlay}
         onSeek={handleSeek}
         videoRef={videoRef}
-        isVisible={!playState || detailsVisible || overlayVisible}
+        isVisible={playState === false || detailsVisible || overlayVisible}
         setVisible={setOverlayVisible}
         isFullscreen={isFullscreen}
         onFinished={onFinished}

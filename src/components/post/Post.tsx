@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components'
 import { ActiveTab, NO_OP } from '../../data/types'
 import useToggle from '../../hooks/useToggle'
 import { fetchComments } from '../../redux/actions'
-import { selectShowComments } from '../../redux/selectors'
+import { selectShowComments, selectShowPostDetails } from '../../redux/selectors'
 import { layer } from '../../styled/mixins/theming'
 import { ZIndex } from '../../styled/zIndex'
 import LayoutElementProps from '../layout/LayoutElementProps'
@@ -109,7 +109,7 @@ export const Post = React.memo((props: PostProps) => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('tags')
   const [collapsed, toggleCollapsed] = useToggle(true)
 
-  const showPostDetails = useSelector(selectShowComments)
+  const showPostDetails = useSelector(selectShowPostDetails)
   const showComments = useSelector(selectShowComments)
 
   // re-measure when collapsed state changes

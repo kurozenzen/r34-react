@@ -4,7 +4,7 @@ import Setting from '../designsystem/Setting'
 import Toggle from '../designsystem/Toggle'
 
 export default function PrefShowPostDetails() {
-  const [showPostDetails, setShowPostDetails] = usePreference('hideSeen')
+  const [showPostDetails, setShowPostDetails] = usePreference('showPostDetails')
   const toggleShowPostDetails = useCallback(
     () => setShowPostDetails(!showPostDetails),
     [showPostDetails, setShowPostDetails]

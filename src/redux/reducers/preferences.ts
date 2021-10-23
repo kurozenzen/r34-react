@@ -18,6 +18,7 @@ export interface PreferencesState {
   autoPlay: boolean
   hideSeen: boolean
   autoscrollDelay: number
+  showPostDetails: boolean
 }
 
 export const initialPreferencesState: PreferencesState = {
@@ -36,6 +37,7 @@ export const initialPreferencesState: PreferencesState = {
   autoPlay: false,
   hideSeen: false,
   autoscrollDelay: 10,
+  showPostDetails: true,
 }
 
 function setPreference<T extends r34.PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {

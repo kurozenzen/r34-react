@@ -36,6 +36,7 @@ export const selectTagSuggestionCount = (state: AppState) => state.preferences.t
 export const selectUpdated = (state: AppState) => state.results.updated
 export const selectAutoscrollDelay = (state: AppState) => state.preferences.autoscrollDelay
 export const selectScrollIndex = (state: AppState) => state.fullscreen.scrollIndex
+export const selectShowPostDetails = (state: AppState) => state.preferences.showPostDetails
 
 // Memoized selectors
 export const selectNumberOfActiveTags = createSelector(selectActiveTags, (tags) => Object.keys(tags).length)

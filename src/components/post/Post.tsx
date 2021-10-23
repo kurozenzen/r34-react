@@ -109,6 +109,7 @@ export const Post = React.memo((props: PostProps) => {
   const [activeTab, setActiveTab] = useState<ActiveTab>('tags')
   const [collapsed, toggleCollapsed] = useToggle(true)
 
+  const showPostDetails = useSelector(selectShowComments)
   const showComments = useSelector(selectShowComments)
 
   // re-measure when collapsed state changes
@@ -137,7 +138,7 @@ export const Post = React.memo((props: PostProps) => {
         height={height}
         isActive={true}
       />
-      {!collapsed && (
+      {showPostDetails && !collapsed && (
         <Details
           postId={id}
           onLoad={onLoad}

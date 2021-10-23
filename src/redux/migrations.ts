@@ -30,4 +30,13 @@ export const migrations = {
       return state
     }
   },
+  288: (state: any) => {
+    return {
+      ...state,
+      preferences: {
+        ...state.preferences,
+        showPostDetails: true,
+      },
+    }
+  },
 }

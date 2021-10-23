@@ -10,7 +10,7 @@ export default function PrefShowComments() {
   return (
     <Setting
       title='Show comments'
-      description="If there are comments on a post, they will appear in the details. They can be a bit weird though, that's why they are disabled by default."
+      description="If there are comments on a post, they will appear in the details. This preference needs 'Show Post Details' to be enabled to have any effect."
     >
       <Toggle value={showComments} onToggle={toggleShowComments} />
     </Setting>

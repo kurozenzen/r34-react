@@ -20,6 +20,7 @@ import PrefPageSize from '../preferences/PrefPageSize'
 import PrefPreloadVideos from '../preferences/PrefPreloadVideos'
 import PrefResultsLayout from '../preferences/PrefResultsLayout'
 import PrefShowComments from '../preferences/PrefShowComments'
+import PrefShowPostDetails from '../preferences/PrefShowPostDetails'
 import PrefSupertags from '../preferences/PrefSupertags'
 import PrefTagSuggestions from '../preferences/PrefTagSuggestions'
 import PrefTheme from '../preferences/PrefTheme'
@@ -52,6 +53,7 @@ export default function Preferences() {
           <PrefLoadOriginals />
           <PrefTagSuggestions />
           <PrefPageSize />
+          <PrefShowPostDetails />
           <PrefShowComments />
         </TitledSurface>
 

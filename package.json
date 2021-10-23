@@ -1,6 +1,6 @@
 {
   "name": "r34-react",
-  "version": "2.8.7",
+  "version": "2.8.8",
   "homepage": "https://kurozenzen.github.io/r34-react",
   "private": true,
   "dependencies": {
@@ -80,6 +80,6 @@
     "@types/styled-components": "^5.1.14",
     "babel-polyfill": "^6.26.0",
     "cypress": "^8.4.0",
-    "r34-types": "^1.1.4"
+    "r34-types": "^1.1.5"
   }
 }

@@ -12,4 +12,15 @@ describe('navigation', () => {
     cy.findByText('About').click()
     cy.findByText('The App').should('exist')
   })
+  it('to privacy', () => {
+    cy.findByText('About').click()
+
+    cy.findByText('Privacy').click()
+    cy.findByText('Privacy').should('exist')
+  })
+  it('to terms', () => {
+    cy.findByText('About').click()
+    cy.findByText('Terms and Conditions').click()
+    cy.findByText('Terms of Service').should('exist')
+  })
 })

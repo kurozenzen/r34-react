@@ -82,7 +82,7 @@ describe('tag handling', () => {
     cy.findByRole('listitem').should('not.exist')
   })
 
-  it('rotates modifier', () => {
+  it('cycle modifier', () => {
     cy.findByText('+').should('exist')
     cy.findByText('+').click()
     cy.findByText('-').should('exist')
@@ -90,5 +90,22 @@ describe('tag handling', () => {
     cy.findByText('~').should('exist')
     cy.findByText('~').click()
     cy.findByText('+').should('exist')
+  })
+
+  it('toggle and configure popular posts', () => {
+    cy.findByText('More than').should('not.exist')
+    cy.findByRole('checkbox').click()
+    cy.findByText('More than').should('exist')
+    cy.get('input[type="number"]').type('200')
+    cy.findByRole('checkbox').click()
+    cy.findByText('More than').should('not.exist')
+  })
+
+  it('toggle sort', () => {
+    cy.findByRole('combobox').should('have.value', 'date')
+    cy.findByRole('combobox').select('Score')
+    cy.findByRole('combobox').should('have.value', 'score')
+    cy.findByRole('combobox').select('Date')
+    cy.findByRole('combobox').should('have.value', 'date')
   })
 })

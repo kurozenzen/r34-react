@@ -49,7 +49,7 @@ export default function Toggle(props: ToggleProps) {
   const { value, onToggle } = props
 
   return (
-    <Track onClick={onToggle} role='checkbox'>
+    <Track onClick={onToggle} role='checkbox' aria-checked={value}>
       <Thumb value={value} />
     </Track>
   )

@@ -64,5 +64,9 @@ export default function RandomTip() {
   const [tip, setTip] = React.useState(getRandomTip())
   const nextTip = React.useCallback(() => setTip(getRandomTip()), [])
 
-  return <TipWrapper onClick={nextTip}>{typeof tip === 'string' ? <Faded>{tip}</Faded> : tip}</TipWrapper>
+  return (
+    <TipWrapper role='note' onClick={nextTip}>
+      {typeof tip === 'string' ? <Faded>{tip}</Faded> : tip}
+    </TipWrapper>
+  )
 }

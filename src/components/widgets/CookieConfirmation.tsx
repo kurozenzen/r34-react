@@ -7,7 +7,7 @@ import { SolidSurface } from '../designsystem/Surface'
 
 const CookieWrapper = styled(SolidSurface)(
   ({ theme }) => css`
-    position: fixed;
+    position: sticky;
     bottom: 0;
     left: 0;
     width: 100%;

@@ -19,7 +19,7 @@ const Message = styled.div`
   ${flexColumnWithGap}
 `
 
-const deadline = new Date('13-08-2021')
+const deadline = new Date('01-01-2022')
 
 export default function UpdateHighlight() {
   if (new Date() > deadline) {
@@ -33,7 +33,7 @@ export default function UpdateHighlight() {
           <WrenchIcon size={'lg'} />
           <SmallTitle>Update News</SmallTitle>
         </FlexPair>
-        <p>I am currently working on the fullscreen view. Things might not work that well over there.</p>
+        <p>🎄 Merry Christmas 🎄</p>
       </Message>
     </Wrapper>
   )

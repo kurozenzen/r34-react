@@ -13,7 +13,7 @@
     "firebase": "^8.10.0",
     "gh-pages": "^3.2.3",
     "immer": "^9.0.6",
-    "r34-branding": "^1.0.8",
+    "r34-branding": "^1.0.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
@@ -80,6 +80,6 @@
     "@types/styled-components": "^5.1.14",
     "babel-polyfill": "^6.26.0",
     "cypress": "^8.4.0",
-    "r34-types": "^1.1.5"
+    "r34-types": "^1.1.8"
   }
 }

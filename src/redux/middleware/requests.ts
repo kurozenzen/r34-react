@@ -1,8 +1,8 @@
 import { AliasTag } from 'r34-types'
+import { R34Client } from '../../client/R34Client'
 import { Dispatch } from 'react'
 import { MiddlewareAPI } from 'redux'
 import { isSuggestionError, isSupertag, serializeTagname } from '../../data/tagUtils'
-import { api } from '../../misc/api'
 import {
   addAliases,
   addPosts,
@@ -21,7 +21,6 @@ import {
 import {
   selectActiveTags,
   selectHasMoreResults,
-  selectHideSeen,
   selectMinRating,
   selectPageNumber,
   selectPageSize,
@@ -29,6 +28,13 @@ import {
   selectSort,
   selectTagSuggestionCount,
 } from '../selectors'
+
+const client = new R34Client(['https://r34-json.herokuapp.com', 'https://r34-api-clone.herokuapp.com'], {
+  version: 'v2',
+  useFirebase: true,
+  requestRetries: 1,
+  verbose: true,
+})
 
 const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => async (action: AppAction) => {
   const state = store.getState()
@@ -39,9 +45,14 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     const pageSize = selectPageSize(state)
     const minRating = selectMinRating(state)
     const sort = selectSort(state)
-    const hideSeen = selectHideSeen(state)
 
-    const result = await api.getPosts(activeTags, pageSize, action.pageNumber, minRating, sort, hideSeen)
+    const result = await client.getPosts({
+      tags: activeTags,
+      limit: pageSize,
+      page: action.pageNumber,
+      score: `>=${minRating}`,
+      sort,
+    })
 
     store.dispatch(setPosts(result.posts, result.count, action.pageNumber))
   }
@@ -52,18 +63,23 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     const pageSize = selectPageSize(state)
     const minRating = selectMinRating(state)
     const sort = selectSort(state)
-    const hideSeen = selectHideSeen(state)
 
-    const res = await api.getPosts(activeTags, pageSize, pageNumber + 1, minRating, sort, hideSeen)
+    const result = await client.getPosts({
+      tags: activeTags,
+      limit: pageSize,
+      page: pageNumber + 1,
+      score: `>=${minRating}`,
+      sort,
+    })
 
-    store.dispatch(addPosts(res.posts))
+    store.dispatch(addPosts(result.posts))
   }
 
   if (action.type === ADD_TAG) {
     const activeTags = selectActiveTags(state)
     let aliases: AliasTag[] = []
     try {
-      aliases = await api.getAliases(action.tag.name)
+      aliases = await client.getAliases({ name: action.tag.name })
     } catch (err) {
       console.warn('Failed toget aliases for tag:', action.tag)
     }
@@ -78,7 +94,10 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     // Request types for newly added tag
     if (!isSupertag(action.tag) && action.tag.types.length === 0) {
       try {
-        const data = await api.getTags(action.tag.name, 1, false)
+        const data = await client.getTags({
+          name: action.tag.name,
+          limit: 1,
+        })
         if (!isSuggestionError(data)) {
           const tag = data.find((tag) => tag.name === action.tag.name)
 
@@ -105,7 +124,11 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
 
   if (action.type === FETCH_SUGGESTIONS) {
     const limit = selectTagSuggestionCount(state)
-    const result = await api.getTags(serializeTagname(action.value), limit, action.includeSupertags)
+    const result = await client.getTags({
+      name: serializeTagname(action.value),
+      limit,
+      supertags: action.includeSupertags,
+    })
 
     if (isSuggestionError(result)) {
       store.dispatch(setSuggestionsError(result))
@@ -118,7 +141,7 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     const post = selectPostById(action.postId)(state)
 
     if (post) {
-      const comments = await api.getComments(post)
+      const comments = await client.getComments({ commentsUrl: post.comments_url })
       store.dispatch(setComments(action.postId, comments))
     }
   }

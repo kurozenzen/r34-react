@@ -14,7 +14,7 @@ export interface PreferencesState {
   showMetadata: boolean
   showComments: boolean
   sort: r34.PostsSort
-  themeId: r34.ThemeId
+  themeId: r34.Theme
   autoPlay: boolean
   hideSeen: boolean
   autoscrollDelay: number
@@ -32,7 +32,7 @@ export const initialPreferencesState: PreferencesState = {
   pageSize: 20,
   showMetadata: false,
   showComments: false,
-  sort: 'date',
+  sort: 'date:desc',
   themeId: 'dark',
   autoPlay: false,
   hideSeen: false,

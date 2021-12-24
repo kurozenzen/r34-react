@@ -13,7 +13,7 @@ import CellularWarningModal from './components/widgets/CellularWarningModal'
 import CookieConfirmation from './components/widgets/CookieConfirmation'
 import SupertagModal from './components/widgets/SupertagModal'
 import { RouteName } from './data/types'
-import './firebase' // init firebase immediately
+import './client/firebase' // init firebase immediately
 import GlobalStyles from './GlobalStyles'
 import { useLoadPreferences } from './hooks/useLoadPreferences'
 import {

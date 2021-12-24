@@ -88,8 +88,8 @@ export function getTagParameter(
     tagParts.push(encodeURIComponent(`score:>=${minScore}`))
   }
 
-  if (sort !== 'date') {
-    tagParts.push(encodeURIComponent(`sort:${sort}:desc`))
+  if (sort) {
+    tagParts.push(encodeURIComponent(`sort:${sort}`))
   }
 
   return tagParts.join(' + ')

@@ -11,9 +11,9 @@ const SortRow = styled.div`
   height: ${({ theme }: PropsWithTheme) => theme.dimensions.blockHeight};
 `
 
-const sortOptions: Record<PostsSort, string> = {
-  score: 'Score',
-  date: 'Date',
+const sortOptions = {
+  'score:desc': 'Score',
+  'date:desc': 'Date',
 }
 
 export default function SortSelect() {

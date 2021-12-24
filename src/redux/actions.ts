@@ -1,5 +1,5 @@
 import { ModalId, SuggestionsError } from '../data/types'
-import * as r34 from 'r34-types'
+import { AliasTag, AnyBiasedTag, AnyTag, Comment, Post, PreferenceKey, TagModifier } from 'r34-types'
 import { PreferencesState } from './reducers/preferences'
 
 // Action Names
@@ -31,7 +31,7 @@ export const SCROLL_TO_POST = 'r34-react/SCROLL_TO_POST'
 // Action Types
 interface AddTagAction {
   type: typeof ADD_TAG
-  tag: r34.AnyBiasedTag
+  tag: AnyBiasedTag
 }
 
 interface RemoveTagAction {
@@ -41,18 +41,18 @@ interface RemoveTagAction {
 
 interface AddAliasesAction {
   type: typeof ADD_ALIASES
-  aliases: r34.AliasTag[]
+  aliases: AliasTag[]
   forTag: string
 }
 
 export interface AddPostsAction {
   type: typeof ADD_POSTS
-  posts: r34.Post[]
+  posts: Post[]
 }
 
 export interface SetPostsAction {
   type: typeof SET_POSTS
-  posts: r34.Post[]
+  posts: Post[]
   count: number
   pageNumber?: number
 }
@@ -60,7 +60,7 @@ export interface SetPostsAction {
 interface SetCommentsAction {
   type: typeof SET_COMMENTS
   postId: number
-  comments: r34.Comment[]
+  comments: Comment[]
 }
 
 interface FetchCommentsAction {
@@ -70,7 +70,7 @@ interface FetchCommentsAction {
 
 interface SetPreferenceAction {
   type: typeof SET_PREFERENCE
-  key: r34.PreferenceKey
+  key: PreferenceKey
   value: any
 }
 
@@ -118,7 +118,7 @@ interface CloseModalAction {
 
 interface SetSuggestionsAction {
   type: typeof SET_SUGGESTIONS
-  suggestions: r34.AnyTag[]
+  suggestions: AnyTag[]
 }
 
 interface SetSuggestionsErrorAction {
@@ -142,7 +142,7 @@ interface SavePreferencesAction {
 
 interface SetSuggestionsModifierAction {
   type: typeof SET_SUGGESTIONS_MODIFIER
-  modifier: r34.TagModifier
+  modifier: TagModifier
 }
 
 interface ScrollToPostAction {
@@ -177,7 +177,7 @@ export type AppAction =
   | ScrollToPostAction
 
 // Action Creators
-export function addTag(tag: r34.AnyBiasedTag): AddTagAction {
+export function addTag(tag: AnyBiasedTag): AddTagAction {
   return {
     type: ADD_TAG,
     tag,
@@ -191,7 +191,7 @@ export function removeTag(tagName: string): RemoveTagAction {
   }
 }
 
-export function addAliases(aliases: r34.AliasTag[], forTag: string): AddAliasesAction {
+export function addAliases(aliases: AliasTag[], forTag: string): AddAliasesAction {
   return {
     type: ADD_ALIASES,
     aliases,
@@ -199,14 +199,14 @@ export function addAliases(aliases: r34.AliasTag[], forTag: string): AddAliasesA
   }
 }
 
-export function addPosts(posts: r34.Post[]): AddPostsAction {
+export function addPosts(posts: Post[]): AddPostsAction {
   return {
     type: ADD_POSTS,
     posts,
   }
 }
 
-export function setPosts(posts: r34.Post[], count: number, pageNumber: number = 0): SetPostsAction {
+export function setPosts(posts: Post[], count: number, pageNumber: number = 0): SetPostsAction {
   return {
     type: SET_POSTS,
     posts,
@@ -215,7 +215,7 @@ export function setPosts(posts: r34.Post[], count: number, pageNumber: number = 
   }
 }
 
-export function setComments(postId: number, comments: r34.Comment[]): SetCommentsAction {
+export function setComments(postId: number, comments: Comment[]): SetCommentsAction {
   return {
     type: SET_COMMENTS,
     postId,
@@ -230,7 +230,7 @@ export function fetchComments(postId: number): FetchCommentsAction {
   }
 }
 
-export function setPreference(key: r34.PreferenceKey, value: any): SetPreferenceAction {
+export function setPreference(key: PreferenceKey, value: any): SetPreferenceAction {
   return {
     type: SET_PREFERENCE,
     key,
@@ -305,7 +305,7 @@ export function closeModal(): CloseModalAction {
   }
 }
 
-export function setSuggestions(suggestions: r34.AnyTag[]): SetSuggestionsAction {
+export function setSuggestions(suggestions: AnyTag[]): SetSuggestionsAction {
   return {
     type: SET_SUGGESTIONS,
     suggestions,
@@ -339,7 +339,7 @@ export function savePreferences(): SavePreferencesAction {
   }
 }
 
-export function setSuggestionsModifier(modifier: r34.TagModifier): SetSuggestionsModifierAction {
+export function setSuggestionsModifier(modifier: TagModifier): SetSuggestionsModifierAction {
   return {
     type: SET_SUGGESTIONS_MODIFIER,
     modifier,

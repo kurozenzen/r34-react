@@ -10339,15 +10339,15 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-r34-branding@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/r34-branding/-/r34-branding-1.0.8.tgz#7fe331c2022ad4a46bb0fd7eefc2a2bcf18ed3af"
-  integrity sha512-L98Yab6NdZGkQutRT8k+kGCuutJ0CDLOVNW7Bd20OaJtpweqQuEXAW7OZWm1uK0j3/aaEOOdBDWIzyKzBO+Dwg==
+r34-branding@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/r34-branding/-/r34-branding-1.0.9.tgz#d2ed40f7df6da8d2fd75c90d95dba49c5928ba21"
+  integrity sha512-3+VTdgUjbPd+zi1sG7d67j8fwEaagI6NOgtffHYqAbPiCUuHRu/diwtX3alvQyhm/rpKEjpJKReEN1YmUAcR/Q==
 
-r34-types@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/r34-types/-/r34-types-1.1.5.tgz#8d722d0b868e91e08e024cfa71b7c66bc7d28e98"
-  integrity sha512-jAIVQVbnq1vn02nuPW+RwfDlBL9qxkhtbfhDwdcXBf04QbmaLKkdTXyXRRcRu5MboqD+eTiSqwQTE8dbgH4pLg==
+r34-types@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/r34-types/-/r34-types-1.1.8.tgz#0b4bf6839db87d87bff8f190cb30909228c77d7f"
+  integrity sha512-jRnTiSH4MS/FpW6Km0NlFP42HIdwSv+dhKFlUsUHhBCylGkQSbIvbjWkve1xgJyTmoU2V9bC20Ym/Ji3kwR0wQ==
 
 raf@^3.4.1:
   version "3.4.1"

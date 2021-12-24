@@ -17,6 +17,7 @@ import {
   setPosts,
   setSuggestions,
   setSuggestionsError,
+  SET_PREFERENCE,
 } from '../actions'
 import {
   selectActiveTags,
@@ -39,6 +40,16 @@ const client = new R34Client(['https://r34-json.herokuapp.com', 'https://r34-api
 const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => async (action: AppAction) => {
   const state = store.getState()
   const hasMoreResults = selectHasMoreResults(state)
+
+  if (action.type === SET_PREFERENCE && action.key === 'backends') {
+    client.backends = action.value as string[]
+  }
+
+  if ((action as any).type === 'persist/REHYDRATE') {
+    if ((action as any)?.payload?.preferences?.backends) {
+      client.backends = (action as any).payload.preferences.backends
+    }
+  }
 
   if (action.type === GET_RESULTS) {
     const activeTags = selectActiveTags(state)

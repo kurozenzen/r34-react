@@ -13,6 +13,7 @@ import Header from '../features/Header'
 import PrefAccount from '../preferences/PrefAccount'
 import PrefAutoPlay from '../preferences/PrefAutoPlay'
 import PrefAutoscrollDelay from '../preferences/PrefAutoscrollDelay'
+import PrefBackends from '../preferences/PrefBackends'
 import PrefHideSeenPosts from '../preferences/PrefHideSeenPosts'
 import PrefLoadOriginals from '../preferences/PrefLoadOriginals'
 import PrefMetadata from '../preferences/PrefMetadata'
@@ -79,6 +80,7 @@ export default function Preferences() {
         </TitledSurface>
         <TitledSurface title='Developer'>
           <PrefMetadata />
+          <PrefBackends />
           <FeatureDetection />
           <ResetResultsButton />
           <ResetSeenPostsButton />

@@ -39,4 +39,13 @@ export const migrations = {
       },
     }
   },
+  289: (state: any) => {
+    return {
+      ...state,
+      preferences: {
+        ...state.preferences,
+        backends: ['https://r34-json.herokuapp.com', 'https://r34-api-clone.herokuapp.com'],
+      },
+    }
+  },
 }

@@ -71,7 +71,7 @@ interface FetchCommentsAction {
 interface SetPreferenceAction {
   type: typeof SET_PREFERENCE
   key: PreferenceKey
-  value: any
+  value: PreferencesState[PreferenceKey]
 }
 
 interface SetPreferencesAction {

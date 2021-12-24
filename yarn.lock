@@ -10344,10 +10344,10 @@ r34-branding@^1.0.9:
   resolved "https://registry.yarnpkg.com/r34-branding/-/r34-branding-1.0.9.tgz#d2ed40f7df6da8d2fd75c90d95dba49c5928ba21"
   integrity sha512-3+VTdgUjbPd+zi1sG7d67j8fwEaagI6NOgtffHYqAbPiCUuHRu/diwtX3alvQyhm/rpKEjpJKReEN1YmUAcR/Q==
 
-r34-types@^1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/r34-types/-/r34-types-1.1.8.tgz#0b4bf6839db87d87bff8f190cb30909228c77d7f"
-  integrity sha512-jRnTiSH4MS/FpW6Km0NlFP42HIdwSv+dhKFlUsUHhBCylGkQSbIvbjWkve1xgJyTmoU2V9bC20Ym/Ji3kwR0wQ==
+r34-types@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/r34-types/-/r34-types-1.1.9.tgz#a87be5549e69612a016de44573814edb7cbd39a5"
+  integrity sha512-wk0enhvtQC+ZswmHbzLRu8kAw0KEbZ5Lrm9AXrxPdluElwGEwieRR96eN/XzYa4XqvKxBFRc5ueFBfeTiSwqzA==
 
 raf@^3.4.1:
   version "3.4.1"

@@ -44,10 +44,10 @@ export type BackendsUrls = string | string[]
 
 export class R34Client {
   //#region Properties
-  private readonly backends: string[]
   private currentBackend: number
 
-  readonly useFirebase: boolean
+  backends: string[]
+  useFirebase: boolean
   postLimit: number
   tagLimit: number
   version: ApiVersion

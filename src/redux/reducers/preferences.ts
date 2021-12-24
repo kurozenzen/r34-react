@@ -19,6 +19,7 @@ export interface PreferencesState {
   hideSeen: boolean
   autoscrollDelay: number
   showPostDetails: boolean
+  backends: string[]
 }
 
 export const initialPreferencesState: PreferencesState = {
@@ -38,6 +39,7 @@ export const initialPreferencesState: PreferencesState = {
   hideSeen: false,
   autoscrollDelay: 10,
   showPostDetails: true,
+  backends: ['https://r34-json.herokuapp.com', 'https://r34-api-clone.herokuapp.com'],
 }
 
 function setPreference<T extends r34.PreferenceKey>(state: PreferencesState, key: T, value: PreferencesState[T]) {

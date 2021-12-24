@@ -133,13 +133,13 @@ const getTagParameterCases: Record<string, { tags: Record<string, r34.QueryTag>;
       tag1: { modifier: '+', name: 'tag1' },
       tag2: { modifier: '+', name: 'tag2' },
     },
-    expected: 'tag1 + tag2',
+    expected: 'tag1 + tag2 + sort%3Adate%3Adesc',
   },
-  'no tags': { tags: {}, expected: '' },
+  'no tags': { tags: {}, expected: 'sort%3Adate%3Adesc' },
 }
 
 Object.entries(getTagParameterCases).forEach(([testname, { tags, expected }]) =>
   test(`serializeTag: ${testname}`, () => {
-    expect(getTagParameter(tags, 0, 'date')).toBe(expected)
+    expect(getTagParameter(tags, 0, 'date:desc')).toBe(expected)
   })
 )

@@ -16,6 +16,24 @@ interface FullscreenProgressBarProps {
 export default function FullscreenProgressBar(props: FullscreenProgressBarProps) {
   const { onFinished = NO_OP, isActive } = props
 
+  const keybinds: Record<string, () => void> = {
+    'ArrowRight' : () => onFinished()
+  }
+
+  React.useEffect(() => {
+    const handler = (event: KeyboardEvent) => {
+      const pressed = `${event.key}`;
+
+      if (pressed in keybinds) {
+        event.preventDefault()
+        event.stopPropagation()
+        keybinds[pressed]()
+      }
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
+  })
+
   const dispatch = useDispatch()
   const [mouseState, setMouseState] = React.useState(false)
   const setPost = React.useCallback((newIndex) => dispatch(setFullscreenPost(newIndex)), [dispatch])

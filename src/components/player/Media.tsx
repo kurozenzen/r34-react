@@ -16,6 +16,7 @@ type MediaProps = {
   height: number
   detailsVisible: boolean
   isFullscreen?: boolean
+  onBack?: () => void
   onFinished?: () => void
   isActive?: boolean
 }
@@ -32,6 +33,7 @@ export function Media(props: MediaProps) {
     height,
     detailsVisible,
     isFullscreen = false,
+    onBack,
     onFinished,
     isActive = false,
   } = props
@@ -49,6 +51,7 @@ export function Media(props: MediaProps) {
           height={height}
           isFullscreen={isFullscreen}
           onFinished={onFinished}
+          onBack={onBack}
           isActive={isActive}
         />
       )
@@ -65,6 +68,7 @@ export function Media(props: MediaProps) {
           height={height}
           isFullscreen={isFullscreen}
           onFinished={onFinished}
+          onBack={onBack}
           isActive={isActive}
         />
       )
@@ -81,6 +85,7 @@ export function Media(props: MediaProps) {
           height={height}
           isFullscreen={isFullscreen}
           onFinished={onFinished}
+          onBack={onBack}
           isActive={isActive}
         />
       )

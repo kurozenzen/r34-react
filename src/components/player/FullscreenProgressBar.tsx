@@ -10,20 +10,21 @@ interface FullscreenProgressBarProps {
   index: number
   isPaused?: boolean
   onFinished?: () => void
+  onBack?: () => void
   isActive: boolean
 }
 
 export default function FullscreenProgressBar(props: FullscreenProgressBarProps) {
-  const { onFinished = NO_OP, isActive } = props
+  const { onFinished = NO_OP, onBack = NO_OP, isActive } = props
 
   const keybinds: Record<string, () => void> = {
-    'ArrowRight' : () => onFinished()
+    'ArrowRight' : () => onFinished(),
+    'ArrowLeft' : () => onBack()
   }
 
   React.useEffect(() => {
     const handler = (event: KeyboardEvent) => {
       const pressed = `${event.key}`;
-
       if (pressed in keybinds) {
         event.preventDefault()
         event.stopPropagation()

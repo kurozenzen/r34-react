@@ -9,6 +9,7 @@ interface MediaProps {
   detailsVisible: boolean
   isFullscreen: boolean
   onFinished?: () => void
+  onBack?: () => void
   isActive: boolean
 }
 

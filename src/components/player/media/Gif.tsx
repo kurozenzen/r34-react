@@ -18,6 +18,7 @@ export default function Gif(props: MediaProps) {
     height,
     detailsVisible,
     isFullscreen,
+    onBack,
     onFinished,
     isActive,
   } = props

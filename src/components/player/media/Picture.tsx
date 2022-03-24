@@ -12,11 +12,12 @@ interface PictureProps {
   index: number
   isFullscreen: boolean
   onFinished?: () => void
+  onBack?: () => void
   isActive: boolean
 }
 
 export default function Picture(props: PictureProps) {
-  const { viewSrc, fullSrc, index, onLoad = NO_OP, width, height, isFullscreen, isActive, onFinished } = props
+  const { viewSrc, fullSrc, index, onLoad = NO_OP, width, height, isFullscreen, isActive, onFinished, onBack } = props
 
   return (
     <>
@@ -37,6 +38,7 @@ export default function Picture(props: PictureProps) {
         setVisible={NO_OP}
         isFullscreen={isFullscreen}
         onFinished={onFinished}
+        onBack={onBack}
         isActive={isActive}
       />
     </>

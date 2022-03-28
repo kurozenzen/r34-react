@@ -68,7 +68,7 @@ export default function Stories() {
 
   const scrollToPrevious = React.useCallback(() => {
     document.getElementById(`story-${prevIdx}`)?.scrollIntoView({ behavior: 'smooth' })
-  }, [nextIdx])
+  }, [prevIdx])
 
   const scrollToNext = React.useCallback(() => {
     document.getElementById(`story-${nextIdx}`)?.scrollIntoView({ behavior: 'smooth' })

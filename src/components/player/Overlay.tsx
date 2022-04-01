@@ -83,6 +83,7 @@ type ImageOverlayProps = {
   fullSrc: string
   isFullscreen: boolean
   onFinished?: () => void
+  onBack?: () => void
   isActive: boolean
 }
 
@@ -94,6 +95,7 @@ type GifOverlayProps = {
   onTogglePaused: React.MouseEventHandler
   isFullscreen: boolean
   onFinished?: () => void
+  onBack?: () => void
   isActive: boolean
 }
 
@@ -108,6 +110,7 @@ type VideoOverlayProps = {
   videoRef: HTMLVideoElement | null
   isFullscreen: boolean
   onFinished?: () => void
+  onBack?: () => void
   isActive: boolean
 }
 
@@ -117,19 +120,19 @@ type OverlayProps = (ImageOverlayProps | VideoOverlayProps | GifOverlayProps) & 
 }
 
 export function ImageOverlay(props: Omit<ImageOverlayProps, 'type'>) {
-  const { index, fullSrc, isFullscreen, isActive, onFinished } = props
+  const { index, fullSrc, isFullscreen, isActive, onFinished, onBack } = props
 
   return (
     <>
       <ToggleFullscreenButton index={index} />
       <LinkList fullSrc={fullSrc} />
-      {isFullscreen && <AutoProgressBar index={index} onFinished={onFinished} isActive={isActive} />}
+      {isFullscreen && <AutoProgressBar index={index} onFinished={onFinished} onBack={onBack} isActive={isActive} />}
     </>
   )
 }
 
 function GifOverlay(props: Omit<GifOverlayProps, 'type'>) {
-  const { fullSrc, isPaused, index, onTogglePaused, isFullscreen, isActive, onFinished } = props
+  const { fullSrc, isPaused, index, onTogglePaused, isFullscreen, isActive, onFinished, onBack } = props
 
   return (
     <>
@@ -137,7 +140,7 @@ function GifOverlay(props: Omit<GifOverlayProps, 'type'>) {
       <LinkList fullSrc={fullSrc} />
       <PlayButton isPaused={isPaused} onClick={onTogglePaused} aria-label='Play/Pause' />
       {isFullscreen && (
-        <AutoProgressBar index={index} isPaused={isPaused} onFinished={onFinished} isActive={isActive} />
+        <AutoProgressBar index={index} isPaused={isPaused} onBack={onBack} onFinished={onFinished} isActive={isActive} />
       )}
       <LengthDisplay>GIF</LengthDisplay>
     </>

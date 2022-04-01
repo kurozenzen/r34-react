@@ -18,7 +18,7 @@ export default function Video(props: MediaProps) {
     detailsVisible,
     isFullscreen,
     isActive,
-    onFinished,
+    onFinished
   } = props
 
   const [playState, setPlayState] = useState(false)

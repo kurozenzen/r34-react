@@ -66,6 +66,10 @@ export default function Stories() {
 
   const setIndex = React.useCallback((index: number) => dispatch(setFullscreenPost(index)), [dispatch])
 
+  const scrollToPrevious = React.useCallback(() => {
+    document.getElementById(`story-${prevIdx}`)?.scrollIntoView({ behavior: 'smooth' })
+  }, [prevIdx])
+
   const scrollToNext = React.useCallback(() => {
     document.getElementById(`story-${nextIdx}`)?.scrollIntoView({ behavior: 'smooth' })
   }, [nextIdx])
@@ -103,7 +107,7 @@ export default function Stories() {
           )
         if (index < currentIdx) return <Story key={index} index={index} onInView={setIndex} />
         if (index > currentIdx) return <Story key={index} index={index} onInView={setIndex} />
-        return <Story key={index} index={index} onFinished={scrollToNext} active />
+        return <Story key={index} index={index} onFinished={scrollToNext} onBack={scrollToPrevious} active />
       })}
     </StoriesWrapper>
   )

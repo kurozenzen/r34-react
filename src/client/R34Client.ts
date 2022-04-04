@@ -176,16 +176,14 @@ export class R34Client {
    */
   async getPosts(params: api.params.Posts) {
     try {
-      let paramsInternal: Omit<api.params.Posts, 'tags'> & {
-        tags?: string
-      } = {
-        limit: this.postLimit,
-        ...(params as Omit<api.params.Posts, 'tags'>),
+      let paramsInternal: api.params.PostsLegacy = {
+        limit: params.limit ?? this.postLimit,
+        pid: params.page ?? 0,
       }
 
-      if (params.tags) {
-        paramsInternal.tags = serializeAllTags(params.tags)
-      }
+      if (params.tags) paramsInternal.tags = serializeAllTags(params.tags)
+      if (params.score) paramsInternal.tags = `score:>=${params.score}+`
+      if (params.sort) paramsInternal.tags = `sort:${params.sort}+`
 
       const apiResponse = await this.fetchWithFailover('posts', paramsInternal, {
         headers: {

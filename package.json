@@ -80,6 +80,6 @@
     "@types/styled-components": "^5.1.14",
     "babel-polyfill": "^6.26.0",
     "cypress": "^8.4.0",
-    "r34-types": "^1.1.9"
+    "r34-types": "^1.1.10"
   }
 }

@@ -179,11 +179,12 @@ export class R34Client {
       let paramsInternal: api.params.PostsLegacy = {
         limit: params.limit ?? this.postLimit,
         pid: params.page ?? 0,
+        tags: '',
       }
 
-      if (params.tags) paramsInternal.tags = serializeAllTags(params.tags)
-      if (params.score) paramsInternal.tags = `score:>=${params.score}+`
-      if (params.sort) paramsInternal.tags = `sort:${params.sort}+`
+      if (params.tags) paramsInternal.tags += serializeAllTags(params.tags)
+      if (params.score) paramsInternal.tags += `+score:>=${params.score}`
+      if (params.sort) paramsInternal.tags += `+sort:${params.sort}+`
 
       const apiResponse = await this.fetchWithFailover('posts', paramsInternal, {
         headers: {

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import styled, { css } from 'styled-components'
-import { signIn, signOut } from '../../firebase'
+import { signIn, signOut } from '../../client/firebase'
 import useFirebaseAuthState from '../../hooks/useFirebaseAuthState'
 import { GoogleIcon, SignOutIcon } from '../../icons/FontAwesomeIcons'
 import { flexRowWithGap } from '../../styled/mixins/layout'

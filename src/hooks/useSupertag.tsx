@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { removeSupertag, setTagsOfSupertag } from '../firebase'
+import { removeSupertag, setTagsOfSupertag } from '../client/firebase'
 import * as r34 from 'r34-types'
 
 export const useSupertag = (supertag: r34.Supertag) => {

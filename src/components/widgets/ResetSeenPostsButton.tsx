@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { resetSeenPosts } from '../../firebase'
+import { resetSeenPosts } from '../../client/firebase'
 import { UndoIcon } from '../../icons/FontAwesomeIcons'
 import { BlockButton } from '../designsystem/Buttons'
 

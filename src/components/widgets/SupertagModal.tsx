@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
-import { addSupertag } from '../../firebase'
+import { addSupertag } from '../../client/firebase'
 import { selectActiveTags } from '../../redux/selectors'
 import { defaultBorder } from '../../styled/mixins/theming'
 import { BlockButton } from '../designsystem/Buttons'

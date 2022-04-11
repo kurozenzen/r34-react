@@ -1,5 +1,5 @@
 import { AliasTag, AnyTag, api, ApiVersion, Artist } from 'r34-types'
-import { getSupertags } from './firebase'
+import { getSupertags, init } from './firebase'
 import firebase from 'firebase'
 import { createSearchParams, ParamsRecord } from './utils'
 import { serializeTagname, isSuggestionError, serializeAllTags } from './tagUtils'
@@ -68,6 +68,10 @@ export class R34Client {
     this.requestRetries = options.requestRetries || 1
     this.verbose = options.verbose || false
     this.currentBackend = 0
+
+    if (this.useFirebase) {
+      init()
+    }
   }
 
   /**
@@ -145,6 +149,8 @@ export class R34Client {
 
       const name = params.name
 
+      console.log(name, params.supertags)
+
       if (params.supertags && name) {
         try {
           const supertags = await getSupertags()
@@ -183,8 +189,8 @@ export class R34Client {
       }
 
       if (params.tags) paramsInternal.tags += serializeAllTags(params.tags)
-      if (params.score) paramsInternal.tags += `+score:>=${params.score}`
-      if (params.sort) paramsInternal.tags += `+sort:${params.sort}+`
+      if (params.score) paramsInternal.tags += `+score:${params.score}`
+      if (params.sort && params.sort !== 'date:desc') paramsInternal.tags += `+sort:${params.sort}`
 
       const apiResponse = await this.fetchWithFailover('posts', paramsInternal, {
         headers: {

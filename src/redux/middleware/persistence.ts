@@ -8,7 +8,7 @@ import {
   setPreferences,
   SET_PREFERENCE,
 } from '../actions'
-import * as firebaseFunctions from '../../firebase'
+import * as firebaseFunctions from '../../client/firebase'
 import { initialPreferencesState } from '../reducers/preferences'
 
 let saveTimeout: ReturnType<typeof setTimeout> | null = null

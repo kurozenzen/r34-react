@@ -3,7 +3,6 @@ import 'whatwg-fetch'
 
 import * as Sentry from '@sentry/react'
 import { Offline } from '@sentry/integrations'
-import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { getVersionString } from './data/utils'

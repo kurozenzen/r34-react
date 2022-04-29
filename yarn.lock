@@ -3215,9 +3215,9 @@ async-limiter@~1.0.0:
   integrity sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
 
 async@^2.6.1, async@^2.6.2:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.6.3.tgz#d72625e2344a3656e3a3ad4fa749fa83299d82ff"
-  integrity sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==
+  version "2.6.4"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.6.4.tgz#706b7ff6084664cd7eae713f6f965433b5504221"
+  integrity sha512-mzo5dfJYwAn29PeiJ0zvwTo04zj8HDJj0Mn8TD7sno7q12prdbnasKJHhkm2c1LgrhlJ0teaea8860oxi51mGA==
   dependencies:
     lodash "^4.17.14"
 
@@ -10361,10 +10361,10 @@ r34-branding@^1.0.9:
   resolved "https://registry.yarnpkg.com/r34-branding/-/r34-branding-1.0.9.tgz#d2ed40f7df6da8d2fd75c90d95dba49c5928ba21"
   integrity sha512-3+VTdgUjbPd+zi1sG7d67j8fwEaagI6NOgtffHYqAbPiCUuHRu/diwtX3alvQyhm/rpKEjpJKReEN1YmUAcR/Q==
 
-r34-types@^1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/r34-types/-/r34-types-1.1.9.tgz#a87be5549e69612a016de44573814edb7cbd39a5"
-  integrity sha512-wk0enhvtQC+ZswmHbzLRu8kAw0KEbZ5Lrm9AXrxPdluElwGEwieRR96eN/XzYa4XqvKxBFRc5ueFBfeTiSwqzA==
+r34-types@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/r34-types/-/r34-types-1.1.10.tgz#e02961a2af07d25950396c07bc78aa7ccbdea8b7"
+  integrity sha512-OAu2MZYhopgCxvp3Qhz//8JHY9q8FlvA42CIeYenGYmZ2BxMUlJ6RY3icmhI0MSFqWd79taRgzKejdPh4Q/1+w==
 
 raf@^3.4.1:
   version "3.4.1"

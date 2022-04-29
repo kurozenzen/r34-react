@@ -24,7 +24,7 @@ const backendTypes = {
 
 const backendUrls: Record<string, string[]> = {
   local: ['http://localhost:8080'],
-  default: ['https://r34-json.herokuapp.com', 'https://r34-api-clone.herokuapp.com'],
+  default: ['https://r34-json.herokuapp.com'],
 }
 
 export default function PrefBackends() {

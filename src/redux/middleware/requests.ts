@@ -139,6 +139,7 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
       name: serializeTagname(action.value.length > 3 ? `*${action.value}*` : action.value),
       limit,
       supertags: action.includeSupertags,
+      sort: "count"
     })
 
     if (isSuggestionError(result)) {

@@ -149,14 +149,13 @@ export class R34Client {
 
       const name = params.name
 
-      console.log(name, params.supertags)
-
       if (params.supertags && name) {
         try {
+          const sanitzedName = name.replaceAll("*", "").toLowerCase()
           const supertags = await getSupertags()
           if (supertags) {
             const matchingSupertags = Object.entries(supertags)
-              .filter(([name, details]) => name.toLowerCase().includes(name.toLowerCase()))
+              .filter(([key, _]) => key.toLowerCase().includes(sanitzedName))
               .map(([name, details]) => ({
                 name,
                 ...details,
@@ -214,7 +213,7 @@ export class R34Client {
    */
   async getAliases(params: api.params.Aliases) {
     try {
-      const aliases: AliasTag[] = await (await this.fetchWithFailover('aliases', params)).json()
+      const aliases: AliasTag[] = await (await this.fetchWithFailover('alias/' + params.name)).json()
 
       return aliases
     } catch (err) {

@@ -141,7 +141,7 @@ export default function About() {
               <GithubIcon color={iconColor} />
               GitHub
             </LinkButton>
-            <LinkButton href=' https://discord.gg/yyJFG5PVBZ'>
+            <LinkButton href='https://discord.gg/yyJFG5PVBZ'>
               <DiscordIcon color={iconColor} />
               Discord
             </LinkButton>

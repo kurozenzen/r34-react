@@ -19,22 +19,21 @@ const Message = styled.div`
   ${flexColumnWithGap}
 `
 
-const deadline = new Date('01-01-2022')
-
 export default function UpdateHighlight() {
-  if (new Date() > deadline) {
-    return null
-  }
+  const now = new Date()
 
-  return (
-    <Wrapper>
-      <Message>
-        <FlexPair>
-          <WrenchIcon size={'lg'} />
-          <SmallTitle>Update News</SmallTitle>
-        </FlexPair>
-        <p>🎄 Merry Christmas 🎄</p>
-      </Message>
-    </Wrapper>
-  )
+  if (now.getMonth() === 11 && now.getDate() >= 24)
+    return (
+      <Wrapper>
+        <Message>
+          <FlexPair>
+            <WrenchIcon size='lg' />
+            <SmallTitle>Update News</SmallTitle>
+          </FlexPair>
+          <p>🎄 Merry Christmas 🎄</p>
+        </Message>
+      </Wrapper>
+    )
+
+  return null
 }

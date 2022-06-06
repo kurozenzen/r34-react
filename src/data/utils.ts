@@ -35,12 +35,7 @@ export function versionToNumber(majorMinorPatch: string) {
 export function download(url: string) {
   const filename = url.split('/').pop() || ''
 
-  fetch(url, {
-    headers: new Headers({
-      Origin: window.location.origin,
-    }),
-    mode: 'cors',
-  })
+  fetch(`https://r34-json.herokuapp.com/images?url=${url}`)
     .then((response) => response.blob())
     .then((blob) => {
       var a = document.createElement('a')

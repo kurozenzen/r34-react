@@ -1,5 +1,5 @@
-import firebase from "firebase/app"
-import "firebase/auth"
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
 let initialized = false
 let googleAuthProvider!: firebase.auth.GoogleAuthProvider
@@ -15,17 +15,22 @@ export function signIn() {
       .auth()
       .signInWithPopup(googleAuthProvider)
       .catch((error) => {
-        console.error("Sign in failed:", error.code, error.message)
+        console.error('Sign in failed:', error.code, error.message)
       })
   } else {
-    console.warn("Cannot sign in before initialization")
+    console.warn('Cannot sign in before initialization')
   }
 }
 
 export async function signOut() {
   if (initialized) {
-    return await firebase.auth().signOut()
+    return await firebase
+      .auth()
+      .signOut()
+      .catch((error) => {
+        console.error('Sign out failed:', error.code, error.message)
+      })
   } else {
-    console.warn("Cannot sign out before initialization")
+    console.warn('Cannot sign out before initialization')
   }
 }

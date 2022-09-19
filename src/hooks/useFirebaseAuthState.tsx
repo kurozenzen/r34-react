@@ -9,11 +9,12 @@ import { useOnlineChange } from './useOnlineChange'
 export default function useFirebaseAuthState() {
   const [authState, setAuthState] = useState(false)
   const [user, setUser] = useState<firebase.User | null>(null)
-  const isOnline = useOnlineChange()
 
   useEffect(() => {
-    if (isOnline) {
-      const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    try {
+      const unsubscribe = firebase
+      .auth()
+      .onAuthStateChanged((user) => {
         if (user) {
           setAuthState(true)
           setUser(user)
@@ -25,8 +26,11 @@ export default function useFirebaseAuthState() {
       return () => {
         unsubscribe()
       }
+    } catch {
+      setAuthState(false)
+      setUser(null)
     }
-  }, [isOnline])
+  })
 
   return [authState, user] as const
 }

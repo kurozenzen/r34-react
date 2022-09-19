@@ -191,12 +191,7 @@ export class R34Client {
       if (params.score) paramsInternal.tags += `+score:${params.score}`
       if (params.sort && params.sort !== 'date:desc') paramsInternal.tags += `+sort:${params.sort}`
 
-      const apiResponse = await this.fetchWithFailover('posts', paramsInternal, {
-        headers: {
-          Authorization: `Bearer ${await firebase.auth().currentUser?.getIdToken()}`,
-        },
-      })
-
+      const apiResponse = await this.fetchWithFailover('posts', paramsInternal)
       const data: api.responses.Posts = await apiResponse.json()
 
       return data

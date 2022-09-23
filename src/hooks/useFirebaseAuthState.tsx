@@ -1,7 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { useEffect, useState } from 'react'
-import { useOnlineChange } from './useOnlineChange'
 
 /**
  * A hook that provides the firebase authentication status for use in functional components.
@@ -30,7 +29,7 @@ export default function useFirebaseAuthState() {
       setAuthState(false)
       setUser(null)
     }
-  })
+  }, [])
 
   return [authState, user] as const
 }

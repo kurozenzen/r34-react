@@ -1,6 +1,5 @@
 import { AliasTag, AnyTag, api, ApiVersion, Artist } from 'r34-types'
 import { getSupertags, init } from './firebase'
-import firebase from 'firebase'
 import { createSearchParams, ParamsRecord } from './utils'
 import { serializeTagname, isSuggestionError, serializeAllTags } from './tagUtils'
 

@@ -13,6 +13,26 @@ Sentry.init({
   integrations: [new Offline()],
   tracesSampleRate: 1.0,
   release: getVersionString(),
+  allowUrls: [/https:\/\/kurozenzen\.github\.io(.*)/, /https:\/\/r34-json\.herokuapp\.com(.*)/],
+  ignoreErrors: [
+    // Random plugins/extensions
+    'top.GLOBALS',
+    // See: http://blog.errorception.com/2012/03/tale-of-unfindable-js-error.html
+    'originalCreateNotification',
+    'canvas.contentDocument',
+    'MyApp_RemoveAllHighlights',
+    'http://tt.epicplay.com',
+    "Can't find variable: ZiteReader",
+    'jigsaw is not defined',
+    'ComboSearch is not defined',
+    'http://loading.retry.widdit.com/',
+    'atomicFindClose',
+  ],
+  denyUrls: [
+    // Chrome extensions
+    /extensions\//i,
+    /^chrome:\/\//i,
+  ],
   beforeBreadcrumb(breadcrumb, hint) {
     try {
       if (breadcrumb?.category?.startsWith('ui')) {

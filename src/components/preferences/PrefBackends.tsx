@@ -16,15 +16,23 @@ const Message = styled(Faded)`
   ${flexRowWithGap};
 `
 
-const backendTypes = {
+const BACKEND_TYPES = {
   local: 'Localhost',
   default: 'Default',
+  heroku: 'Heroku',
+  adaptable: 'Adaptable',
+  render: 'Render',
+  railway: 'Railway',
   custom: 'Custom',
 }
 
-const backendUrls: Record<string, string[]> = {
+const BACKEND_URLS: Record<string, string[]> = {
   local: ['http://localhost:8080'],
   default: ['https://r34-json.herokuapp.com'],
+  heroku: ['https://r34-json.herokuapp.com'],
+  adaptable: ['https://rule34-json-api.adaptable.app'],
+  render: ['https://json-api.onrender.com'],
+  railway: ['https://api-service-production-122b.up.railway.app'],
 }
 
 export default function PrefBackends() {
@@ -33,8 +41,8 @@ export default function PrefBackends() {
 
   const [customBackendStatus, setCustomBackendStatus] = useState<boolean | undefined>(undefined)
 
-  const backendType = (Object.keys(backendUrls).find((key) => backends && backendUrls[key].includes(backends[0])) ||
-    'custom') as keyof typeof backendTypes
+  const backendType = (Object.keys(BACKEND_URLS).find((key) => backends && BACKEND_URLS[key].includes(backends[0])) ||
+    'custom') as keyof typeof BACKEND_TYPES
 
   const onChange = useCallback(
     (event) => {
@@ -42,7 +50,7 @@ export default function PrefBackends() {
       if (value === 'custom') {
         setBackends([customUrl])
       } else {
-        setBackends(backendUrls[value])
+        setBackends(BACKEND_URLS[value])
       }
     },
     [customUrl, setBackends]
@@ -77,7 +85,7 @@ export default function PrefBackends() {
         title='Backend'
         description='Controls the backend used to fetch posts. This can be changed to use a custom backend.'
       >
-        <Select options={backendTypes} value={backendType} onChange={onChange} />
+        <Select options={BACKEND_TYPES} value={backendType} onChange={onChange} />
       </Setting>
       {backendType === 'custom' && (
         <>

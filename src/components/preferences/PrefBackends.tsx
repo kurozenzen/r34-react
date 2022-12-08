@@ -28,8 +28,7 @@ const BACKEND_TYPES = {
 
 const BACKEND_URLS: Record<string, string[]> = {
   local: ['http://localhost:8080'],
-  default: ['https://r34-json.herokuapp.com'],
-  heroku: ['https://r34-json.herokuapp.com'],
+  default: ['https://json-api.onrender.com'],
   adaptable: ['https://rule34-json-api.adaptable.app'],
   render: ['https://json-api.onrender.com'],
   railway: ['https://api-service-production-122b.up.railway.app'],

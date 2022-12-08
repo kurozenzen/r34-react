@@ -48,4 +48,13 @@ export const migrations = {
       },
     }
   },
+  301: (state: any) => {
+    return {
+      ...state,
+      preferences: {
+        ...state.preferences,
+        backends: ['https://json-api.onrender.com'],
+      },
+    }
+  },
 }

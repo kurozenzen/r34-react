@@ -19,7 +19,6 @@ const Message = styled(Faded)`
 const BACKEND_TYPES = {
   local: 'Localhost',
   default: 'Default',
-  heroku: 'Heroku',
   adaptable: 'Adaptable',
   render: 'Render',
   railway: 'Railway',

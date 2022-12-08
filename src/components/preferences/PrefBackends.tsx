@@ -17,85 +17,43 @@ const Message = styled(Faded)`
 `
 
 const BACKEND_TYPES = {
-  local: 'Localhost',
   default: 'Default',
   adaptable: 'Adaptable',
   render: 'Render',
-  railway: 'Railway',
-  custom: 'Custom',
 }
 
 const BACKEND_URLS: Record<string, string[]> = {
-  local: ['http://localhost:8080'],
   default: ['https://json-api.onrender.com'],
   adaptable: ['https://rule34-json-api.adaptable.app'],
   render: ['https://json-api.onrender.com'],
-  railway: ['https://api-service-production-122b.up.railway.app'],
 }
 
 export default function PrefBackends() {
   const [backends, setBackends] = usePreference('backends')
-  const [customUrl, setCustomUrl] = useState('https://your-backend.com')
 
-  const [customBackendStatus, setCustomBackendStatus] = useState<boolean | undefined>(undefined)
-
-  const backendType = (Object.keys(BACKEND_URLS).find((key) => backends && BACKEND_URLS[key].includes(backends[0])) ||
-    'custom') as keyof typeof BACKEND_TYPES
+  const preferedBackend = Object.keys(BACKEND_URLS).find(
+    (key) => backends && BACKEND_URLS[key].includes(backends[0])
+  ) as keyof typeof BACKEND_TYPES
 
   const onChange = useCallback(
     (event) => {
-      const value = event.target.value
-      if (value === 'custom') {
-        setBackends([customUrl])
-      } else {
-        setBackends(BACKEND_URLS[value])
-      }
+      const value: keyof typeof BACKEND_TYPES = event.target.value
+      setBackends(BACKEND_URLS[value] ?? BACKEND_URLS.default)
     },
-    [customUrl, setBackends]
-  )
-
-  const onSubmit = useCallback(
-    (newUrl) => {
-      setCustomUrl(newUrl)
-      setBackends([customUrl])
-    },
-    [customUrl, setBackends]
+    [setBackends]
   )
 
   useEffect(() => {
-    if (backendType === 'custom') {
-      try {
-        setCustomBackendStatus(undefined)
-        new URL(customUrl)
-
-        fetch(customUrl)
-          .then(() => setCustomBackendStatus(true))
-          .catch(() => setCustomBackendStatus(false))
-      } catch {
-        // not a valid url
-      }
+    if(preferedBackend === undefined) {
+      setBackends(BACKEND_URLS.default)
     }
-  }, [backendType, customUrl])
+  })
 
   return (
     <>
-      <Setting
-        title='Backend'
-        description='Controls the backend used to fetch posts. This can be changed to use a custom backend.'
-      >
-        <Select options={BACKEND_TYPES} value={backendType} onChange={onChange} />
+      <Setting title='Backend' description='Controls the backend used to fetch posts.'>
+        <Select options={BACKEND_TYPES} value={preferedBackend ?? BACKEND_TYPES.default} onChange={onChange} />
       </Setting>
-      {backendType === 'custom' && (
-        <>
-          <TextInput value={customUrl} onSubmit={onSubmit} />
-          {customBackendStatus !== undefined && (
-            <Message>
-              <StatusImage value={customBackendStatus} />
-              {customBackendStatus ? 'Pinged custom backend successfully!' : 'Cannot reach custom backend.'}
-            </Message>
-          )}
-        </>
-      )}
     </>
   )
 }

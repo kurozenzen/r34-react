@@ -1,8 +1,7 @@
-import { AliasTag, AnyTag, api, ApiVersion, Artist, Post, R34Post } from 'r34-types'
+import { AliasTag, AnyTag, api, ApiVersion, Artist } from 'r34-types'
 import { getSupertags, init } from './firebase'
 import { createSearchParams, ParamsRecord } from './utils'
-import { serializeTagname, isSuggestionError, serializeAllTags } from './tagUtils'
-import { HtmlAttributes } from 'csstype'
+import { isSuggestionError, serializeAllTags } from './tagUtils'
 
 /**
  * Configure your client.
@@ -282,7 +281,7 @@ export class R34Client {
       score: Number(score),
       source,
       status,
-      tags: tags.split(' ').filter((tag: any, index: any, array: any) => tag !== '' && array.indexOf(tag) == index),
+      tags: tags.split(' ').filter((tag: any, index: any, array: any) => tag !== '' && array.indexOf(tag) === index),
       width: Number(width),
       comments_url: '',
       creator_url: '',

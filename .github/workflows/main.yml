@@ -13,16 +13,19 @@ jobs:
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v2
-      
+        with:
+          node-version: '16'
+          cache: 'npm'
+
       - name: Setup ⚙
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '16'
           cache: 'npm'
-          
+
       - name: Install ⬇
-        run: npm install
-        
+        run: npm install --legacy-peer-deps
+
       - name: Build 🔨
         run: npm run build
 

@@ -1,7 +1,8 @@
-import { AliasTag, AnyTag, api, ApiVersion, Artist } from 'r34-types'
+import { AliasTag, AnyTag, api, ApiVersion, Artist, Post, R34Post } from 'r34-types'
 import { getSupertags, init } from './firebase'
 import { createSearchParams, ParamsRecord } from './utils'
 import { serializeTagname, isSuggestionError, serializeAllTags } from './tagUtils'
+import { HtmlAttributes } from 'csstype'
 
 /**
  * Configure your client.
@@ -125,15 +126,32 @@ export class R34Client {
    * Retrieves tags given a searchTerm
    */
   private async fetchTags(params: api.params.Tags): Promise<api.responses.Tags> {
-    const paramsInternal = { limit: this.tagLimit, ...params }
+    console.log(params)
 
-    if (params.name) {
-      paramsInternal.name = serializeTagname(params.name)
+    const baseUrl = 'https://api.rule34.xxx/autocomplete.php?q='
+    const name = params.name?.replaceAll(' ', '_')
+    const fetched = await fetch(`${baseUrl}${name}`)
+
+    if (fetched.ok) {
+      const json = await fetched.json()
+      if (Array.isArray(json)) {
+        if (json.length === 0) {
+          throw new Error('No tags found')
+        } else {
+          return json.map((t) => ({
+            name: t.value,
+            count: Number(t.label.substring(t.label.lastIndexOf('(') + 1, t.label.length - 1)),
+            types: ['ambiguous'],
+          }))
+        }
+      } else if (json.message) {
+        return json
+      } else {
+        return { message: 'Invalid tag suggestions received', results: 0 }
+      }
+    } else {
+      return { message: 'Failed to load suggestions', results: 0 }
     }
-
-    const res = await this.fetchWithFailover('tags', paramsInternal)
-
-    return res.json()
   }
 
   async getTags(params: api.params.Tags) {
@@ -150,7 +168,7 @@ export class R34Client {
 
       if (params.supertags && name) {
         try {
-          const sanitzedName = name.replaceAll("*", "").toLowerCase()
+          const sanitzedName = name.replaceAll('*', '').toLowerCase()
           const supertags = await getSupertags()
           if (supertags) {
             const matchingSupertags = Object.entries(supertags)
@@ -175,12 +193,19 @@ export class R34Client {
   //#endregion
 
   //#region Posts
+  getPostsUrl(pageNumber: number, limit: number, serializedTags: string) {
+    const baseApiPostsUrl = `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index`
+    const url = `${baseApiPostsUrl}&limit=${limit.toString()}&pid=${pageNumber}`
+
+    return serializedTags === '' ? url : `${url}&tags=${serializedTags}`
+  }
+
   /**
    * This function can be used to retrieve a number of posts from the backend.
    */
   async getPosts(params: api.params.Posts) {
     try {
-      let paramsInternal: api.params.PostsLegacy = {
+      let paramsInternal = {
         limit: params.limit ?? this.postLimit,
         pid: params.page ?? 0,
         tags: '',
@@ -190,13 +215,79 @@ export class R34Client {
       if (params.score) paramsInternal.tags += `+score:${params.score}`
       if (params.sort && params.sort !== 'date:desc') paramsInternal.tags += `+sort:${params.sort}`
 
-      const apiResponse = await this.fetchWithFailover('posts', paramsInternal)
-      const data: api.responses.Posts = await apiResponse.json()
+      const apiResponse = await fetch(this.getPostsUrl(paramsInternal.pid, paramsInternal.limit, paramsInternal.tags))
 
-      return data
+      const text = await apiResponse.text()
+      const parser = new DOMParser()
+      const xml = parser.parseFromString(text, 'text/xml')
+
+      const count = Number(xml.getElementsByTagName('posts')[0].getAttribute('count'))
+      const posts = []
+
+      for (const post of xml.getElementsByTagName('post')) {
+        posts.push(this.parsePost(post.attributes))
+      }
+
+      return { count, posts }
     } catch (err) {
       console.warn('Failed to get posts:', err)
       return { count: 0, posts: [] }
+    }
+  }
+
+  parsePost(post: any): any {
+    const height = post.getNamedItem('height').value
+    const score = post.getNamedItem('score').value
+    const file_url = post.getNamedItem('file_url').value
+    const parent_id = post.getNamedItem('parent_id').value
+    const sample_url = post.getNamedItem('sample_url').value
+    const sample_width = post.getNamedItem('sample_width').value
+    const sample_height = post.getNamedItem('sample_height').value
+    const preview_url = post.getNamedItem('preview_url').value
+    const rating = post.getNamedItem('rating').value
+    const tags = post.getNamedItem('tags').value
+    const id = post.getNamedItem('id').value
+    const width = post.getNamedItem('width').value
+    const change = post.getNamedItem('change').value
+    const md5 = post.getNamedItem('md5').value
+    const creator_id = post.getNamedItem('creator_id').value
+    const has_children = post.getNamedItem('has_children').value
+    const created_at = post.getNamedItem('created_at').value
+    const status = post.getNamedItem('status').value
+    const source = post.getNamedItem('source').value
+    const has_notes = post.getNamedItem('has_notes').value
+    const has_comments = post.getNamedItem('has_comments').value
+    const preview_width = post.getNamedItem('preview_width').value
+    const preview_height = post.getNamedItem('preview_height').value
+
+    return {
+      preview_url,
+      sample_url,
+      file_url,
+      created_at,
+      has_children: Boolean(has_children),
+      md5,
+      height: Number(height),
+      id: Number(id),
+      change: Number(change),
+      creator_id: Number(creator_id),
+      has_notes: Boolean(has_notes),
+      has_comments: Boolean(has_comments),
+      parent_id: parent_id ? Number(parent_id) : null,
+      preview_width: Number(preview_width),
+      preview_height: Number(preview_height),
+      rating,
+      sample_height: Number(sample_height),
+      sample_width: Number(sample_width),
+      score: Number(score),
+      source,
+      status,
+      tags: tags.split(' ').filter((tag: any, index: any, array: any) => tag !== '' && array.indexOf(tag) == index),
+      width: Number(width),
+      comments_url: '',
+      creator_url: '',
+      type:
+        file_url.endsWith('.webm') || file_url.endsWith('.mp4') ? 'video' : file_url.includes('.gif') ? 'gif' : 'image',
     }
   }
   //#endregion

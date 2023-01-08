@@ -136,10 +136,10 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
   if (action.type === FETCH_SUGGESTIONS) {
     const limit = selectTagSuggestionCount(state)
     const result = await client.getTags({
-      name: serializeTagname(action.value.length > 3 ? `*${action.value}*` : action.value),
+      name: serializeTagname(action.value),
       limit,
       supertags: action.includeSupertags,
-      sort: "count"
+      sort: 'count',
     })
 
     if (isSuggestionError(result)) {

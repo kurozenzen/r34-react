@@ -1,20 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
-import styled from 'styled-components'
+import { useCallback, useEffect } from 'react'
 import usePreference from '../../hooks/usePreference'
-import { flexRowWithGap } from '../../styled/mixins/layout'
 import Select from '../designsystem/Select'
 import Setting from '../designsystem/Setting'
-import { SmallTextInput } from '../designsystem/SmallInput'
-import StatusImage from '../designsystem/StatusImage'
-import { Faded } from '../designsystem/Text'
-
-const TextInput = styled(SmallTextInput)`
-  width: 100%;
-`
-
-const Message = styled(Faded)`
-  ${flexRowWithGap};
-`
 
 const BACKEND_TYPES = {
   default: 'Default',

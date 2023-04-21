@@ -9,7 +9,7 @@ import SearchPlaceholder from '../widgets/SearchPlaceholder'
 import ResultsTitle from '../widgets/ResultsTitle'
 import { defaultSpacing } from '../../styled/mixins/gap'
 import { centeredMaxWidth, flexColumn } from '../../styled/mixins/layout'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { Faded, Title } from '../designsystem/Text'
 import { Surface } from '../designsystem/Surface'
 
@@ -17,6 +17,12 @@ const NewsContainter = styled.div`
   ${flexColumn}
   ${defaultSpacing}
   ${centeredMaxWidth}
+`
+
+const NewsTitle = styled(Title)`
+  ${({ theme }) => css`
+    padding-top: ${theme.dimensions.hugeSpacing};
+  `}
 `
 
 const NewsGrid = styled(Surface)`
@@ -45,7 +51,7 @@ export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: Layo
       <Header />
 
       <NewsContainter>
-        <Title>News</Title>
+        <NewsTitle>News</NewsTitle>
         <NewsGrid>
           <Logo
             src='https://raw.githubusercontent.com/kurozenzen/kurosearch/main/public/favicon.svg'

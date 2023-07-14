@@ -77,7 +77,7 @@ export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: Layo
         </NewsGrid> */}
         <NewsGrid>
           <Logo />
-          <b>We are hitting usage limits with Google Storage</b>
+          <b>We are hitting rate limits with Google Storage</b>
           <Faded>
             I have had to partially disable the automatic preference/settings syncing to avoid paying huge amounts of
             money. This will only affect you if you are logged in with Google. Sorry 😐

@@ -15,7 +15,6 @@ import SupertagModal from './components/widgets/SupertagModal'
 import { RouteName } from './data/types'
 import './client/firebase' // init firebase immediately
 import GlobalStyles from './GlobalStyles'
-import { useLoadPreferences } from './hooks/useLoadPreferences'
 import {
   selectActiveThemeId,
   selectCellularWarningModalOpen,
@@ -53,7 +52,7 @@ function ThemedApp() {
   const themeId = useSelector(selectActiveThemeId)
   const theme = themes[themeId] || defaultThemeId
 
-  useLoadPreferences()
+  // useLoadPreferences()
 
   return (
     <ThemeProvider theme={theme}>

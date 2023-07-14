@@ -12,6 +12,7 @@ import { centeredMaxWidth, flexColumn } from '../../styled/mixins/layout'
 import styled, { css } from 'styled-components'
 import { Faded, Title } from '../designsystem/Text'
 import { Surface } from '../designsystem/Surface'
+import { GoogleIcon } from '../../icons/FontAwesomeIcons'
 
 const NewsContainter = styled.div`
   ${flexColumn}
@@ -32,8 +33,14 @@ const NewsGrid = styled(Surface)`
   align-items: center;
 `
 
-const Logo = styled.img`
+// const Logo = styled.img`
+//   height: 60px;
+//   grid-row: span 2;
+// `
+
+const Logo = styled(GoogleIcon)`
   height: 60px;
+  min-width: 40px;
   grid-row: span 2;
 `
 
@@ -52,7 +59,7 @@ export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: Layo
 
       <NewsContainter>
         <NewsTitle>News</NewsTitle>
-        <NewsGrid>
+        {/* <NewsGrid>
           <Logo
             src='https://raw.githubusercontent.com/kurozenzen/kurosearch/main/public/favicon.svg'
             alt='kurosearch'
@@ -66,6 +73,14 @@ export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: Layo
               Discord
             </a>{' '}
             if anything catches your eye.
+          </Faded>
+        </NewsGrid> */}
+        <NewsGrid>
+          <Logo />
+          <b>We are hitting usage limits with Google Storage</b>
+          <Faded>
+            I have had to partially disable the automatic preference/settings syncing to avoid paying huge amounts of
+            money. This will only affect you if you are logged in with Google. Sorry 😐
           </Faded>
         </NewsGrid>
       </NewsContainter>

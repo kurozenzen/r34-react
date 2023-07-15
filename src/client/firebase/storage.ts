@@ -1,9 +1,9 @@
-import firebase from "firebase/app"
-import "firebase/auth"
-import "firebase/firestore"
-import { Preferences, SupertagData, TagModifier, User } from "r34-types"
-import { sha256 } from "../utils"
-import { GenericConverter } from "./genericConverter"
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
+import { Preferences, SupertagData, TagModifier, User } from 'r34-types'
+import { sha256 } from '../utils'
+import { GenericConverter } from './genericConverter'
 
 let initialized = false
 let userConverter!: GenericConverter<User>
@@ -14,8 +14,9 @@ export function init() {
 }
 
 async function getUserDoc() {
+  console.log('[firestore] getting user document')
   if (!initialized) {
-    console.warn("Cannot get userDoc. Not initialized yet")
+    console.warn('Cannot get userDoc. Not initialized yet')
     return undefined
   }
   try {
@@ -24,13 +25,13 @@ async function getUserDoc() {
 
     if (email) {
       const key = await sha256(email)
-      const userDoc = firebase.firestore().collection("users").doc(key)
+      const userDoc = firebase.firestore().collection('users').doc(key)
       return userDoc
     }
 
     return undefined
   } catch (err) {
-    console.warn("Failed to get user document:", err)
+    console.warn('Failed to get user document:', err)
     return undefined
   }
 }
@@ -63,14 +64,15 @@ export async function setPreferences(preferences: Preferences) {
 }
 
 export async function resetSeenPosts() {
-  console.warn("no longer supported")
+  console.warn('no longer supported')
 }
 
 export async function getSupertags() {
   const userDoc = await getUserDoc()
 
   if (userDoc) {
-    const snap = await userDoc.collection("supertags").get()
+    console.log('[firestore] getting user supertags')
+    const snap = await userDoc.collection('supertags').get()
     const result: Record<string, SupertagData> = {}
 
     snap.forEach((doc) => {
@@ -83,27 +85,20 @@ export async function getSupertags() {
   return undefined
 }
 
-export async function addSupertag(
-  name: string,
-  description: string,
-  tags: Record<string, TagModifier>
-) {
+export async function addSupertag(name: string, description: string, tags: Record<string, TagModifier>) {
   const userDoc = await getUserDoc()
 
-  userDoc?.collection("supertags").doc(name).set({ description, tags })
+  userDoc?.collection('supertags').doc(name).set({ description, tags })
 }
 
 export async function removeSupertag(name: string) {
   const userDoc = await getUserDoc()
 
-  userDoc?.collection("supertags").doc(name).delete()
+  userDoc?.collection('supertags').doc(name).delete()
 }
 
-export async function setTagsOfSupertag(
-  name: string,
-  tags: Record<string, TagModifier>
-) {
+export async function setTagsOfSupertag(name: string, tags: Record<string, TagModifier>) {
   const userDoc = await getUserDoc()
 
-  userDoc?.collection("supertags").doc(name).update({ tags })
+  userDoc?.collection('supertags').doc(name).update({ tags })
 }

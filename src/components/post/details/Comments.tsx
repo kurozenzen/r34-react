@@ -21,6 +21,11 @@ const Message = styled(Faded)`
   line-height: 20px;
 `
 
+const Centered = styled.p`
+  text-align: center;
+  padding: 12px;
+`
+
 interface CommentsProps {
   comments: r34.Comment[]
 }
@@ -30,12 +35,16 @@ export default function Comments(props: CommentsProps) {
 
   return (
     <AdditionalDetails>
-      {comments.map((comment, index) => (
-        <Comment key={index}>
-          <Username>{comment.creator}</Username>
-          <Message>{comment.body}</Message>
-        </Comment>
-      ))}
+      {comments.length === 0 ? (
+        <Centered>No comments found</Centered>
+      ) : (
+        comments.map((comment, index) => (
+          <Comment key={index}>
+            <Username>{comment.creator}</Username>
+            <Message>{comment.body}</Message>
+          </Comment>
+        ))
+      )}
     </AdditionalDetails>
   )
 }

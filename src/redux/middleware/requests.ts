@@ -153,7 +153,8 @@ const apiRequests = (store: MiddlewareAPI) => (next: Dispatch<AppAction>) => asy
     const post = selectPostById(action.postId)(state)
 
     if (post) {
-      const comments = await client.getComments({ commentsUrl: post.comments_url })
+      const commentsUrl = `https://api.rule34.xxx/index.php?page=dapi&s=comment&q=index&json=1&post_id=${post.id}`
+      const comments = await client.getComments({ commentsUrl })
       store.dispatch(setComments(action.postId, comments))
     }
   }

@@ -1,4 +1,4 @@
-import { AliasTag, AnyTag, api, ApiVersion, Artist } from 'r34-types'
+import { AliasTag, AnyTag, api, ApiVersion, Artist, Comment } from 'r34-types'
 import { getSupertags, init } from './firebase'
 import { createSearchParams, ParamsRecord } from './utils'
 import { isSuggestionError, serializeAllTags } from './tagUtils'
@@ -315,11 +315,31 @@ export class R34Client {
     try {
       // This does not use my api but it is included here for simplicity.
       // Therefore, no failover etc.
-      return (await fetch(params.commentsUrl)).json()
+      const response = await fetch(params.commentsUrl)
+      const text = await response.text()
+      const parser = new DOMParser()
+      const xml = parser.parseFromString(text, 'text/xml')
+
+      const comments: Comment[] = []
+      for (const comment of xml.getElementsByTagName('comment')) {
+        const newComment = this.parseComment(comment.attributes)
+        comments.push(newComment)
+      }
+
+      return comments
     } catch (err) {
       console.warn('Failed to get comments:', err)
       return []
     }
+  }
+
+  parseComment = (comment: NamedNodeMap): Comment => {
+    let result = {} as Record<string, any>
+
+    for (const attr of comment) {
+      result[attr.name] = attr.value
+    }
+    return result as Comment
   }
   //#endregion
 

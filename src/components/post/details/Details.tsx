@@ -161,7 +161,7 @@ export default function Details(props: DetailsProps) {
               onTagMenu={addTagWithModifier}
             />
           ),
-          comments: <Comments comments={comments as r34.Comment[]} />,
+          comments: <Comments comments={(comments ?? []) as r34.Comment[]} />,
           metadata: <Metadata created_at={created_at} status={status} width={width} height={height} id={postId} />,
         }[activeTab]
       }

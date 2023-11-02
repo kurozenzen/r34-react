@@ -12,7 +12,6 @@ import { centeredMaxWidth, flexColumn } from '../../styled/mixins/layout'
 import styled, { css } from 'styled-components'
 import { Faded, Title } from '../designsystem/Text'
 import { Surface } from '../designsystem/Surface'
-import { GoogleIcon } from '../../icons/FontAwesomeIcons'
 
 const NewsContainter = styled.div`
   ${flexColumn}
@@ -33,16 +32,16 @@ const NewsGrid = styled(Surface)`
   align-items: center;
 `
 
-// const Logo = styled.img`
-//   height: 60px;
-//   grid-row: span 2;
-// `
-
-const Logo = styled(GoogleIcon)`
+const Logo = styled.img`
   height: 60px;
-  min-width: 40px;
   grid-row: span 2;
 `
+
+// const Logo = styled(GoogleIcon)`
+//   height: 60px;
+//   min-width: 40px;
+//   grid-row: span 2;
+// `
 
 export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: LayoutElementProps) {
   const count = useSelector(selectCount)
@@ -59,30 +58,31 @@ export default function LayoutHeader({ onLoad = NO_OP, virtualRef, style }: Layo
 
       <NewsContainter>
         <NewsTitle>News</NewsTitle>
-        {/* <NewsGrid>
+        <NewsGrid>
           <Logo
-            src='https://raw.githubusercontent.com/kurozenzen/kurosearch/main/public/favicon.svg'
+            src='https://raw.githubusercontent.com/kurozenzen/kurosearch/main/static/favicon.svg'
             alt='kurosearch'
           />
           <b>
             Check out <a href='https://kurosearch.com'>kurosearch.com</a>
           </b>
           <Faded>
-            A re-imagined version of R34-React that I am building. Give me some Feedback on{' '}
-            <a href='https://discord.com/invite/yyJFG5PVBZ' style={{ color: '#7289DA' }}>
+            A re-imagined version of R34-React that I am building. In the long term, it is meant as a replacement for
+            Rule34 React. Feel free to ask questions on{' '}
+            <a href='https://discord.gg/yyJFG5PVBZ' target='blank'>
               Discord
-            </a>{' '}
-            if anything catches your eye.
+            </a>
+            .
           </Faded>
-        </NewsGrid> */}
-        <NewsGrid>
+        </NewsGrid>
+        {/* <NewsGrid>
           <Logo />
           <b>We are hitting rate limits with Google Storage</b>
           <Faded>
             I have had to partially disable the automatic preference/settings syncing to avoid paying huge amounts of
             money. This will only affect you if you are logged in with Google. Sorry 😐
           </Faded>
-        </NewsGrid>
+        </NewsGrid> */}
       </NewsContainter>
 
       <SearchEditor onLoad={onLoad} />

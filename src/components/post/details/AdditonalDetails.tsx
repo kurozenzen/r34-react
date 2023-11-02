@@ -7,6 +7,5 @@ export const AdditionalDetails = styled.div`
   ${defaultSpacing}
   
   flex-wrap: wrap;
-  padding-top: 0;
   grid-row: 4/5;
 `

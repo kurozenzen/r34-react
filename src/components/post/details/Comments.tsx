@@ -1,29 +1,25 @@
 import * as r34 from 'r34-types'
-import React from 'react'
-import styled, { css } from 'styled-components'
-import { flexColumnGap } from '../../../styled/mixins/gap'
+import styled from 'styled-components'
 import { Faded } from '../../designsystem/Text'
 import { AdditionalDetails } from './AdditonalDetails'
 
-const Comment = styled.div(
-  ({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    ${flexColumnGap(theme.dimensions.spacing)}
-  `
-)
-
-const Username = styled.span`
-  line-height: 20px;
+const Username = styled.p`
+  line-height: 1.25em;
 `
 
 const Message = styled(Faded)`
-  line-height: 20px;
+  display: block;
+  line-height: 1.25em;
+  overflow-wrap: anywhere;
 `
 
 const Centered = styled.p`
   text-align: center;
   padding: 12px;
+`
+
+const Comment = styled.div`
+  display: content;
 `
 
 interface CommentsProps {

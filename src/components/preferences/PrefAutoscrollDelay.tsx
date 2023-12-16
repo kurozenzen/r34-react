@@ -8,7 +8,7 @@ export default function PrefAutoscrollDelay() {
 
   return (
     <Setting
-      title='Autosroll delay'
+      title='Autoscroll delay'
       description='Configure how long posts stay on screen in fullscreen view. Time in seconds'
     >
       <SmallNumberInput value={autoscrollDelay} onSubmit={setAutoscrollDelay} min={1} max={60} step={1} />

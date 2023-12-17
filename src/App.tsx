@@ -50,7 +50,7 @@ function ThemedApp() {
   const isCellularWarningModalOpen = useSelector(selectCellularWarningModalOpen)
   const isSupertagModalOpen = useSelector(selectSupertagModalOpen)
   const themeId = useSelector(selectActiveThemeId)
-  const theme = themes[themeId] || defaultThemeId
+  const theme = themes[themeId || defaultThemeId]
 
   // useLoadPreferences()
 

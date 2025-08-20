@@ -193,9 +193,7 @@ export class R34Client {
 
   //#region Posts
   getPostsUrl(pageNumber: number, limit: number, serializedTags: string) {
-    const baseApiPostsUrl = `https://api.rule34.xxx/index.php?page=dapi&s=post&q=index`
-    const url = `${baseApiPostsUrl}&limit=${limit.toString()}&pid=${pageNumber}`
-
+    const url = `https://rule34-api.netlify.app/posts?limit=${limit.toString()}&pid=${pageNumber}`
     return serializedTags === '' ? url : `${url}&tags=${serializedTags}`
   }
 

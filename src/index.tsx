@@ -11,7 +11,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 Sentry.init({
   dsn: 'https://1a2933d829da41fe84d4dab5fcc520ae@o955708.ingest.sentry.io/5905045',
   integrations: [new Offline()],
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.1,
   release: getVersionString(),
   allowUrls: [/https:\/\/kurozenzen\.github\.io(.*)/, /https:\/\/r34-json\.herokuapp\.com(.*)/],
   ignoreErrors: [

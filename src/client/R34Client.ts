@@ -197,6 +197,11 @@ export class R34Client {
     return serializedTags === '' ? url : `${url}&tags=${serializedTags}`
   }
 
+  getCountUrl(serializedTags: string) {
+    const url = `https://rule34-api.netlify.app/count`
+    return serializedTags === '' ? url : `${url}?tags=${serializedTags}`
+  }
+
   /**
    * This function can be used to retrieve a number of posts from the backend.
    */
@@ -212,17 +217,24 @@ export class R34Client {
       if (params.score) paramsInternal.tags += `+score:${params.score}`
       if (params.sort && params.sort !== 'date:desc') paramsInternal.tags += `+sort:${params.sort}`
 
-      const apiResponse = await fetch(this.getPostsUrl(paramsInternal.pid, paramsInternal.limit, paramsInternal.tags))
+      const postsResponse = await fetch(this.getPostsUrl(paramsInternal.pid, paramsInternal.limit, paramsInternal.tags))
+      const countResponse = await fetch(this.getCountUrl(paramsInternal.tags))
 
-      const text = await apiResponse.text()
-      const parser = new DOMParser()
-      const xml = parser.parseFromString(text, 'text/xml')
+      const countText = await countResponse.text()
+      const countParser = new DOMParser()
+      const countXml = countParser.parseFromString(countText, 'text/xml')
+      const count = Number(countXml.getElementsByTagName('posts')[0].getAttribute('count'))
 
-      const count = Number(xml.getElementsByTagName('posts')[0].getAttribute('count'))
-      const posts = []
 
-      for (const post of xml.getElementsByTagName('post')) {
-        posts.push(this.parsePost(post.attributes))
+      let posts = []
+
+      try {
+        let data = await postsResponse.json();
+        data = data.filter((x: any) => x.change); // sometimes api returns placeholders that cause lots of null issues
+        posts = data.map(this.parsePost);
+      } catch (error) {
+        console.warn('Failed to get posts', error);
+        posts = [];
       }
 
       return { count, posts }
@@ -233,46 +245,32 @@ export class R34Client {
   }
 
   parsePost(post: any): any {
-    const height = post.getNamedItem('height').value
-    const score = post.getNamedItem('score').value
-    const file_url = post.getNamedItem('file_url').value
-    const parent_id = post.getNamedItem('parent_id').value
-    const sample_url = post.getNamedItem('sample_url').value
-    const sample_width = post.getNamedItem('sample_width').value
-    const sample_height = post.getNamedItem('sample_height').value
-    const preview_url = post.getNamedItem('preview_url').value
-    const rating = post.getNamedItem('rating').value
-    const tags = post.getNamedItem('tags').value
-    const id = post.getNamedItem('id').value
-    const width = post.getNamedItem('width').value
-    const change = post.getNamedItem('change').value
-    const md5 = post.getNamedItem('md5').value
-    const creator_id = post.getNamedItem('creator_id').value
-    const has_children = post.getNamedItem('has_children').value
-    const created_at = post.getNamedItem('created_at').value
-    const status = post.getNamedItem('status').value
-    const source = post.getNamedItem('source').value
-    const has_notes = post.getNamedItem('has_notes').value
-    const has_comments = post.getNamedItem('has_comments').value
-    const preview_width = post.getNamedItem('preview_width').value
-    const preview_height = post.getNamedItem('preview_height').value
+    const height = post.height;
+    const score = post.score;
+    const file_url = post.file_url;
+    const parent_id = post.parent_id;
+    const sample_url = post.sample_url;
+    const sample_width = post.sample_width;
+    const sample_height = post.sample_height;
+    const preview_url = post.preview_url;
+    const rating = post.rating;
+    const tags = post.tags;
+    const id = post.id;
+    const width = post.width;
+    const change = post.change;
+    const comment_count = post.comment_count;
+    const status = post.status;
+    const source = post.source;
 
     return {
       preview_url,
       sample_url,
       file_url,
-      created_at,
-      has_children: Boolean(has_children),
-      md5,
       height: Number(height),
       id: Number(id),
       change: Number(change),
-      creator_id: Number(creator_id),
-      has_notes: Boolean(has_notes),
-      has_comments: Boolean(has_comments),
+      has_comments: Boolean(Number(comment_count) > 0),
       parent_id: parent_id ? Number(parent_id) : null,
-      preview_width: Number(preview_width),
-      preview_height: Number(preview_height),
       rating,
       sample_height: Number(sample_height),
       sample_width: Number(sample_width),

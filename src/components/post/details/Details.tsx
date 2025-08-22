@@ -73,7 +73,7 @@ export default function Details(props: DetailsProps) {
   const [modifier] = useModifier()
 
   const { postId, onLoad = NO_OP, activeTab, setActiveTab, hasComments } = props
-  const { rating, score, tags, source, created_at, status, height, width, comments } = useSelector(
+  const { rating, score, tags, source, change, status, height, width, comments } = useSelector(
     selectPostById(postId)
   ) as r34.Post
   const tagsForRendering = useMemo(
@@ -162,7 +162,9 @@ export default function Details(props: DetailsProps) {
             />
           ),
           comments: <Comments comments={(comments ?? []) as r34.Comment[]} />,
-          metadata: <Metadata created_at={created_at} status={status} width={width} height={height} id={postId} />,
+          metadata: (
+            <Metadata created_at={change.toString()} status={status} width={width} height={height} id={postId} />
+          ),
         }[activeTab]
       }
     </>

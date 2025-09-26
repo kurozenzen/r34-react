@@ -13,7 +13,7 @@ export function useSources(type: r34.PostType, thumbnailSrc: string, sampleSrc: 
       case 'gif':
         return sampleSrc.includes('.gif') ? [thumbnailSrc, sampleSrc] : [sampleSrc, fullSrc]
       case 'video':
-        return loadOriginals ? [thumbnailSrc, fullSrc] : [thumbnailSrc, sampleSrc]
+        return loadOriginals ? [thumbnailSrc, fullSrc] : [thumbnailSrc, fullSrc]
     }
   }, [fullSrc, loadOriginals, sampleSrc, thumbnailSrc, type])
 }
